@@ -6,4 +6,6 @@ class Scenario
 
  embedded_in :feature
 
+ embeds_many :steps
+
 end
