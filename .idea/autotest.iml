@@ -23,14 +23,17 @@
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v4.0.0, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="arel (v4.0.1, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="atomic (v1.1.14, rbenv: 2.0.0-p195) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bcrypt-ruby (v3.1.2, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.1.4, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.3.5, rbenv: 2.0.0-p195) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="cancan (v1.6.10, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="capybara (v2.1.0, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-rails (v4.0.1, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script (v2.2.0, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script-source (v1.6.3, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber (v1.3.8, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber-rails (v1.4.0, rbenv: 2.0.0-p195) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="devise (v3.2.0, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubis (v2.7.0, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.0.2, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gherkin (v2.12.2, rbenv: 2.0.0-p195) [gem]" level="application" />
@@ -47,6 +50,7 @@
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.8.2, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_test (v0.0.2, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.6.0, rbenv: 2.0.0-p195) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.4.0, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.3, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.5.2, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.2, rbenv: 2.0.0-p195) [gem]" level="application" />
@@ -69,6 +73,7 @@
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.38, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="uglifier (v2.3.1, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="unicorn (v4.7.0, rbenv: 2.0.0-p195) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="warden (v1.2.3, rbenv: 2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="xpath (v2.0.0, rbenv: 2.0.0-p195) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">

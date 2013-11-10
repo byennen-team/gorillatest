@@ -33,10 +33,11 @@ gem 'devise'
 gem 'cancan'
 
 group :test do
-  gem "rspec-rails"
+  gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
-  gem "capybara"
+  gem 'capybara'
+  gem 'factory_girl_rails'
 end
 
 group :doc do
