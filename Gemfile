@@ -28,6 +28,10 @@ gem 'jbuilder', '~> 1.2'
 # MongoID
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
+# Devise
+gem 'devise'
+gem 'cancan'
+
 group :test do
   gem "rspec-rails"
   gem 'cucumber-rails', :require => false
