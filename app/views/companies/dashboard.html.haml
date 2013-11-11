@@ -8,5 +8,14 @@
 - else
   %p 
     You haven't created a project yet. 
-    = link_to "Create one now"
+    = link_to "Create one now", "#add-project", data: {toggle: "modal"}
 
+#add-project.modal.fade{role: "dialog", "aria-labelledby" => "addProjectLabel", "aria-hidden" => "true"}
+  .modal-dialog
+    .modal-header
+      %button.close{data: {dismiss: "modal"}, "aria-hidden" => "true"} &times;
+      %h4 Add Project
+    .modal-body
+      This is where the form goes
+    .modal-footer
+      %a.btn.btn-info Save
