@@ -11,21 +11,14 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"}
     %meta{:content => content_for?(:description) ? yield(:description) : "AutoTest Description", :name => "description"}
     %meta{:content => content_for?(:keywords) ? yield(:keywords) : "AutoTest Keywords", :name => "keywords"}
-    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300", rel: "stylesheet", type: "text/css"}/
-    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600", rel: "stylesheet", type: "text/css"}
-    = stylesheet_link_tag    "application/application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
     = favicon_link_tag 'favicon.ico'
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300", rel: "stylesheet", type: "text/css"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600", rel: "stylesheet", type: "text/css"}/
+    = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
-
   %body
-    / Logo & Navigation starts
-    .header
-      .container
-        .row
-          .col-md-12
-            / Logo
-            .logo.text-center
-              %h1
-                %a{href: root_path} AutoTest.io
-            = yield
+    = render 'layouts/navbar'
+    = yield
+    = render 'layouts/footer'
