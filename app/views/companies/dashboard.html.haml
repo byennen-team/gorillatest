@@ -1,0 +1,12 @@
+%h1 Hi
+
+%h2 Projects
+
+- if !@projects.size == 0
+  - @projects.each do |project|
+    %h4= project.name 
+- else
+  %p 
+    You haven't created a project yet. 
+    = link_to "Create one now"
+

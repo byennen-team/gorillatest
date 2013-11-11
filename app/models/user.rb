@@ -30,23 +30,21 @@ class User
   # field :locked_at,       :type => Time
 
   ## Non-Devise 
-  field :company, type: String
+  field :company_name, type: String
   field :phone, type: String
 
-  before_save :strip_phone
+  has_one :company
+
+  #before_save :strip_phone
   after_save :update_company
 
   private
 
-  def strip_phone
-    phone.gsub(/[^0-9]/, "")
-  end
-
   def update_company
-    unless company?
-      Company.create!({name: company})
+    if self.company.nil?
+      self.create_company({name: company_name})
     else
-      company.update_attribute(:name, company)
+      self.company.update_attribute(:name, company_name) 
     end
   end
 

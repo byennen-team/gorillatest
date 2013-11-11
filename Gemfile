@@ -13,6 +13,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
+gem 'haml'
+
 # MongoID
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
