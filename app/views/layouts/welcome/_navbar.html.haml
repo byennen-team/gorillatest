@@ -11,12 +11,9 @@
           %a.navbar-brand{href: root_path} AutoTest
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
-            %li.active
-              %a{href: root_path} Home
-            %li
-              %a{href: tour_path} Tour
-            %li
-              %a{href: pricing_path} Pricing
+            = nav_link 'Home', root_path
+            = nav_link 'Tour', tour_path
+            = nav_link 'Pricing', pricing_path
           %ul.pull-right.nav.navbar-nav
             %li
               = link_to 'Login', new_user_session_path
