@@ -9,6 +9,7 @@ class Company
   # out the relationships.  is it a company has many users?  
   belongs_to :user
 
+  has_many :users
   has_many :projects
 
 end
