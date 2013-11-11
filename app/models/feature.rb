@@ -1,6 +1,6 @@
 class Feature
   include Mongoid::Document
-  include Mongoid::Timestamp
+  include Mongoid::Timestamps
 
   field :name, type: String
 

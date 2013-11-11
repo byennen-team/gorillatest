@@ -7,6 +7,8 @@ class Project
   field :url, type: String
   field :status, type: String
 
+  belongs_to :company
+
   has_many :features
   
   # Figure out how to do the project /user relationships

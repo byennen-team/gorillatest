@@ -10,6 +10,6 @@ class Company
   belongs_to :user
 
   has_many :users
-  has_many :projects
+  has_many :projects, autosave: true
 
 end

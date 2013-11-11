@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '4.0.0'
 
@@ -14,6 +14,8 @@ gem 'haml'
 gem 'simple_form'
 gem 'font-awesome-rails'
 
+
+gem 'simple_form'
 
 # MongoID
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'

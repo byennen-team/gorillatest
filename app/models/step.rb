@@ -1,6 +1,6 @@
 class Step
   include Mongoid::Document
-  include Mongoid::Timestamp
+  include Mongoid::Timestamps
 
   field :field_id, type: String
   field :field_value, type: String
