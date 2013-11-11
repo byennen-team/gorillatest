@@ -1,3 +1,4 @@
+/ Page content
 .page-content.blocky
   .container
     .row
@@ -7,20 +8,22 @@
           .awidget-body
             / Page title
             .page-title.text-center
-              %h2 Sign Up is Free!
+              %h2 Login
               %hr/
             / Page title
             %br/
             = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
               = f.error_notification
               = devise_error_messages!
-              .form-inputs
-                = f.input :email
-                = f.input :password
-                = f.input :password_confirmation
-                = f.input :company_name, label: 'Company Name'
-                = f.input :phone
+              = f.input :email
+              = f.input :password
+              = f.input :remember_me
+              %hr/
               .row
                 .form-group
                   .col-lg-12
-                    = f.submit 'Sign Up', class: 'btn btn-success btn-lg btn-block'
+                    = f.submit 'Login', class: 'btn btn-success btn-lg btn-block'
+
+
+
+
