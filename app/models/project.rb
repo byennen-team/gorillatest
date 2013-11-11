@@ -4,6 +4,7 @@ class Project
   include Mongoid::Timestamps
 
   field :name, type: String
+  field :url, type: String
   field :status, type: String
 
   has_many :features
