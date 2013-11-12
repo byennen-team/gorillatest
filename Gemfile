@@ -43,6 +43,7 @@ group :development do
   gem 'thin'
   gem "quiet_assets", "~> 1.0.1"
   gem "better_errors", "~> 0.2.0"
+  gem 'binding_of_caller'
 end
 
 group :production do
