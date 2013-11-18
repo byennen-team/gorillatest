@@ -110,6 +110,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25)
     mini_portile (0.5.2)
     minitest (4.7.5)
@@ -128,6 +129,12 @@ GEM
     origin (1.1.0)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    pry (0.9.12.3)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -181,6 +188,7 @@ GEM
     simple_form (3.0.0)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
+    slop (3.4.6)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -236,6 +244,8 @@ DEPENDENCIES
   jquery-rails
   mongoid!
   mongoid-rspec
+  pry
+  pry-rails
   quiet_assets (~> 1.0.1)
   rails (= 4.0.0)
   rails_12factor
