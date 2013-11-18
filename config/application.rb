@@ -30,7 +30,7 @@ module Autotest
       g.helper_specs false
     end
 
-    #heroku precompile false
+    # Heroku setting for assets
     config.assets.initialize_on_precompile = false
   end
 end

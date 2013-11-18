@@ -41,6 +41,9 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+#heroku platform gem
+gem 'rails_12factor'
+
 group :development do
   gem 'thin'
   gem "quiet_assets", "~> 1.0.1"
@@ -51,8 +54,7 @@ group :development do
 end
 
 group :production do
-  #heroku platform gem
-  gem 'rails_12factor'
+
   # Use unicorn as the app server
   gem 'unicorn'
 end
