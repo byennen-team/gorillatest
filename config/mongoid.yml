@@ -63,7 +63,7 @@ test:
 production:
   sessions:
     default:
-      uri: <%= ENV['MONGOHQ_URL'] %>
+      uri: mongodb://<user>:<password>@dharma.mongohq.com:10001/app19362005
       options:
         skip_version_check: true
         safe: true

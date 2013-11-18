@@ -54,7 +54,6 @@ group :development do
 end
 
 group :production do
-
   # Use unicorn as the app server
   gem 'unicorn'
 end
