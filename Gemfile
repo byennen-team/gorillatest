@@ -55,7 +55,8 @@ end
 
 group :production do
   # Use unicorn as the app server
-  gem 'unicorn'
+  # unicorn is causing deployment issues
+  #gem 'unicorn'
 end
 
 group :test do
