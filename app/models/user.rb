@@ -29,7 +29,7 @@ class User
   # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
   # field :locked_at,       :type => Time
 
-  ## Non-Devise 
+  ## Non-Devise
   field :company_name, type: String
   field :phone, type: String
 
@@ -42,9 +42,9 @@ class User
 
   def update_company
     if self.company.nil?
-      self.create_company({name: company_name})
+      self.create_company({name: self.company_name})
     else
-      self.company.update_attribute(:name, company_name) 
+      self.company.update_attribute(:name, company_name)
     end
   end
 

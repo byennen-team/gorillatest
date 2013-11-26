@@ -1,7 +1,7 @@
 Autotest::Application.routes.draw do
 
   #application
-  devise_for :users
+  devise_for :users, controllers: {registrations: :registrations}
 
   get 'dashboard', to: "dashboard#index"
 

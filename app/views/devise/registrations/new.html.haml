@@ -11,7 +11,7 @@
               %hr/
             / Page title
             %br/
-            = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
+            = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {:class => 'form-vertical' }) do |f|
               = f.error_notification
               = devise_error_messages!
               .form-inputs
