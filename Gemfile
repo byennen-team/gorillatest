@@ -42,7 +42,9 @@ end
 # gem 'debugger', group: [:development, :test]
 
 #heroku platform gem
-gem 'rails_12factor'
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development do
   gem 'thin'
