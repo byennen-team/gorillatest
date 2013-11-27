@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  
+
   before_filter :find_company
   before_filter :find_project, except: [:index, :new, :create]
 
@@ -10,11 +10,11 @@ class ProjectsController < ApplicationController
   def new; @project = Project.new; end
 
   def create
-    @project = @company.projects.build(project_params)
+    @project = current_company.projects.build(project_params)
     @project.company_id = @company.id
     if @project.save
       respond_to do |format|
-        format.html { redirect_to dashboard_companies_path }
+        format.html { redirect_to dashboard_path }
       end
     end
   end
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
     @project.attributes = params[:project]
     if @project.save
       respond_to do |format|
-        format.html { redirect_to company_path }
+        format.html { redirect_to dashboard_path }
       end
     end
   end
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
   def destroy
     if @project.destroy
       respond_to do |format|
-        format.html { redirect_to company_path } 
+        format.html { redirect_to company_path }
       end
     end
   end

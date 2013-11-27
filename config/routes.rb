@@ -5,13 +5,10 @@ Autotest::Application.routes.draw do
 
   get 'dashboard', to: "dashboard#index"
 
-  resources :companies do
-    get :dashboard, on: :collection
-    resources :projects do
-      resources :features do
-        resources :scenarios do
-          resources :steps
-        end
+  resources :projects do
+    resources :features do
+      resources :scenarios do
+        resources :steps
       end
     end
   end
