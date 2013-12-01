@@ -33,3 +33,19 @@ production:
       options:
         skip_version_check: true
         safe: true
+
+staging:
+  sessions:
+    default:
+      uri: <%= ENV['MONGODB_STAGING'] %>
+      options:
+        skip_version_check: true
+        safe: true
+
+development_heroku:
+  sessions:
+    default:
+      uri: <%= ENV['MONGODB_DEVELOPMENT'] %>
+      options:
+        skip_version_check: true
+        safe: true
