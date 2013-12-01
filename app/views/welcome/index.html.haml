@@ -4,7 +4,8 @@
     %p{style: 'font-size: 20px;color: green;'}
       Write tests for your web applications in plain English, and with a single click run them across all browsers. Simple.
     %p
-      = link_to 'Request a Beta Invitation', '#', class: 'btn btn-lg btn-success', style: 'margin: 40px 0 20px;'
+      %button.btn.btn-success.btn-lg{"data-target" => "#myModal", "data-toggle" => "modal", style: 'margin: 40px 0 20px;'}
+        Request a Beta Invitation
 
   .row{style: 'margin-bottom: 80px;'}
     .col-md-12
@@ -50,3 +51,5 @@
         your test turn-around time can be massively reduced.
     .col-md-5
       = image_tag('welcome/autotest-amazon-web-services-server-architecture.jpg', class: 'featurette-image img-responsive')
+
+= render 'welcome/beta_invitation_form'
