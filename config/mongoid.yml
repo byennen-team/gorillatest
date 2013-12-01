@@ -29,7 +29,7 @@ test:
 production:
   sessions:
     default:
-      uri: mongodb://<user>:<password>@dharma.mongohq.com:10001/app19362005
+      uri: <%= ENV['MONGODB_PRODUCTION'] %>
       options:
         skip_version_check: true
         safe: true

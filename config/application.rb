@@ -28,6 +28,7 @@ module Autotest
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
       g.view_specs false
       g.helper_specs false
+      g.template_engine :haml
     end
 
     # Heroku setting for assets

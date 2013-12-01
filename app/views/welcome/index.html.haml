@@ -9,7 +9,7 @@
     %li{"data-slide-to" => "2", "data-target" => "#myCarousel"}
   .carousel-inner
     .item.active
-      %img{alt: "First slide", "data-src" => "holder.js/900x500/auto/#777:#7a7a7a/text:First slide"}/
+      = image_tag('slider/1.jpg')
       .container
         .carousel-caption
           %h1 Complex QA Testing Made Simple.
@@ -18,7 +18,7 @@
           %p
             %a.btn.btn-lg.btn-success{href: new_user_registration_path, role: "button"} Sign Up for Free
     .item
-      %img{alt: "Second slide", "data-src" => "holder.js/900x500/auto/#666:#6a6a6a/text:Second slide"}/
+      = image_tag('slider/2.jpg')
       .container
         .carousel-caption
           %h1 AutoTest Now!
@@ -26,7 +26,7 @@
           %p
             %a.btn.btn-lg.btn-primary{href: tour_path, role: "button"} Take a Tour
     .item
-      %img{alt: "Third slide", "data-src" => "holder.js/900x500/auto/#555:#5a5a5a/text:Third slide"}/
+      = image_tag('slider/3.jpg')
       .container
         .carousel-caption
           %h1 Start Testing Today.
@@ -51,7 +51,7 @@
         %span.text-muted See for yourself.
       %p.lead
         Set up your
-        %strong QA test in 20 seconds, 
+        %strong QA test in 20 seconds,
         and not over and over. With one click AutoTest detects your mouse clicks
         and creates automated tests in the background. Works with any web app, and set them up automatically on our servers.
     .col-md-5

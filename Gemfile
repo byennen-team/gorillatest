@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
+ruby '2.0.0'
 gem 'rails', '4.0.0'
-
+gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
@@ -13,33 +14,11 @@ gem 'jbuilder', '~> 1.2'
 gem 'haml'
 gem 'simple_form'
 gem 'font-awesome-rails'
-
-
-gem 'simple_form'
-
-# MongoID
-gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
+gem 'figaro'
 
 # Devise
 gem 'devise'
 gem 'cancan'
-
-
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 #heroku platform gem
 group :production do
@@ -53,12 +32,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'pry'
   gem 'pry-rails'
-end
-
-group :production do
-  # Use unicorn as the app server
-  # unicorn is causing deployment issues
-  #gem 'unicorn'
 end
 
 group :test do
