@@ -1,9 +1,15 @@
 Autotest::Application.routes.draw do
 
   #application
-  devise_for :users, controllers: {registrations: :registrations}
+  devise_for :users, controllers: {registrations: :registrations}, skip: :invitations
 
   get 'dashboard', to: "dashboard#index.html.haml"
+
+  as :user do
+    get 'invitation', to: "invitations#new", as: :new_invitation
+    get 'invitation/accept', to: "invitations#edit", as: :accept_invitation
+    post 'invitation', to: "invitations#create"
+  end
 
   resources :projects do
     resources :features do
