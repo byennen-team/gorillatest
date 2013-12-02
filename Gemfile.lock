@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: d35eaab4460540d3016baac9b40e5ebb0ed18b44
+  revision: ec65b665430a13eab135fcd22b3b766bb8e8c8ea
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
@@ -45,7 +45,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.0.2.1)
       sass (~> 3.2)
-    bson (2.0.0.rc3)
+    bson (2.0.0)
     builder (3.1.4)
     cancan (1.6.10)
     capybara (2.2.0)
@@ -76,7 +76,7 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
-    devise (3.2.1)
+    devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -100,6 +100,11 @@ GEM
       multi_json (~> 1.3)
     haml (4.0.4)
       tilt
+    haml-rails (0.5.1)
+      actionpack (~> 4.0.0)
+      activesupport (~> 4.0.0)
+      haml (>= 3.1, < 5.0)
+      railties (~> 4.0.0)
     hike (1.2.3)
     i18n (0.6.5)
     jbuilder (1.5.2)
@@ -113,7 +118,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.2)
-    mime-types (1.25)
+    mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
     mongoid-rspec (1.9.0)
@@ -131,7 +136,7 @@ GEM
     origin (1.1.0)
     orm_adapter (0.5.0)
     polyglot (0.3.3)
-    pry (0.9.12.3)
+    pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -181,7 +186,7 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
-    simple_form (3.0.0)
+    simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
     slop (3.4.7)
@@ -208,7 +213,7 @@ GEM
     turbolinks (1.3.1)
       coffee-rails
     tzinfo (0.3.38)
-    uglifier (2.3.1)
+    uglifier (2.3.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     warden (1.2.3)
@@ -232,7 +237,7 @@ DEPENDENCIES
   factory_girl_rails
   figaro
   font-awesome-rails
-  haml
+  haml-rails
   jbuilder (~> 1.2)
   jquery-rails
   mongoid!
