@@ -20,6 +20,9 @@ gem 'figaro'
 gem 'devise'
 gem 'cancan'
 
+# invitation
+gem 'devise_invitable'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'
