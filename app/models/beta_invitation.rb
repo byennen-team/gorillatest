@@ -9,7 +9,7 @@ class BetaInvitation
 
   validates_format_of :email, :with => Devise::email_regexp
 
-  after_create :add_user_to_email_newsletter
+  #after_create :add_user_to_email_newsletter
 
   private
 
