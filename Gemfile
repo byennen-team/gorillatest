@@ -17,7 +17,6 @@ gem 'font-awesome-rails'
 gem 'figaro'
 gem 'google-analytics-rails'
 
-gins
 # Devise
 gem 'devise'
 gem 'cancan'
