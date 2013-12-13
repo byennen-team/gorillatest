@@ -1,0 +1,12 @@
+#add-feature.modal.fade
+  .modal-dialog
+    .modal-content
+      = simple_form_for [project, project.features.new] do |f|
+        .modal-header
+          %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+          %h4.modal-title Add Feature to #{project.name}
+        .modal-body
+          = f.input :name
+        .modal-footer
+          %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+          = f.submit "Add Feature", class: "btn btn-primary"

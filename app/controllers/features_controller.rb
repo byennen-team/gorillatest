@@ -15,7 +15,7 @@ class FeaturesController < ApplicationController
   end
 
   def create
-    @feature = @project.features.new(params[:feature])
+    @feature = @project.features.build(feature_params)
     if @feature.save
       respond_to do |format|
         format.html { redirect_to project_path(@project) } 
@@ -24,7 +24,7 @@ class FeaturesController < ApplicationController
   end
 
   def update
-    @feature.attributes = params[:feature]
+    @feature.attributes = feature_params
     if @feature.save
       respond_to do |format|
         format.html { redirect_to project_path(@project) } 
@@ -43,11 +43,15 @@ class FeaturesController < ApplicationController
   private
 
   def find_project
-    @project = Project.find(params[:project_id])
+    @project = current_company.projects.find(params[:project_id])
   end
 
   def find_feature
     @feature = @project.features.find(params[:id])
   end
+  
+  def feature_params
+    params.require(:feature).permit(:name)
+  end  
 
 end

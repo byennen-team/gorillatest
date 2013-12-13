@@ -1,5 +1,9 @@
 %li
   %p
+    .pull-right
+      %a{data: {toggle: "modal", target: "#add-feature"}} Add Feature
+      | 
+      = link_to "View Features"
     / Checkbox
     %input{type: "checkbox", value: "check1"}/
     / Name
@@ -10,3 +14,17 @@
     .progress.progress-striped.active
       .progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "40", role: "progressbar", style: "width: 40%"}
         %span.sr-only 40% Complete (success)
+		
+  #add-feature.modal.fade
+    .modal-dialog
+      .modal-content
+        = simple_form_for [project, project.features.new] do |f|
+          .modal-header
+            %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+            %h4.modal-title Add Feature to #{project.name}
+          .modal-body
+            = f.input :name
+          .modal-footer
+            %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+            = f.submit "Add Feature", class: "btn btn-primary"
+    

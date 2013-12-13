@@ -1,0 +1,33 @@
+Page content
+.page-content.blocky
+  .container
+    = render 'shared/application/side_menu'
+    .mainy
+      / Page title
+      .page-title
+        %h2
+          %i.icon-desktop.color
+          Projects - #{@project.name}
+          %small Subtext for header
+        %hr/
+      / Page title
+      .row
+        .col-md-12
+          / Project widget
+          .awidget
+            .awidget-head
+              .pull-right
+                %a{data: {toggle: "modal", target: "#add-feature"}} Add Feature
+              %h3 Features
+            .awidget-body
+              - if @project.features.size == 0
+                %p
+                  You haven't added any features to this project, would you like to
+                  %a{href: new_project_path, data: {toggle: "modal", target: "#add-feature"}} create one
+              - else
+                %ul.project
+                  = render partial: 'features/feature', collection: @project.features
+                .clearfix
+            / Project widget
+            
+= render partial: 'features/new_modal', locals: {project: @project}
