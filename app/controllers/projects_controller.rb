@@ -3,6 +3,10 @@ class ProjectsController < ApplicationController
   before_filter :find_company
   before_filter :find_project, except: [:index, :new, :create]
 
+  def index
+    @projects = current_company.projects
+  end
+  
   def show
     @features = @project.features
   end

@@ -1,0 +1,44 @@
+Page content
+.page-content.blocky
+  .container
+    = render 'shared/application/side_menu'
+    .mainy
+      / Page title
+      .page-title
+        %h2
+          %i.icon-desktop.color
+          Dashboard
+          %small Subtext for header
+        %hr/
+      / Page title
+      .row
+        .col-md-12
+          / Project widget
+          .awidget
+            .awidget-head
+              .pull-right
+                %a{data: {toggle: "modal", target: "#add-project"}} Add Project
+              %h3 Projects
+            .awidget-body
+              - if current_company.projects.size == 0
+                %p
+                  You don't current have any projects, would you like to
+                  %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+              - else
+                %ul.project
+                  = render partial: 'project', collection: current_company.projects
+                .clearfix
+            / Project widget
+#add-project.modal.fade
+  .modal-dialog
+    .modal-content
+      = simple_form_for Project.new do |f|
+        .modal-header
+          %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+          %h4.modal-title Add Project
+        .modal-body
+          = f.input :name
+          = f.input :url
+        .modal-footer
+          %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+          = f.submit "Add Project", class: "btn btn-primary"
