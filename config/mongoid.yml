@@ -37,7 +37,7 @@ production:
 staging:
   sessions:
     default:
-      uri: <%= ENV['MONGODB_STAGING'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         skip_version_check: true
         safe: true
@@ -45,7 +45,7 @@ staging:
 development_heroku:
   sessions:
     default:
-      uri: <%= ENV['MONGODB_DEVELOPMENT'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         skip_version_check: true
         safe: true
