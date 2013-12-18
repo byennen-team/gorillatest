@@ -5,18 +5,20 @@
     %ul.nav
       / Main menu
       %li.current
-        %a{href: "dashboard_path"}
+        %a{href: dashboard_path}
           %i.icon-home
           Dashboard
       %li
-        %a{href: "/projects"}
+        %a{href: projects_path}
           %i.icon-bar-chart
           Projects
       %li
-        %a{href: "widgets.html"}
+        %a{href: "#"}
           %i.icon-th
           Team Members
       %li
-        %a{href: "calendar.html"}
+        %a{href: edit_user_registration_path}
           %i.icon-calendar
           Settings
+      %li= link_to "Log Out", destroy_user_session_path, method: :delete
+

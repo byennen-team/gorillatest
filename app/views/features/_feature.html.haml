@@ -1,20 +1,10 @@
 %li
-  %p
-    .pull-right
-      %a{data: {toggle: "modal", target: "#add-feature"}} Add Scenario
-      |
-      = link_to "View Scenarios", project_feature_path(@project, feature)
-      |
-      = link_to "Run Feature"
-      |
-      = link_to "Delete Feature", project_feature_path(@project, feature), method: :delete, confirm: 'Are you sure?'
-    / Checkbox
-    %input{type: "checkbox", value: "check1"}/
-    / Name
-    = link_to feature.name, project_feature_path(@project, feature)
-  %p.p-meta
-    / Due date & % Completed
-    %span Due : 26/2/2012 - 80% Done
-    .progress.progress-striped.active
-      .progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "40", role: "progressbar", style: "width: 40%"}
-        %span.sr-only 40% Complete (success)
+  = link_to feature.name, project_feature_path(@project, feature)
+  .pull-right
+    %a{data: {toggle: "modal", target: "#add-feature"}} Add Scenario
+    |
+    = link_to "View Scenarios", project_feature_path(@project, feature)
+    |
+    = link_to "Run Feature"
+    |
+    = link_to "Delete Feature", project_feature_path(@project, feature), method: :delete, confirm: 'Are you sure?'

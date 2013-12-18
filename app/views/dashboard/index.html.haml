@@ -8,27 +8,21 @@
         %h2
           %i.icon-desktop.color
           Dashboard
-          %small Subtext for header
+          %small= current_user.email
         %hr/
       / Page title
       .row
         .col-md-12
-          / Project widget
-          .awidget
-            .awidget-head
-              .pull-right
-                %a{data: {toggle: "modal", target: "#add-project"}} Add Project
-              %h3 Projects
-            .awidget-body
-              - if current_company.projects.size == 0
-                %p
-                  You don't current have any projects, would you like to
-                  %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
-              - else
-                %ul.project
-                  = render partial: 'project', collection: current_company.projects
-                .clearfix
-            / Project widget
+          %h2
+            Add text explaining
+            %strong AutoTest.io MVP.
+            Maybe a message about we're here to raise
+            %strong 500k
+          %p
+            %strong
+              %em
+                = link_to "Add your first Project", projects_path, class: 'btn btn-success btn-lg'
+
 #add-project.modal.fade
   .modal-dialog
     .modal-content

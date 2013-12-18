@@ -3,7 +3,7 @@ Autotest::Application.routes.draw do
   #application
   devise_for :users, controllers: {registrations: :registrations}
 
-  get 'dashboard', to: "dashboard#index"
+  get 'dashboard', to: "dashboard#index.html.haml"
 
   resources :projects do
     resources :features do
@@ -20,6 +20,6 @@ Autotest::Application.routes.draw do
   #welcome pages
   get '/tour', to: 'welcome#tour'
   get 'pricing', to: 'welcome#pricing'
-  root 'welcome#index'
+  root 'welcome#index.html.haml'
 
 end
