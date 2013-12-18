@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = current_company.projects
   end
-  
+
   def show
     @features = @project.features
   end
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
   def destroy
     if @project.destroy
       respond_to do |format|
-        format.html { redirect_to company_path }
+        format.html { redirect_to projects_path }
       end
     end
   end

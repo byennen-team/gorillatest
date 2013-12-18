@@ -1,4 +1,3 @@
-Page content
 .page-content.blocky
   .container
     = render 'shared/application/side_menu'
@@ -29,5 +28,5 @@ Page content
                   = render partial: 'features/feature', collection: @project.features
                 .clearfix
             / Project widget
-            
+
 = render partial: 'features/new_modal', locals: {project: @project}

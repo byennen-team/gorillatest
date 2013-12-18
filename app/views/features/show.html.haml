@@ -1,0 +1,34 @@
+.page-content.blocky
+  .container
+    = render 'shared/application/side_menu'
+    .mainy
+      / Page title
+      .page-title
+        %h2
+          %i.icon-desktop.color
+          Projects - #{@project.name} - #{@feature.name}
+          / %small Subtext for header
+        %hr/
+      / Page title
+      .row
+        .col-md-12
+          / Project widget
+          .awidget
+            .awidget-head
+              .pull-right
+                %a{data: {toggle: "modal", target: "#add-scenario"}} Add Scenario
+                |
+                = link_to "Delete Feature", project_feature_path(@project, @feature), method: :delete, confirm: 'Are you sure?'
+              %h3 Features
+            .awidget-body
+              - if @feature.scenarios.size == 0
+                %p
+                  You haven't added any scenarios for this feature, would you like to
+                  %a{href: new_project_feature_scenario_path(@project, @feature), data: {toggle: "modal", target: "#add-scenario"}} create one
+              - else
+                %ul.project
+                  = render partial: 'scenarios/scenario', collection: @feature.scenarios
+                .clearfix
+            / Project widget
+
+= render partial: 'scenarios/new_modal', locals: {project: @project, feature: @feature}

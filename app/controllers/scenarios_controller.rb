@@ -9,19 +9,21 @@ class ScenariosController < ApplicationController
   end
 
   def create
-    @scenario = @feature.scenario.new(params[:scenario])
-    respond_to do |format|
-      format.html { redirect_to feature_path(@feature) }
+    @scenario = @feature.scenarios.new(scenario_params)
+    if @scenario.save
+      respond_to do |format|
+        format.html { redirect_to project_feature_path(@project, @feature) }
+      end
     end
   end
 
   def edit; end
 
   def update
-    @scenario.attributes = params[:scenario]
+    @scenario.attributes = scenario_params
     if @scenario.save
       respond_to do |format|
-        format.html { redirect_to feature_path(@feature) }
+        format.html { redirect_to project_feature_path(@project, @feature) }
       end
     end
   end
@@ -29,7 +31,7 @@ class ScenariosController < ApplicationController
   def destroy
     if @scenario.destroy
       respond_to do |format|
-        format.html { redirect_to feature_path(@feature) }
+        format.html { redirect_to project_feature_path(@project, @feature) }
       end
     end
   end
@@ -41,11 +43,16 @@ class ScenariosController < ApplicationController
   end
 
   def find_feature
-    @feature = @project.feature.find(params[:feature_id])
+    @feature = @project.features.find(params[:feature_id])
   end
 
   def find_scenario
-    @scenario = @feature.scenario.find(params[:id])
+    @scenario = @feature.scenarios.find(params[:id])
   end
+
+  def scenario_params
+    params.require(:scenario).permit(:name)
+  end
+
 
 end
