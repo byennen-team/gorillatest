@@ -8,6 +8,12 @@ class InvitationsController < Devise::InvitationsController
     super
   end
 
+  def update
+    update_resource_params = invitation_params
+    binding.pry
+    super
+  end
+
   protected
   # modifying source code to use actionmailer
   def invite_resource
@@ -20,9 +26,18 @@ class InvitationsController < Devise::InvitationsController
   end
 
   private
-def
-   after_invite_path_for(resource)
+
+  def invitation_params
+    params.require(:user).permit(:company_name, :phone, :password, :password_confirmation, :invitation_token)
+  end
+
+  def after_invite_path_for(resource)
     flash[:success] = "Invitation successfully sent!"
     new_invitation_path
+  end
+
+  def after_accept_path_for(resource)
+    flash[:success] = "Thanks for signing up to AutoTest!"
+    dashboard_path
   end
 end

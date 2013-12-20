@@ -7,8 +7,9 @@ Autotest::Application.routes.draw do
 
   as :user do
     get 'invitation', to: "invitations#new", as: :new_invitation
-    get 'invitation/accept', to: "invitations#edit", as: :accept_invitation
     post 'invitation', to: "invitations#create"
+    get 'invitation/accept', to: "invitations#edit", as: :accept_invitation
+    put 'invitation/accept', to: "invitations#update", as: :complete_invitation
   end
 
   resources :projects do
