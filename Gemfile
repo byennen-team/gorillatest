@@ -35,6 +35,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'pry'
   gem 'pry-rails'
+  gem 'letter_opener'
 end
 
 group :test do
