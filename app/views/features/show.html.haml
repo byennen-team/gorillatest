@@ -17,9 +17,9 @@
             .awidget-head
               .pull-right
                 %a{data: {toggle: "modal", target: "#add-scenario"}} Add Scenario
-                |
-                = link_to "Delete Feature", project_feature_path(@project, @feature), method: :delete, confirm: 'Are you sure?'
-              %h3 Features
+                -#|
+                -#= link_to "Delete Feature", project_feature_path(@project, @feature), method: :delete, confirm: 'Are you sure?'
+              %h3 Scenarios
             .awidget-body
               - if @feature.scenarios.size == 0
                 %p

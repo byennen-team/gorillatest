@@ -18,10 +18,14 @@
             %strong AutoTest.io MVP.
             Maybe a message about we're here to raise
             %strong 500k
-          %p
-            %strong
-              %em
-                = link_to "Add your first Project", projects_path, class: 'btn btn-success btn-lg'
+          - if current_company.projects.size == 0
+            %p
+              You don't current have any projects, would you like to
+              %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+          - else
+            = link_to "View Project", projects_path, class: 'btn btn-success btn-lg'
+
+
 
 #add-project.modal.fade
   .modal-dialog

@@ -1,9 +1,11 @@
 %li
   = link_to scenario.name
   .pull-right
-    %a Run Scenario
+    %a{href: ""} Record
     |
-    = link_to "Delete Scenario", project_feature_scenario_path(@project, @feature, scenario), method: :delete, confirm: "Are you sure?"
+    %a Play
+    |
+    = link_to "Delete", project_feature_scenario_path(@project, @feature, scenario), method: :delete, confirm: "Are you sure?"
 
 
   -#%p.p-meta

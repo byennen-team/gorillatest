@@ -7,8 +7,9 @@
         %h2
           %i.icon-desktop.color
           Dashboard
-          %small Subtext for header
-        %hr/
+          %small= current_user.email
+          %hr/
+          %hr/
       / Page title
       .row
         .col-md-12
@@ -27,7 +28,8 @@
                 %ul.project
                   = render partial: 'project', collection: current_company.projects
                 .clearfix
-            / Project widget
+
+
 #add-project.modal.fade
   .modal-dialog
     .modal-content

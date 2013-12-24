@@ -1,10 +1,6 @@
 %li
   = link_to feature.name, project_feature_path(@project, feature)
   .pull-right
-    %a{data: {toggle: "modal", target: "#add-feature"}} Add Scenario
+    = link_to "Play"
     |
-    = link_to "View Scenarios", project_feature_path(@project, feature)
-    |
-    = link_to "Run Feature"
-    |
-    = link_to "Delete Feature", project_feature_path(@project, feature), method: :delete, confirm: 'Are you sure?'
+    = link_to "Delete", project_feature_path(@project, feature), method: :delete, confirm: 'Are you sure?'
