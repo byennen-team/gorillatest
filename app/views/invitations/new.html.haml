@@ -1,7 +1,11 @@
-= simple_form_for resource, :as => resource_name, :url => 'invitation', :html => {:method => :post} do |f|
-  = devise_error_messages!
+.row-fluid
+  %h1
+    Invite others to try out AutoTest!
+  .span5
+    = simple_form_for resource, :as => resource_name, :url => 'invitation', :html => {:method => :post} do |f|
+      = devise_error_messages!
 
-  - resource.class.invite_key_fields.each do |field|
-    =f.input field
+      - resource.class.invite_key_fields.each do |field|
+        =f.input field
 
-  = f.submit t("devise.invitations.new.submit_button")
+      = f.submit t("devise.invitations.new.submit_button"), class: "btn btn-primary"

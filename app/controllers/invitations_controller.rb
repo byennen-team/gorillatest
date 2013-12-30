@@ -1,5 +1,7 @@
 class InvitationsController < Devise::InvitationsController
 
+  before_filter :authenticate_user!, except: [:edit, :update]
+
   def create
     super
   end
