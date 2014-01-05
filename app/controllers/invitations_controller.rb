@@ -12,7 +12,6 @@ class InvitationsController < Devise::InvitationsController
 
   def update
     update_resource_params = invitation_params
-    binding.pry
     super
   end
 
@@ -34,12 +33,10 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(resource)
-    flash[:success] = "Invitation successfully sent!"
     new_invitation_path
   end
 
   def after_accept_path_for(resource)
-    flash[:success] = "Thanks for signing up to AutoTest!"
     dashboard_path
   end
 end
