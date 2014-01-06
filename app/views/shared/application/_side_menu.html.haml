@@ -20,5 +20,6 @@
         %a{href: edit_user_registration_path}
           %i.icon-calendar
           Settings
+      %li
+        = link_to "Invitations", new_invitation_path
       %li= link_to "Log Out", destroy_user_session_path, method: :delete
-
