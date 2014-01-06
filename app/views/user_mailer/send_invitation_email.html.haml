@@ -1,0 +1,10 @@
+%p
+  Greetings!
+%p
+  #{@inviting_user.email} has invited you to try out autotest.io. You can accept it through the link below.
+
+%p
+  = link_to 'Accept invitation', accept_invitation_url(invitation_token: @invited_user.invitation_token)
+
+%p
+  Your account won't be created until you access the link above and set your password.
