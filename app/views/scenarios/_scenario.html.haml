@@ -1,12 +1,9 @@
 %li
   = link_to scenario.name
   .pull-right
-    %a{href: ""} Record
-    |
-    %a Play
-    |
-    = link_to "Delete", project_feature_scenario_path(@project, @feature, scenario), method: :delete, confirm: "Are you sure?"
-
+    = link_to image_tag('buttons/record.png'), '#'
+    = link_to image_tag('buttons/play.png'), '#'
+    = link_to image_tag('buttons/delete.png'), project_feature_scenario_path(@project, @feature, scenario), data: { confirm: 'Are you sure?' }
 
   -#%p.p-meta
   -#  / Due date & % Completed

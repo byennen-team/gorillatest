@@ -21,5 +21,4 @@ Autotest::Application.routes.draw do
   get '/tour', to: 'welcome#tour'
   get 'pricing', to: 'welcome#pricing'
   root 'welcome#index.html.haml'
-
 end

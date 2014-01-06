@@ -30,5 +30,15 @@
                   = render partial: 'scenarios/scenario', collection: @feature.scenarios
                 .clearfix
             / Project widget
+      .row
+        .col-md-12
+          .awidget
+            .awidget-head
+              %h3 Recording
+            .awidget-body
+              #site_recorder
+              -#%iframe{frameborder: "0", height: "100%", marginheight: "0px", marginwidth: "0px", name: "iFrame", scrolling: "no", src: "https://www.factor75.com", style: "border:0px  none;", width: "100%"}
+
+
 
 = render partial: 'scenarios/new_modal', locals: {project: @project, feature: @feature}

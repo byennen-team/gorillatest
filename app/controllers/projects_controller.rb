@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     @project.company_id = @company.id
     if @project.save
       respond_to do |format|
-        format.html { redirect_to dashboard_path }
+        format.html { redirect_to project_path(@project) }
       end
     end
   end
