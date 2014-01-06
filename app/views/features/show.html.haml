@@ -36,6 +36,11 @@
             .awidget-head
               %h3 Recording
             .awidget-body
+              # Create a service to load the page, and replace src w/ full http. And update ids of elements using
+              # Rack middleware maybe
+              
+              # this will be monitored by onclick event and when clicked w/ reload the iframe.
+              #%a{href: "http://autotest.io/load_page?url=http://factor75.com/buy/something" id: "test123"}
               #site_recorder
               -#%iframe{frameborder: "0", height: "100%", marginheight: "0px", marginwidth: "0px", name: "iFrame", scrolling: "no", src: "https://www.factor75.com", style: "border:0px  none;", width: "100%"}
 
