@@ -16,16 +16,23 @@ class AutoTestRecorder
   constructor: (@authToken, @projectId) ->
     @baseUrl = "http://autotest.dev/scenarios"
     @steps = []
-    @isRecording = false
+    if window.sessionStorage
+      @sessionStorage = window.sessionStorage
+    else
+      alert("You can't record on this browser")
+    @isRecording = @sessionStorage.getItem("isRecording") == "true" ? true : false
     @currentScenario = ""
 
   start: ->
+    if @isRecording == true
+      console.log("You are presently recording a scenario")
 
   record: ->
     # Collect actions toa JSON structure
     @isRecording = true
-    # Add is recording to cookies so we can see if we are currently recording
+    # Add is recording to sessionStorage so we can see if we are currently recording
     # on redirects
+    @sessionStorage.setItem("isRecording", @isRecording)
     $("a").bind("click", (event) ->
        event.preventDefault();
        console.log("href is #{$(this).attr('href')}")
@@ -33,6 +40,10 @@ class AutoTestRecorder
        AutoTestRecorder.addStep('click', {"type": "id", value: $(this).attr("id")}, "")
     )
     return
+
+  stop: ->
+    @isRecording = false
+    @sessionStorage.setItem("isRecording", false)
 
   addScenario: ->
     name = "Test Scenario"
