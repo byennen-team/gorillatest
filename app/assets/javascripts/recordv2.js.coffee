@@ -26,6 +26,8 @@ class AutoTestRecorder
   start: ->
     if @isRecording == true
       console.log("You are presently recording a scenario")
+      # Record step of redirected to -> current window location href
+      this.addStep("redirect", {}, window.location.href)
 
   record: ->
     # Collect actions toa JSON structure
@@ -37,7 +39,6 @@ class AutoTestRecorder
        event.preventDefault();
        console.log("href is #{$(this).attr('href')}")
        console.log("id is #{$(this).attr('id')}")
-       AutoTestRecorder.addStep('click', {"type": "id", value: $(this).attr("id")}, "")
     )
     return
 
@@ -54,8 +55,10 @@ class AutoTestRecorder
     # Add scenario to cookies so we can see that we are recording upon redirects
 
   addStep: (type, locator, text) ->
+    console.log("add step of type - #{type}")
+    console.log("add step text - #{text}")
     autoTestStep = new AutoTestStep type, locator, text
-    @steps.pus('autoTestStep')
+    @steps.push('autoTestStep')
 
 class AutoTestScenario
   constructor: (@currentUrl, @name) ->
