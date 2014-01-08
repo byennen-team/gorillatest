@@ -21,19 +21,21 @@ class AutoTestRecorder
     else
       alert("You can't record on this browser")
     @isRecording = @sessionStorage.getItem("isRecording") == "true" ? true : false
-    @currentScenario = ""
+    @currentScenario = null
 
   start: ->
     if @isRecording == true
       console.log("You are presently recording a scenario")
+      # load the current scenario
+      scenarioId = @sessionStorage.getItem("currentScenario")
+      if scenarioId != null
+        @currentScenario = AutoTestScenario.find(scenarioId)
       # Record step of redirected to -> current window location href
       this.addStep("redirect", {}, window.location.href)
 
   record: ->
     # Collect actions toa JSON structure
     @isRecording = true
-    # Add is recording to sessionStorage so we can see if we are currently recording
-    # on redirects
     @sessionStorage.setItem("isRecording", @isRecording)
     $("a").bind("click", (event) ->
        event.preventDefault();
@@ -46,12 +48,10 @@ class AutoTestRecorder
     @isRecording = false
     @sessionStorage.setItem("isRecording", false)
 
-  addScenario: ->
-    name = "Test Scenario"
-    url = window.location.href
-    console.log("added scenario")
-    autoTestScenario = new AutoTestScenario url, name
-    autoTestScenario.save()
+  addScenario: (name) ->
+    autoTestScenario = new AutoTestScenario name, window.location.href
+    @currentScenario = autoTestScenario.create()
+    @sessionStorage.setItem("currentScenario", @currentScenario.id)
     # Add scenario to cookies so we can see that we are recording upon redirects
 
   addStep: (type, locator, text) ->
@@ -61,7 +61,7 @@ class AutoTestRecorder
     @steps.push('autoTestStep')
 
 class AutoTestScenario
-  constructor: (@currentUrl, @name) ->
+  constructor: (@name, @startUrl) ->
     @baseUrl = "http://autotest.dev/scenarios"
     console.log("Initialized new scenario")
 
@@ -70,10 +70,19 @@ class AutoTestScenario
     console.log("url is #{@currentUrl}")
     return true
 
+  create: ->
+    @id = 123
+    return this
+
+  # this needs to find the real scenario. Probably needs a model backing.
+  @find: (id) ->
+    autoTestScenario = new AutoTestScenario("test scenario", window.location.href)
+    autoTestScenario.id = 123
+    return autoTestScenario
+
 class AutoTestStep
   # a locator is actually a hash.
   constructor: (@type, @locator, @text) ->
-
 
 
 
