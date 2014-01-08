@@ -47,3 +47,6 @@ group :test do
   gem 'mongoid-rspec'
 end
 
+group :development, :test do
+  gem 'jasmine'
+end
