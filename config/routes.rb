@@ -28,4 +28,11 @@ Autotest::Application.routes.draw do
   get '/tour', to: 'welcome#tour'
   get 'pricing', to: 'welcome#pricing'
   root 'welcome#index.html.haml'
+
+  namespace :api do
+    resources :projects do
+      resources :scenarios
+    end
+  end
+
 end
