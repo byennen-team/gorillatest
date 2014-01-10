@@ -16,9 +16,11 @@ class Api::ScenariosController < Api::BaseController
   end
 
   def create
-    @scenario = @features.scenarios.new(params[:scenario])
+    @scenario = @feature.scenarios.new(scenario_params)
     if @scenario.save
-      respond_with(@scenario)
+      respond_to do |format|
+        format.json { render json: @scenario }
+      end
     end
   end
 
@@ -40,5 +42,10 @@ class Api::ScenariosController < Api::BaseController
   def find_feature
     @feature = @project.features.first
   end
+
+  def scenario_params
+    params.require(:scenario).permit(:name, :url)
+  end
+
 
 end
