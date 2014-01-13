@@ -47,12 +47,11 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'mongoid-rspec'
 end
 
 group :development, :test do
   gem 'jasmine'
-  gem 'mongoid-rspec'  
+  gem 'mongoid-rspec'
   gem 'guard'
   gem 'guard-rspec'
 end
