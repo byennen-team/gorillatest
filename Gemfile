@@ -23,6 +23,9 @@ gem 'cancan'
 # invitation
 gem 'devise_invitable'
 
+# serializers
+gem 'active_model_serializers'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'
@@ -49,4 +52,7 @@ end
 
 group :development, :test do
   gem 'jasmine'
+  gem 'mongoid-rspec'  
+  gem 'guard'
+  gem 'guard-rspec'
 end
