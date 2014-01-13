@@ -35,12 +35,12 @@ class Api::V1::ScenariosController < Api::V1::BaseController
   private
 
   def find_project
-    @project = @current_company.projects.find(params[:project_id])
+    @project = current_company.projects.first
   end
 
   # Need to figure out how features work into scenarios
   def find_feature
-    @feature = @project.features.first
+    @feature = @project.features.order_by(:id.ascending).first
   end
 
   def scenario_params

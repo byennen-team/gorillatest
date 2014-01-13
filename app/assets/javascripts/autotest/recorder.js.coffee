@@ -14,7 +14,7 @@ class @AutoTestRecorder
       # load the current scenario
       scenarioId = @sessionStorage.getItem("currentScenario")
       if scenarioId != null
-        @currentScenario = AutoTestScenario.find(@projectId, scenarioId)
+        @currentScenario = AutoTestScenario.find(@authToken, @projectId, scenarioId)
       # Record step of redirected to -> current window location href
       step = @currentScenario.addStep(this, "redirect", {}, window.location.href)
       # This isn't actually starting recording

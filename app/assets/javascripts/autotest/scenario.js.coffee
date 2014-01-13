@@ -2,10 +2,7 @@ class @AutoTestScenario
   constructor: (@authToken, @projectId, @name, @startUrl) ->
     @sessionStorage = window.sessionStorage
     @id = ""
-    if @sessionStorage.getItem("steps") != ""
-      @steps = []
-    else
-      @steps = []
+    @autoTestSteps = []
 
   save: ->
     autoTestScenario = ""
@@ -28,10 +25,13 @@ class @AutoTestScenario
       autoTestScenario = this
     return  autoTestScenario
 
+  steps: ->
+    autoTestSteps = AutoTestStep.findAll(@authToken, @id)
+    return autoTestSteps
+
   addStep: (type, locator, text) ->
-    autoTestStep = new AutoTestStep this.id, type, locator, text
-    autoTestStep.save
-    @steps.push(autoTestStep)
+    autoTestStep = AutoTestStep.create @authToken, this.id, type, locator, text
+    @autoTestSteps.push(autoTestStep)
     return true
 
   # Attributes is an object
@@ -41,14 +41,18 @@ class @AutoTestScenario
     autoTestScenario = scenario.save()
     return autoTestScenario
 
-  @find: (projectId, id) ->
+  @find: (authToken, projectId, id) ->
     autoTestScenario = ""
-    $.ajax("http://autotest.dev/api/projects/#{projectId}/scenarios/#{id}",
+    $.ajax("http://autotest.dev/api/v1/projects/#{projectId}/scenarios/#{id}",
         type: 'GET',
         dataType: 'json',
         async: false,
+        beforeSend: (xhr, settings) ->
+          xhr.setRequestHeader('Authorization', "Token token=\"#{authToken}\"")        
         success: (data) ->
-          autoTestScenario = new AutoTestScenario(projectId, data.name, data.start_url)
-          autoTestScenario.id = data.id
+          console.log(data)
+          autoTestScenario = new AutoTestScenario(authToken, data.scenario.project_id, data.scenario.name, data.scenario.start_url)
+          autoTestScenario.id = data.scenario.id
+          autoTestScenario.autoTestSteps = autoTestScenario.steps()
     )
     return autoTestScenario

@@ -34,7 +34,9 @@ Autotest::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :projects do
-        resources :scenarios
+        resources :scenarios do
+          resources :steps
+        end
       end
     end
   end
