@@ -1,5 +1,5 @@
 class @AutoTestScenario
-  constructor: (@projectId, @name, @startUrl) ->
+  constructor: (@authToken, @projectId, @name, @startUrl) ->
     @sessionStorage = window.sessionStorage
     @id = ""
     if @sessionStorage.getItem("steps") != ""
@@ -10,15 +10,17 @@ class @AutoTestScenario
   save: ->
     autoTestScenario = ""
     if @id == ""
-      $.ajax('http://autotest.dev/api/projects/' + @projectId + '/scenarios',
+      that = this
+      $.ajax('http://autotest.dev/api/v1/projects/' + @projectId + '/scenarios',
         type: 'POST',
         dataType: "json",
         data: {scenario: {name: this.name, start_url: this.startUrl}},
         async: false,
+        beforeSend: (xhr, settings) ->
+          xhr.setRequestHeader('Authorization', "Token token=\"#{that.authToken}\"")
         success: (data, textStatus, jqXHR) ->
-          autoTestScenario = new AutoTestScenario data.project_id, data.name, @startUrl
-          autoTestScenario.id = data.id
-          return autoTestScenario
+          autoTestScenario = new AutoTestScenario that.authToken, data.scenario.project_id, data.scenario.name, @startUrl
+          autoTestScenario.id = data.scenario.id
         error:  (jqXHR, textStatus, errorThrown) ->
           console.log("error thrown")
       )
@@ -33,8 +35,9 @@ class @AutoTestScenario
     return true
 
   # Attributes is an object
-  @create: (projectId, name, startUrl) ->
-    scenario = new AutoTestScenario projectId, name, startUrl
+  @create: (authToken, projectId, name, startUrl) ->
+    console.log("Auth token is #{authToken}")
+    scenario = new AutoTestScenario authToken, projectId, name, startUrl
     autoTestScenario = scenario.save()
     return autoTestScenario
 
