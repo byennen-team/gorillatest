@@ -17,6 +17,7 @@ class @AutoTestRecorder
         @currentScenario = AutoTestScenario.find(@projectId, scenarioId)
       # Record step of redirected to -> current window location href
       step = @currentScenario.addStep(this, "redirect", {}, window.location.href)
+      # This isn't actually starting recording
       this.record()
 
   record: ->
@@ -50,6 +51,5 @@ class @AutoTestRecorder
     @sessionStorage.setItem("isRecording", false)
 
   addScenario: (name) ->
-    @currentScenario = AutoTestScenario.create(@projectId, name, window.location.href)
-    console.log(@currentScenario)
+    @currentScenario = AutoTestScenario.create(@authToken, @projectId, name, window.location.href)
     @sessionStorage.setItem("currentScenario", @currentScenario.id)
