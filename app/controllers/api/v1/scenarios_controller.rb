@@ -1,4 +1,4 @@
-class Api::ScenariosController < Api::V1::BaseController
+class Api::V1::ScenariosController < Api::V1::BaseController
 
   respond_to :json, :js
 
@@ -20,7 +20,7 @@ class Api::ScenariosController < Api::V1::BaseController
     if @scenario.save
       respond_to do |format|
         format.json { render json: @scenario }
-
+      end
     end
   end
 
@@ -35,7 +35,7 @@ class Api::ScenariosController < Api::V1::BaseController
   private
 
   def find_project
-    @project = current_company.projects.find(params[:project_id])
+    @project = @current_company.projects.find(params[:project_id])
   end
 
   # Need to figure out how features work into scenarios
@@ -46,6 +46,5 @@ class Api::ScenariosController < Api::V1::BaseController
   def scenario_params
     params.require(:scenario).permit(:name, :url)
   end
-
 
 end
