@@ -1,5 +1,7 @@
 Autotest::Application.routes.draw do
 
+  resources :scenarios
+
   #application
   devise_for :users, controllers: {registrations: :registrations}, skip: :invitations
 
@@ -30,8 +32,10 @@ Autotest::Application.routes.draw do
   root 'welcome#index.html.haml'
 
   namespace :api do
-    resources :projects do
-      resources :scenarios
+    namespace :v1 do
+      resources :projects do
+        resources :scenarios
+      end
     end
   end
 
