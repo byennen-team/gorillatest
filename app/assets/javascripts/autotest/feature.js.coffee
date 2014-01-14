@@ -1,8 +1,8 @@
-class @AutoTestFeature 
+class @AutoTestFeature
 
 	constructor: (@projectId, @name) ->
 		@authToken = window.autoTestAuthToken
-		@apiUrl = window.apiUrl
+		@apiUrl = window.autoTestApiUrl
 		@id = ""
 
 

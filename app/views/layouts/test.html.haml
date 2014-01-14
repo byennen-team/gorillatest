@@ -25,7 +25,7 @@
     %div{style: "background-color: black; height: 30px; padding: 5px 10px;"}
       = select_tag "features"
       .pull-right
-        %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}} Record
+        %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"} Record
         %button#stop.btn.btn-primary.btn-xs.hide Stop
     %div#add-scenario.modal.fade
       %div.modal-content
@@ -37,5 +37,5 @@
           %input{type: "text", name: "scenario[name]", id: "scenario_name"}
         %div.modal-footer
           %button.btn.btn-default{data: {dismiss: "modal"}} Close
-          %button.btn.btn-primary Start Recording
+          %button.btn.btn-primary#start-recording{"disabled" => "disabled"} Start Recording
     = yield

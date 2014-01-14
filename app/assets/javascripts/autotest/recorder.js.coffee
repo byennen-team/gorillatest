@@ -1,7 +1,7 @@
 class @AutoTestRecorder
   constructor: (@projectId) ->
     @authToken = window.autoTestAuthToken
-    @baseUrl = "http://autotest.dev/scenarios"
+    @baseUrl = window.autoTestApiUrl + "/scenarios"
     if window.sessionStorage
       @sessionStorage = window.sessionStorage
     else
@@ -12,17 +12,17 @@ class @AutoTestRecorder
     @features = null
 
   start: ->
-    this.getFeatures()    
-    options = new Array    
+    this.getFeatures()
+    options = new Array
     features = @features
     that = this
     $.each(features, (k, v) ->
       options.push "<option value='#{v.id}'>#{v.name}</option>"
     )
-    $("select#features").html(options.join('')) 
+    $("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
     $("select#features").bind("change", ->
-      that.setCurrentFeature($(this).val())
-    )   
+      that.setCurrentFeature($(this).val()) if $(this).val().length > 0
+    )
     if @isRecording == true
       console.log("You are presently recording a scenario")
       # load the current scenario
