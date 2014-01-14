@@ -1,8 +1,12 @@
 class ScenarioSerializer < ActiveModel::Serializer
-  attributes :id, :name, :project_id
+  attributes :id, :feature_id, :name, :project_id
 
   def id
   	object.id.to_s
+  end
+
+  def feature_id
+    object.feature.id.to_s
   end
 
   def project_id

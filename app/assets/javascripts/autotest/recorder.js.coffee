@@ -8,14 +8,20 @@ class @AutoTestRecorder
       alert("You can't record on this browser")
     @isRecording = @sessionStorage.getItem("autoTestRecorder.isRecording") == "true" ? true : false
     @currentScenario = null
+    @currentFeature = null
+    @features = null
 
   start: ->
     if @isRecording == true
       console.log("You are presently recording a scenario")
       # load the current scenario
-      scenarioId = @sessionStorage.getItem("currentScenario")
+      scenarioId = @sessionStorage.getItem("autoTestRecorder.currentScenario")
+      featureId = @sessionStorage.getItem("autoTestRecorder.currentFeature")
+      this.getFeatures()
+      if featureId != null
+        @currentFeature = AutoTestFeature.find(@projectId, featureId)
       if scenarioId != null
-        @currentScenario = AutoTestScenario.find(@projectId, scenarioId)
+        @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
       # Record step of redirected to -> current window location href
       step = @currentScenario.addStep("redirect", {}, window.location.href)
       # This isn't actually starting recording
@@ -73,7 +79,6 @@ class @AutoTestRecorder
         scenario.addStep("selectRadio", stepLocator, value)
       )
       $("input[type=submit]").bind("click", (event) ->
-        #event.preventDefault()
         scenario = that.currentScenario
         stepLocator = {type: "id", value: $(this).attr("id")}
         console.log("recording button")
@@ -83,8 +88,16 @@ class @AutoTestRecorder
 
   stop: ->
     @isRecording = false
-    @sessionStorage.setItem("isRecording", false)
+    @sessionStorage.setItem("autoTestRecorder.isRecording", false)
+
+  getFeatures: ->
+    @features = AutoTestFeature.findAll(@projectId)
+    return @features
+
+  setCurrentFeature: (featureId) ->
+    @currentFeature = AutoTestFeature.find(@projectId, featureId)
+    @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
 
   addScenario: (name) ->
-    @currentScenario = AutoTestScenario.create(@projectId, name, window.location.href)
-    @sessionStorage.setItem("currentScenario", @currentScenario.id)
+    @currentScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href)
+    @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)

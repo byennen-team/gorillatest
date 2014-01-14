@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require autotest/recorder
+//= require autotest/feature
 //= require autotest/scenario
 //= require autotest/step
 //= require_self
@@ -20,7 +21,7 @@ while i < l
     break
   i++
 
-window.autoTestRecorder = new AutoTestRecorder authToken, projectId
+window.autoTestRecorder = new AutoTestRecorder projectId
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 window.autoTestApiUrl = apiUrl

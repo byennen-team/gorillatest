@@ -1,6 +1,6 @@
 class @AutoTestStep
   # a locator is actually a hash.
-  constructor: (@scenarioId, @type, @locator, @text) ->
+  constructor: (@featureId, @scenarioId, @type, @locator, @text) ->
     @authToken = window.autoTestAuthToken
     @apiUrl = window.autoTestApiUrl
     @id = ""
@@ -9,7 +9,7 @@ class @AutoTestStep
     autoTestStep = ""
     if @id == ""
       that = this
-      $.ajax(@apiUrl + '/api/v1/projects/' + @projectId + '/scenarios/' + @scenarioId + '/steps',
+      $.ajax(@apiUrl + '/api/v1/projects/' + @projectId + '/features/' + @featureId + '/scenarios/' + @scenarioId + '/steps',
         type: 'POST',
         dataType: "json",
         data: {step: {event_type: this.type, locator_type: this.locator.type, locator_value: this.locator.value, text: this.text}},
@@ -17,7 +17,7 @@ class @AutoTestStep
         beforeSend: (xhr, settings) ->
           xhr.setRequestHeader('Authorization', "Token token=\"#{that.authToken}\"")
         success: (data, textStatus, jqXHR) ->
-          autoTestStep = new AutoTestStep data.step.scenario_id, data.step.event_type, {type: data.step.locator_type, value: data.step.locator_value}, data.step.text
+          autoTestStep = new AutoTestStep data.step.feature_id, data.step.scenario_id, data.step.event_type, {type: data.step.locator_type, value: data.step.locator_value}, data.step.text
           autoTestStep.id = data.step.id
         error:  (jqXHR, textStatus, errorThrown) ->
           console.log("error thrown")
@@ -26,11 +26,11 @@ class @AutoTestStep
       autoTestStep = this
     return  autoTestStep
 
-  @findAll: (scenarioId) ->
+  @findAll: (featureId, scenarioId) ->
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
     steps = new Array
-    $.ajax(apiUrl + "/api/v1/projects/#{@projectId}/scenarios/#{scenarioId}/steps",
+    $.ajax(apiUrl + "/api/v1/projects/#{@projectId}/features/#{featureId}/scenarios/#{scenarioId}/steps",
       type: 'GET',
       dataType: 'json',
       async: false,
@@ -38,7 +38,7 @@ class @AutoTestStep
         xhr.setRequestHeader('Authorization', "Token token=\"#{authToken}\"")
       success: (data) ->
         $.each(data.steps, (i, data) ->
-          autoTestStep = new AutoTestStep(data.scenario_id, data.event_type, {type: data.locator_type, value: data.locator_value}, data.text)
+          autoTestStep = new AutoTestStep(data.feature_id, data.scenario_id, data.event_type, {type: data.locator_type, value: data.locator_value}, data.text)
           autoTestStep.id = data.id
           steps.push(autoTestStep)
         )
@@ -47,8 +47,8 @@ class @AutoTestStep
 
   @find: (scenarioId, id) ->
 
-  @create: (scenarioId, type, locator, text) ->
-    step = new AutoTestStep scenarioId, type, locator, text
+  @create: (featureId, scenarioId, type, locator, text) ->
+    step = new AutoTestStep featureId, scenarioId, type, locator, text
     autoTestStep = step.save()
     return autoTestStep
 

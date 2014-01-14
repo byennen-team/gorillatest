@@ -35,12 +35,14 @@ Autotest::Application.routes.draw do
   get '/test/index', to: "autotest#index"
   get '/test/form', to: "autotest#form"
   post '/test/form_post', to: "autotest#form_post"
-  
+
   namespace :api do
     namespace :v1 do
       resources :projects do
-        resources :scenarios do
-          resources :steps
+        resources :features do
+          resources :scenarios do
+            resources :steps
+          end
         end
       end
     end
