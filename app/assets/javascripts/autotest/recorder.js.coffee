@@ -12,20 +12,34 @@ class @AutoTestRecorder
     @features = null
 
   start: ->
+    this.getFeatures()    
+    options = new Array    
+    features = @features
+    that = this
+    $.each(features, (k, v) ->
+      options.push "<option value='#{v.id}'>#{v.name}</option>"
+    )
+    $("select#features").html(options.join('')) 
+    $("select#features").bind("change", ->
+      that.setCurrentFeature($(this).val())
+    )   
     if @isRecording == true
       console.log("You are presently recording a scenario")
       # load the current scenario
       scenarioId = @sessionStorage.getItem("autoTestRecorder.currentScenario")
       featureId = @sessionStorage.getItem("autoTestRecorder.currentFeature")
-      this.getFeatures()
+      options = new Array
       if featureId != null
         @currentFeature = AutoTestFeature.find(@projectId, featureId)
+        $("select#features").val(featureId)
+        $("select#features").attr("disabled", "disabled")
       if scenarioId != null
         @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
       # Record step of redirected to -> current window location href
       step = @currentScenario.addStep("redirect", {}, window.location.href)
       # This isn't actually starting recording
       console.log("restarting recording")
+
       this.record()
 
   record: ->
@@ -89,6 +103,9 @@ class @AutoTestRecorder
   stop: ->
     @isRecording = false
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
+    @sessionStorage.removeItem("autoTestRecorder.currentFeature")
+    @sessionStorage.removeItem("autoTestRecorder.currentScenario")
+    $("select#features").removeAttr("disabled")
 
   getFeatures: ->
     @features = AutoTestFeature.findAll(@projectId)
@@ -101,3 +118,8 @@ class @AutoTestRecorder
   addScenario: (name) ->
     @currentScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href)
     @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
+    $("button#record").hide()
+    $("button#stop").show()
+    $("button#stop").bind("click", ->
+      this.stop()
+    )

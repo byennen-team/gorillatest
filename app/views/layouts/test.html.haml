@@ -22,4 +22,20 @@
                                                 api_url: "http://autotest.dev"}
     = csrf_meta_tags
   %body
+    %div{style: "background-color: black; height: 30px; padding: 5px 10px;"}
+      = select_tag "features"
+      .pull-right
+        %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}} Record
+        %button#stop.btn.btn-primary.btn-xs.hide Stop
+    %div#add-scenario.modal.fade
+      %div.modal-content
+        %div.modal-header
+          %button.close{data: {dismiss: "modal"}} &times;
+          %h4 Start Recording A New Scenario
+        %div.modal-body
+          %label Scenario Name
+          %input{type: "text", name: "scenario[name]", id: "scenario_name"}
+        %div.modal-footer
+          %button.btn.btn-default{data: {dismiss: "modal"}} Close
+          %button.btn.btn-primary Start Recording
     = yield

@@ -24,6 +24,8 @@ while i < l
 window.autoTestRecorder = new AutoTestRecorder projectId
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
-window.autoTestApiUrl = apiUrl
-window.autoTestAuthToken = authToken
-autoTestRecorder.start()
+$(document).ready () ->
+  window.autoTestRecorder = new AutoTestRecorder projectId  
+  window.autoTestApiUrl = apiUrl
+  window.autoTestAuthToken = authToken
+  autoTestRecorder.start()
