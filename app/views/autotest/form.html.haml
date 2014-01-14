@@ -1,0 +1,20 @@
+%h1 Test Form Tags
+
+= form_tag({controller: "autotest", action: "form_post"}) 
+= label_tag("name")
+= text_field_tag("name")
+%br
+= label_tag("textarea")
+= text_area_tag("textarea")
+%br
+= label_tag("selects")
+= select_tag("select", options_for_select(["option1", "option2"]))
+%br
+= label_tag("radios")
+= radio_button_tag("id", "valu1")
+%br 
+= label_tag("checkboxes")
+= check_box_tag("checkbox", {"value1" => "value1"}) 
+Value1
+%br
+= submit_tag("Save")

@@ -31,6 +31,11 @@ Autotest::Application.routes.draw do
   get 'pricing', to: 'welcome#pricing'
   root 'welcome#index.html.haml'
 
+  # Test Pages
+  get '/test/index', to: "autotest#index"
+  get '/test/form', to: "autotest#form"
+  post '/test/form_post', to: "autotest#form_post"
+  
   namespace :api do
     namespace :v1 do
       resources :projects do
