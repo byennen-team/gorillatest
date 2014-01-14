@@ -17,7 +17,7 @@ class @AutoTestStep
         beforeSend: (xhr, settings) ->
           xhr.setRequestHeader('Authorization', "Token token=\"#{that.authToken}\"")
         success: (data, textStatus, jqXHR) ->
-          autoTestStep = new AutoTestStep that.authToken, data.step.scenario_id, data.step.event_type, {type: data.step.locator_type, value: data.step.locator_value}, this.text
+          autoTestStep = new AutoTestStep data.step.scenario_id, data.step.event_type, {type: data.step.locator_type, value: data.step.locator_value}, data.step.text
           autoTestStep.id = data.step.id
         error:  (jqXHR, textStatus, errorThrown) ->
           console.log("error thrown")
@@ -38,7 +38,7 @@ class @AutoTestStep
         xhr.setRequestHeader('Authorization', "Token token=\"#{authToken}\"")
       success: (data) ->
         $.each(data.steps, (i, data) ->
-          autoTestStep = new AutoTestScenario(authToken, data.scenario_id, data.event_type, {type: data.locator_type, value: data.locator_value}, data.text)
+          autoTestStep = new AutoTestStep(data.scenario_id, data.event_type, {type: data.locator_type, value: data.locator_value}, data.text)
           autoTestStep.id = data.id
           steps.push(autoTestStep)
         )

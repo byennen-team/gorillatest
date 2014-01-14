@@ -13,11 +13,16 @@ while i < l
   if scripts[i].src is "http://autotest.dev/assets/recordv2.js"
     projectId = scripts[i].getAttribute("data-project-id")
     authToken =  scripts[i].getAttribute("data-auth")
-    apiUrl = scripts[i].getAttribute("data-api-url")
+    if scripts[i].getAttribute("data-api-url") 
+    	apiUrl = scripts[i].getAttribute("data-api-url")
+    else
+    	apiUrl = "http://autotest.io"
     break
   i++
 
 window.autoTestRecorder = new AutoTestRecorder authToken, projectId
+
+# Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 window.autoTestApiUrl = apiUrl
 window.autoTestAuthToken = authToken
 autoTestRecorder.start()
