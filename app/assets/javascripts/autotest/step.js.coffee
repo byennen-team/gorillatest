@@ -1,13 +1,15 @@
 class @AutoTestStep
   # a locator is actually a hash.
-  constructor: (@authToken, @scenarioId, @type, @locator, @text) ->
+  constructor: (@scenarioId, @type, @locator, @text) ->
+    @authToken = window.autoTestAuthToken
+    @apiUrl = window.autoTestApiUrl
     @id = ""
 
   save: ->
     autoTestStep = ""
     if @id == ""
       that = this
-      $.ajax('http://autotest.dev/api/v1/projects/' + @projectId + '/scenarios/' + @scenarioId + '/steps',
+      $.ajax(@apiUrl + '/api/v1/projects/' + @projectId + '/scenarios/' + @scenarioId + '/steps',
         type: 'POST',
         dataType: "json",
         data: {step: {event_type: this.type, locator_type: this.locator.type, locator_value: this.locator.value, text: this.text}},
@@ -24,9 +26,11 @@ class @AutoTestStep
       autoTestStep = this
     return  autoTestStep
 
-  @findAll: (authToken, scenarioId) ->
+  @findAll: (scenarioId) ->
+    apiUrl = window.autoTestApiUrl
+    authToken = window.autoTestAuthToken
     steps = new Array
-    $.ajax("http://autotest.dev/api/v1/projects/#{@projectId}/scenarios/#{scenarioId}/steps",
+    $.ajax(apiUrl + "/api/v1/projects/#{@projectId}/scenarios/#{scenarioId}/steps",
       type: 'GET',
       dataType: 'json',
       async: false,
@@ -41,10 +45,10 @@ class @AutoTestStep
     )
     return steps
 
-  @find: (authToken, scenarioId, id) ->
+  @find: (scenarioId, id) ->
 
-  @create: (authToken, scenarioId, type, locator, text) ->
-    step = new AutoTestStep authToken, scenarioId, type, locator, text
+  @create: (scenarioId, type, locator, text) ->
+    step = new AutoTestStep scenarioId, type, locator, text
     autoTestStep = step.save()
     return autoTestStep
 

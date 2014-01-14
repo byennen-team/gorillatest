@@ -1,5 +1,7 @@
 class @AutoTestScenario
-  constructor: (@authToken, @projectId, @name, @startUrl) ->
+  constructor: (@projectId, @name, @startUrl) ->
+    @authToken = window.autoTestAuthToken
+    @apiUrl = window.autoTestApiUrl
     @sessionStorage = window.sessionStorage
     @id = ""
     @autoTestSteps = []
@@ -8,7 +10,7 @@ class @AutoTestScenario
     autoTestScenario = ""
     if @id == ""
       that = this
-      $.ajax('http://autotest.dev/api/v1/projects/' + @projectId + '/scenarios',
+      $.ajax(@apiUrl + '/api/v1/projects/' + @projectId + '/scenarios',
         type: 'POST',
         dataType: "json",
         data: {scenario: {name: this.name, start_url: this.startUrl}},
@@ -30,20 +32,21 @@ class @AutoTestScenario
     return autoTestSteps
 
   addStep: (type, locator, text) ->
-    autoTestStep = AutoTestStep.create @authToken, this.id, type, locator, text
+    autoTestStep = AutoTestStep.create this.id, type, locator, text
     @autoTestSteps.push(autoTestStep)
     return true
 
   # Attributes is an object
-  @create: (authToken, projectId, name, startUrl) ->
-    console.log("Auth token is #{authToken}")
-    scenario = new AutoTestScenario authToken, projectId, name, startUrl
+  @create: (projectId, name, startUrl) ->
+    scenario = new AutoTestScenario projectId, name, startUrl
     autoTestScenario = scenario.save()
     return autoTestScenario
 
-  @find: (authToken, projectId, id) ->
+  @find: (projectId, id) ->
+    apiUrl = window.autoTestApiUrl
+    authToken = window.autoTestAuthToken
     autoTestScenario = ""
-    $.ajax("http://autotest.dev/api/v1/projects/#{projectId}/scenarios/#{id}",
+    $.ajax(apiUrl + "/api/v1/projects/#{projectId}/scenarios/#{id}",
         type: 'GET',
         dataType: 'json',
         async: false,
