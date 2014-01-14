@@ -1,5 +1,7 @@
 class Api::V1::StepsController < Api::V1::BaseController
 
+  skip_before_action :verify_authenticity_token
+  
   before_filter :find_project
   before_filter :find_feature
   before_filter :find_scenario
