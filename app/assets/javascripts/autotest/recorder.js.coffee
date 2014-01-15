@@ -40,6 +40,8 @@ class @AutoTestRecorder
     # Collect actions to a JSON structure
     @isRecording = true
     @sessionStorage.setItem("autoTestRecorder.isRecording", @isRecording)
+    # Disable feature selection
+    $("select#features").attr("disabled", "disabled")
     # This is going to have to be moved out at some point is my guess.  It's probably going to get
     # very large
     console.log("binding events")
