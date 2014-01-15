@@ -10,4 +10,6 @@ class AutotestController < ApplicationController
 	  redirect_to action: 'thankyou'
 	end
 
+  def thankyou; end
+  
 end
