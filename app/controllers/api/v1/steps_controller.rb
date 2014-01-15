@@ -14,7 +14,7 @@ class Api::V1::StepsController < Api::V1::BaseController
       format.json { render json: @steps }
     end
   end
-  
+
 	def create
     if @step = @scenario.steps.create(step_params)
       respond_to do |format|
@@ -26,7 +26,7 @@ class Api::V1::StepsController < Api::V1::BaseController
 	private
 
   def find_project
-    @project = current_company.projects(params[:project_id])
+    @project = current_company.projects.find(params[:project_id])
   end
 
   def find_feature

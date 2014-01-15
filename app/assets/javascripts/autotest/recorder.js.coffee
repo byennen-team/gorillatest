@@ -13,16 +13,9 @@ class @AutoTestRecorder
 
   start: ->
     this.getFeatures()
-    options = new Array
     features = @features
     that = this
-    $.each(features, (k, v) ->
-      options.push "<option value='#{v.id}'>#{v.name}</option>"
-    )
-    $("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
-    $("select#features").bind("change", ->
-      that.setCurrentFeature($(this).val()) if $(this).val().length > 0
-    )
+
     if @isRecording == true
       console.log("You are presently recording a scenario")
       # load the current scenario
@@ -101,6 +94,7 @@ class @AutoTestRecorder
     return
 
   stop: ->
+    console.log("stopped")
     @isRecording = false
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
     @sessionStorage.removeItem("autoTestRecorder.currentFeature")

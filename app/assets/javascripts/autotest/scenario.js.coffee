@@ -28,7 +28,7 @@ class @AutoTestScenario
     return  autoTestScenario
 
   steps: ->
-    autoTestSteps = AutoTestStep.findAll(@featureId, @id)
+    autoTestSteps = AutoTestStep.findAll(@projectId, @featureId, @id)
     return autoTestSteps
 
   addStep: (type, locator, text) ->
@@ -52,7 +52,7 @@ class @AutoTestScenario
         dataType: 'json',
         async: false,
         beforeSend: (xhr, settings) ->
-          xhr.setRequestHeader('Authorization', "Token token=\"#{authToken}\"")        
+          xhr.setRequestHeader('Authorization', "Token token=\"#{authToken}\"")
         success: (data) ->
           autoTestScenario = new AutoTestScenario(data.scenario.project_id, data.scenario.feature_id, data.scenario.name, data.scenario.start_url)
           autoTestScenario.id = data.scenario.id

@@ -3,6 +3,7 @@ class @AutoTestStep
   constructor: (@featureId, @scenarioId, @type, @locator, @text) ->
     @authToken = window.autoTestAuthToken
     @apiUrl = window.autoTestApiUrl
+    @projectId = window.projectId
     @id = ""
 
   save: ->
@@ -26,7 +27,7 @@ class @AutoTestStep
       autoTestStep = this
     return  autoTestStep
 
-  @findAll: (featureId, scenarioId) ->
+  @findAll: (projectId, featureId, scenarioId) ->
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
     steps = new Array

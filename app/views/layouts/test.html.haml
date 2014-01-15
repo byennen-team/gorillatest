@@ -26,16 +26,19 @@
       = select_tag "features"
       .pull-right
         %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"} Record
-        %button#stop.btn.btn-primary.btn-xs.hide Stop
+        %button#stop-recording.btn.btn-primary.btn-xs.hide Stop
     %div#add-scenario.modal.fade
-      %div.modal-content
-        %div.modal-header
-          %button.close{data: {dismiss: "modal"}} &times;
-          %h4 Start Recording A New Scenario
-        %div.modal-body
-          %label Scenario Name
-          %input{type: "text", name: "scenario[name]", id: "scenario_name"}
-        %div.modal-footer
-          %button.btn.btn-default{data: {dismiss: "modal"}} Close
-          %button.btn.btn-primary#start-recording{"disabled" => "disabled"} Start Recording
+      .container
+        .col-md-4.col-md-offset-4
+          %div.modal-content
+            %div.modal-header
+              %button.close{data: {dismiss: "modal"}} &times;
+              %h4 Start Recording A New Scenario
+            %div.modal-body
+              %label Scenario Name
+              %input{type: "text", name: "scenario[name]", id: "scenario_name"}
+              %p Once this modal closes AutoTest will automatically start recording your behavior for this scenario
+            %div.modal-footer
+              %button.btn.btn-default{data: {dismiss: "modal"}} Close
+              %button.btn.btn-primary#start-recording{"disabled" => "disabled"} Start Recording
     = yield

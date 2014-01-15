@@ -1,5 +1,3 @@
-//= require jquery
-//= require jquery_ujs
 //= require autotest/recorder
 //= require autotest/feature
 //= require autotest/scenario
@@ -27,4 +25,12 @@ $(document).ready () ->
   window.autoTestRecorder = new AutoTestRecorder window.projectId
   window.autoTestApiUrl = window.apiUrl
   window.autoTestAuthToken = window.authToken
+
   autoTestRecorder.start()
+
+  options = new Array
+  $.each autoTestRecorder.features, (k, v) ->
+    options.push "<option value='#{v.id}'>#{v.name}</option>"
+  $("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
+  $("select#features").bind "change", ->
+    window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
