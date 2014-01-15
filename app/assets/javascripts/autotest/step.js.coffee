@@ -32,7 +32,7 @@ class @AutoTestStep
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
     steps = new Array
-    $.ajax(apiUrl + "/api/v1/projects/#{@projectId}/features/#{featureId}/scenarios/#{scenarioId}/steps",
+    $.ajax(apiUrl + "/api/v1/projects/#{projectId}/features/#{featureId}/scenarios/#{scenarioId}/steps",
       type: 'GET',
       dataType: 'json',
       async: false,
