@@ -25,83 +25,90 @@ class @AutoTestRecorder
       if featureId != null
         @currentFeature = AutoTestFeature.find(@projectId, featureId)
         $("select#features").val(featureId)
-        $("select#features").attr("disabled", "disabled")
+        #$("select#features").attr("disabled", "disabled")
       if scenarioId != null
         @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
       # Record step of redirected to -> current window location href
       step = @currentScenario.addStep("redirect", {}, window.location.href)
       # This isn't actually starting recording
-      console.log("restarting recording")
-
+      console.log("Restarting Recording")
       this.record()
+    else
+      $("button#stop-recording").hide()
 
   record: ->
-    console.log("We are recording")
+    console.log("We are currently recording")
     # Collect actions to a JSON structure
     @isRecording = true
     @sessionStorage.setItem("autoTestRecorder.isRecording", @isRecording)
     # Disable feature selection
+
+    # Disable features button, hide record button, show stop button
     $("select#features").attr("disabled", "disabled")
+    $("button#record").hide()
+    $("button#stop-recording").show()
     # This is going to have to be moved out at some point is my guess.  It's probably going to get
     # very large
-    console.log("binding events")
+    console.log("Binding DOM events")
     that = this
-    $(document).ready () ->
-      stepLocator = {}
-      $("a").bind("click", {autoTestRecorder: this}, (event) ->
-        event.preventDefault()
-        console.log("href is #{$(this).attr('href')}")
-        console.log("id is #{$(this).attr('id')}")
-        recorder = that
-        scenario = that.currentScenario
-        # Create a step and save it.
-        scenario.addStep("clickEvent", {"type": "id", "value": $(this).attr("id")}, $(this).attr("href"))
-        window.location.href = $(this).attr("href")
-      )
-      # Start recording an input as soon as it's focused.
-      $("input[type=text], textarea").bind("focus", {autoTestRecorder: this}, (event) ->
-        console.log("entered text element")
-        console.log($(this).attr("id"))
-        stepLocator = {type: "id", value: $(this).attr("id")}
-        console.log(stepLocator)
-      )
-      $("input[type=text], textarea").bind("blur", (event) ->
-        # console.log($(this).attr("id"))
-        # console.log("left text element")
-        value = $(this).val()
-        scenario = that.currentScenario
-        console.log("ADDING STEP")
-        scenario.addStep("setElementText", stepLocator, value)
-      )
-      $("select").bind("change", (event) ->
-        value = $(this).val()
-        scenario = that.currentScenario
-        stepLocator = {type: "id", value: $(this).attr("id")}
-        console.log("saving select")
-        scenario.addStep("selectValue", stepLocator, value)
-      )
-      $("input[type=radio], input[type=checkbox]").bind("click", (event) ->
-        value = $(this).val()
-        scenario = that.currentScenario
-        stepLocator = {type: "name", value: $(this).attr("id") }
-        console.log("saving radio or checkbox value")
-        scenario.addStep("selectRadio", stepLocator, value)
-      )
-      $("input[type=submit]").bind("click", (event) ->
-        scenario = that.currentScenario
-        stepLocator = {type: "id", value: $(this).attr("id")}
-        console.log("recording button")
-        scenario.addStep("submitForm", stepLocator, "")
-      )
+    stepLocator = {}
+    console.log("Binding all links")
+    $("a").bind("click", {autoTestRecorder: this}, (event) ->
+      event.preventDefault()
+      console.log("href is #{$(this).attr('href')}")
+      console.log("id is #{$(this).attr('id')}")
+      recorder = that
+      scenario = that.currentScenario
+      # Create a step and save it.
+      scenario.addStep("clickEvent", {"type": "id", "value": $(this).attr("id")}, $(this).attr("href"))
+      window.location.href = $(this).attr("href")
+    )
+    # Start recording an input as soon as it's focused.
+    console.log("Binding all focus events for text and text areas")
+    $("input[type=text], textarea").bind("focus", {autoTestRecorder: this}, (event) ->
+      console.log("entered text element")
+      console.log($(this).attr("id"))
+      stepLocator = {type: "id", value: $(this).attr("id")}
+      console.log(stepLocator)
+    )
+    console.log("Binding all blur events for text elements and text areas")
+    $("input[type=text], textarea").bind("blur", (event) ->
+      # console.log($(this).attr("id"))
+      # console.log("left text element")
+      value = $(this).val()
+      scenario = that.currentScenario
+      scenario.addStep("setElementText", stepLocator, value)
+    )
+    console.log("Binding all select dropdown changes")
+    $("select").bind("change", (event) ->
+      value = $(this).val()
+      scenario = that.currentScenario
+      stepLocator = {type: "id", value: $(this).attr("id")}
+      scenario.addStep("selectValue", stepLocator, value)
+    )
+    console.log("Binding all click events for radio buttons and checkboxes")
+    $("input[type=radio], input[type=checkbox]").bind("click", (event) ->
+      value = $(this).val()
+      scenario = that.currentScenario
+      stepLocator = {type: "name", value: $(this).attr("id") }
+      scenario.addStep("selectRadio", stepLocator, value)
+    )
+    console.log("Binding all submit click events")
+    $("input[type=submit]").bind("click", (event) ->
+      scenario = that.currentScenario
+      stepLocator = {type: "id", value: $(this).attr("id")}
+      scenario.addStep("submitForm", stepLocator, "")
+    )
     return
 
   stop: ->
-    console.log("stopped")
+    console.log("Stopping Recording")
     @isRecording = false
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
     @sessionStorage.removeItem("autoTestRecorder.currentFeature")
     @sessionStorage.removeItem("autoTestRecorder.currentScenario")
     $("select#features").removeAttr("disabled")
+    $("button#record").removeAttr("disabled")
 
   getFeatures: ->
     @features = AutoTestFeature.findAll(@projectId)
@@ -115,7 +122,7 @@ class @AutoTestRecorder
     @currentScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href)
     @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
     $("button#record").hide()
-    $("button#stop").show()
-    $("button#stop").bind("click", ->
+    $("button#stop-recording").show()
+    $("button#stop-recording").bind("click", ->
       this.stop()
     )

@@ -18,6 +18,7 @@ class @AutoTestStep
         beforeSend: (xhr, settings) ->
           xhr.setRequestHeader('Authorization', "Token token=\"#{that.authToken}\"")
         success: (data, textStatus, jqXHR) ->
+          console.log("Added step - #{data.step.event_type} for #{data.step.locator_type} - #{data.step.locator_value}")
           autoTestStep = new AutoTestStep data.step.feature_id, data.step.scenario_id, data.step.event_type, {type: data.step.locator_type, value: data.step.locator_value}, data.step.text
           autoTestStep.id = data.step.id
         error:  (jqXHR, textStatus, errorThrown) ->

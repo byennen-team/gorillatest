@@ -18,6 +18,7 @@ class @AutoTestScenario
         beforeSend: (xhr, settings) ->
           xhr.setRequestHeader('Authorization', "Token token=\"#{that.authToken}\"")
         success: (data, textStatus, jqXHR) ->
+          console.log("Added scenario #{data.scenario.name} - #{data.scenario.id}")
           autoTestScenario = new AutoTestScenario data.scenario.project_id, data.scenario.feature_id, data.scenario.name, @startUrl
           autoTestScenario.id = data.scenario.id
         error:  (jqXHR, textStatus, errorThrown) ->
