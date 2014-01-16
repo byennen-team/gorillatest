@@ -128,6 +128,3 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
     $("button#record").hide()
     $("button#stop-recording").show()
-    $("button#stop-recording").bind("click", ->
-      this.stop()
-    )

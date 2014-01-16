@@ -19,6 +19,7 @@ $ ->
     recorder.record()
     $("#record").hide()
     $("#stop-recording").removeClass("hide")
+    recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
 
   $("#stop-recording").click ->
     $(".recording-bar").removeClass("recording")
