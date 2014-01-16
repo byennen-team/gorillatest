@@ -33,7 +33,7 @@ Autotest::Application.routes.draw do
 
   # Test Pages
   get '/test/index', to: "autotest#index"
-  get '/test/form', to: "autotest#form"
+  get '/test/form', to: "autotest#form", as: "test_form"
   post '/test/form_post', to: "autotest#form_post"
   get '/test/thankyou', to: "autotest#thankyou"
 

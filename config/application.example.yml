@@ -1,7 +1,0 @@
-# Application configuration variables.
-
-#STAGING_USERNAME: autotest
-#STAGING_PASSWORD: autotest2014
-#MONGODB_PRODUCTION: mongodb://<user>:<password>@dharma.mongohq.com:10001/app19362005
-#MONGODB_STAGING: mongodb://<user>:<password>@paulo.mongohq.com:10092/app19976908
-#MONGODB_DEVELOPMENT: mongodb://<user>:<password>@dharma.mongohq.com:10093/app19976913

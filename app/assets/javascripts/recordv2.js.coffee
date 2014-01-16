@@ -10,7 +10,7 @@ i = 0
 l = scripts.length
 
 while i < l
-  if scripts[i].src is "http://autotest.dev/assets/recordv2.js"
+  if /recordv2.js/.test(scripts[i].src)
     window.projectId = scripts[i].getAttribute("data-project-id")
     window.authToken =  scripts[i].getAttribute("data-auth")
     if scripts[i].getAttribute("data-api-url")
