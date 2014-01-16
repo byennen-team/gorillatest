@@ -25,6 +25,7 @@
   %body
     %div.recording-bar
       = select_tag "features"
+      %span#current-scenario
       .pull-right
         %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"} Record
         %button#stop-recording.btn.btn-primary.btn-xs Stop
