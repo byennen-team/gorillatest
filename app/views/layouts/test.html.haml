@@ -27,6 +27,7 @@
     %div.recording-bar
       = select_tag "features"
       %span#current-scenario
+      %span#step-count Number of Steps:
       .pull-right
         %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"} Record
         = render "text_highlight"
@@ -45,4 +46,26 @@
             %div.modal-footer
               %button.btn.btn-default{data: {dismiss: "modal"}} Close
               %button.btn.btn-primary#start-recording{"disabled" => "disabled"} Start Recording
+    %div#element-modal.modal.fade
+      .container
+        .col-md-6.col-md-offset-3{style: "margin-top: 40px;"}
+          %div.modal-content
+            %div.modal-header
+              %button.close.close-element-modal{data: {dismiss: "modal"}} &times;
+              %h4 Choose Validation
+            %div.modal-body
+              =radio_button_tag "record_text", "text", false, class: "validation-radio"
+              %label
+                Record element text:
+              %p#record-element-text
+              %br
+              =radio_button_tag "record_text", "element_html", false, class: "validation-radio"
+              %label
+                Record element:
+              %p#record-element-html
+
+
+            %div.modal-footer
+              %button.btn.btn-default.close-element-modal{data: {dismiss: "modal"}} Close
+              %button.btn.btn-primary#save-validation{"disabled" => "disabled"} Save Validation
     = yield

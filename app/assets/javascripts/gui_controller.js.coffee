@@ -40,12 +40,52 @@ $ ->
   # Text highlighting
   $("button#start-text-highlight").click (e)->
     e.preventDefault()
+    e.stopPropagation()
     $(this).hide()
-    $("#highlight-helper").show()
     $("button#record-text-highlight").show()
-    $('body').mouseup ()->
-      text = if document.all then document.selection.createRange().text else document.getSelection()
-      $("#highlighted-text").text("#{text}")
+    $("body *").hover(hoverOutline)
+    $("html").unbind("mouseenter").unbind("mouseleave")
+    $("div.recording-bar").unbind("mouseenter").unbind("mouseleave")
+    $("div.recording-bar *").unbind("mouseenter").unbind("mouseleave")
+    $("div.recording-bar *").unbind("click")
+    $("*").css('cursor', 'crosshair')
+    $("body *").bind 'click', (eve) ->
+      eve.stopPropagation()
+      $("#element-modal").modal('show')
+      $("#element-modal *").css('cursor', 'auto')
+      $("#element-modal *").css("outline", "none")
+      $("#element-modal *").unbind("mouseenter").unbind("mouseleave")
+      $("#element-modal").unbind("click")
+      $("#element-modal *").unbind("click")
+      $("#record-element-text").html($(this).text())
+      $("#record_text_text").val($(this).text())
+      $("#record-element-html").text($(this).clone().removeAttr("style").wrap("<p>").parent().html())
+      $("#record_text_element_html").val($(this).clone().removeAttr("style").wrap("<p>").parent().html())
+      $(".close-element-modal").bind 'click', ->
+        $("#element-modal").modal('hide')
+      $(".validation-radio").click ->
+        $("#save-validation").removeAttr('disabled', false)
+      $("#save-validation").bind 'click', (e) ->
+        e.preventDefault()
+        checked = $("input[name=record_text]:checked")
+        text = checked.val()
+        type = if checked.attr("id") is "record_text_text" then "verifyText" else "verifyElementPresent"
+        autoTestRecorder.currentScenario.addStep(type, {type: '', value: ''}, text)
+
+
+    $("a, button, input[type='submit'], select").bind "click", (ev) ->
+      ev.preventDefault()
+
+  hoverOutline = (event) ->
+    event.stopPropagation
+    $("*").css("outline", "none")
+    $(this).css("outline", "2px solid red")
+    $(this).mouseleave (e) ->
+      e.stopPropagation()
+      $(this).css("outline", "none")
+    return
+
+  window.hoverOutline = hoverOutline
 
   $("button#record-text-highlight").click (e) ->
     e.preventDefault()

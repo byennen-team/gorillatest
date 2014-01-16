@@ -51,6 +51,7 @@ class @AutoTestRecorder
     $("button#record").hide()
     $("button#stop-recording").show()
     $(".recording-bar").addClass("recording")
+    $("button#start-text-highlight").show()
     # This is going to have to be moved out at some point is my guess.  It's probably going to get
     # very large
     console.log("Binding DOM events")
@@ -85,6 +86,7 @@ class @AutoTestRecorder
         scenario.addStep("setElementText", stepLocator, value)
     )
     console.log("Binding all select dropdown changes")
+
     $("select").bind("change", (event) ->
       value = $(this).val()
       scenario = that.currentScenario
