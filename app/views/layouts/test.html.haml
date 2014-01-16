@@ -16,13 +16,14 @@
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300", rel: "stylesheet", type: "text/css"}/
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600", rel: "stylesheet", type: "text/css"}/
     = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = javascript_include_tag "recordv2", data: {project_id: "52956ff06c656962f2000000", 
                                                 auth: "435495b17a23f3f1a3875b3e077ba3f3",
                                                 api_url: "http://autotest.dev"}
     = csrf_meta_tags
   %body
-    %div{style: "background-color: black; height: 30px; padding: 5px 10px;"}
+    %div.recording-bar
       = select_tag "features"
       .pull-right
         %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"} Record

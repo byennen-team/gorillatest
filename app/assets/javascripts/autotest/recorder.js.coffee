@@ -47,6 +47,7 @@ class @AutoTestRecorder
     $("select#features").attr("disabled", "disabled")
     $("button#record").hide()
     $("button#stop-recording").show()
+    $(".recording-bar").addClass("recording")
     # This is going to have to be moved out at some point is my guess.  It's probably going to get
     # very large
     console.log("Binding DOM events")

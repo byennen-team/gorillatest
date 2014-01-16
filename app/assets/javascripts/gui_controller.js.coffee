@@ -21,6 +21,7 @@ $ ->
     $("#stop-recording").removeClass("hide")
 
   $("#stop-recording").click ->
+    $(".recording-bar").removeClass("recording")
     recorder = window.autoTestRecorder
     recorder.stop()
     stepsRecorded = []
