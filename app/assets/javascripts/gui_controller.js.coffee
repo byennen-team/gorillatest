@@ -18,7 +18,8 @@ $ ->
     recorder.addScenario($("input#scenario_name").val())
     recorder.record()
     $("#record").hide()
-    $("#stop-recording").removeClass("hide")
+    $("#stop-recording").show()
+    $("#start-text-highlight").show()
 
   $("#stop-recording").click ->
     recorder = window.autoTestRecorder
@@ -29,5 +30,25 @@ $ ->
 
     stepsRecorded = _.sortBy(_.toArray(stepsRecorded), (step) -> step[0])
     alert("Your Steps have been recorded. Here are your steps:\n" + _.flatten(stepsRecorded).join(' '))
-    $("#stop-recording").addClass("hide")
+    $("#stop-recording").hide()
+    ("#start-text-highlight").hide()
     $("#record").show()
+
+  # Text highlighting
+  $("button#start-text-highlight").click (e)->
+    e.preventDefault()
+    $(this).hide()
+    $("#highlight-helper").show()
+    $("button#record-text-highlight").show()
+    $('body').mouseup ()->
+      text = if document.all then document.selection.createRange().text else document.getSelection()
+      $("#highlighted-text").text("#{text}")
+
+  $("button#record-text-highlight").click (e) ->
+    e.preventDefault()
+    $(this).hide()
+    $("#highlight-helper").hide()
+    $("button#start-text-highlight").show()
+    $("#highlighted-text").text('')
+    $('body').unbind('mouseup')
+    window.autoTestRecorder.recordHighlight($("#highlighted-text").text())

@@ -35,6 +35,7 @@ class @AutoTestRecorder
       this.record()
     else
       $("button#stop-recording").hide()
+      $("button#record-text-highlight").hide()
 
   record: ->
     console.log("We are currently recording")
@@ -127,3 +128,8 @@ class @AutoTestRecorder
     $("button#stop-recording").bind("click", ->
       this.stop()
     )
+
+  recordHighlight: (text)->
+    scenario = this.currentScenario
+    stepLocator = {type: "text highlight on page", value: window.location.pathname}
+    scenario.addStep("Highlight Text", stepLocator, text)
