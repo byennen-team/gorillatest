@@ -76,8 +76,9 @@ class @AutoTestRecorder
       # console.log($(this).attr("id"))
       # console.log("left text element")
       value = $(this).val()
-      scenario = that.currentScenario
-      scenario.addStep("setElementText", stepLocator, value)
+      if value.length > 0
+        scenario = that.currentScenario
+        scenario.addStep("setElementText", stepLocator, value)
     )
     console.log("Binding all select dropdown changes")
     $("select").bind("change", (event) ->
