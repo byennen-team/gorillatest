@@ -13,6 +13,7 @@ $ ->
 
   $("#start-recording").click (event) ->
     $("#add-scenario").modal("hide")
+    $("#scenario_name").val('')
     recorder = window.autoTestRecorder
     event.preventDefault()
     recorder.addScenario($("input#scenario_name").val())
