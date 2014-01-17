@@ -79,7 +79,9 @@ Autotest::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   #password for staging
-  config.middleware.insert_after(Rack::Runtime, "::Rack::Auth::Basic", "AutoTest.io") do |u, p|
-    [u, p] == [ENV['STAGING_USERNAME'], ENV['STAGING_PASSWORD']]
-  end
+  #config.middleware.insert_after(Rack::Runtime, "::Rack::Auth::Basic", "AutoTest.io") do |u, p|
+  #  Rails.logger.debug("U is #{u}")
+  #  Rails.logger.debug("P is #{p}")
+  #  [u, p] == [ENV['STAGING_USERNAME'], ENV['STAGING_PASSWORD']]
+  #end
 end
