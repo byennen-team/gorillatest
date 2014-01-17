@@ -47,7 +47,7 @@ class @AutoTestRecorder
     # Disable features button, hide record button, show stop button
     $("select#features").attr("disabled", "disabled")
     $("select#features").hide()
-    $("#current-scenario").html("<strong>Currently recording: #{@currentFeature.name} - #{@currentScenario.name}</strong>")
+    $("#current-scenario").html("<strong>Currently recording: #{@currentFeature.name} - #{@currentScenario.name}</strong>").show()
     $("button#record").hide()
     $("button#stop-recording").show()
     $(".recording-bar").addClass("recording")

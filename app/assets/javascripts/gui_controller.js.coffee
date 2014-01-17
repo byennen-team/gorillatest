@@ -13,7 +13,6 @@ $ ->
 
   $("#start-recording").click (event) ->
     $("#add-scenario").modal("hide")
-    $("#scenario_name").val('')
     recorder = window.autoTestRecorder
     event.preventDefault()
     recorder.addScenario($("input#scenario_name").val())
@@ -22,6 +21,7 @@ $ ->
     recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
     $("#stop-recording").show()
     $("#start-text-highlight").show()
+    $("#scenario_name").val('')
 
   $("#stop-recording").click ->
     $(".recording-bar").removeClass("recording")
