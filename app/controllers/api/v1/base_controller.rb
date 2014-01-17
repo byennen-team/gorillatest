@@ -1,6 +1,8 @@
 class Api::V1::BaseController < ApplicationController
 
-  # before_filter :restrict_access
+  protect_from_forgery with: :null_session
+
+  before_filter :restrict_access
 
   helper_method :current_company
 
