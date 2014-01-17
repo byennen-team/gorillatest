@@ -17,7 +17,7 @@
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600", rel: "stylesheet", type: "text/css"}/
     = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
     = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
-    /= javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
     = javascript_include_tag "recordv2", data: {project_id: params[:project_id],
                                                 auth: current_user.company.api_key,
                                                 api_url: ENV['API_URL'] || '',

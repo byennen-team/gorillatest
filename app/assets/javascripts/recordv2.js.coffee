@@ -9,12 +9,10 @@
 //= require_self
 
 scripts = document.getElementsByTagName("script")
-console.log("HERE")
 i = 0
 l = scripts.length
 
 while i < l
-  console.log("IN")
   if (/recordv2/).test(scripts[i].src)
     window.projectId = scripts[i].getAttribute("data-project-id")
     window.authToken =  scripts[i].getAttribute("data-auth")
