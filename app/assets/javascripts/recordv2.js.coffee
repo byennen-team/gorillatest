@@ -1,3 +1,6 @@
+//= require jquery
+//= require bootstrap
+//= require underscore
 //= require autotest/recorder
 //= require autotest/feature
 //= require autotest/scenario
@@ -6,11 +9,13 @@
 //= require_self
 
 scripts = document.getElementsByTagName("script")
+console.log("HERE")
 i = 0
 l = scripts.length
 
 while i < l
-  if /recordv2.js/.test(scripts[i].src)
+  console.log("IN")
+  if (/recordv2/).test(scripts[i].src)
     window.projectId = scripts[i].getAttribute("data-project-id")
     window.authToken =  scripts[i].getAttribute("data-auth")
     if scripts[i].getAttribute("data-api-url")

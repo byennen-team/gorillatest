@@ -1,6 +1,6 @@
 class Api::V1::BaseController < ApplicationController
 
-  before_filter :restrict_access
+  # before_filter :restrict_access
 
   helper_method :current_company
 
