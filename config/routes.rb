@@ -34,8 +34,8 @@ Autotest::Application.routes.draw do
   # Test Pages
   get '/test/index', to: "autotest#index"
   get '/test/form', to: "autotest#form", as: "test_form"
-  post '/test/form_post', to: "autotest#form_post"
-  get '/test/thankyou', to: "autotest#thankyou"
+  post '/test/form_post', to: "autotest#form_post", as: "test_form_post"
+  get '/test/thankyou', to: "autotest#thankyou", as: "test_thankyou"
 
   namespace :api do
     namespace :v1 do

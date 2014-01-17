@@ -1,6 +1,6 @@
 %h1 Test Form Tags
 
-= form_tag({controller: "autotest", action: "form_post"}) 
+= form_tag(test_form_post_path(project_id: @project_id))
 = label_tag("name")
 = text_field_tag("name")
 %br
@@ -12,9 +12,9 @@
 %br
 = label_tag("radios")
 = radio_button_tag("id", "valu1")
-%br 
+%br
 = label_tag("checkboxes")
-= check_box_tag("checkbox", {"value1" => "value1"}) 
+= check_box_tag("checkbox", {"value1" => "value1"})
 Value1
 %br
 = submit_tag("Save")
