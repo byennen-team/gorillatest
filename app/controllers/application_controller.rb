@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_company
 
+  before_filter :http_basic_authenticate, if: :staging?
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def current_company
@@ -27,4 +28,15 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Request-Method'] = '*'
     headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   end
+
+  def staging?
+  Rails.env.staging?
+  end
+
+  def http_basic_authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV["STAGING_USERNAME"] && password == ENV["STAGING_PASSWORD"]
+    end
+  end 
+ 
 end
