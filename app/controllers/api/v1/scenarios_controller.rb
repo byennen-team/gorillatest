@@ -1,5 +1,7 @@
 class Api::V1::ScenariosController < Api::V1::BaseController
 
+  skip_before_action :verify_authenticity_token
+  
   respond_to :json, :js
 
   before_filter :find_project
