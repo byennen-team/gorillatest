@@ -17,12 +17,22 @@ class Api::V1::FeaturesController < Api::V1::BaseController
   end
 
   def create
+    @feature = @project.features.build(feature_params)
+    if @feature.save
+      respond_to do |format|
+        format.json {render json: @feature}
+      end
+    end
   end
 
   def destroy
   end
 
   private
+
+  def feature_params
+    params.require(:feature).permit(:name)
+  end
 
   def find_project
     @project = current_company.projects.find(params[:project_id])

@@ -24,7 +24,9 @@
                                                 env: Rails.env}
     = csrf_meta_tags
   %body
+    = render 'add_new_feature'
     %div.recording-bar
+      %button.btn-xs.btn-primary{data: {toggle: "modal", target: "#create-feature-modal"}} Create new Feature
       = select_tag "features"
       %span#current-scenario
       /%span#step-count Number of Steps:
