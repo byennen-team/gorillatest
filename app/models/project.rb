@@ -11,6 +11,8 @@ class Project
 
   has_many :features
 
+  validates :name, presence: true, uniqueness: {scope: :company}
+
   # Figure out how to do the project /user relationships
   # user has_and_belongs_to_many projects / teams. - jkr
 

@@ -13,4 +13,6 @@ class Scenario
 
  embeds_many :steps
 
+ validates :name, presence: true, uniqueness: {scope: :feature}
+
 end
