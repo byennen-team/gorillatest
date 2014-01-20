@@ -28,6 +28,8 @@ $ ->
     $("select#features").removeAttr("disabled").show()
     $("#current-scenario").hide().html('')
     $("button#record").removeAttr("disabled")    
+    $("#step-count-text").hide()
+    $("#step-count").text('')
     recorder = window.autoTestRecorder
     recorder.stop()
     stepsRecorded = []
@@ -145,6 +147,7 @@ AutoTestGuiController = {
     $("button#stop-recording").show()
     $(".recording-bar").addClass("recording")
     $("button#start-text-highlight").show() 
+    $("#step-count-text").show()
 
   bindBodyClick: (event) ->
     event.preventDefault()      

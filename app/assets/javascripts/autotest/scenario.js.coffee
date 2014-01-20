@@ -35,6 +35,7 @@ class @AutoTestScenario
   addStep: (type, locator, text) ->
     autoTestStep = AutoTestStep.create this.featureId, this.id, type, locator, text
     @autoTestSteps.push(autoTestStep)
+    $("#step-count").text(@autoTestSteps.length)
     return true
 
   # Attributes is an object

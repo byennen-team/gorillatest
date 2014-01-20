@@ -29,7 +29,8 @@
       %button.btn-xs.btn-primary{data: {toggle: "modal", target: "#create-feature-modal"}} Create new Feature
       = select_tag "features"
       %span#current-scenario
-      /%span#step-count Number of Steps:
+      %span#step-count-text Number of Steps:
+      %span#step-count
       .pull-right
         %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"} Record
         = render "text_highlight"
