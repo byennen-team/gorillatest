@@ -22,22 +22,21 @@ $ ->
     $("#stop-recording").show()
     $("#start-text-highlight").show()
     $("#scenario_name").val('')
+    $("#step-count a").unbind("click")
 
   $("#stop-recording").click ->
     $(".recording-bar").removeClass("recording")
     $("select#features").removeAttr("disabled").show()
+    $("button#add-feature").show()
     $("#current-scenario").hide().html('')
     $("button#record").removeAttr("disabled")    
     $("#step-count-text").hide()
     $("#step-count").text('')
+    $("#step-count").hide()
+    $("#view-steps").slideUp()
+    $("#view-steps ul").html("")
     recorder = window.autoTestRecorder
     recorder.stop()
-    stepsRecorded = []
-    $.each recorder.currentScenario.autoTestSteps, (i, step) ->
-      stepsRecorded.push([i+1, ":", "Type is #{step.type}, text is #{step.text}", "\n"])
-
-    stepsRecorded = _.sortBy(_.toArray(stepsRecorded), (step) -> step[0])
-    alert("Your Steps have been recorded. Here are your steps:\n" + _.flatten(stepsRecorded).join(' '))
     $("#stop-recording").hide()
     $("#start-text-highlight").hide()
     $("#record").show()
@@ -54,6 +53,8 @@ $ ->
     $("a").unbind("click")
     $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
     $("a").unbind("click", AutoTestEvent.bindEvent)
+    $("body").unbind("hover", autoTestGuiController.hoverOutline)
+    $(".modal-backdrop").unbind("hover", autoTestGuiController.hoverOutline)
     $("body *").bind('click', autoTestGuiController.bindBodyClick)
     autoTestGuiController.unbindAutoTestBar()    
 
@@ -98,6 +99,12 @@ $ ->
         autoTestRecorder.setCurrentFeature(feature.id)
         $("button#record").removeAttr("disabled")
 
+  $("#step-count").click (e) ->
+    if $("#view-steps").is(':visible')
+      $("#view-steps").slideUp()
+    else
+      $("#view-steps").slideDown()
+
 AutoTestGuiController = {
 
   unbindAutoTestBar: ->
@@ -109,11 +116,16 @@ AutoTestGuiController = {
 
   hoverOutline: (event) ->
     event.stopPropagation
-    $("*").css("outline", "none")
-    $(this).css("outline", "2px solid red")
+    #$("*").css("outline", "none")
+    $("*").removeClass("autotest-highlight")
+    # Convert this to a class.
+    #$(this).css("outline", "2px solid red")
+    $(this).addClass("autotest-highlight")
+
     $(this).mouseleave (e) ->
       e.stopPropagation()
-      $(this).css("outline", "none")
+      $(this).removeClass("autotest-highlight")
+      #$(this).css("outline", "none")
     return
 
   showElementModal: (event, element) ->
@@ -142,9 +154,11 @@ AutoTestGuiController = {
   startRecording: (recorder) ->
     $("select#features").attr("disabled", "disabled")
     $("select#features").hide()
+    $("button#add-feature").hide()
     $("#current-scenario").html("<strong>Currently recording: #{recorder.currentFeature.name} - #{recorder.currentScenario.name}</strong>").show()
     $("button#record").hide()
     $("button#stop-recording").show()
+    $("#step-count").show()
     $(".recording-bar").addClass("recording")
     $("button#start-text-highlight").show() 
     $("#step-count-text").show()

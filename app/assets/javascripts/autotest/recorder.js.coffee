@@ -28,6 +28,9 @@ class @AutoTestRecorder
       step = @currentScenario.addStep("redirect", {}, window.location.href)
       # This isn't actually starting recording
       console.log("Restarting Recording")
+      $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
+        $("#view-steps ul").append("<li>#{autoTestStep.type} - #{autoTestStep.locator.type} / #{autoTestStep.locator.value} - #{autoTestStep.text}</li>")
+      )
       this.record()
     else
       # Figure out where to move this

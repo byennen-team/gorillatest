@@ -1,13 +1,118 @@
+@import url(http://fonts.googleapis.com/css?family=Monda:400,700)
+
+body 
+  padding: 10px
+
 .recording-bar
-  background-color: black
-  height: 30px
-  padding: 5px 10px
+  background-color: #fafafa
+  border-bottom: 1px solid #efefef
+  color: #333
+  line-height: 28px
+  padding: 8px 10px 4px
+  position: fixed
+  top: 0px
+  left: 0px
+  min-width: 960px
+  width: 100% 
+  clear: both
+
+.recording-bar .logo
+  font-family: 'Monda', sans-serif
+  text-transform: lowercase
+  font-size: 1.8em
+  padding-right: 10px
+
 .recording
   background-color: #A3243D
   color: #FFF
+  animation: fading 12s infinite
+  -webkit-animation: fading 12s infinite
 
 .validation-radio
   vertical-align: top
 
+#step-count
+  display: none
+
 #step-count-text
   display: none
+
+#step-count
+  color: #fff
+  &:hover
+    text-decoration: underline
+    cursor: pointer
+
+.autotest-highlight
+  outline: 4px solid #CCFFBB
+
+#view-steps
+  position: fixed
+  top: 40px
+  left: 0px
+  background-color: rgba(0, 0, 0, .8)
+  width: 100%
+  color: white
+  height: 100%
+  padding: 20px
+  ul#steps
+    list-style-type: none
+    li 
+      font-size: 1.2em
+      background: goldenrod
+      margin: 7px
+      padding: 5px
+      font-weight: bold
+      width: 50%
+      border-radius: 10px
+      color: black
+      border: 1px solid golden
+
+@keyframes fading
+  0%
+    background: red
+  25%
+    background: black
+  50%
+    background: red
+  75%
+    background: black
+  100%
+    background: red
+
+
+@-webkit-keyframes fading
+  0%
+    background: red
+  25%
+    background: black
+  50%
+    background: red
+  75%
+    background: black
+  100%
+    background: red
+
+
+@keyframes opacityfading
+  0%
+    opacity: 0
+  25%
+    opacity: 1
+  50%
+    opacity: 0
+  75%
+    opacity: 1
+  100%
+    opacity: 0
+
+
+@-webkit-keyframes opacityfading
+  0%
+    opacity: 0
+  33%
+    opacity: 1
+  66%
+    opacity: 0
+  100%
+    opacity: 1
