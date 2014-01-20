@@ -89,6 +89,7 @@ $ ->
         xhr.setRequestHeader('Authorization', "Token token=\"#{window.authToken}\"")
       success: (data) ->
         $("#create-feature-modal").modal("hide")
+        $("#feature_name").val('')
         feature = data.feature
         $("select#features").append "<option value=#{feature.id}>#{feature.name}</option>"
         $("select#features").val(feature.id)
