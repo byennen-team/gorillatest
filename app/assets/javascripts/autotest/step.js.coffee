@@ -21,6 +21,7 @@ class @AutoTestStep
           console.log("Added step - #{data.step.event_type} for #{data.step.locator_type} - #{data.step.locator_value}")
           autoTestStep = new AutoTestStep data.step.feature_id, data.step.scenario_id, data.step.event_type, {type: data.step.locator_type, value: data.step.locator_value}, data.step.text
           autoTestStep.id = data.step.id
+          autoTestStep.to_s = data.step.to_s
         error:  (jqXHR, textStatus, errorThrown) ->
           console.log("error thrown")
       )
@@ -40,8 +41,10 @@ class @AutoTestStep
         xhr.setRequestHeader('Authorization', "Token token=\"#{authToken}\"")
       success: (data) ->
         $.each(data.steps, (i, data) ->
+          console.log(data)
           autoTestStep = new AutoTestStep(data.feature_id, data.scenario_id, data.event_type, {type: data.locator_type, value: data.locator_value}, data.text)
           autoTestStep.id = data.id
+          autoTestStep.to_s = data.to_s
           steps.push(autoTestStep)
         )
     )

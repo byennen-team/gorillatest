@@ -25,11 +25,12 @@ class @AutoTestRecorder
       if scenarioId != null
         @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
       # Record step of redirected to -> current window location href
-      step = @currentScenario.addStep("redirect", {}, window.location.href)
+      step = @currentScenario.addStep("waitForCurrentUrl", {}, window.location.href)
       # This isn't actually starting recording
       console.log("Restarting Recording")
       $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
-        $("#view-steps ul").append("<li>#{autoTestStep.type} - #{autoTestStep.locator.type} / #{autoTestStep.locator.value} - #{autoTestStep.text}</li>")
+        console.log(i)
+        $("#view-steps ul").append("<li>#{autoTestStep.to_s}</li>")
       )
       this.record()
     else
