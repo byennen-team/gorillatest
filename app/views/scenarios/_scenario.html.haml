@@ -2,12 +2,70 @@
   = link_to scenario.name
   .pull-right
     = link_to image_tag('buttons/record.png'), '#'
-    = link_to image_tag('buttons/play.png'), '#'
-    = link_to image_tag('buttons/delete.png'), project_feature_scenario_path(@project, @feature, scenario), data: { confirm: 'Are you sure?' }
-
+    = link_to image_tag('buttons/play.png'), '#', onclick: "$('#test_run-#{scenario.id}').slideDown()"
+    = link_to image_tag('buttons/delete.png'), project_feature_scenario_path(@project, @feature, scenario), data: { confirm: 'Are you sure?' }, method: :delete
+  %div{id: "test_run-#{scenario.id}", style: "display: none;"}
+    = form_tag run_scenario_project_feature_scenario_path(@project.id, @feature.id, scenario.id) do
+      / %div.pull-left{style: "width: 33%"}
+      /   %h4 Windows
+      /   %ul{style: "list-style-type: none;"}
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "Firefox"
+      /       = image_tag('icons/firefox.png', alt: "Firefox") 
+      /       Firefox
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "Chrome"
+      /       = image_tag('icons/chrome.png', alt: "Chrome") 
+      /       Chrome
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "Internet Explorer"
+      /       = image_tag('icons/ie.png', alt: "Internet Explorer") 
+      /       Internet Explorer          
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "PhantomJS"
+      /       = image_tag('icons/phantomjs.png', alt: 'PhantomJS')
+      /       PhantomJS
+      / %div.pull-left{style: "width: 33%"}
+      /   %h4 Mac OS X
+      /   %ul{style: "list-style-type: none;"}
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "Firefox"
+      /       = image_tag('icons/firefox.png', alt: "Firefox") 
+      /       Firefox
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "Chrome"
+      /       = image_tag('icons/chrome.png', alt: "Chrome") 
+      /       Chrome
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "Safari"
+      /       = image_tag('icons/safari.png', alt: "Safari")
+      /       Safari
+      /     %li{style: "border-top: 0px; padding: 2px;"}
+      /       = check_box_tag "PhantomJS"
+      /       = image_tag('icons/phantomjs.png', alt: 'PhantomJS')
+      /       PhantomJS
+      %div.pull-left{style: "width: 33%"}
+        %h4 Linux
+        %ul{style: "list-style-type: none;"}
+          %li{style: "border-top: 0px; padding: 2px;"}
+            = check_box_tag "browsers[]", "linux-firefox"
+            = image_tag('icons/firefox.png', alt: "Firefox") 
+            Firefox
+          %li{style: "border-top: 0px; padding: 2px;"}
+            = check_box_tag "browsers[]", "linux-chrome"
+            = image_tag('icons/chrome.png', alt: "Chrome") 
+            Chrome
+          %li{style: "border-top: 0px; padding: 2px;"}
+            = check_box_tag "browsers[]", "linux-phantomjs"
+            = image_tag('icons/phantomjs.png', alt: 'PhantomJS')
+            PhantomJS 
+      %div.clearfix
+      %div.buttons{style: "padding: 5px; text-align: right;"}
+        = submit_tag "Run Tests", class: "btn btn-primary"
   -#%p.p-meta
   -#  / Due date & % Completed
   -#  %span Due : 26/2/2012 - 80% Done
   -#  .progress.progress-striped.active
   -#    .progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "40", role: "progressbar", style: "width: 40%"}
   -#      %span.sr-only 40% Complete (success)
+  %div.clearfix

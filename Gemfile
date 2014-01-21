@@ -28,6 +28,7 @@ gem 'active_model_serializers'
 
 # sidekiq
 gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 #heroku platform gem
 group :production do

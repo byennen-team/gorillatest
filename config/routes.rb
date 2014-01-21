@@ -1,5 +1,8 @@
 Autotest::Application.routes.draw do
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   resources :scenarios
 
   #application
@@ -17,6 +20,7 @@ Autotest::Application.routes.draw do
   resources :projects do
     resources :features do
       resources :scenarios do
+        post :run, on: :member, as: "run_scenario"
         resources :steps
       end
     end

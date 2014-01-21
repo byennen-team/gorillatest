@@ -6,8 +6,27 @@ class Step
  field :locator_type, type: String
  field :locator_value, type: String
  field :text, type: String
+ field :status, type: String
 
   embedded_in :scenario
+  embedded_in :test_run
+
+  def to_selenium
+    case event_type
+    when 'clickElement'
+      return 'click'
+    when 'setElementText', 'setElementSelected'
+      return 'send_keys'
+    end
+  end
+
+  def to_args
+    return [text]
+  end
+
+  def has_args?
+    has_args = event_type == "setElementText" ? true : false
+  end
 
 
   def to_s
@@ -33,6 +52,14 @@ class Step
     end
     puts "Prefix is #{prefix}"
     return prefix
+  end
+
+  def pass!
+    update_attribute("status", "pass")
+  end
+
+  def fail!
+    update_attribute("status", "fail")
   end
 
 end

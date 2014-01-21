@@ -25,7 +25,7 @@ class Api::V1::ScenariosController < Api::V1::BaseController
   end
 
   def update
-    @scenario = @features.scenario.find(params[:id])
+    @scenario = @feature.scenario.find(params[:id])
     @scenario.attributes = scenario_attributes
     if @scenario.save
       respond_with(@scenario)
