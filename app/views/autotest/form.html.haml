@@ -1,45 +1,51 @@
-%h1 Test Form Tags
+.col-md-4.col-md-offset-4
+  %h1 Test Form
 
-= form_tag(test_form_post_path(project_id: @project_id)) do
-  = label_tag("name")
-  = text_field_tag("name")
+  = form_tag(test_form_post_path(project_id: @project_id), class: 'test-form') do
+    = label_tag("name")
+    = text_field_tag("name", nil, class: 'form-control')
+    %br
+    = label_tag("textarea")
+    = text_area_tag("textarea", nil, class: 'form-control')
+    %br
+    = label_tag("selects")
+    = select_tag("select", options_for_select(["option1", "option2"]), class: 'form-control')
+    %br
+    = label_tag("radios")
+    = radio_button_tag("id", "value1")
+    %br
+    = label_tag("checkboxes")
+    = check_box_tag("checkbox", {"value1" => "value1"})
+    Value1
+    = check_box_tag("checkbox", {"value2" => "value2"})
+    Value2
+    %br
+    = submit_tag("Save", class: 'btn btn-default')
+
+  %h1 Test Text Selection
+
+  %h1 Test H1 Select
+  %h2 Test H2 Select
+  %h3 Test H3 select
+  %h4 Test H4 Select
+  %h5 Test H5 Select
+  %h6 Test H6 Select
+
+  %ol
+    %li Test OL LI select 1
+    %li Test OL LI select 2
+
+  %ul
+    %li Test UL LI select 1
+    %li Test UL LI select 2
+
+  %p Test P select
+  %span Test Span select
   %br
-  = label_tag("textarea")
-  = text_area_tag("textarea")
+  %a{href: "http://autotest.io"} Test Anchor Select
   %br
-  = label_tag("selects")
-  = select_tag("select", options_for_select(["option1", "option2"]))
   %br
-  = label_tag("radios")
-  = radio_button_tag("id", "valu1")
+  %img{src: "http://big-astronaut.s3.amazonaws.com/blue-full-logo-200x90.png", class: 'test-image'}
   %br
-  = label_tag("checkboxes")
-  = check_box_tag("checkbox", {"value1" => "value1"})
-  Value1
-  %br
-  = submit_tag("Save")
-
-%h1 Test Text Selection
-
-%h1 Test H1 Select
-%h2 Test H2 Select
-%h3 Test H3 select
-%h4 Test H4 Select
-%h5 Test H5 Select
-%h6 Test H6 Select
-
-%ol
-  %li Test OL LI select 1
-  %li Test OL LI select 2
-
-%ul 
-  %li Test UL LI select 1
-  %li Test UL LI select 2
-
-%p Test P select
-%span Test Span select
-%br
-%a{href: "http://autotest.io"} Test Anchor Select
-%br
-%img{src: "/assets/welcome/autotest-runs-on-all-browsers.jpg"}
+  %img{src: "/assets/welcome/autotest-runs-on-all-browsers.jpg", class: 'test-image'}
 
