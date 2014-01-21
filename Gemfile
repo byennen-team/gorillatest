@@ -26,6 +26,9 @@ gem 'devise_invitable'
 # serializers
 gem 'active_model_serializers'
 
+# sidekiq
+gem 'sidekiq'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'
@@ -39,6 +42,7 @@ group :development do
   gem 'pry'
   gem 'pry-rails'
   gem 'letter_opener'
+  gem 'selenium-webdriver'
 end
 
 group :test do
