@@ -21,7 +21,7 @@ class Step
     when "clickElement"
       prefix = "Click element #{locator_value}"
     when "submitElement"
-      prefix "Submit Form #{locator_value}"
+      prefix = "Submit Form #{locator_value}"
     when "waitForCurrentUrl"
       prefix = "Waiting for URL to load - #{text}"
     when "verifyText"
