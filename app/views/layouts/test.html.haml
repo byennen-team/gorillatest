@@ -88,7 +88,7 @@
     %div#view-steps{style: "display: none;"}
       %ul#steps
     }
-    .col-md-4.col-md-offset-4.flash
+    .col-md-4.col-md-offset-4.flash{style: "#{flash.empty? ? 'display: none;' : ''}"}
       - flash.each do |name, msg|
         -if msg.is_a?(String)
           -if msg == :alert
