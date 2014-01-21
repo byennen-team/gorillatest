@@ -1,6 +1,6 @@
 class AutotestController < ApplicationController
 
-    layout 'test'
+  layout 'test'
 
 	def index; end
 
@@ -9,7 +9,12 @@ class AutotestController < ApplicationController
   end
 
 	def form_post
-	  redirect_to test_thankyou_path(project_id: params[:project_id])
+    if params[:name].blank?
+      flash.now[:error] = "Please fill out your name"
+      render 'form', location: test_form_path(project_id: params[:project_id])
+    else
+  	  redirect_to test_thankyou_path(project_id: params[:project_id])
+    end
 	end
 
   def thankyou; end
