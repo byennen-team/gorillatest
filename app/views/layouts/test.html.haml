@@ -19,7 +19,7 @@
     = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = javascript_include_tag "recordv2", data: {project_id: params[:project_id],
-                                                auth: current_user.company.api_key,
+                                                auth: @company.api_key,
                                                 api_url: ENV['API_URL'] || '',
                                                 env: Rails.env}
     = csrf_meta_tags
@@ -29,21 +29,21 @@
       %span.logo
         AutoTest
       = select_tag "features"
-      %button#add-feature.btn.btn-xs.btn-success{data: {toggle: "modal", target: "#create-feature-modal"}} 
+      %button#add-feature.btn.btn-xs.btn-success{data: {toggle: "modal", target: "#create-feature-modal"}}
         %span.glyphicon.glyphicon-plus
         Add Feature
       - # %a{data: {toggle: "modal", target: "#create-feature-modal"}, style: "border-radius: 50px; background: #e9e9e9; width: 50px; height: 50px; line-height: 30px; display: 'inline-block'; padding: 6px 5px 5px 5px; "}
-      - #%span.glyphicon.glyphicon-plus{style: "font-size: 1em; color: #333;"}      
-      %span#current-scenario  
+      - #%span.glyphicon.glyphicon-plus{style: "font-size: 1em; color: #333;"}
+      %span#current-scenario
       %span#step-count.badge
       .pull-right
-        %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"} 
+        %button#record.btn.btn-danger.btn-xs{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"}
           %span.glyphicon.glyphicon-record
           Record
         - # %a#record{data: {toggle: "modal", target: "#add-scenario"}}
         - # %span.glyphicon.glyphicon-record{style: "font-size: 1.8em; color: #b92c28;"}
         = render "text_highlight"
-        %button#stop-recording.btn.btn-primary.btn-xs 
+        %button#stop-recording.btn.btn-primary.btn-xs
           %span.glyphicon.glyphicon-stop
           Stop
 

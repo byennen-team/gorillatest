@@ -2,6 +2,10 @@ class AutotestController < ApplicationController
 
   layout 'test'
 
+  before_filter :find_project
+
+  skip_before_filter :http_basic_authenticate
+
 	def index; end
 
 	def form
@@ -18,5 +22,13 @@ class AutotestController < ApplicationController
 	end
 
   def thankyou; end
+
+  private
+
+    def find_project
+      @project = Project.find(params[:project_id])
+      @company = @project.company
+    end
+
 
 end
