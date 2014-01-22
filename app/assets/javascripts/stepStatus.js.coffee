@@ -43,7 +43,7 @@ $(document).ready ()->
       data: {browsers: browsers}
       success: (data)->
         bindChannels()
-        # showPanels($(that).attr('action').match(/\/scenarios\/(.*)\/run/)[1])
+        showPanels($(that).attr('action').match(/\/scenarios\/(.*)\/run/)[1])
         console.log("form submitted")
 
 bindChannels = ()->

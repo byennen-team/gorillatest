@@ -71,7 +71,7 @@
   %div.clearfix
 
   .panel-group{id: "scenario_panel_#{scenario.id}", style: "display: none;"}
-    .panel.panel-default
+    .panel.panel-default.firefox-status
       .panel-heading.panel-status
         %h4.panel-title
           %a{data:{toggle:"collapse", parent: "#accordion"}, class: 'collapsed', href: "#scenario_#{scenario.id}_linux_firefox_channel"}
@@ -82,7 +82,7 @@
           / %p Starting test...
           %ul.steps-list
 
-    .panel.panel-default
+    .panel.panel-default.chrome-status
       .panel-heading.panel-status
         %h4.panel-title
           %a{data:{toggle:"collapse", parent: "#accordion"},class: 'collapsed', href: "#scenario_#{scenario.id}_linux_chrome_channel"}
@@ -92,7 +92,7 @@
         .panel-body.terminal
           %ul.steps-list
 
-    .panel.panel-default
+    .panel.panel-default.phantomjs-status
       .panel-heading.panel-status
         %h4.panel-title
           %a{data:{toggle:"collapse", parent: "#accordion"},class: 'collapsed', href: "#scenario_#{scenario.id}_linux_phantomjs_channel"}
