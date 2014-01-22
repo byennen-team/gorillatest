@@ -24,6 +24,9 @@ class TestRun
   end
 
   def run
+    channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
+    puts "Steps size is #{steps.size}"
+    puts "Channel name #{channel_name}"
     current_step = nil
     begin
       # Temp so we can test on autotest
@@ -43,9 +46,15 @@ class TestRun
         end
         puts 'Setting step to pass'
         current_step.pass!
-        Pusher['step_channel'].trigger('step_pass', {
+
+
+        Pusher[channel_name].trigger('step_pass', {
           message: current_step.as_json(methods: [:to_s])
         })
+
+
+
+
       end
       puts ("setting test to pass")
       self.pass!
@@ -55,6 +64,9 @@ class TestRun
       puts e.inspect
       driver.close
       current_step.fail!
+      Pusher[channel_name].trigger('step_pass', {
+        message: current_step.as_json(methods: [:to_s])
+      })
       self.fail!
     end
   end

@@ -38,7 +38,7 @@ class ScenariosController < ApplicationController
 
   def run
     params[:browsers].each do |browser|
-      test_run = @scenario.test_runs.create!({browser: browser.split('-').last, platform: browser.split('-').first})
+      test_run = @scenario.test_runs.create!({browser: browser.split('_').last, platform: browser.split('_').first})
       @scenario.steps.each do |step|
         test_run.steps << Step.new(step.attributes.except("_id").except("updated_at").except("created_at"))
       end
@@ -47,8 +47,9 @@ class ScenariosController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to project_feature_path(@project, @feature) }
+      format.json { }
     end
-  end  
+  end
 
   private
 
