@@ -12,21 +12,21 @@ class TestRun
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
+    selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
     case browser
     when 'firefox'
-      @driver ||= Selenium::WebDriver.for :remote, :url => "http://localhost:4444/wd/hub"
-    when 'chrome' 
-      @driver ||= Selenium::WebDriver.for :remote, :url => "http://localhost:4444/wd/hub", :desired_capabilities => :chrome
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url
+    when 'chrome'
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :chrome
     when 'phantomjs'
-      @driver ||= Selenium::WebDriver.for :remote, :url => "http://localhost:4444/wd/hub", :desired_capabilities => :phantomjs
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :phantomjs
     end
   end
 
   def run
-    puts "Steps size is #{steps.size}"
-    current_step = nil    
+    current_step = nil
     begin
-      login_to_autotest
+      # Temp so we can test on autotest
       driver.navigate.to(steps.first.text)
       current_step = steps.first
       current_step.pass!
@@ -44,12 +44,13 @@ class TestRun
         puts 'Setting step to pass'
         current_step.pass!
       end
-      driver.close
       puts ("setting test to pass")
       self.pass!
+      driver.close
     rescue Exception => e
-      driver.save_screenshot("tmp/#{self.id}.png")
+      driver.save_screenshot("/tmp/#{self.id}.png")
       puts e.inspect
+      driver.close
       current_step.fail!
       self.fail!
     end
@@ -57,7 +58,12 @@ class TestRun
 
   # This is just for our testing.
   def login_to_autotest
-    driver.navigate.to("http://autotest.dev/users/sign_in")
+    if ENV["STAGING_USERNAME"] && ENV["STAGING_PASSWORD"]
+      url = "http://#{ENV["STAGING_USERNAME"]}:#{ENV["STAGING_PASSWORD"]}@staging.autotest.io/users/sign_in"
+    else
+      url = "#{ENV["API_URL"]}/users/sign_in"
+    end
+    driver.navigate.to(url)
     driver.find_element(:id, "user_email").send_keys("jimiray@gmail.com")
     driver.find_element(:id, "user_password").send_keys("x4ja5fnm")
     driver.find_element(:name, "commit").click
@@ -70,11 +76,5 @@ class TestRun
   def pass!
     update_attribute("status", "pass")
   end
-
-  private
-
-    def add_to_sidekiq
-      TestWorker.perform_async(self.id.to_s)
-    end
 
 end
