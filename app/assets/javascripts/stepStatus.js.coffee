@@ -55,6 +55,11 @@ bindChannels = ()->
       console.log("appending to #{channel.name}")
       data.message.status_icon = iconTemplate(data.message.status)
       $("##{channel.name} ul").append(statusTemplate(data.message))
+      if data.message.status is "fail"
+        $("##{channel.name}").parent().removeClass("panel-success").addClass("panel-fail")
+      else
+        $("##{channel.name}").parent().addClass("panel-success")
+
 
 showPanels = (scenario_id)->
   $("#scenario_panel_#{scenario_id}").show()
