@@ -43,6 +43,9 @@ class TestRun
         end
         puts 'Setting step to pass'
         current_step.pass!
+        Pusher['step_channel'].trigger('step_pass', {
+          message: current_step.as_json(methods: [:to_s])
+        })
       end
       puts ("setting test to pass")
       self.pass!

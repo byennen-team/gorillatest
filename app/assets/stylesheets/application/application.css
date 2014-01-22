@@ -6,4 +6,5 @@
  *= require ./plugins/bootstrap-switch
  *= require ./plugins/rateit
  *= require application/layout
+ *= require application/dashboard
  */
