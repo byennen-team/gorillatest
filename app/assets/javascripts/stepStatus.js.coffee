@@ -12,7 +12,6 @@ selectedBrowsers = ->
     browsers.push($(input).val()) if $(input).is(":checked")
   return browsers
 
-
 Pusher.log = (message) ->
   window.console.log message  if window.console and window.console.log
 
@@ -21,6 +20,13 @@ channels = []
 window.channels = channels
 
 $(document).ready ()->
+  $("input[type='checkbox']").on "change", () ->
+    button = $(this).closest("form.scenario-run").find("input.run-test")
+    if $(this).closest("form.scenario-run :checked").length > 0
+      button.removeAttr("disabled")
+    else
+      button.attr("disabled", true)
+
   $("form.scenario-run").on 'submit', (e)->
     browsers = selectedBrowsers()
     e.preventDefault()

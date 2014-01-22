@@ -1,4 +1,4 @@
-%li
+%li{class: "scenario_#{scenario.id}"}
   = link_to scenario.name
   .pull-right
     = link_to image_tag('buttons/record.png'), '#'
@@ -61,7 +61,7 @@
             PhantomJS
       %div.clearfix
       %div.buttons{style: "padding: 5px; text-align: right;"}
-        = submit_tag "Run Tests", class: "btn btn-primary"
+        = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
   -#%p.p-meta
   -#  / Due date & % Completed
   -#  %span Due : 26/2/2012 - 80% Done
@@ -70,7 +70,7 @@
   -#      %span.sr-only 40% Complete (success)
   %div.clearfix
 
-  .panel-group{id: "scenario_panel_#{scenario.id}"}
+  .panel-group{id: "scenario_panel_#{scenario.id}", style: "display: none;"}
     .panel.panel-default
       .panel-heading.panel-status
         %h4.panel-title
