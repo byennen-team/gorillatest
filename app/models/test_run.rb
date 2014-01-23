@@ -58,11 +58,11 @@ class TestRun
       end
       puts ("setting test to pass")
       self.pass!
-      driver.close
+      driver.quit
     rescue Exception => e
       driver.save_screenshot("/tmp/#{self.id}.png")
       puts e.inspect
-      driver.close
+      driver.quit
       current_step.fail!
       Pusher[channel_name].trigger('step_pass', {
         message: current_step.as_json(methods: [:to_s])
