@@ -1,7 +1,6 @@
 %li{class: "scenario_#{scenario.id}"}
   = link_to scenario.name
   .pull-right
-    = link_to image_tag('buttons/record.png'), '#'
     = link_to image_tag('buttons/play.png'), '#', onclick: "$('#test_run-#{scenario.id}').slideDown()"
     = link_to image_tag('buttons/delete.png'), project_feature_scenario_path(@project, @feature, scenario), data: { confirm: 'Are you sure?' }, method: :delete
   %div{id: "test_run-#{scenario.id}", style: "display: none;"}
