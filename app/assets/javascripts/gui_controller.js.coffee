@@ -1,9 +1,13 @@
 $ ->
+  AutoTestGuiController.enableTooltip()
+
   $("select#features").on "change", ->
     if $(this).val().length > 0
       $("button#record").removeAttr("disabled")
+      AutoTestGuiController.disableTooltip()
     else
       $("button#record").attr("disabled", "disabled")
+      AutoTestGuiController.enableTooltip()
 
   $("input#scenario_name").on "keyup", ->
     if $(this).val().length > 0
@@ -15,7 +19,7 @@ $ ->
     recorder = window.autoTestRecorder
     event.preventDefault()
     recorder.addScenario($("input#scenario_name").val())
-    recorder.record()    
+    recorder.record()
     $("#add-scenario").modal("hide")
     $("#record").hide()
     recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
@@ -29,7 +33,7 @@ $ ->
     $("select#features").removeAttr("disabled").show()
     $("button#add-feature").show()
     $("#current-scenario").hide().html('')
-    $("button#record").removeAttr("disabled")    
+    $("button#record").removeAttr("disabled")
     $("#step-count-text").hide()
     $("#step-count").text('')
     $("#step-count").hide()
@@ -56,7 +60,7 @@ $ ->
     $("body").unbind("hover", autoTestGuiController.hoverOutline)
     $(".modal-backdrop").unbind("hover", autoTestGuiController.hoverOutline)
     $("body *").bind('click', autoTestGuiController.bindBodyClick)
-    autoTestGuiController.unbindAutoTestBar()    
+    autoTestGuiController.unbindAutoTestBar()
 
   $("button#stop-record-text-highlight").click (e) ->
     e.preventDefault()
@@ -65,12 +69,12 @@ $ ->
     $("button#start-text-highlight").show()
     $("#highlighted-text").text('')
     $('body').unbind('mouseup')
-    $("*").css('cursor', 'auto')    
+    $("*").css('cursor', 'auto')
     # window.autoTestRecorder.recordHighlight($("#highlighted-text").text())
     $("body *").unbind("click", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
-    $("a").bind("click", AutoTestEvent.bindEvent)       
+    $("a").bind("click", AutoTestEvent.bindEvent)
 
   #create feature modal
   $("input#feature_name").on "keyup", ->
@@ -160,11 +164,11 @@ AutoTestGuiController = {
     $("button#stop-recording").show()
     $("#step-count").show()
     $(".recording-bar").addClass("recording")
-    $("button#start-text-highlight").show() 
+    $("button#start-text-highlight").show()
     $("#step-count-text").show()
 
   bindBodyClick: (event) ->
-    event.preventDefault()      
+    event.preventDefault()
     event.stopPropagation()
     console.log("Showign element modal")
     autoTestGuiController.showElementModal(event, event.currentTarget)
@@ -172,6 +176,12 @@ AutoTestGuiController = {
   preventClicks: (event) ->
     event.preventDefault
     return false
+
+  enableTooltip: () ->
+    $("#record-button-wrapper").tooltip("enable")
+
+  disableTooltip: () ->
+    $("#record-button-wrapper").tooltip("disable")
 }
 
 window.autoTestGuiController = AutoTestGuiController
