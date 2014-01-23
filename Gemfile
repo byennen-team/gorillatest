@@ -32,6 +32,10 @@ gem 'active_model_serializers'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
+
+# selenium
+gem 'selenium-webdriver'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'
@@ -45,7 +49,6 @@ group :development do
   gem 'pry'
   gem 'pry-rails'
   gem 'letter_opener'
-  gem 'selenium-webdriver'
 end
 
 group :test do
