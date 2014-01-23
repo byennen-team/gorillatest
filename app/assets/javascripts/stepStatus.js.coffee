@@ -15,7 +15,7 @@ selectedBrowsers = ->
 Pusher.log = (message) ->
   window.console.log message  if window.console and window.console.log
 
-pusher = new Pusher("963dba5416414fb92c8f")
+pusher = new Pusher("752bdfea8277bb7d911e")
 channels = []
 window.channels = channels
 
