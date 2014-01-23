@@ -2,7 +2,7 @@
   = link_to project.name, project_path(project)
   .pull-right
     -unless Rails.env.production?
-      =link_to "View Test Page", test_form_path(project_id: project.id)
+      =link_to "View Test Page", test_form_path(project_id: project.id), target: "_blank"
     |
     %a{data: {toggle: "modal", target: "#add-feature"}} Add Feature
     |
