@@ -46,26 +46,31 @@ class TestRun
       })
 
       steps.all.each do |step|
-        puts "RUnning Step"
+        next if step.event_type == "get"
+        puts "Running Step"
         current_step = step
-        if step.event_type != "get"
+        if step.event_type != "verifyElementPresent" && step.event_type != "verifyText"
           element = driver.find_element(:id, step.locator_value)
           if step.has_args?
               element.send(step.to_selenium, step.to_args)
           else
             element.send(step.to_selenium)
           end
+        else
+          p "VERIFICATION STUFF"
+          dom_string = driver.execute_script("return document.documentElement.outerHTML")
+          target = step.event_type == "verifyText" ? ">#{step.to_args[0]}<" : step.to_args[0]
+          p "target string is #{target}"
+          search = dom_string.scan(target)
+          p "search result is #{search.inspect}"
+          raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
         end
         puts 'Setting step to pass'
         current_step.pass!
 
-
         Pusher[channel_name].trigger('step_pass', {
           message: current_step.as_json(methods: [:to_s])
         })
-
-
-
 
       end
       puts ("setting test to pass")
