@@ -30,13 +30,14 @@ class ApplicationController < ActionController::Base
   end
 
   def staging?
-  Rails.env.staging?
+    Rails.env.staging?
   end
 
   def http_basic_authenticate
+    Rails.logger.debug("Authenticating w/ HTTP Basic")
     authenticate_or_request_with_http_basic do |username, password|
       username == ENV["STAGING_USERNAME"] && password == ENV["STAGING_PASSWORD"]
     end
-  end 
- 
+  end
+
 end
