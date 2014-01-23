@@ -74,9 +74,11 @@
     .panel.panel-default.firefox-status
       .panel-heading.panel-status
         %h4.panel-title
-          %a{data:{toggle:"collapse", parent: "#accordion"}, class: 'collapsed', href: "#scenario_#{scenario.id}_linux_firefox_channel"}
-            =image_tag "icons/firefox-24.png"
-            Firefox
+          =image_tag "icons/firefox-24.png"
+          Firefox
+          .pull-right
+            %a{data:{toggle:"collapse", parent: "#accordion"}, class: 'collapsed see-test-detail', href: "#scenario_#{scenario.id}_linux_firefox_channel"}
+              View All
       %div{id: "scenario_#{scenario.id}_linux_firefox_channel", class: "panel-collapse collapse"}
         .panel-body.terminal
           / %p Starting test...
@@ -85,9 +87,11 @@
     .panel.panel-default.chrome-status
       .panel-heading.panel-status
         %h4.panel-title
-          %a{data:{toggle:"collapse", parent: "#accordion"},class: 'collapsed', href: "#scenario_#{scenario.id}_linux_chrome_channel"}
-            =image_tag "icons/chrome-24.png"
-            Chrome
+          =image_tag "icons/chrome-24.png"
+          Chrome
+          .pull-right
+            %a{data:{toggle:"collapse", parent: "#accordion"},class: 'collapsed see-test-detail', href: "#scenario_#{scenario.id}_linux_chrome_channel"}
+              View All
       %div{id: "scenario_#{scenario.id}_linux_chrome_channel", class: "panel-collapse collapse"}
         .panel-body.terminal
           %ul.steps-list
@@ -95,9 +99,11 @@
     .panel.panel-default.phantomjs-status
       .panel-heading.panel-status
         %h4.panel-title
-          %a{data:{toggle:"collapse", parent: "#accordion"},class: 'collapsed', href: "#scenario_#{scenario.id}_linux_phantomjs_channel"}
-            =image_tag "icons/phantomjs-large.png", style:"width: 24px; height: 24px;"
-            PhantomJS
+          =image_tag "icons/phantomjs-large.png", style:"width: 24px; height: 24px;"
+          PhantomJS
+          .pull-right
+            %a{data:{toggle:"collapse", parent: "#accordion"},class: 'collapsed see-test-detail', href: "#scenario_#{scenario.id}_linux_phantomjs_channel"}
+              View All
       %div{id: "scenario_#{scenario.id}_linux_phantomjs_channel", class: "panel-collapse collapse"}
         .panel-body.terminal
           %ul.steps-list
