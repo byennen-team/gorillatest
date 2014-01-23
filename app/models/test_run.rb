@@ -13,6 +13,7 @@ class TestRun
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
     selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
+    Rails.logger.debug("SELENIUM URL IS #{selenium_url}")
     case browser
     when 'firefox'
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url
