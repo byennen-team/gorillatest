@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_company
 
-  before_filter :http_basic_authenticate, if: :staging?
+  #before_filter :http_basic_authenticate, if: :staging?
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def current_company
