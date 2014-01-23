@@ -141,8 +141,11 @@ AutoTestGuiController = {
     $("#element-modal *").unbind("click")
     $("#record-element-text").html($(element).text())
     $("#record_text_text").val($(element).text())
-    $("#record-element-html").text($(element).clone().removeAttr("style").wrap("<p>").parent().html())
-    $("#record_text_element_html").val($(element).clone().removeAttr("style").wrap("<p>").parent().html())
+
+    element_html = AutoTestGuiController.stripStyleClass($(element))
+    $("#record-element-html").text($(element_html).clone().wrap("<p>").parent().html())
+    $("#record_text_element_html").val($(element_html).clone().removeAttr("style").wrap("<p>").parent().html())
+
     $(".close-element-modal").bind 'click', ->
       $("#element-modal").modal('hide')
     $(".validation-radio").click ->
@@ -154,6 +157,16 @@ AutoTestGuiController = {
       autoTestRecorder.currentScenario.addStep(type, {type: '', value: ''}, checked.val())
       $("#element-modal").modal("hide")
     return
+
+  stripStyleClass: ($element) ->
+    $element.removeClass("autotest-highlight")
+    style = $element.attr("style")
+    $element.attr("style", style.replace(/\s?cursor:\s?crosshair;/, ""))
+    if $element.attr("class").length is 0
+      $element.removeAttr("class")
+    if $element.attr("style").length is 0
+      $element.removeAttr("style")
+    return $element
 
   startRecording: (recorder) ->
     $("select#features").attr("disabled", "disabled")
