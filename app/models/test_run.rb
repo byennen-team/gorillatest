@@ -25,15 +25,26 @@ class TestRun
   end
 
   def run
-    channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
-    puts "Steps size is #{steps.size}"
-    puts "Channel name #{channel_name}"
-    current_step = nil
     begin
+      channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
+      puts "Steps size is #{steps.size}"
+      puts "Channel name #{channel_name}"
+      current_step = nil
       # Temp so we can test on autotest
-      driver.navigate.to(steps.first.text)
+
+      unless starting_url_success?(steps.first.text)
+        current_step = steps.first
+        raise Selenium::WebDriver::Error::NoSuchElementError
+      end
+
       current_step = steps.first
+      driver.navigate.to(current_step.first.text)
       current_step.pass!
+
+      Pusher[channel_name].trigger('step_pass', {
+        message: current_step.as_json(methods: [:to_s])
+      })
+
       steps.all.each do |step|
         puts "RUnning Step"
         current_step = step
@@ -69,6 +80,7 @@ class TestRun
         message: current_step.as_json(methods: [:to_s])
       })
       self.fail!
+      driver.quit
     end
   end
 
@@ -91,6 +103,14 @@ class TestRun
 
   def pass!
     update_attribute("status", "pass")
+  end
+
+  private
+
+  def starting_url_success?(url)
+    uri = URI(url)
+    response = Net::HTTP.get_response(uri)
+    response.code == "200" ? true : false
   end
 
 end
