@@ -78,10 +78,4 @@ Autotest::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  #password for staging
-  #config.middleware.insert_after(Rack::Runtime, "::Rack::Auth::Basic", "AutoTest.io") do |u, p|
-  #  Rails.logger.debug("U is #{u}")
-  #  Rails.logger.debug("P is #{p}")
-  #  [u, p] == [ENV['STAGING_USERNAME'], ENV['STAGING_PASSWORD']]
-  #end
 end
