@@ -7,12 +7,12 @@ class Api::V1::ScenariosController < Api::V1::BaseController
 
   def index
     @scenarios = @feature.scenarios
-    respond_with(@scenarios)
+    respond_with @scenarios
   end
 
   def show
     @scenario = @feature.scenarios.find(params[:id])
-    respond_with(@scenario)
+    render json: @scenario
   end
 
   def create
