@@ -25,36 +25,53 @@ class TestRun
   end
 
   def run
-    channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
-    puts "Steps size is #{steps.size}"
-    puts "Channel name #{channel_name}"
-    current_step = nil
     begin
+      channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
+      puts "Steps size is #{steps.size}"
+      puts "Channel name #{channel_name}"
+      current_step = nil
       # Temp so we can test on autotest
-      driver.navigate.to(steps.first.text)
+
+      unless starting_url_success?(steps.first.text)
+        current_step = steps.first
+        raise Selenium::WebDriver::Error::NoSuchElementError
+      end
+
       current_step = steps.first
+      driver.navigate.to(current_step.text)
       current_step.pass!
+
+      Pusher[channel_name].trigger('step_pass', {
+        message: current_step.as_json(methods: [:to_s])
+      })
+
       steps.all.each do |step|
-        puts "RUnning Step"
+        next if step.event_type == "get"
+        puts "Running Step"
         current_step = step
-        if step.event_type != "get"
+        if step.event_type != "verifyElementPresent" && step.event_type != "verifyText"
           element = driver.find_element(:id, step.locator_value)
           if step.has_args?
               element.send(step.to_selenium, step.to_args)
           else
             element.send(step.to_selenium)
           end
+        else
+          p "VERIFICATION STUFF"
+          dom_string = driver.execute_script("return document.documentElement.outerHTML")
+          target = step.event_type == "verifyText" ? ">#{step.to_args[0]}<" : step.to_args[0]
+          p "target string is #{target}"
+          target = step.event_type == "verifyText" ? "#{step.to_args[0]}" : step.to_args[0]
+          search = dom_string.scan(target)
+          p "search result is #{search.inspect}"
+          raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
         end
         puts 'Setting step to pass'
         current_step.pass!
 
-
         Pusher[channel_name].trigger('step_pass', {
           message: current_step.as_json(methods: [:to_s])
         })
-
-
-
 
       end
       puts ("setting test to pass")
@@ -69,6 +86,7 @@ class TestRun
         message: current_step.as_json(methods: [:to_s])
       })
       self.fail!
+      driver.quit
     end
   end
 
@@ -91,6 +109,14 @@ class TestRun
 
   def pass!
     update_attribute("status", "pass")
+  end
+
+  private
+
+  def starting_url_success?(url)
+    uri = URI(url)
+    response = Net::HTTP.get_response(uri)
+    response.code == "200" ? true : false
   end
 
 end

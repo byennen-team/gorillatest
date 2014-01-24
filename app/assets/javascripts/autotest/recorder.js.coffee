@@ -30,12 +30,7 @@ class @AutoTestRecorder
       console.log("Restarting Recording")
       $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
         console.log(i)
-        if autoTestStep.type is "verifyElementPresent"
-          stepString = $('<div/>').html(autoTestStep.to_s).wrap("<p>").parent().html().replace(/<div>/,"").replace(/<\/div>/,"")
-          $("#view-steps ul").append("<li step-number=#{i}></li>")
-          $("li[step-number='" + i + "']").text(stepString)
-        else
-          $("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
+        $("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
       )
       this.record()
     else
