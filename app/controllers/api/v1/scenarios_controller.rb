@@ -18,9 +18,7 @@ class Api::V1::ScenariosController < Api::V1::BaseController
   def create
     @scenario = @feature.scenarios.new(scenario_params)
     if @scenario.save
-      respond_to do |format|
-        format.json { render json: @scenario }
-      end
+      render json: @scenario
     end
   end
 

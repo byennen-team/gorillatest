@@ -4,24 +4,18 @@ class Api::V1::FeaturesController < Api::V1::BaseController
 
 	def index
     @features = @project.features
-    respond_to do |format|
-      format.json { render json: @features }
-    end
+    render json: @features
 	end
 
 	def show
     @feature = @project.features.find(params[:id])
-    respond_to do |format|
-      format.json { render json: @feature }
-    end
+    render json: @feature
   end
 
   def create
     @feature = @project.features.build(feature_params)
     if @feature.save
-      respond_to do |format|
-        format.json {render json: @feature}
-      end
+      render json: @feature
     end
   end
 

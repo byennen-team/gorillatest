@@ -9,12 +9,14 @@ class @AutoTestFeature
 	@findAll: (@projectId) ->
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
+    console.log("authTOken in find all is #{authToken}")
     features = new Array
     $.ajax("#{apiUrl}/api/v1/projects/#{@projectId}/features",
       type: 'GET',
       dataType: 'json',
       async: false,
       beforeSend: (xhr, settings) ->
+        console.log("setting auth token")
         xhr.setRequestHeader('Authorization', "Token token=\"#{authToken}\"")
       success: (data) ->
         $.each(data.features, (i, data) ->

@@ -1,15 +1,36 @@
 class Api::V1::BaseController < ApplicationController
 
-  protect_from_forgery with: :null_session
+  helper_method :current_company
+
+  #protect_from_forgery with: :null_session
 
   skip_before_filter :http_basic_authenticate
+  skip_before_filter  :verify_authenticity_token
 
-  before_filter :restrict_access
+  before_filter :check_preflight
+  before_filter :restrict_access, if: :preflight
 
-  helper_method :current_company
+  after_filter :set_access_control_headers
 
   def current_company
     @current_company
+  end
+
+  def preflight
+    preflight = request.method == 'OPTIONS' ? false : true
+    return preflight
+  end
+
+  def check_preflight
+    Rails.logger.debug(request.format)
+    if request.method == 'OPTIONS'
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+      headers['Access-Control-Request-Method'] = '*'
+      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+      headers['Access-Control-Max-Age'] = '1728000'
+      render :text => '', :content_type => 'text/plain'
+    end
   end
 
   def restrict_access
@@ -18,6 +39,12 @@ class Api::V1::BaseController < ApplicationController
       Rails.logger.debug("token is #{token}")
       @current_company = Company.find_by(api_key: token)
     end
+  end
+
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Request-Method'] = '*'
+      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   end
 
 end

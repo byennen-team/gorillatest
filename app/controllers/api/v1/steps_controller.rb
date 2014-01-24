@@ -8,16 +8,12 @@ class Api::V1::StepsController < Api::V1::BaseController
 
   def index
     @steps = @scenario.steps
-    respond_to do |format|
-      format.json { render json: @steps }
-    end
+    render json: @steps
   end
 
 	def create
     if @step = @scenario.steps.create(step_params)
-      respond_to do |format|
-        format.json { render json: @step }
-      end
+      render json: @step
     end
 	end
 

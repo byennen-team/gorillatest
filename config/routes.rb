@@ -43,6 +43,8 @@ Autotest::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      match '/projects/:project_id/features' => "features#index", via: :options
+      match '/projects/:project_id/features/:feature_id' => "features#show", via: :options
       resources :projects do
         resources :features do
           resources :scenarios do

@@ -26,6 +26,7 @@ $(document).ready () ->
   window.autoTestRecorder = new AutoTestRecorder window.projectId
   window.autoTestApiUrl = window.apiUrl
   window.autoTestAuthToken = window.authToken
+  console.log("authtoken is #{window.autoTestAuthToken}")
   if $(".test-form").length > 0
     $(".test-form").attr("action", "/test/form_post?project_id=#{window.projectId}")
   autoTestRecorder.start()
