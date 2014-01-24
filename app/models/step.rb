@@ -46,7 +46,7 @@ class Step
     when "verifyText"
       prefix = "Verifying text presence - #{text}"
     when "verifyElementPresent"
-      prefix = "Verify element presence - #{text}"
+      prefix = "Verify element presence - #{Rack::Utils.escape_html(text)}"
     when "get"
       prefix = "Get URL - #{text}"
     end

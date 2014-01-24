@@ -36,14 +36,8 @@ class @AutoTestScenario
     autoTestStep = AutoTestStep.create this.featureId, this.id, type, locator, text
     @autoTestSteps.push(autoTestStep)
     $("#step-count").text("#{@autoTestSteps.length} steps")
-    if autoTestStep.type is "verifyElementPresent"
-      stepNumber = (@autoTestSteps.length-1).toString()
-      debugger
-      stepString = $('<div/>').html(autoTestStep.to_s).wrap("<p>").parent().html().replace(/<div>/,"").replace(/<\/div>/,"")
-      $("#view-steps ul").append("<li step-number=#{stepNumber}></li>")
-      $("li[step-number='" + stepNumber + "']").text(stepString)
-    else
-      $("#view-steps ul").append("<li step-number=#{stepNumber}>#{autoTestStep.to_s}</li>")
+    stepNumber = (@autoTestSteps.length-1).toString()
+    $("#view-steps ul").append("<li step-number=#{stepNumber}>#{autoTestStep.to_s}</li>")
     return true
 
   # Attributes is an object

@@ -54,11 +54,7 @@ bindChannels = ()->
       console.log data.message
       console.log("appending to #{channel.name}")
       data.message.status_icon = iconTemplate(data.message.status)
-      if data.message.event_type != "verifyElementPresent" && data.message.event_type != "verifyText"
-        $("##{channel.name} ul").append(statusTemplate(data.message))
-      else
-        $("##{channel.name} ul").append("<li>#{iconTemplate(data.message.status)}<span class='to-s'></span></li>")
-        $("##{channel.name} ul li").last().find('span.to-s').text($('<div/>').html(data.message.to_s).wrap("<p>").parent().html().replace(/<div>/,"").replace(/<\/div>/,""))
+      $("##{channel.name} ul").append(statusTemplate(data.message))
 
       if data.message.status is "fail"
         $("##{channel.name}").prev().removeClass("panel-success").addClass("panel-fail")
