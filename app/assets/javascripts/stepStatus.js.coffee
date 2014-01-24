@@ -57,6 +57,7 @@ bindChannels = ()->
       $("##{channel.name} ul").append(statusTemplate(data.message))
       if data.message.status is "fail"
         $("##{channel.name}").prev().removeClass("panel-success").addClass("panel-fail")
+        alert("An error has been added to the Github project - bigastronaut/autotest")
       else
         $("##{channel.name}").prev().addClass("panel-success")
 
