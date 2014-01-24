@@ -16,6 +16,8 @@
     = stylesheet_link_tag    "application/application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     =javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
+    %script{type: 'text/javascript'}
+      pusher = new Pusher("#{Pusher.key}")
     = yield(:head)
     = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags
