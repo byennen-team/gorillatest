@@ -38,7 +38,7 @@ class TestRun
       end
 
       current_step = steps.first
-      driver.navigate.to(current_step.first.text)
+      driver.navigate.to(current_step.text)
       current_step.pass!
 
       Pusher[channel_name].trigger('step_pass', {
@@ -61,6 +61,7 @@ class TestRun
           dom_string = driver.execute_script("return document.documentElement.outerHTML")
           target = step.event_type == "verifyText" ? ">#{step.to_args[0]}<" : step.to_args[0]
           p "target string is #{target}"
+          target = step.event_type == "verifyText" ? "#{step.to_args[0]}" : step.to_args[0]
           search = dom_string.scan(target)
           p "search result is #{search.inspect}"
           raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
