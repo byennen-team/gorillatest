@@ -7,11 +7,11 @@ class @AutoTestRecorder
       alert("You can't record on this browser")
     @isRecording = @sessionStorage.getItem("autoTestRecorder.isRecording") == "true" ? true : false
     @currentScenario = null
-    @currentFeature = null 
+    @currentFeature = null
     @features = new Array
 
   start: ->
-    @features = AutoTestFeature.findAll(@projectId)       
+    @features = AutoTestFeature.findAll(@projectId)
     if @isRecording == true
       console.log("You are presently recording a scenario")
       # load the current scenario
@@ -30,7 +30,12 @@ class @AutoTestRecorder
       console.log("Restarting Recording")
       $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
         console.log(i)
-        $("#view-steps ul").append("<li>#{autoTestStep.to_s}</li>")
+        if autoTestStep.type is "verifyElementPresent"
+          stepString = $('<div/>').html(autoTestStep.to_s).wrap("<p>").parent().html().replace(/<div>/,"").replace(/<\/div>/,"")
+          $("#view-steps ul").append("<li step-number=#{i}></li>")
+          $("li[step-number='" + i + "']").text(stepString)
+        else
+          $("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
       )
       this.record()
     else
@@ -42,7 +47,7 @@ class @AutoTestRecorder
     console.log("We are currently recording")
     # Collect actions to a JSON structure
     @isRecording = true
-    @sessionStorage.setItem("autoTestRecorder.isRecording", @isRecording)   
+    @sessionStorage.setItem("autoTestRecorder.isRecording", @isRecording)
     console.log("Binding DOM events")
     AutoTestEvent.bind()
     autoTestGuiController.startRecording(this)

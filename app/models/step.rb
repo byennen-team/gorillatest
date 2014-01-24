@@ -44,9 +44,9 @@ class Step
     when "waitForCurrentUrl"
       prefix = "Waiting for URL to load - #{text}"
     when "verifyText"
-      prefix = "Verifying text - #{text}"
+      prefix = "Verifying text presence - #{text}"
     when "verifyElementPresent"
-      prefix = "Verifiy element present - #{text}"
+      prefix = "Verify element presence - #{text}"
     when "get"
       prefix = "Get URL - #{text}"
     end
