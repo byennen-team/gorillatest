@@ -17,7 +17,7 @@ class @AutoTestEvent
       stepLocator = {type: "id", value: $(this).attr("id")}
     )
     console.log("Binding all blur events for text elements and text areas")
-    $("input[type=text], input[type=password], textarea").on("blur", (event) ->
+    $("input[type=text], input[type=password],input[type=email], textarea").on("blur", (event) ->
       console.log($(this))
       if $(this).val().length > 0
         scenario.addStep("setElementText", stepLocator, $(this).val())
