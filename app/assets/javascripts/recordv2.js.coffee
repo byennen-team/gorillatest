@@ -3,6 +3,8 @@
 //= require autotest/scenario
 //= require autotest/step
 //= require autotest/event
+//= require autotest/locator_builder
+//= require autotest/locator
 //= require gui_controller
 //= require_self
 
