@@ -13,11 +13,20 @@ class @AutoTestEvent
     $("a").on("click", AutoTestEvent.bindEvent)
     # Start recording an input as soon as it's focused.
     console.log("Binding all focus events for text and text areas")
-    $("input[type=text], input[type=password], textarea").bind("focus", (event) ->
-      stepLocator = {type: "id", value: $(this).attr("id")}
-    )
+    fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
+    "range", "search", "tel", "time", "url", "week"]
     console.log("Binding all blur events for text elements and text areas")
-    $("input[type=text], input[type=password],input[type=email], textarea").on("blur", (event) ->
+    for fieldType in fieldTypes
+      console.log("Binding Field Type #{fieldType}")
+      $("input[type=#{fieldType}]").bind("focus", (event) ->
+        stepLocator = {type: "id", value: $(this).attr("id")}
+      )
+      $("input[type=#{fieldType}]").on("blur", (event) ->
+         console.log($(this))
+         if $(this).val().length > 0
+           scenario.addStep("setElementText", stepLocator, $(this).val())
+      )
+    $("textarea").on("blur", (event) ->
       console.log($(this))
       if $(this).val().length > 0
         scenario.addStep("setElementText", stepLocator, $(this).val())
