@@ -56,7 +56,7 @@ $ ->
     $("*").css('cursor', 'crosshair')
     $("a").unbind("click")
     $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
-    $("a").unbind("click", AutoTestEvent.bindEvent)
+    $("a").unbind("click", AutoTestEvent.bindLink)
     $("body").unbind("hover", autoTestGuiController.hoverOutline)
     $(".modal-backdrop").unbind("hover", autoTestGuiController.hoverOutline)
     $("body *").bind('click', autoTestGuiController.bindBodyClick)
@@ -74,7 +74,7 @@ $ ->
     $("body *").unbind("click", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
-    $("a").bind("click", AutoTestEvent.bindEvent)
+    $("a").bind("click", AutoTestEvent.bindLink)
 
   #create feature modal
   $("input#feature_name").on "keyup", ->

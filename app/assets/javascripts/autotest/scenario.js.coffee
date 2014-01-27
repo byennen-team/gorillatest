@@ -33,6 +33,10 @@ class @AutoTestScenario
     return autoTestSteps
 
   addStep: (type, locator, text) ->
+    lastStep = @autoTestSteps.last
+    # if lastStep.type == type && lastStep.locator = locator && lastStep.text == text
+    #   return true
+    # else
     autoTestStep = AutoTestStep.create this.featureId, this.id, type, locator, text
     @autoTestSteps.push(autoTestStep)
     $("#step-count").text("#{@autoTestSteps.length} steps")

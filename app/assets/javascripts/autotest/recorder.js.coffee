@@ -45,6 +45,9 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.isRecording", @isRecording)
     console.log("Binding DOM events")
     AutoTestEvent.bind()
+    AutoTestEvent.bindDomNodeInsert()
+    $(".recording-bar").unbind("DOMNodeInserted", AutoTestEvent.bindDomNodeInsert)
+
     autoTestGuiController.startRecording(this)
     return
 
