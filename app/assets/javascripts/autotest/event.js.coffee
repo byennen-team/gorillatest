@@ -17,20 +17,8 @@ class @AutoTestEvent
     "range", "search", "tel", "time", "url", "week"]
     console.log("Binding all blur events for text elements and text areas")
     for fieldType in fieldTypes
-      console.log("Binding Field Type #{fieldType}")
-      $("input[type=#{fieldType}]").bind("focus", (event) ->
-        stepLocator = {type: "id", value: $(this).attr("id")}
-      )
-      $("input[type=#{fieldType}]").on("blur", (event) ->
-         console.log($(this))
-         if $(this).val().length > 0
-           scenario.addStep("setElementText", stepLocator, $(this).val())
-      )
-    $("textarea").on("blur", (event) ->
-      console.log($(this))
-      if $(this).val().length > 0
-        scenario.addStep("setElementText", stepLocator, $(this).val())
-    )
+      AutoTestEvent.bindInput("input", fieldType)
+    AutoTestEvent.bindInput("textarea", "")
     console.log("Binding all select dropdown changes")
     $("select").bind("change", (event) ->
       stepLocator = {type: "id", value: $(this).attr("id")}
@@ -47,6 +35,24 @@ class @AutoTestEvent
       scenario.addStep("submitElement", stepLocator, "")
     )
     return
+
+  @bindInput: (elementName, elementType) ->
+    recorder = window.autoTestRecorder
+    scenario = recorder.currentScenario
+    stepLocator = {}
+    if elementType == ""
+      element = $("#{elementName}")
+    else
+      element = $("#{elementName}[type=#{elementType}")
+
+    element.bind("focus", (event) ->
+      stepLocator = {type: "id", value: $(this).attr("id")}
+    )
+    element.on("blur", (event) ->
+      console.log($(this))
+      if $(this).val().length > 0
+        scenario.addStep("setElementText", stepLocator, $(this).val())
+    )
 
   @bindEvent: (event) ->
     recorder = window.autoTestRecorder
