@@ -13,7 +13,7 @@ class Step
 
   def to_selenium
     case event_type
-    when 'clickElement'
+    when 'clickElement', 'submitElement'
       return 'click'
     when 'setElementText', 'setElementSelected'
       return 'send_keys'

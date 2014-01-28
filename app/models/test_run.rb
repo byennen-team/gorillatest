@@ -1,3 +1,5 @@
+require 'net/http'
+
 class TestRun
 
   include Mongoid::Document
@@ -49,11 +51,15 @@ class TestRun
         next if step.event_type == "get"
         puts "Running Step"
         current_step = step
+        puts "Locator value is #{current_step.inspect}"
         if step.event_type != "verifyElementPresent" && step.event_type != "verifyText"
-          element = driver.find_element(:id, step.locator_value)
+          element = driver.find_element(step.locator_type, step.locator_value)
           if step.has_args?
               element.send(step.to_selenium, step.to_args)
           else
+            unless element.displayed?
+              driver.execute_script("arguments[0].click", element)
+            end
             element.send(step.to_selenium)
           end
         else
