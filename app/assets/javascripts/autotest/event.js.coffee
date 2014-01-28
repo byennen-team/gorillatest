@@ -6,10 +6,11 @@ class @AutoTestEvent
     @scenario = ""
 
   @bindDomNodeInsert: () ->
-    document.addEventListener('DOMNodeInserted', ->
-      AutoTestEvent.unbind()
-      AutoTestEvent.bind()
-    , true)
+    # document.addEventListener('DOMNodeInserted', ->
+    #   AutoTestEvent.unbind()
+    #   AutoTestEvent.bind()
+    #   AutoTestEvent.unbindElementModal()
+    # , true)
 
   @bind: () ->
     recorder = window.autoTestRecorder
@@ -17,6 +18,7 @@ class @AutoTestEvent
     stepLocator = {}
     console.log("Binding all links")
     $("a").bind("click", AutoTestEvent.bindLink)
+    $("button").bind("click", AutoTestEvent.bindLink)
     # Start recording an input as soon as it's focused.
     console.log("Binding all focus events for text and text areas")
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
@@ -69,6 +71,7 @@ class @AutoTestEvent
   @bindBlur: (event) ->
     recorder = window.autoTestRecorder
     scenario = recorder.currentScenario
+    stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
     if $(this).val().length > 0
       scenario.addStep("setElementText", stepLocator, $(this).val())
 
@@ -96,6 +99,7 @@ class @AutoTestEvent
   @unbind: () ->
     console.log("UNbinding all elements")
     $("a").unbind("click", AutoTestEvent.bindLink)
+    $("button").unbind("click", AutoTestEvent.bindLink)
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
     "range", "search", "tel", "time", "url", "week"]
     console.log("Binding all blur events for text elements and text areas")
@@ -113,5 +117,13 @@ class @AutoTestEvent
     $("input[type=radio], input[type=checkbox]").unbind("click", AutoTestEvent.bindClick)
     console.log("Binding all submit click events")
     $("input[type=submit]").unbind("click", AutoTestEvent.bindSubmit)
+    return
+
+  @unbindElementModal: ->
+    console.log("Unbinding modal")
+    $("#element-modal a").unbind("click", AutoTestEvent.bindLink)
+    $("#element-modal button").unbind("click", AutoTestEvent.bindLink)
+    $("#element-modal input[type=radio]").unbind("click", AutoTestEvent.bindClick)
+    return
 
 
