@@ -1,9 +1,13 @@
 require 'net/http'
 
+class UrlNotCorrect < Exception; end
+
 class TestRun
 
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  attr_accessor :current_step, :channel_name
 
   field :browser, type: String
   field :platform, type: String
@@ -26,44 +30,49 @@ class TestRun
     end
   end
 
+  # def current_step
+  #   @current_step
+  # end
+
+  # def channel_name
+  #   @channel_name
+  # end
+
   def run
     begin
-      channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
+      @channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
       puts "Steps size is #{steps.size}"
       puts "Channel name #{channel_name}"
-      current_step = nil
       # Temp so we can test on autotest
-
+      @current_step = steps.first
       unless starting_url_success?(steps.first.text)
-        current_step = steps.first
-        raise Selenium::WebDriver::Error::NoSuchElementError
+        raise UrlNotCorrect
       end
-
-      current_step = steps.first
       driver.navigate.to(current_step.text)
       current_step.pass!
-
-      Pusher[channel_name].trigger('step_pass', {
-        message: current_step.as_json(methods: [:to_s])
-      })
+      send_to_pusher
 
       steps.all.each do |step|
         next if step.event_type == "get"
         puts "Running Step"
-        current_step = step
+        @current_step = step
         puts "Locator value is #{current_step.inspect}"
-        if step.event_type != "verifyElementPresent" && step.event_type != "verifyText"
+        if step.to_selenium != nil
           element = driver.find_element(step.locator_type, step.locator_value)
           if step.has_args?
               element.send(step.to_selenium, step.to_args)
           else
             if !element.displayed?
-              driver.execute_script("arguments[0].click", element)
+              driver.execute_script("arguments[0].click()", element)
             else
               element.send(step.to_selenium)
             end
           end
-        else
+        elsif step.event_type == "waitForCurrentUrl"
+          if driver.current_url != step.text
+            raise UrlNotCorrect
+          end
+        elsif step.is_verification?
           p "VERIFICATION STUFF"
           dom_string = driver.execute_script("return document.documentElement.outerHTML")
           target = step.event_type == "verifyText" ? ">#{step.to_args[0]}<" : step.to_args[0]
@@ -75,10 +84,8 @@ class TestRun
         end
         puts 'Setting step to pass'
         current_step.pass!
-
-        Pusher[channel_name].trigger('step_pass', {
-          message: current_step.as_json(methods: [:to_s])
-        })
+        puts "current step status is #{current_step.status}"
+        send_to_pusher
 
       end
       puts ("setting test to pass")
@@ -89,25 +96,10 @@ class TestRun
       puts e.inspect
       driver.quit
       current_step.fail!
-      Pusher[channel_name].trigger('step_pass', {
-        message: current_step.as_json(methods: [:to_s])
-      })
+      send_to_pusher
       self.fail!
       driver.quit
     end
-  end
-
-  # This is just for our testing.
-  def login_to_autotest
-    if ENV["STAGING_USERNAME"] && ENV["STAGING_PASSWORD"]
-      url = "http://#{ENV["STAGING_USERNAME"]}:#{ENV["STAGING_PASSWORD"]}@staging.autotest.io/users/sign_in"
-    else
-      url = "#{ENV["API_URL"]}/users/sign_in"
-    end
-    driver.navigate.to(url)
-    driver.find_element(:id, "user_email").send_keys("jimiray@gmail.com")
-    driver.find_element(:id, "user_password").send_keys("x4ja5fnm")
-    driver.find_element(:name, "commit").click
   end
 
   def fail!
@@ -124,6 +116,13 @@ class TestRun
     uri = URI(url)
     response = Net::HTTP.get_response(uri)
     response.code == "200" ? true : false
+  end
+
+   def send_to_pusher
+    current_step.reload
+    Pusher[channel_name].trigger('step_pass', {
+          message: current_step.as_json(methods: [:to_s])
+    })
   end
 
 end
