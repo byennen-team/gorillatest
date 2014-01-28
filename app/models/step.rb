@@ -17,17 +17,22 @@ class Step
       return 'click'
     when 'setElementText', 'setElementSelected'
       return 'send_keys'
+    else
+      return nil
     end
   end
 
   def to_args
-    return [text]
+   return [text]
   end
 
   def has_args?
     has_args = event_type == "setElementText" ? true : false
   end
 
+  def is_verification?
+    event_type == "verifyElementPresent" || event_type == "verifyText" ? true : false
+  end
 
   def to_s
     prefix = ""
