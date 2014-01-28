@@ -5,12 +5,23 @@ class @AutoTestLocatorBuilder
   build: ->
     if $(@element).attr("id")
       return new AutoTestLocator "id", $(@element).attr("id")
-    else if $(@element).attr("name")
+    else if $(@element).attr("name") && this.nameIsUnique()
       return new AutoTestLocator "name", $(@element).attr("name")
-    else if $(@element).prop("tagName") == "A" && !$(@element).text().match(/^\s*$/)
+    else if $(@element).prop("tagName") == "A" && !$(@element).text().match(/^\s*$/) && this.linkTextisUnique()
       return  new AutoTestLocator "link", $(@element).text()
     else
       return new AutoTestLocator "xpath", this.buildXpath()
+
+  nameIsUnique: ->
+    if $("[name='#{$(@element).attr("name")}']").length == 1 then true else false
+
+  linkTextisUnique: ->
+    unique = true
+    $.each $('a'), (i, link) ->
+      if $(link).text() == $(@element).text()
+        unique = false
+    return unique
+
 
   buildXpath: ->
     element = @element

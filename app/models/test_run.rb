@@ -57,10 +57,11 @@ class TestRun
           if step.has_args?
               element.send(step.to_selenium, step.to_args)
           else
-            unless element.displayed?
+            if !element.displayed?
               driver.execute_script("arguments[0].click", element)
+            else
+              element.send(step.to_selenium)
             end
-            element.send(step.to_selenium)
           end
         else
           p "VERIFICATION STUFF"
