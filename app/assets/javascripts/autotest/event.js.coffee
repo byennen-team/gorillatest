@@ -6,11 +6,11 @@ class @AutoTestEvent
     @scenario = ""
 
   @bindDomNodeInsert: () ->
-    # document.addEventListener('DOMNodeInserted', ->
-    #   AutoTestEvent.unbind()
-    #   AutoTestEvent.bind()
-    #   AutoTestEvent.unbindElementModal()
-    # , true)
+    document.addEventListener('DOMNodeInserted', ->
+      AutoTestEvent.unbind()
+      AutoTestEvent.bind()
+      AutoTestEvent.unbindElementModal()
+    , true)
 
   @bind: () ->
     recorder = window.autoTestRecorder
