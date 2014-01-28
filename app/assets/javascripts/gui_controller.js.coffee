@@ -51,15 +51,27 @@ $ ->
     e.stopPropagation()
     $(this).hide()
     $("button#stop-record-text-highlight").show()
+
+
     $("body *").hover(autoTestGuiController.hoverOutline)
     $("html").unbind("mouseenter").unbind("mouseleave")
     $("*").css('cursor', 'crosshair')
-    $("a").unbind("click")
-    $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
+
+    # Recording bar cursor not changing
+    $("#recording-bar *").css("cursor", "auto")
+
+    # Unbind links and prevent default
     $("a").unbind("click", AutoTestEvent.bindLink)
+    $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
+
+    # Unbind hover for body and modal backdrop
     $("body").unbind("hover", autoTestGuiController.hoverOutline)
     $(".modal-backdrop").unbind("hover", autoTestGuiController.hoverOutline)
+
+    # Bind click for all elements in a page
     $("body *").bind('click', autoTestGuiController.bindBodyClick)
+
+    # Unbind recording bar
     autoTestGuiController.unbindAutoTestBar()
 
   $("button#stop-record-text-highlight").click (e) ->
@@ -114,22 +126,22 @@ AutoTestGuiController = {
   unbindAutoTestBar: ->
     $("div.recording-bar").unbind("mouseenter").unbind("mouseleave")
     $("div.recording-bar *").unbind("mouseenter").unbind("mouseleave")
-    $("div.recording-bar *").unbind("click", autoTestGuiController.bindBodyClick)
+    $("div.recording-bar").unbind('click', autoTestGuiController.bindBodyClick)
+    $("div.recording-bar *").unbind('click', autoTestGuiController.bindBodyClick)
+    $("div.recording-bar *").click (e) ->
+      e.stopPropagation()
+
     return
 
 
   hoverOutline: (event) ->
     event.stopPropagation
-    #$("*").css("outline", "none")
     $("*").removeClass("autotest-highlight")
     # Convert this to a class.
-    #$(this).css("outline", "2px solid red")
     $(this).addClass("autotest-highlight")
-
     $(this).mouseleave (e) ->
       e.stopPropagation()
       $(this).removeClass("autotest-highlight")
-      #$(this).css("outline", "none")
     return
 
   showElementModal: (event, element) ->
@@ -145,13 +157,17 @@ AutoTestGuiController = {
     element_html = AutoTestGuiController.stripStyleClass($(element))
     $("#record-element-html").text($(element_html).clone().wrap("<p>").parent().html())
     $("#record_text_element_html").val($(element_html).clone().removeAttr("style").wrap("<p>").parent().html())
+    $("#recording-bar *").click (e) ->
+      e.stopPropagation()
 
-    $(".close-element-modal").bind 'click', ->
+    $(".close-element-modal").bind 'click', (e) ->
+      e.stopPropagation()
       $("#element-modal").modal('hide')
     $(".validation-radio").click ->
       $("#save-validation").removeAttr('disabled', false)
     $("#save-validation").bind 'click', (e) ->
       e.preventDefault()
+      e.stopPropagation()
       checked = $("input[name=record_text]:checked")
       type = if checked.attr("id") is "record_text_text" then "verifyText" else "verifyElementPresent"
       autoTestRecorder.currentScenario.addStep(type, {type: '', value: ''}, checked.val())
