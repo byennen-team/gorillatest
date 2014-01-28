@@ -69,9 +69,11 @@ class TestRun
             end
           end
         elsif step.event_type == "waitForCurrentUrl"
-          if driver.current_url != step.text
-            raise UrlNotCorrect
-          end
+          wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+          wait.until { driver.current_url  == step.text }
+          # if driver.current_url != step.text
+          #   raise UrlNotCorrect
+          # end
         elsif step.is_verification?
           p "VERIFICATION STUFF"
           dom_string = driver.execute_script("return document.documentElement.outerHTML")
