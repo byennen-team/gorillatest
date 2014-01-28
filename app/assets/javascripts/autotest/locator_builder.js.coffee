@@ -8,7 +8,7 @@ class @AutoTestLocatorBuilder
     else if $(@element).attr("name") && this.nameIsUnique()
       return new AutoTestLocator "name", $(@element).attr("name")
     else if $(@element).prop("tagName") == "A" && !$(@element).text().match(/^\s*$/) && this.linkTextisUnique()
-      return  new AutoTestLocator "link", $(@element).text().replace(},'')
+      return  new AutoTestLocator "link", $(@element).text().replace(/^\s+|\s+$/g,'')
     else
       return new AutoTestLocator "xpath", this.buildXpath()
 
