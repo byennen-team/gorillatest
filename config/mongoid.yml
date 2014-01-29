@@ -28,15 +28,11 @@ production:
   sessions:
     default:
       uri: <%= ENV['MONGOHQ_URL'] %>
-      options:
-        skip_version_check: true
 
 staging:
   sessions:
     default:
       uri: <%= ENV['MONGOHQ_URL'] %>
-      options:
-        skip_version_check: true
 
 development_heroku:
   sessions:
