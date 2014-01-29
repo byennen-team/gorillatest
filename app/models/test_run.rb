@@ -15,6 +15,7 @@ class TestRun
   field :window_x, type: Integer
   field :window_y, type: Integer
   field :start_url, type: String
+  field :screenshot_filename, type: String
 
   belongs_to :scenario
   embeds_many :steps
@@ -104,13 +105,21 @@ class TestRun
       self.pass!
       driver.quit
     rescue Exception => e
-      driver.save_screenshot("/tmp/#{self.id}.png")
-      puts e.inspect
+      png = driver.screenshot_as(:png)
+
+      storage = Fog::Storage.new(:provider => 'AWS',
+                       :aws_access_key_id => ENV['AWS_ACCESS_KEY'],
+                       :aws_secret_access_key => ENV['AWS_SECRET_KEY'])
+      directory = storage.directories.get(ENV['S3_BUCKET'])
+      file = directory.files.create(
+        key: "screenshot_#{scenario_id}_#{self.id}_#{current_step.id}.png",
+        body: png,
+        public: true
+      )
+
       driver.quit
       current_step.fail!
       send_to_pusher
-      self.fail!
-      driver.quit
     end
   end
 

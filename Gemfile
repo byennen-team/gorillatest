@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'font-awesome-rails'
 gem 'figaro'
 gem 'pusher'
+gem 'fog'
 
 # Devise
 gem 'devise'
