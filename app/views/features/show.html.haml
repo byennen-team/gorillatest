@@ -28,7 +28,7 @@
                   %a{href: new_project_feature_scenario_path(@project, @feature), data: {toggle: "modal", target: "#add-scenario"}} create one
               - else
                 %ul.project
-                  = render partial: 'scenarios/scenario', collection: @feature.scenarios.sort_by(&:name)
+                  = render partial: 'scenarios/scenario', collection: @feature.scenarios.sort_by{|s| s.name.downcase}
                 .clearfix
             / Project widget
 
