@@ -1,3 +1,18 @@
+.container.text-center
+  .row{style: 'margin-bottom: 60px;'}
+    %h1.featurette-heading{style: 'font-size: 50px; color: red;'} Complex QA Testing Made Simple.
+    %p{style: 'font-size: 20px;color: green;'}
+      Write tests for your web applications in plain English, and with a single click run them across all browsers. Simple.
+    %p
+      %button.btn.btn-success.btn-lg{"data-target" => "#myModal", "data-toggle" => "modal", style: 'margin: 40px 0 20px;'}
+        Request a Beta Invitation
+
+  .row{style: 'margin-bottom: 80px;'}
+    .col-md-12
+      = image_tag('welcome/autotest-automate-qa-testing-dashboard.png', class: 'img-responsive')
+
+  %hr.featurette-divider/
+
 .container.marketing
   / Three columns of text below the carousel
   .row.featurette
@@ -8,8 +23,8 @@
       %p.lead
         Set up your
         %strong QA test in 20 seconds,
-        and not over and over. AutoTest detects your mouse clicks
-        and creates automated tests in the background. Works with all web apps, and set them up automatically on our servers.
+        and not over and over. With one click AutoTest detects your mouse clicks
+        and creates automated tests in the background. Works with any web app, and set them up automatically on our servers.
     .col-md-5
       = image_tag('welcome/autotest-cucumber-feautes-automated.jpg', class: 'featurette-image img-responsive')
   %hr.featurette-divider/
@@ -21,8 +36,8 @@
         AutoTest Multiple Browsers.
         %span.text-muted With a single click.
       %p.lead
-        Your productivity relies on fast test results. AutoTest completes your tests faster than your MacBook Pro, EC2,
-        local server, or any other service, and
+        Your productivity relies on fast test results. AutoTest runs your tests faster than your Macbook Pro, EC2,
+        your local server, or any other service, and
         %strong across all Browsers!
   %hr.featurette-divider/
   .row.featurette
