@@ -27,6 +27,8 @@ $ ->
     $("#start-text-highlight").show()
     $("#scenario_name").val('')
     $("#step-count a").unbind("click")
+    # unbind select element buttons
+    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
 
   $("#stop-recording").click ->
     $(".recording-bar").removeClass("recording")
@@ -51,7 +53,8 @@ $ ->
     e.stopPropagation()
     $(this).hide()
     $("button#stop-record-text-highlight").show()
-
+    #unbind stop recording element selection button
+    $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindLink)
 
     $("body *").hover(autoTestGuiController.hoverOutline)
     $("html").unbind("mouseenter").unbind("mouseleave")

@@ -124,6 +124,8 @@ class @AutoTestEvent
     $("#element-modal a").unbind("click", AutoTestEvent.bindLink)
     $("#element-modal button").unbind("click", AutoTestEvent.bindLink)
     $("#element-modal input[type=radio]").unbind("click", AutoTestEvent.bindClick)
+    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
+    $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindLink)
     return
 
 
