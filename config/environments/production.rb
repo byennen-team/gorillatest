@@ -79,4 +79,7 @@ Autotest::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Google Analytics
+  GA.tracker = "UA-46094265-1"
 end

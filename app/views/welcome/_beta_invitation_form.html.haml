@@ -1,0 +1,24 @@
+/ Modal
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+  = simple_form_for @beta_invitation do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+          %h4#myModalLabel.modal-title Beta Invitation
+        .modal-body
+          %p Please fill out the form for an invitation.
+          - if @beta_invitation.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@beta_invitation.errors.count, "error")} prohibited this beta_invitation from being saved:"
+              %ul
+                - @beta_invitation.errors.full_messages.each do |msg|
+                  %li= msg
+          = f.input :first_name
+          = f.input :last_name
+          = f.input :company
+          = f.input :email
+
+        .modal-footer
+          = f.submit 'Send Request', class: 'btn btn-success btn-lg'
+

@@ -19,6 +19,7 @@ gem 'font-awesome-rails'
 gem 'figaro'
 gem 'pusher'
 gem 'fog'
+gem 'google-analytics-rails'
 
 # Devise
 gem 'devise'

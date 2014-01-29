@@ -22,6 +22,9 @@
                                                 api_url: "http://autotest.dev"}
     = csrf_meta_tags
   %body
-    = render 'layouts/welcome/navbar'
+    -#= render 'layouts/welcome/navbar'
+    = render 'layouts/welcome/messages'
     = yield
     = render 'layouts/welcome/footer'
+    = analytics_init :local => (Rails.env.development? || Rails.env.test?)
+
