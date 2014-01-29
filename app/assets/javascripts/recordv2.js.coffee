@@ -39,3 +39,10 @@ $(document).ready () ->
   $("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
   $("select#features").bind "change", ->
     window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
+
+  $(".recording-bar .modal").on "show.bs.modal", (e) ->
+    $(this).css("height", "300px").css("overflow-y", "visible")
+
+
+  $(".recording-bar .modal").on "hidden.bs.modal", (e) ->
+    $(this).css("height", "0px").css("overflow-y", "hidden")
