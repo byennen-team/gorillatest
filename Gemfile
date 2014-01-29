@@ -4,6 +4,7 @@ ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'thin'
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
+gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'

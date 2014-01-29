@@ -2,7 +2,8 @@ class Scenario
 
   attr_accessor :driver
 
- include Mongoid::Document
+  include Mongoid::Document
+  include Mongoid::Paranoia
 
  field :name, type: String
  
