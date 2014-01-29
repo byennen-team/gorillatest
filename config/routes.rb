@@ -1,5 +1,8 @@
 Autotest::Application.routes.draw do
 
+  get "admin/beta_invitations/index"
+  get "admin/beta_invitations/invite"
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
