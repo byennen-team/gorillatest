@@ -26,7 +26,7 @@ class Api::V1::ScenariosController < Api::V1::BaseController
     @scenario = @feature.scenario.find(params[:id])
     @scenario.attributes = scenario_attributes
     if @scenario.save
-      respond_with(@scenario)
+      render json: @scenario
     end
   end
 
@@ -42,7 +42,7 @@ class Api::V1::ScenariosController < Api::V1::BaseController
   end
 
   def scenario_params
-    params.require(:scenario).permit(:name, :url)
+    params.require(:scenario).permit(:name, :url, :window_x, :window_y, :start_url)
   end
 
 end

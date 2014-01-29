@@ -63,7 +63,7 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
 
   addScenario: (name) ->
-    @currentScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href)
+    @currentScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href, $(window).width(), $(window).height())
     @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
     $("button#record").hide()
     $("button#stop-recording").show()

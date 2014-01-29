@@ -1,6 +1,6 @@
 require 'net/http'
 
-class UrlNotCorrect < Exception; end
+class UrlInaccessible < Exception; end
 
 class TestRun
 
@@ -12,9 +12,14 @@ class TestRun
   field :browser, type: String
   field :platform, type: String
   field :status, type: String
+  field :window_x, type: Integer
+  field :window_y, type: Integer
+  field :start_url, type: String
 
   belongs_to :scenario
   embeds_many :steps
+
+  before_create :save_window_size_and_url
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
@@ -43,11 +48,16 @@ class TestRun
       @channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
       puts "Steps size is #{steps.size}"
       puts "Channel name #{channel_name}"
-      # Temp so we can test on autotest
+
+      if self.window_x && self.window_y
+        driver.manage.window.resize_to(self.window_x, self.window_y)
+      end
+
       @current_step = steps.first
       unless starting_url_success?(steps.first.text)
-        raise UrlNotCorrect
+        raise UrlInaccessible
       end
+
       driver.navigate.to(current_step.text)
       current_step.pass!
       send_to_pusher
@@ -121,10 +131,18 @@ class TestRun
   end
 
    def send_to_pusher
-    current_step.reload
+    # if step_attrs.empty?
+    #   current_step.reload
+    #   message = {status: current_step.status, to_s: current_step.to_s}
+    # end
     Pusher[channel_name].trigger('step_pass', {
           message: current_step.as_json(methods: [:to_s])
     })
   end
 
+  def save_window_size_and_url
+    self.window_x = scenario.window_x
+    self.window_y = scenario.window_y
+    self.start_url = scenario.start_url
+  end
 end

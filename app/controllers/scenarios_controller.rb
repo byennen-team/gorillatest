@@ -66,7 +66,7 @@ class ScenariosController < ApplicationController
   end
 
   def scenario_params
-    params.require(:scenario).permit(:name)
+    params.require(:scenario).permit(:name, :window_x, :window_y, :start_url)
   end
 
 
