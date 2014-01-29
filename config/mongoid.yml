@@ -10,8 +10,6 @@ development:
       # of host:port pairs. (required)
       hosts:
         - localhost:27017
-      options:
-        safe: true
 
 test:
   sessions:
@@ -32,7 +30,6 @@ production:
       uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         skip_version_check: true
-        safe: true
 
 staging:
   sessions:
@@ -40,7 +37,6 @@ staging:
       uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         skip_version_check: true
-        safe: true
 
 development_heroku:
   sessions:
@@ -48,4 +44,3 @@ development_heroku:
       uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         skip_version_check: true
-        safe: true
