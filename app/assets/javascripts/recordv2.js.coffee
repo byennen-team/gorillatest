@@ -47,13 +47,17 @@ $(document).ready () ->
     options = options or {}
     options.width = options.width or "auto"
     if $this.length is 0
-      selectorArr = selector.split(".")
-      $wrapper = $("<div class=\"modal hide fade " + selectorArr[selectorArr.length - 1] + "\"></div>")
-      $($("iframe").contents().find("#add-scenario").children().clone(true)).appendTo($wrapper)
+      $content = $($("iframe").contents().find(selector).children().clone(true))
+      if $("##{options.wrapperId}").length == 1
+        $wrapper = $("##{options.wrapperId}")
+        $("##{options.wrapperId}").html($content)
+      else
+        $wrapper = $("<div class='modal hide fade' id='#{options.wrapperId}'></div>")
+        $content.appendTo($wrapper)
+
       $this = $wrapper.appendTo(parent)
       $this.modal()
-    else
-      # $this.html(html).modal "show"
+
     $this.removeClass("hide")
     $this.css
       "max-width": options.width
@@ -61,7 +65,9 @@ $(document).ready () ->
       margin: options.margin
       "overflow-y": options["overflow-y"]
 
-    callback()
+    # callback()
+    $("#start-recording").click ->
+      window.autoTestGuiController.startRecording()
     return
     # $("input#scenario_name").on "keyup", ->
     #   console.log("KYEUP")
@@ -73,7 +79,6 @@ $(document).ready () ->
   # $(".recording-bar .modal").on "show.bs.modal", (e) ->
     # $(this).css("height", "300px").css("overflow-y", "visible")
 
-  $("#record").click (autoTestGuiController.showScenarioModal)
 
 
   $(".recording-bar .modal").on "hidden.bs.modal", (e) ->

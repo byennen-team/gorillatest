@@ -18,10 +18,30 @@
     = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
     = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
-    = javascript_include_tag "recordv2", data: {project_id: params[:project_id],
-                                                auth: @company.api_key,
-                                                api_url: ENV['API_URL'] || '',
-                                                env: Rails.env}
+    :javascript
+      // window.top.autoTestRecorder.start()
+      $(function() {
+        $("button#stop-recording").hide();
+        window.autoTestRecorder = window.parent.autoTestRecorder;
+        window.autoTestGuiController = window.parent.autoTestGuiController
+        console.log(window.autoTestGuiController);
+        autoTestGuiController.loadFeatures()
+        $("#add-feature").click(function(e){})
+        $("#record").click (autoTestGuiController.showScenarioModal)
+        autoTestGuiController.enableTooltip()
+
+        $("select#features").on("change", function(){
+          autoTestGuiController.enableRecordButton()
+        })
+
+        if(autoTestRecorder.isRecording === true){
+          autoTestGuiController.recording(autoTestRecorder);
+          $("#step-count").text(autoTestRecorder.currentScenario.autoTestSteps.length + " steps")
+        }
+        $("#stop-recording").click(function(){autoTestGuiController.stopRecording()})
+        $("#start-text-highlight").click(function(e){autoTestGuiController.startElementHighlight(e)})
+        $("#stop-record-text-highlight").click(function(e){autoTestGuiController.stopElementHighlight(e)})
+      })
     = csrf_meta_tags
   %body
     %div.recording-bar
@@ -37,13 +57,13 @@
       %span#step-count.badge
       .pull-right
         %div#record-button-wrapper{data: {toggle: 'tooltip', placement: "left", "original-title" =>  "You have to add or select a feature first to start recording!", trigger: "hover"} }
-          %button#record.btn.btn-danger
+          %button#record.btn.btn-danger{disabled: 'disabled'}
             %span.glyphicon.glyphicon-record
             Record
         - # %a#record{data: {toggle: "modal", target: "#add-scenario"}}
         - # %span.glyphicon.glyphicon-record{style: "font-size: 1.8em; color: #b92c28;"}
         = render "text_highlight"
-        %button#stop-recording.btn.btn-primary
+        %button#stop-recording.btn.btn-danger
           %span.glyphicon.glyphicon-stop
           Stop
       = render 'add_new_feature'

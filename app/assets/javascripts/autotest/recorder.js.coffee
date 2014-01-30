@@ -30,7 +30,7 @@ class @AutoTestRecorder
       console.log("Restarting Recording")
       $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
         console.log(i)
-        $("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
+        $("iframe").contents().find("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
       )
       this.record()
     else
@@ -49,7 +49,7 @@ class @AutoTestRecorder
     $(".recording-bar").unbind("DOMNodeInserted", AutoTestEvent.bindDomNodeInsert)
     $(".recording-bar button").unbind("click", AutoTestEvent.bindLink)
 
-    autoTestGuiController.startRecording(this)
+    autoTestGuiController.recording(this)
     return
 
   stop: ->

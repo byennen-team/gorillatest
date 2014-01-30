@@ -1,81 +1,11 @@
 $ ->
-  AutoTestGuiController.enableTooltip()
-
-  $("select#features").on "change", ->
-    if $(this).val().length > 0
-      $("button#record").removeAttr("disabled")
-      AutoTestGuiController.disableTooltip()
-    else
-      $("button#record").attr("disabled", "disabled")
-      AutoTestGuiController.enableTooltip()
+  # AutoTestGuiController.enableTooltip()
 
   # $("iframe").contents().find("input#scenario_name").on "keyup", ->
   #   if $(this).val().length > 0
   #     $("button#start-recording").removeAttr("disabled")
   #   else
   #     $("button#start-recording").attr("disabled", "disabled")
-
-  $("#start-recording").click (event) ->
-    recorder = window.autoTestRecorder
-    event.preventDefault()
-    recorder.addScenario($("input#scenario_name").val())
-    recorder.record()
-    $("#add-scenario").modal("hide")
-    $("#record").hide()
-    recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
-    $("#stop-recording").show()
-    $("#start-text-highlight").show()
-    $("#scenario_name").val('')
-    $("#step-count a").unbind("click")
-    # unbind select element buttons
-    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
-
-  $("#stop-recording").click ->
-    $(".recording-bar").removeClass("recording")
-    $("select#features").removeAttr("disabled").show()
-    $("button#add-feature").show()
-    $("#current-scenario").hide().html('')
-    $("button#record").removeAttr("disabled")
-    $("#step-count-text").hide()
-    $("#step-count").text('')
-    $("#step-count").hide()
-    $("#view-steps").slideUp()
-    $("#view-steps ul").html("")
-    recorder = window.autoTestRecorder
-    recorder.stop()
-    $("#stop-recording").hide()
-    $("#start-text-highlight").hide()
-    $("#record").show()
-
-  # Text highlighting
-  $("button#start-text-highlight").click (e)->
-    e.preventDefault()
-    e.stopPropagation()
-    $(this).hide()
-    $("button#stop-record-text-highlight").show()
-    #unbind stop recording element selection button
-    $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindLink)
-
-    $("body *").hover(autoTestGuiController.hoverOutline)
-    $("html").unbind("mouseenter").unbind("mouseleave")
-    $("*").css('cursor', 'crosshair')
-
-    # Recording bar cursor not changing
-    $("#recording-bar *").css("cursor", "auto")
-
-    # Unbind links and prevent default
-    $("a").unbind("click", AutoTestEvent.bindLink)
-    $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
-
-    # Unbind hover for body and modal backdrop
-    $("body").unbind("hover", autoTestGuiController.hoverOutline)
-    $(".modal-backdrop").unbind("hover", autoTestGuiController.hoverOutline)
-
-    # Bind click for all elements in a page
-    $("body *").bind('click', autoTestGuiController.bindBodyClick)
-
-    # Unbind recording bar
-    autoTestGuiController.unbindAutoTestBar()
 
   $("button#stop-record-text-highlight").click (e) ->
     e.preventDefault()
@@ -125,17 +55,60 @@ $ ->
       $("#view-steps").slideDown()
 
 AutoTestGuiController = {
+  iframeScopeFind: (element)->
+    $("iframe").contents().find(element)
 
-  unbindAutoTestBar: ->
-    $("div.recording-bar").unbind("mouseenter").unbind("mouseleave")
-    $("div.recording-bar *").unbind("mouseenter").unbind("mouseleave")
-    $("div.recording-bar").unbind('click', autoTestGuiController.bindBodyClick)
-    $("div.recording-bar *").unbind('click', autoTestGuiController.bindBodyClick)
-    $("div.recording-bar *").click (e) ->
-      e.stopPropagation()
-
+  loadFeatures: ->
+    options = new Array
+    $.each window.autoTestRecorder.features, (k, v) ->
+      options.push "<option value='#{v.id}'>#{v.name}</option>"
+    @iframeScopeFind("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
+    @iframeScopeFind("select#features").bind "change", ->
+      window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
     return
 
+  startRecording: ->
+    recorder = window.autoTestRecorder
+    event.preventDefault()
+    recorder.addScenario($("input#scenario_name").val())
+    recorder.record()
+    $("#scenario-modal").modal("hide")
+    recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
+    $("#record").hide()
+    $("#stop-recording").show()
+    $("#start-text-highlight").show()
+    $("#scenario_name").val('')
+    $("#step-count a").unbind("click")
+    # unbind select element buttons
+    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
+
+  stopRecording: ->
+    @iframeScopeFind(".recording-bar").removeClass("recording")
+    @iframeScopeFind("select#features").removeAttr("disabled").show()
+    @iframeScopeFind("button#add-feature").show()
+    @iframeScopeFind("#current-scenario").hide().html('')
+    @iframeScopeFind("button#record").removeAttr("disabled")
+    @iframeScopeFind("#step-count-text").hide()
+    @iframeScopeFind("#step-count").text('')
+    @iframeScopeFind("#step-count").hide()
+    @iframeScopeFind("#view-steps").slideUp()
+    @iframeScopeFind("#view-steps ul").html("")
+    recorder = window.autoTestRecorder
+    recorder.stop()
+    @iframeScopeFind("#stop-recording").hide()
+    @iframeScopeFind("#start-text-highlight").hide()
+    @iframeScopeFind("#record").show()
+
+  unbindAutoTestBar: ->
+    $("iframe").unbind("mouseenter").unbind("mouseleave")
+    # $("div.recording-bar").unbind("mouseenter").unbind("mouseleave")
+    # $("div.recording-bar *").unbind("mouseenter").unbind("mouseleave")
+    # $("div.recording-bar").unbind('click', autoTestGuiController.bindBodyClick)
+    # $("div.recording-bar *").unbind('click', autoTestGuiController.bindBodyClick)
+    # $("div.recording-bar *").click (e) ->
+    #   e.stopPropagation()
+
+    return
 
   hoverOutline: (event) ->
     event.stopPropagation
@@ -147,13 +120,55 @@ AutoTestGuiController = {
       $(this).removeClass("autotest-highlight")
     return
 
+  startElementHighlight: (e)->
+    e.preventDefault()
+    e.stopPropagation()
+    @iframeScopeFind("button#start-text-highlight").hide()
+    @iframeScopeFind("button#stop-record-text-highlight").show()
+    #unbind stop recording element selection button
+    # $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindLink)
+
+    $("body *").hover(autoTestGuiController.hoverOutline)
+    $("html").unbind("mouseenter").unbind("mouseleave")
+    $("*").css('cursor', 'crosshair')
+
+    # Recording bar cursor not changing
+    # $("#recording-bar *").css("cursor", "auto")
+
+    # Unbind links and prevent default
+    $("a").unbind("click", AutoTestEvent.bindLink)
+    $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
+
+    # Unbind hover for body and modal backdrop
+    $("body").unbind("hover", autoTestGuiController.hoverOutline)
+    $(".modal-backdrop").unbind("hover", autoTestGuiController.hoverOutline)
+
+    # Bind click for all elements in a page
+    $("body *").bind('click', autoTestGuiController.bindBodyClick)
+
+    # Unbind recording bar
+    autoTestGuiController.unbindAutoTestBar()
+
+  stopElementHighlight: (e) ->
+    e.preventDefault()
+    @iframeScopeFind("button#stop-record-text-highlight").hide()
+    @iframeScopeFind("button#start-text-highlight").show()
+    $('body').unbind('mouseup')
+    $("*").css('cursor', 'auto')
+
+    $("body *").unbind("click", AutoTestGuiController.bindBodyClick)
+    $("body *").unbind("mouseenter").unbind("mouseleave")
+    $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
+    $("a").bind("click", AutoTestEvent.bindLink)
+
   showElementModal: (event, element) ->
-    $("#element-modal").modal('show')
-    $("#element-modal *").css('cursor', 'auto')
-    $("#element-modal *").css("outline", "none")
-    $("#element-modal *").unbind("mouseenter").unbind("mouseleave")
-    $("#element-modal").unbind("click")
-    $("#element-modal *").unbind("click")
+    options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'select-element-modal'}
+    window.renderModal("#element-modal", '', options)
+    $("#select-element-modal *").css('cursor', 'auto')
+    $("#select-element-modal *").css("outline", "none")
+    $("#select-element-modal *").unbind("mouseenter").unbind("mouseleave")
+    $("#select-element-modal").unbind("click")
+    $("#select-element-modal *").unbind("click")
     $("#record-element-text").html($(element).text())
     $("#record_text_text").val($(element).text())
 
@@ -174,7 +189,7 @@ AutoTestGuiController = {
       checked = $("input[name=record_text]:checked")
       type = if checked.attr("id") is "record_text_text" then "verifyText" else "verifyElementPresent"
       autoTestRecorder.currentScenario.addStep(type, {type: '', value: ''}, checked.val())
-      $("#element-modal").modal("hide")
+      $("#select-element-modal").modal("hide")
     return
 
   stripStyleClass: ($element) ->
@@ -187,21 +202,21 @@ AutoTestGuiController = {
       $element.removeAttr("style")
     return $element
 
-  startRecording: (recorder) ->
-    $("select#features").attr("disabled", "disabled")
-    $("select#features").hide()
-    $("button#add-feature").hide()
-    $("#current-scenario").html("<strong>Currently recording: #{recorder.currentFeature.name} - #{recorder.currentScenario.name}</strong>").show()
-    $("button#record").hide()
-    $("button#stop-recording").show()
-    $("#step-count").show()
-    $(".recording-bar").addClass("recording")
-    $("button#start-text-highlight").show()
-    $("#step-count-text").show()
+  recording: (recorder) ->
+    @iframeScopeFind("select#features").attr("disabled", "disabled")
+    @iframeScopeFind("select#features").hide()
+    @iframeScopeFind("button#add-feature").hide()
+    @iframeScopeFind("#current-scenario").html("<strong>Currently recording: #{recorder.currentFeature.name} - #{recorder.currentScenario.name}</strong>").show()
+    @iframeScopeFind("button#record").hide()
+    @iframeScopeFind("button#stop-recording").show()
+    @iframeScopeFind("#step-count").show()
+    @iframeScopeFind(".recording-bar").addClass("recording")
+    @iframeScopeFind("button#start-text-highlight").show()
+    @iframeScopeFind("#step-count-text").show()
 
   showScenarioModal: (event) ->
-    css = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto"}
-    window.parent.renderModal("#add-scenario", '', css, ->
+    options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
+    window.parent.renderModal("#add-scenario", '', options, ->
       console.log($("input#scenario_name"))
       $("input#scenario_name").bind "blur", ->
         if $(this).val().length > 0
@@ -222,11 +237,19 @@ AutoTestGuiController = {
     event.preventDefault
     return false
 
+  enableRecordButton: ->
+    if @iframeScopeFind("select#features").val().length > 0
+      @iframeScopeFind("button#record").removeAttr("disabled")
+      AutoTestGuiController.disableTooltip()
+    else
+      @iframeScopeFind("#record").attr("disabled", "disabled")
+      AutoTestGuiController.enableTooltip()
+
   enableTooltip: () ->
-    $("#record-button-wrapper").tooltip("enable")
+    @iframeScopeFind("#record-button-wrapper").tooltip("enable")
 
   disableTooltip: () ->
-    $("#record-button-wrapper").tooltip("disable")
+    @iframeScopeFind("#record-button-wrapper").tooltip("disable")
 }
 
 window.autoTestGuiController = AutoTestGuiController

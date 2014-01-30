@@ -39,7 +39,7 @@ class @AutoTestScenario
     # else
     autoTestStep = AutoTestStep.create this.featureId, this.id, type, locator, text
     @autoTestSteps.push(autoTestStep)
-    $("#step-count").text("#{@autoTestSteps.length} steps")
+    $("iframe").contents().find("#step-count").text("#{@autoTestSteps.length} steps")
     stepNumber = (@autoTestSteps.length-1).toString()
     $("#view-steps ul").append("<li step-number=#{stepNumber}>#{autoTestStep.to_s}</li>")
     return true
