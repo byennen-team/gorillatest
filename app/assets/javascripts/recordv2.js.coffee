@@ -28,6 +28,7 @@ $(document).ready () ->
   window.autoTestRecorder = new AutoTestRecorder window.projectId
   window.autoTestApiUrl = window.apiUrl
   window.autoTestAuthToken = window.authToken
+
   console.log("authtoken is #{window.autoTestAuthToken}")
   if $(".test-form").length > 0
     $(".test-form").attr("action", "/test/form_post?project_id=#{window.projectId}")
@@ -40,8 +41,39 @@ $(document).ready () ->
   $("select#features").bind "change", ->
     window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
 
-  $(".recording-bar .modal").on "show.bs.modal", (e) ->
-    $(this).css("height", "300px").css("overflow-y", "visible")
+  window.renderModal = (selector, html, options, callback) ->
+    parent = "body"
+    $this = $(parent).find(selector)
+    options = options or {}
+    options.width = options.width or "auto"
+    if $this.length is 0
+      selectorArr = selector.split(".")
+      $wrapper = $("<div class=\"modal hide fade " + selectorArr[selectorArr.length - 1] + "\"></div>")
+      $($("iframe").contents().find("#add-scenario").children().clone(true)).appendTo($wrapper)
+      $this = $wrapper.appendTo(parent)
+      $this.modal()
+    else
+      # $this.html(html).modal "show"
+    $this.removeClass("hide")
+    $this.css
+      "max-width": options.width
+      height: options.height
+      margin: options.margin
+      "overflow-y": options["overflow-y"]
+
+    callback()
+    return
+    # $("input#scenario_name").on "keyup", ->
+    #   console.log("KYEUP")
+    #   if $(this).val().length > 0
+    #     $("button#start-recording").removeAttr("disabled")
+    #   else
+    #     $("button#start-recording").attr("disabled", "disabled")
+
+  # $(".recording-bar .modal").on "show.bs.modal", (e) ->
+    # $(this).css("height", "300px").css("overflow-y", "visible")
+
+  $("#record").click (autoTestGuiController.showScenarioModal)
 
 
   $(".recording-bar .modal").on "hidden.bs.modal", (e) ->

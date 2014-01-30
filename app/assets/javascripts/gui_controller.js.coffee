@@ -9,11 +9,11 @@ $ ->
       $("button#record").attr("disabled", "disabled")
       AutoTestGuiController.enableTooltip()
 
-  $("input#scenario_name").on "keyup", ->
-    if $(this).val().length > 0
-      $("button#start-recording").removeAttr("disabled")
-    else
-      $("button#start-recording").attr("disabled", "disabled")
+  # $("iframe").contents().find("input#scenario_name").on "keyup", ->
+  #   if $(this).val().length > 0
+  #     $("button#start-recording").removeAttr("disabled")
+  #   else
+  #     $("button#start-recording").attr("disabled", "disabled")
 
   $("#start-recording").click (event) ->
     recorder = window.autoTestRecorder
@@ -198,6 +198,19 @@ AutoTestGuiController = {
     $(".recording-bar").addClass("recording")
     $("button#start-text-highlight").show()
     $("#step-count-text").show()
+
+  showScenarioModal: (event) ->
+    css = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto"}
+    window.parent.renderModal("#add-scenario", '', css, ->
+      console.log($("input#scenario_name"))
+      $("input#scenario_name").bind "blur", ->
+        if $(this).val().length > 0
+          $("button#start-recording").removeAttr("disabled")
+        else
+          $("button#start-recording").attr("disabled", "disabled")
+      return
+    )
+    return
 
   bindBodyClick: (event) ->
     event.preventDefault()

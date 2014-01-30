@@ -24,7 +24,7 @@
                                                 env: Rails.env}
     = csrf_meta_tags
   %body
-    %iframe{src: "/recorder?project_id=#{params[:project_id]}", style: "width: 100%; top: 0px; height: 75px;"}
+    %iframe{src: "/recorder?project_id=#{params[:project_id]}", style: "width: 100%; top: 0px; height: 75px;", onload: '$("iframe").contents().find("input#scenario_name").on("keyup", function() {console.log("WOFIJ");if ($(this).val().length > 0) {return $("button#start-recording").removeAttr("disabled");} else {return $("button#start-recording").attr("disabled", "disabled");}});'}
     .col-md-4.col-md-offset-4.flash{style: "#{flash.empty? ? 'display: none;' : ''}"}
       - flash.each do |name, msg|
         -if msg.is_a?(String)
