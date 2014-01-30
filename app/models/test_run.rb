@@ -44,7 +44,7 @@ class TestRun
   #   @channel_name
   # end
 
-  def run
+  def run(current_user_id)
     begin
       @channel_name = "scenario_#{scenario_id}_#{platform}_#{browser}_channel"
       puts "Steps size is #{steps.size}"
@@ -70,21 +70,24 @@ class TestRun
         puts "Locator value is #{current_step.inspect}"
         if step.to_selenium != nil
           element = driver.find_element(step.locator_type, step.locator_value)
+          puts "Element is #{element}"
           if step.has_args?
-              element.send(step.to_selenium, step.to_args)
+            puts "if element has args"
+            element.send(step.to_selenium, step.to_args)
           else
+            puts "if element has no args"
             if !element.displayed?
+              puts "if element isn't visible"
               driver.execute_script("arguments[0].click()", element)
             else
+              puts "if element visible"
+              puts "Trying to click #{element}"
               element.send(step.to_selenium)
             end
           end
         elsif step.event_type == "waitForCurrentUrl"
           wait = Selenium::WebDriver::Wait.new(:timeout => 10)
           wait.until { driver.current_url  == step.text }
-          # if driver.current_url != step.text
-          #   raise UrlNotCorrect
-          # end
         elsif step.is_verification?
           p "VERIFICATION STUFF"
           dom_string = driver.execute_script("return document.documentElement.outerHTML")
@@ -105,6 +108,7 @@ class TestRun
       self.pass!
       driver.quit
     rescue Exception => e
+      p "FAIL, SO TAKING A SCREENSHOT"
       png = driver.screenshot_as(:png)
 
       storage = Fog::Storage.new(:provider => 'AWS',
@@ -120,6 +124,7 @@ class TestRun
       driver.quit
       current_step.fail!
       send_to_pusher
+      UserMailer.notify_failed_test(current_user_id, current_step ,self).deliver
     end
   end
 

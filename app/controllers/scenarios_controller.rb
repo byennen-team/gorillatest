@@ -43,7 +43,7 @@ class ScenariosController < ApplicationController
         test_run.steps << Step.new(step.attributes.except("_id").except("updated_at").except("created_at"))
       end
       test_run.save
-      TestWorker.perform_async(test_run.id.to_s)
+      TestWorker.perform_async(test_run.id.to_s, current_user.id.to_s)
     end
     respond_to do |format|
       format.html { redirect_to project_feature_path(@project, @feature) }
