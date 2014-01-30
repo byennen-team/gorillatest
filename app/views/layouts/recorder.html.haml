@@ -1,0 +1,67 @@
+!!!
+/[if lt IE 7 ] <html class="ie ie6" lang="en">
+/[if IE 7 ] <html class="ie ie7" lang="en">
+/[if IE 8 ] <html class="ie ie8" lang="en">
+/ [if (gte IE 9)|!(IE)]><!
+%html{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %title= content_for?(:title) ? "AutoTest - " + yield(:title) : "AutoTest - AutoTest Slogan."
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"}
+    %meta{:content => content_for?(:description) ? yield(:description) : "AutoTest Description", :name => "description"}
+    %meta{:content => content_for?(:keywords) ? yield(:keywords) : "AutoTest Keywords", :name => "keywords"}
+    = favicon_link_tag 'favicon.ico'
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300", rel: "stylesheet", type: "text/css"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600", rel: "stylesheet", type: "text/css"}/
+    = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "recordv2", data: {project_id: params[:project_id],
+                                                auth: @company.api_key,
+                                                api_url: ENV['API_URL'] || '',
+                                                env: Rails.env}
+    = csrf_meta_tags
+  %body
+    %div.recording-bar
+      %span.logo
+        AutoTest
+      = select_tag "features"
+      %button#add-feature.btn.btn-success{data: {toggle: "modal", target: "#create-feature-modal"}}
+        %span.glyphicon.glyphicon-plus
+        Add Feature
+      - # %a{data: {toggle: "modal", target: "#create-feature-modal"}, style: "border-radius: 50px; background: #e9e9e9; width: 50px; height: 50px; line-height: 30px; display: 'inline-block'; padding: 6px 5px 5px 5px; "}
+      - #%span.glyphicon.glyphicon-plus{style: "font-size: 1em; color: #333;"}
+      %span#current-scenario
+      %span#step-count.badge
+      .pull-right
+        %div#record-button-wrapper{data: {toggle: 'tooltip', placement: "left", "original-title" =>  "You have to add or select a feature first to start recording!", trigger: "hover"} }
+          %button#record.btn.btn-danger{data: {toggle: "modal", target: "#add-scenario"}, "disabled" => "disabled"}
+            %span.glyphicon.glyphicon-record
+            Record
+        - # %a#record{data: {toggle: "modal", target: "#add-scenario"}}
+        - # %span.glyphicon.glyphicon-record{style: "font-size: 1.8em; color: #b92c28;"}
+        = render "text_highlight"
+        %button#stop-recording.btn.btn-primary
+          %span.glyphicon.glyphicon-stop
+          Stop
+      = render 'add_new_feature'
+      = render 'add_scenario'
+      = render 'save_element'
+
+    %br{style: "clear: both;"}
+    %div#view-steps{style: "display: none;"}
+      %ul#steps
+    }
+    .col-md-4.col-md-offset-4.flash{style: "#{flash.empty? ? 'display: none;' : ''}"}
+      - flash.each do |name, msg|
+        -if msg.is_a?(String)
+          -if msg == :alert
+            .alert.alert-success
+          -else
+            .alert.alert-danger
+              %button{type: "button", class:"close", data: {dismiss:"alert"}, aria: {hidden: "true"}}
+                &times;
+              =content_tag :div, msg, id: "flash_#{name}"
+    = yield
