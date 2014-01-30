@@ -1,0 +1,18 @@
+%div#element-modal.modal.fade
+  %div.modal-content
+    %div.modal-header
+      %button.close.close-element-modal{data: {dismiss: "modal"}} &times;
+      %h4 Choose Validation
+    %div.modal-body
+      =radio_button_tag "record_text", "text", false, class: "validation-radio"
+      %label
+        Record element text:
+      %p#record-element-text
+      %br
+      =radio_button_tag "record_text", "element_html", false, class: "validation-radio"
+      %label
+        Record element:
+      %p#record-element-html
+    %div.modal-footer
+      %button.btn.btn-default.close-element-modal{data: {dismiss: "modal"}} Close
+      %button.btn.btn-primary#save-validation{"disabled" => "disabled"} Save Validation

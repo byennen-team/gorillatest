@@ -1,0 +1,11 @@
+%div#create-feature-modal.modal.fade
+  %div.modal-content
+    %div.modal-header
+      %button.close{data: {dismiss: "modal"}} &times;
+      %h4 Create a new Feature
+    %div.modal-body
+      %label Feature Name
+      %input{type: "text", name: "feature[name]", id: "feature_name"}
+    %div.modal-footer
+      %button.btn.btn-default{data: {dismiss: "modal"}} Close
+      %button.btn.btn-primary#create-feature{"disabled" => "disabled"} Create Feature
