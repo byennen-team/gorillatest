@@ -174,13 +174,13 @@ AutoTestGuiController = {
 
     element_html = AutoTestGuiController.stripStyleClass($(element))
     $("#record-element-html").text($(element_html).clone().wrap("<p>").parent().html())
-    $("#record_text_element_html").val($(element_html).clone().removeAttr("style").wrap("<p>").parent().html())
+    $("#record_text_element_html").val($(element_html).clone().wrap("<p>").parent().html())
     $("#recording-bar *").click (e) ->
       e.stopPropagation()
 
     $(".close-element-modal").bind 'click', (e) ->
       e.stopPropagation()
-      $("#element-modal").modal('hide')
+      $("#select-element-modal").modal('hide')
     $(".validation-radio").click ->
       $("#save-validation").removeAttr('disabled', false)
     $("#save-validation").bind 'click', (e) ->
@@ -193,12 +193,13 @@ AutoTestGuiController = {
     return
 
   stripStyleClass: ($element) ->
+    debugger
     $element.removeClass("autotest-highlight")
     style = $element.attr("style")
-    $element.attr("style", style.replace(/\s?cursor:\s?crosshair;/, ""))
-    if $element.attr("class").length is 0
+    $element.attr("style", style.replace(/\s?cursor:\s?crosshair;/, "")) if style
+    if $element.attr("class") != undefined && $element.attr("class").length == 0
       $element.removeAttr("class")
-    if $element.attr("style").length is 0
+    if $element.attr("style") != undefined && $element.attr("style").length == 0
       $element.removeAttr("style")
     return $element
 
