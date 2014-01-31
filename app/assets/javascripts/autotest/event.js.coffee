@@ -121,9 +121,11 @@ class @AutoTestEvent
 
   @unbindElementModal: ->
     console.log("Unbinding modal")
-    $("#element-modal a").unbind("click", AutoTestEvent.bindLink)
-    $("#element-modal button").unbind("click", AutoTestEvent.bindLink)
-    $("#element-modal input[type=radio]").unbind("click", AutoTestEvent.bindClick)
+    $("#select-element-modal").unbind("mouseenter")
+    $("#select-element-modal").unbind("mouseleave")
+    $("#select-element-modal a").unbind("click", AutoTestEvent.bindLink)
+    $("#select-element-modal button").unbind("click", AutoTestEvent.bindLink)
+    $("#select-element-modal input[type=radio]").unbind("click", AutoTestEvent.bindClick)
     $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
     $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindLink)
     return
