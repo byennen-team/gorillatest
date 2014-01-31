@@ -39,9 +39,9 @@ class @AutoTestScenario
     # else
     autoTestStep = AutoTestStep.create this.featureId, this.id, type, locator, text
     @autoTestSteps.push(autoTestStep)
-    $("iframe").contents().find("#step-count").text("#{@autoTestSteps.length} steps")
-    stepNumber = (@autoTestSteps.length-1).toString()
-    $("#view-steps ul").append("<li step-number=#{stepNumber}>#{autoTestStep.to_s}</li>")
+    postMessageToIframe({messageType: "stepAdded", message: {stepCount: @autoTestSteps.length} })
+    stepNumber = (@autoTestSteps.length).toString()
+    $("#autotest-view-steps ul").append("<li step-number=#{stepNumber}>#{autoTestStep.to_s}</li>")
     return true
 
   # Attributes is an object

@@ -17,31 +17,11 @@
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600", rel: "stylesheet", type: "text/css"}/
     = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
     = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    :javascript
-      // window.top.autoTestRecorder.start()
-      $(function() {
-        $("button#stop-recording").hide();
-        window.autoTestRecorder = window.parent.autoTestRecorder;
-        window.autoTestGuiController = window.parent.autoTestGuiController
-        console.log(window.autoTestGuiController);
-        autoTestGuiController.loadFeatures()
-        $("#add-feature").click(function(e){})
-        $("#record").click (autoTestGuiController.showScenarioModal)
-        autoTestGuiController.enableTooltip()
+    = javascript_include_tag "iframe", data: {project_id: params[:project_id],
+                                              auth: @company.api_key,
+                                              api_url: ENV['API_URL'] || '',
+                                              env: Rails.env}
 
-        $("select#features").on("change", function(){
-          autoTestGuiController.enableRecordButton()
-        })
-
-        if(autoTestRecorder.isRecording === true){
-          autoTestGuiController.recording(autoTestRecorder);
-          $("#step-count").text(autoTestRecorder.currentScenario.autoTestSteps.length + " steps")
-        }
-        $("#stop-recording").click(function(){autoTestGuiController.stopRecording()})
-        $("#start-text-highlight").click(function(e){autoTestGuiController.startElementHighlight(e)})
-        $("#stop-record-text-highlight").click(function(e){autoTestGuiController.stopElementHighlight(e)})
-      })
     = csrf_meta_tags
   %body
     %div.recording-bar
@@ -71,9 +51,6 @@
       = render 'save_element'
 
     %br{style: "clear: both;"}
-    %div#view-steps{style: "display: none;"}
-      %ul#steps
-    }
     .col-md-4.col-md-offset-4.flash{style: "#{flash.empty? ? 'display: none;' : ''}"}
       - flash.each do |name, msg|
         -if msg.is_a?(String)
@@ -85,3 +62,4 @@
                 &times;
               =content_tag :div, msg, id: "flash_#{name}"
     = yield
+

@@ -48,15 +48,29 @@ $ ->
         autoTestRecorder.setCurrentFeature(feature.id)
         $("button#record").removeAttr("disabled")
 
-  $("#step-count").click (e) ->
-    if $("#view-steps").is(':visible')
-      $("#view-steps").slideUp()
-    else
-      $("#view-steps").slideDown()
+  # $("#step-count").click (e) ->
+  #   if $("#view-steps").is(':visible')
+  #     $("#view-steps").slideUp()
+  #   else
+  #     $("#view-steps").slideDown()
 
 AutoTestGuiController = {
   iframeScopeFind: (element)->
     $("iframe").contents().find(element)
+
+  verifyScenarioNamePresent: ->
+    $("#scenario_name").on 'keyup', ->
+      if $(this).val().length > 0
+        $("#start-recording").removeAttr("disabled")
+      else
+        $("#start-recording").attr("disabled", "disabled")
+
+  viewSteps: ->
+    debugger
+    if $("#autotest-view-steps").is(':visible')
+      $("#autotest-view-steps").slideUp()
+    else
+      $("#autotest-view-steps").slideDown()
 
   loadFeatures: ->
     options = new Array
@@ -74,13 +88,10 @@ AutoTestGuiController = {
     recorder.record()
     $("#scenario-modal").modal("hide")
     recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
-    $("#record").hide()
-    $("#stop-recording").show()
-    $("#start-text-highlight").show()
-    $("#scenario_name").val('')
-    $("#step-count a").unbind("click")
+    window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
+
     # unbind select element buttons
-    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
+    # $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
 
   stopRecording: ->
     @iframeScopeFind(".recording-bar").removeClass("recording")
@@ -193,7 +204,6 @@ AutoTestGuiController = {
     return
 
   stripStyleClass: ($element) ->
-    debugger
     $element.removeClass("autotest-highlight")
     style = $element.attr("style")
     $element.attr("style", style.replace(/\s?cursor:\s?crosshair;/, "")) if style
@@ -203,19 +213,11 @@ AutoTestGuiController = {
       $element.removeAttr("style")
     return $element
 
-  recording: (recorder) ->
-    @iframeScopeFind("select#features").attr("disabled", "disabled")
-    @iframeScopeFind("select#features").hide()
-    @iframeScopeFind("button#add-feature").hide()
-    @iframeScopeFind("#current-scenario").html("<strong>Currently recording: #{recorder.currentFeature.name} - #{recorder.currentScenario.name}</strong>").show()
-    @iframeScopeFind("button#record").hide()
-    @iframeScopeFind("button#stop-recording").show()
-    @iframeScopeFind("#step-count").show()
-    @iframeScopeFind(".recording-bar").addClass("recording")
-    @iframeScopeFind("button#start-text-highlight").show()
-    @iframeScopeFind("#step-count-text").show()
+  recording: (message) ->
+    $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
 
   showScenarioModal: (event) ->
+    console.log("show scenario")
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
     window.parent.renderModal("#add-scenario", '', options, ->
       console.log($("input#scenario_name"))
@@ -239,18 +241,18 @@ AutoTestGuiController = {
     return false
 
   enableRecordButton: ->
-    if @iframeScopeFind("select#features").val().length > 0
-      @iframeScopeFind("button#record").removeAttr("disabled")
+    if $("select#features").val().length > 0
+      $("button#record").removeAttr("disabled")
       AutoTestGuiController.disableTooltip()
     else
-      @iframeScopeFind("#record").attr("disabled", "disabled")
+      $("#record").attr("disabled", "disabled")
       AutoTestGuiController.enableTooltip()
 
   enableTooltip: () ->
-    @iframeScopeFind("#record-button-wrapper").tooltip("enable")
+    $("#record-button-wrapper").tooltip("enable")
 
   disableTooltip: () ->
-    @iframeScopeFind("#record-button-wrapper").tooltip("disable")
+    $("#record-button-wrapper").tooltip("disable")
 }
 
 window.autoTestGuiController = AutoTestGuiController

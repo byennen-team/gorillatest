@@ -12,6 +12,11 @@ class @AutoTestRecorder
 
   start: ->
     @features = AutoTestFeature.findAll(@projectId)
+    _this = this
+    $("iframe").load ->
+      console.log("iframe loaded")
+      window.postMessageToIframe({messageType: "recording", recording: _this.isRecording})
+
     if @isRecording == true
       console.log("You are presently recording a scenario")
       # load the current scenario
@@ -30,7 +35,7 @@ class @AutoTestRecorder
       console.log("Restarting Recording")
       $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
         console.log(i)
-        $("iframe").contents().find("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
+        $("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
       )
       this.record()
     else
@@ -46,8 +51,8 @@ class @AutoTestRecorder
     console.log("Binding DOM events")
     AutoTestEvent.bind()
     AutoTestEvent.bindDomNodeInsert()
-    $(".recording-bar").unbind("DOMNodeInserted", AutoTestEvent.bindDomNodeInsert)
-    $(".recording-bar button").unbind("click", AutoTestEvent.bindLink)
+    # $(".recording-bar").unbind("DOMNodeInserted", AutoTestEvent.bindDomNodeInsert)
+    # $(".recording-bar button").unbind("click", AutoTestEvent.bindLink)
 
     autoTestGuiController.recording(this)
     return
@@ -65,8 +70,6 @@ class @AutoTestRecorder
   addScenario: (name) ->
     @currentScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href, $(window).width(), $(window).height())
     @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
-    $("button#record").hide()
-    $("button#stop-recording").show()
 
   recordHighlight: (text)->
     scenario = this.currentScenario
