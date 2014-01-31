@@ -71,8 +71,10 @@ $(document).ready () ->
       when "recordClick"
         autoTestGuiController.showScenarioModal()
       when "viewSteps"
-        debugger
         autoTestGuiController.viewSteps()
+      when "stopRecording"
+        autoTestRecorder.stop()
+
 
   postMessageToIframe = (message)->
     console.log("posting")

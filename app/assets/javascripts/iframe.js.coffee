@@ -87,6 +87,10 @@ $ ->
     $("#step-count").click ->
       postParentMessage({messageType: "viewSteps"})
 
+    $("#stop-recording").click ->
+      autoTestGuiController.stopRecording()
+      postParentMessage({messageType: "stopRecording"})
+
     # if(autoTestRecorder.isRecording === true){
     #   autoTestGuiController.recording(autoTestRecorder);
     #   $("#step-count").text(autoTestRecorder.currentScenario.autoTestSteps.length + " steps")
