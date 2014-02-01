@@ -40,6 +40,30 @@ scenarioModalTemplate = _.template '<div class="modal-content">
           </div>
         </div>'
 
+selectElementModalTemplate = _.template '<div class="modal-content" style="cursor: auto; outline: none;">
+                              <div class="modal-header" style="cursor: auto; outline: none;">
+                              <button class="close close-element-modal" data-dismiss="modal" style="cursor: auto; outline: none;">×</button>
+                              <h4 style="cursor: auto; outline: none;">Choose Validation</h4>
+                              </div>
+                              <div class="modal-body" style="cursor: auto; outline: none;">
+                              <input class="validation-radio" id="record_text_text" name="record_text" type="radio" value="Test Form" style="cursor: auto; outline: none;">
+                              <label style="cursor: auto; outline: none;">
+                              Record element text:
+                              </label>
+                              <p id="record-element-text" style="cursor: auto; outline: none;"></p>
+                              <br style="cursor: auto; outline: none;">
+                              <input class="validation-radio" id="record_text_element_html" name="record_text" type="radio" value="&lt;h1&gt;Test Form&lt;/h1&gt;" style="cursor: auto; outline: none;">
+                              <label style="cursor: auto; outline: none;">
+                              Record element:
+                              </label>
+                              <p id="record-element-html" style="cursor: auto; outline: none;"></p>
+                              </div>
+                              <div class="modal-footer" style="cursor: auto; outline: none;">
+                              <button class="btn btn-default close-element-modal" data-dismiss="modal" style="cursor: auto; outline: none;">Close</button>
+                              <button class="btn btn-primary" disabled="disabled" id="save-validation" style="cursor: auto; outline: none;">Save Validation</button>
+                              </div>
+                              </div>'
+
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
   iframe = document.createElement("IFRAME")
@@ -74,7 +98,10 @@ $(document).ready () ->
         autoTestGuiController.viewSteps()
       when "stopRecording"
         autoTestRecorder.stop()
-
+      when "selectElement"
+        autoTestGuiController.startElementHighlight()
+      when "stopSelectElement"
+        autoTestGuiController.stopElementHighlight()
 
   postMessageToIframe = (message)->
     console.log("posting")
@@ -95,23 +122,20 @@ $(document).ready () ->
   $("select#features").bind "change", ->
     window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
 
-  window.renderModal = (selector, html, options, callback) ->
+  window.renderModal = (template, html, options) ->
     parent = "body"
-    $this = $(parent).find(selector)
     options = options or {}
     options.width = options.width or "auto"
-    if $this.length is 0
-      console.log("loading parent")
-      $content = $(scenarioModalTemplate())
-      if $("##{options.wrapperId}").length == 1
-        $wrapper = $("##{options.wrapperId}")
-        $("##{options.wrapperId}").html($content)
-      else
-        $wrapper = $("<div class='modal hide fade' id='#{options.wrapperId}'></div>")
-        $content.appendTo($wrapper)
+    $content = $(eval(template)())
+    if $("##{options.wrapperId}").length == 1
+      $wrapper = $("##{options.wrapperId}")
+      $("##{options.wrapperId}").html($content)
+    else
+      $wrapper = $("<div class='modal hide fade' id='#{options.wrapperId}'></div>")
+      $content.appendTo($wrapper)
 
-      $this = $wrapper.appendTo(parent)
-      $this.modal()
+    $this = $wrapper.appendTo(parent)
+    $this.modal()
 
     $this.removeClass("hide")
     $this.css
@@ -120,7 +144,7 @@ $(document).ready () ->
       margin: options.margin
       "overflow-y": options["overflow-y"]
 
-    autoTestGuiController.verifyScenarioNamePresent()
+    autoTestGuiController.verifyScenarioNamePresent() if options.wrapperId == 'scenario-modal'
 
     $("#start-recording").click ->
       window.autoTestGuiController.startRecording()
@@ -137,5 +161,5 @@ $(document).ready () ->
 
 
 
-  $(".recording-bar .modal").on "hidden.bs.modal", (e) ->
-    $(this).css("height", "0px").css("overflow-y", "hidden")
+  # $(".recording-bar .modal").on "hidden.bs.modal", (e) ->
+  #   $(this).css("height", "0px").css("overflow-y", "hidden")

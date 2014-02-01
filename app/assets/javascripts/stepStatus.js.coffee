@@ -29,7 +29,6 @@ $(document).ready ()->
   $("form.scenario-run").on 'submit', (e)->
     browsers = selectedBrowsers()
     e.preventDefault()
-    # debugger
     that = this
     _.each $("form.scenario-run input[type='checkbox']"), (input) ->
       console.log($("form.scenario-run input[type='checkbox']").length)

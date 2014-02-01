@@ -30,30 +30,33 @@ addEventListener "message", (e)->
   switch data.messageType
     when "recording"
       if data.recording == true
-        $("#stop-recording").show()
+        autoTestGuiController.recording(data.message)
+        $("#step-count").hover ->
+          $(this).css("cursor", "auto")
+        $("#step-count").click ->
+          postParentMessage({messageType: "viewSteps"})
+
+        $("#stop-recording").click ->
+          autoTestGuiController.stopRecording()
+          postParentMessage({messageType: "stopRecording"})
+
+        $("#start-text-highlight").click ->
+          $("button#start-text-highlight").hide()
+          $("button#stop-record-text-highlight").show()
+
+          postParentMessage({messageType: "selectElement"})
+
+          $("#stop-record-text-highlight").click ->
+            $("button#stop-record-text-highlight").hide()
+            $("button#start-text-highlight").show()
+            postParentMessage({messageType: "stopSelectElement"})
     when "startRecording"
-      $("button#record").hide()
-      $("button#stop-recording").show()
-      $("#record").hide()
-      $("#stop-recording").show()
-      $("#start-text-highlight").show()
-      $("#scenario_name").val('')
-      $("#step-count a").unbind("click")
-      $("select#features").attr("disabled", "disabled")
-      $("select#features").hide()
-      $("button#add-feature").hide()
-      $("button#record").hide()
-      $("button#stop-recording").show()
-      $("#step-count").show()
-      $(".recording-bar").addClass("recording")
-      $("button#start-text-highlight").show()
-      $("#step-count-text").show()
       autoTestGuiController.recording(data.message)
     when "stepAdded"
       $("#step-count").text("#{data.message.stepCount} steps")
 
-$ ->
-  postParentMessage = (message)->
+$(document).ready ($)->
+  window.postParentMessage = (message)->
     parent.postMessage(message, document.referrer)
 
   window.autoTestRecorder = new AutoTestRecorder window.projectId
@@ -90,6 +93,19 @@ $ ->
     $("#stop-recording").click ->
       autoTestGuiController.stopRecording()
       postParentMessage({messageType: "stopRecording"})
+
+    $("#start-text-highlight").click ->
+      $("button#start-text-highlight").hide()
+      $("button#stop-record-text-highlight").show()
+
+      postParentMessage({messageType: "selectElement"})
+
+      $("#stop-record-text-highlight").click ->
+        $("button#stop-record-text-highlight").hide()
+        $("button#start-text-highlight").show()
+        postParentMessage({messageType: "stopSelectElement"})
+
+
 
     # if(autoTestRecorder.isRecording === true){
     #   autoTestGuiController.recording(autoTestRecorder);

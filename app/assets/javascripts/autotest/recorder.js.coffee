@@ -13,10 +13,6 @@ class @AutoTestRecorder
   start: ->
     @features = AutoTestFeature.findAll(@projectId)
     _this = this
-    $("iframe").load ->
-      console.log("iframe loaded")
-      window.postMessageToIframe({messageType: "recording", recording: _this.isRecording})
-
     if @isRecording == true
       console.log("You are presently recording a scenario")
       # load the current scenario
@@ -30,13 +26,16 @@ class @AutoTestRecorder
       if scenarioId != null
         @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
       # Record step of redirected to -> current window location href
-      step = @currentScenario.addStep("waitForCurrentUrl", {}, window.location.href)
+      $("iframe").load ->
+        window.postMessageToIframe({messageType: "recording", recording: _this.isRecording, message: {scenarioName: _this.currentScenario.name, featureName: _this.currentFeature.name}})
+        step = _this.currentScenario.addStep("waitForCurrentUrl", {}, window.location.href)
       # This isn't actually starting recording
       console.log("Restarting Recording")
       $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
         console.log(i)
-        $("#view-steps ul").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
+        $("ul#autotest-steps").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
       )
+
       this.record()
     else
       # Figure out where to move this
