@@ -64,14 +64,16 @@ selectElementModalTemplate = _.template '<div class="modal-content" style="curso
                               </div>
                               </div>'
 
+
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
   iframe = document.createElement("IFRAME")
-  iframe.setAttribute("src", "http://localhost:4000/recorder?project_id=#{window.projectId}")
+  iframe.setAttribute("src", "#{window.apiUrl}recorder?project_id=#{window.projectId}")
   iframe.id = "autotest-iframe"
   iframe.style.width = "100%"
-  iframe.style.height = "75px"
+  iframe.style.height = "55px"
   iframe.style.top = "0px"
+  iframe.style.border = "0px"
   iframe.onload = '$("iframe").contents().find("input#scenario_name").on("keyup", function() {console.log("WOFIJ");if ($(this).val().length > 0) {return $("button#start-recording").removeAttr("disabled");} else {return $("button#start-recording").attr("disabled", "disabled");}});'
   document.body.insertBefore(iframe, document.body.firstChild)
   steps = document.createElement("DIV")
@@ -81,6 +83,9 @@ $(document).ready () ->
   steps.appendChild(stepsList)
   steps.style.display = "none"
   document.body.appendChild(steps)
+
+  styleSheetUrl = window.apiUrl + "/assets/application/recorder.css"
+  $('head').append("<link rel='stylesheet' type='text/css' href='"+ styleSheetUrl + "'>");
 
 
   window.autoTestRecorder = new AutoTestRecorder window.projectId
@@ -131,18 +136,18 @@ $(document).ready () ->
       $wrapper = $("##{options.wrapperId}")
       $("##{options.wrapperId}").html($content)
     else
-      $wrapper = $("<div class='modal hide fade' id='#{options.wrapperId}'></div>")
+      $wrapper = $("<div class='autotest-modal modal hide' id='#{options.wrapperId}'></div>")
       $content.appendTo($wrapper)
 
     $this = $wrapper.appendTo(parent)
     $this.modal()
 
     $this.removeClass("hide")
-    $this.css
-      "max-width": options.width
-      height: options.height
-      margin: options.margin
-      "overflow-y": options["overflow-y"]
+    # $this.css
+    #   "max-width": options.width
+    #   height: options.height
+    #   margin: options.margin
+    #   "overflow-y": options["overflow-y"]
 
     autoTestGuiController.verifyScenarioNamePresent() if options.wrapperId == 'scenario-modal'
 

@@ -98,6 +98,7 @@ AutoTestGuiController = {
     $("#view-steps ul").html("")
     $("#stop-recording").hide()
     $("#start-text-highlight").hide()
+    $("button#add-feature").show()
     $("#record").show()
 
   unbindAutoTestBar: ->
@@ -206,7 +207,7 @@ AutoTestGuiController = {
     $("#start-text-highlight").show()
     $("select#features").attr("disabled", "disabled")
     $("select#features").hide()
-    # $("button#add-feature").hide()
+    $("button#add-feature").hide()
     $("#step-count").show()
     $(".recording-bar").addClass("recording")
     $("#step-count-text").show()
