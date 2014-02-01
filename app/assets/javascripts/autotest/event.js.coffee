@@ -6,10 +6,11 @@ class @AutoTestEvent
     @scenario = ""
 
   @bindDomNodeInsert: () ->
-    document.addEventListener('DOMNodeInserted', (->
-      # AutoTestEvent.unbind()
-      # AutoTestEvent.bind()
-      # AutoTestEvent.unbindElementModal()
+    document.addEventListener('DOMNodeInserted', ( (e)->
+      if $
+        AutoTestEvent.unbind()
+        AutoTestEvent.bind()
+        AutoTestEvent.unbindElementModal()
       ), true)
 
   @bind: () ->
@@ -46,7 +47,7 @@ class @AutoTestEvent
     if elementType == ""
       element = $("#{elementName}")
     else
-      element = $("#{elementName}[type=#{elementType}")
+      element = $("#{elementName}[type=#{elementType}]")
     return element
 
     element.bind("focus", AutoTestEvent.bindBlur)
