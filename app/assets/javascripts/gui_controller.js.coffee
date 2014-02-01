@@ -96,7 +96,7 @@ AutoTestGuiController = {
   stopRecording: ->
     $(".recording-bar").removeClass("recording")
     $("select#features").removeAttr("disabled").show()
-    $("button#add-feature").show()
+    # $("button#add-feature").show()
     $("#current-scenario").hide().html('')
     $("button#record").removeAttr("disabled")
     $("#step-count-text").hide()
