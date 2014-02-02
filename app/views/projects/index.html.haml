@@ -1,5 +1,9 @@
 .page-content.blocky
   .container
+    .pull-right
+      %button.btn.btn-success{data: {toggle: "modal", target: "#add-project"}}
+        %span.glyphicon.glyphicon-plus
+        Add Project
     %ol.breadcrumb
       %li.active
         = link_to "Projects", projects_path
@@ -7,10 +11,10 @@
       .col-md-12
         / Project widget
         .awidget
-          .awidget-head
-            .pull-right
-              %a{data: {toggle: "modal", target: "#add-project"}} Add Project
-            %h3 Projects
+          /.awidget-head
+          / .pull-right
+          /   %a{data: {toggle: "modal", target: "#add-project"}} Add Project
+          / %h3 Projects
           .awidget-body
             - if current_company.projects.size == 0
               %p
