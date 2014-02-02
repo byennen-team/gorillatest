@@ -1,6 +1,5 @@
 %li
   = link_to feature.name, project_feature_path(@project, feature)
   .pull-right
-    / = link_to "Play"
-    / |
-    / = link_to "Delete", project_feature_path(@project, feature), method: :delete, confirm: 'Are you sure?'
+    = link_to play_glyph, "#", title: "Playback This Feature", onclick: "alert('Feature not implemented')"
+    = link_to delete_glyph, "#", title: "Delete This Feature", onclick: "alert('Feature not impelement')"

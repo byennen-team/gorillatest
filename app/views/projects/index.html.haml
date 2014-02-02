@@ -1,33 +1,25 @@
 .page-content.blocky
   .container
-    = render 'shared/application/side_menu'
-    .mainy
-      / Page title
-      .page-title
-        %h2
-          %i.icon-desktop.color
-          Dashboard
-          %small= current_user.email
-          %hr/
-          %hr/
-      / Page title
-      .row
-        .col-md-12
-          / Project widget
-          .awidget
-            .awidget-head
-              .pull-right
-                %a{data: {toggle: "modal", target: "#add-project"}} Add Project
-              %h3 Projects
-            .awidget-body
-              - if current_company.projects.size == 0
-                %p
-                  You don't current have any projects, would you like to
-                  %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
-              - else
-                %ul.project
-                  = render partial: 'project', collection: current_company.projects
-                .clearfix
+    %ol.breadcrumb
+      %li.active
+        = link_to "Projects", projects_path
+    .row
+      .col-md-12
+        / Project widget
+        .awidget
+          .awidget-head
+            .pull-right
+              %a{data: {toggle: "modal", target: "#add-project"}} Add Project
+            %h3 Projects
+          .awidget-body
+            - if current_company.projects.size == 0
+              %p
+                You don't current have any projects, would you like to
+                %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+            - else
+              %ul.project
+                = render partial: 'project', collection: current_company.projects
+              .clearfix
 
 
 #add-project.modal.fade
