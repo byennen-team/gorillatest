@@ -1,2 +1,70 @@
 @import "bootstrap"
 @import "bootstrap/theme"
+@import url(http://fonts.googleapis.com/css?family=Monda)
+
+a:hover
+  color: #419641 !important
+  border-bottom: 1px dotted #419641 !important
+
+.header .logo h1 a
+  font-family: 'Monda', sans-serif !important
+  text-transform: lowercase
+
+.navbar-inverse
+  background-color: #4f4f4f !important
+  background-image: none !important
+  border-bottom: 0px
+.navbar
+  padding-right: 0px
+  background-color: #4f4f4f !important
+  border-top: 6px solid #419641 !important
+  height: 55px !important
+  border-bottom: 0px
+  .container
+    width: 98%
+  a.navbar-brand
+    font-size: 1.8em !important
+    font-family: 'Monda', sans-serif !important
+    text-transform: lowercase
+    font-weight: bold
+    color: #fff
+  .dropdown
+    a#user-dropdown
+      height: 100%
+      color: #fff
+      text-decoration: none !important
+      font-size: 1.2em
+    a#user-dropdown:hover
+      text-decoration: none !important
+      font-size: 1.2em
+      color: #fff !important
+    ul.dropdown-menu
+      position: absolute !important
+      top: 36px
+      width: 240px
+      left: -25px
+      background-color: #4f4f4f !important
+      float: none !important
+      position: absolute !important
+      border: 0px
+      padding: 0px
+      li
+        padding: 0px
+        a
+          color: #fff
+          padding: 10px
+          display: inline-box
+        a:hover
+          color: #fff !important
+          background-color: #959595
+          background-image: none
+.nav-pills
+  li
+    a:hover
+      background-color: #419641 !important
+      border: 0px !important
+      color: #fff !important
+  li.active
+    a
+      background-color: #419641 !important
+      color: #fff

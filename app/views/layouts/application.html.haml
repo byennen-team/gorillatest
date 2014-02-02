@@ -24,19 +24,60 @@
 
   %body
     / Logo & Navigation starts
-    .header
+    .navbar.navbar-inverse.navbar-fixed-top.row{role: "navigation"}
       .container
-        .row
-          .col-md-12
-            / Logo
-            .logo.text-center
-              %h1
-                %a{href: root_path} AutoTest.io
-            .row
-              .col-md-5
-                - flash.each do |name, msg|
-                  - if msg.is_a?(String)
-                    .alert.fade.in{:class => "alert-#{name == :notice ? "success" : "error"}"}
-                      %a.close{"data-dismiss" => "alert"} ×
-                      = content_tag :div, msg, :id => "flash_#{name}"
-            = yield
+        .navbar-header
+          %a.navbar-brand{href: "/dashboard"} autotest
+        - if current_user
+          .pull-right{style: "margin-top: 10px"}
+            .dropdown
+              %a#user-dropdown{data: {toggle: 'dropdown'}}
+                = current_user.email
+                &nbsp;
+                %img{src: "http://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=30"}
+                %span.caret
+              %ul.dropdown-menu{role: "menu", "aria-labelledby" => "user-dropdown"}
+                %li{role: "presentation"}
+                  %a.settings{href: edit_user_registration_path}
+                    %span.glyphicon.glyphicon-cog
+                    &nbsp;
+                    Settings
+                %li{role: "presentation"}
+                  %a.teams{href: "#"}
+                    %span.glyphicon.glyphicon-user
+                    &nbsp;
+                    Teams
+                %li{role: "presentation"}
+                  %a{data: {toggle: "modal", target: "#invite-user"}}
+                    %span.glyphicon.glyphicon-bullhorn
+                    &nbsp;
+                    Invite A New User
+                %li{role: "presentation"}
+                  %a.logout{href: destroy_user_session_path, method: :post}
+                    %span.glyphicon.glyphicon-log-out
+                    &nbsp;
+                    Log Out
+    %br{style: "clear: both;"}
+    %br
+    .container
+      .row
+        .col-md-5
+          - flash.each do |name, msg|
+            - if msg.is_a?(String)
+              .alert.fade.in{:class => "alert-#{name == :notice ? "success" : "error"}"}
+                %a.close{"data-dismiss" => "alert"} ×
+                = content_tag :div, msg, :id => "flash_#{name}"
+
+          = yield
+    #invite-user.modal.fade
+      .modal-dialog
+        .modal-content
+          = simple_form_for User.new, :url => 'invitation', :html => {:method => :post} do |f|
+            .modal-header
+              %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+              %h4.modal-title Invite A User
+            .modal-body
+              = f.input :email
+            .modal-footer
+              %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+              = f.submit "Invite User", class: "btn btn-primary"
