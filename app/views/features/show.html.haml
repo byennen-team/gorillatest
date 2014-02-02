@@ -3,6 +3,13 @@
 
 .page-content.blocky
   .container
+    .pull-right
+      %button.btn.btn-success{onclick: "alert('Feature not implemented')"}
+        %span.glyphicon.glyphicon-edit
+        Edit Feature
+      %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
+        %span.glyphicon.glyphicon-remove
+        Remove Feature
     %ol.breadcrumb
       %li
         = link_to "Projects", projects_path
