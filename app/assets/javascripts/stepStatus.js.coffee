@@ -21,7 +21,7 @@ window.channels = channels
 $(document).ready ()->
   $("input[type='checkbox']").on "change", () ->
     button = $(this).closest("form.scenario-run").find("input.run-test")
-    if $(this).closest("form.scenario-run :checked").length > 0
+    if $(this).closest("form.scenario-run").find("input:checked").length > 0
       button.removeAttr("disabled")
     else
       button.attr("disabled", true)
