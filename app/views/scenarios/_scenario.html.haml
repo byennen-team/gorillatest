@@ -1,5 +1,5 @@
 %li{class: "scenario_#{scenario.id}"}
-  = link_to scenario.name
+  = link_to scenario.name, project_feature_scenario_path(@project, @feature, scenario)
   .pull-right
     = link_to raw(play_glyph),  '#', onclick: "$('#test_run-#{scenario.id}').slideDown()", title: "Play Scenario"
     = link_to delete_glyph, project_feature_scenario_path(@project, @feature, scenario), data: { confirm: 'Are you sure?' }, method: :delete, title: "Delete Scenario"
