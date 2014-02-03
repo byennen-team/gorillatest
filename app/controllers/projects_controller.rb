@@ -13,8 +13,8 @@ class ProjectsController < ApplicationController
   def new; @project = Project.new; end
 
   def create
-    @project = current_company.projects.build(project_params)
-    @project.company_id = @company.id
+    @project = current_user.projects.build(project_params)
+    @project.user_id = current_user.id
     if @project.save
       respond_to do |format|
         format.html { redirect_to project_path(@project) }

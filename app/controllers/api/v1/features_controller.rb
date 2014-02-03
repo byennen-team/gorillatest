@@ -1,7 +1,5 @@
 class Api::V1::FeaturesController < Api::V1::BaseController
 
-  before_filter :find_project
-
 	def index
     @features = current_project.features
     render json: @features

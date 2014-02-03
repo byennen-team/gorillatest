@@ -2,7 +2,7 @@ class RecorderController < ApplicationController
 
   layout 'recorder'
 
-  before_filter :find_project_and_company
+  before_filter :find_project
   # after_filter :allow_iframe
   # This is going to need to do some stuff but for now
   # I just want it as a placeholder - jkr
@@ -13,9 +13,8 @@ class RecorderController < ApplicationController
 
   private
 
-  def find_project_and_company
+  def find_project
     @project = Project.find(params[:project_id])
-    @company = @project.company
   end
 
 end
