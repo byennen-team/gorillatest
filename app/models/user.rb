@@ -44,11 +44,17 @@ class User
   ## Non-Devise
   field :company_name, type: String
   field :phone, type: String
+  field :location, type: String
+  field :first_name, type: String
+  field :last_name, type: String
 
   has_one :company
 
+  validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
+
   #before_save :strip_phone
   after_save :update_company
+  after_create :send_welcome_email
 
   def self.send_invitation(invited_user)
     UserMailer.send_invitation_email(invited_user).deliver
@@ -67,6 +73,10 @@ class User
     else
       self.company.update_attribute(:name, company_name)
     end
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
   end
 
 end

@@ -68,7 +68,7 @@ selectElementModalTemplate = _.template '<div class="modal-content" style="curso
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
   iframe = document.createElement("IFRAME")
-  iframe.setAttribute("src", "#{window.apiUrl}recorder?project_id=#{window.projectId}")
+  iframe.setAttribute("src", "#{window.apiUrl}/recorder?project_id=#{window.projectId}")
   iframe.id = "autotest-iframe"
   iframe.style.width = "100%"
   iframe.style.height = "55px"
