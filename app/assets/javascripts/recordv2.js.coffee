@@ -74,6 +74,7 @@ $(document).ready () ->
   iframe.style.height = "55px"
   iframe.style.top = "0px"
   iframe.style.border = "0px"
+  iframe.style.display = "block"
   iframe.onload = '$("iframe").contents().find("input#scenario_name").on("keyup", function() {console.log("WOFIJ");if ($(this).val().length > 0) {return $("button#start-recording").removeAttr("disabled");} else {return $("button#start-recording").attr("disabled", "disabled");}});'
   document.body.insertBefore(iframe, document.body.firstChild)
   steps = document.createElement("DIV")
