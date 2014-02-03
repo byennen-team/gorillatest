@@ -65,12 +65,17 @@ AutoTestGuiController = {
         beforeSend: (xhr, settings) ->
           xhr.setRequestHeader('Authorization', "Token token=\"#{window.authToken}\"")
         success: (data) ->
-          debugger
           $("#feature-modal").modal("hide")
           $("#feature_name").val('')
           feature = data.feature
           window.postMessageToIframe({messageType: "featureAdded", message: {featureName: feature.name, featureId: feature.id}})
           window.autoTestRecorder.setCurrentFeature(feature.id)
+        error:  (jqXHR, textStatus, errorThrown) ->
+          if $("#feature-modal-errors").length == 0
+            $("#feature-modal .modal-body").append("<ul id='feature-modal-errors'></ul>")
+          $("#feature-modal-errors").html('')
+          $.each jqXHR.responseJSON.errors, (i, message) ->
+            $("#feature-modal-errors").append("<li class='text-danger'>#{message}</li>")
 
   startRecording: ->
     recorder = window.autoTestRecorder
