@@ -38,9 +38,11 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   # include mongoid matchers
   config.include Mongoid::Matchers, type: :model
+
+  config.include FactoryGirl::Syntax::Methods
 
   # Clean up the database
   require 'database_cleaner'

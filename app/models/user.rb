@@ -54,6 +54,7 @@ class User
 
   #before_save :strip_phone
   after_save :update_company
+  after_create :send_welcome_email
 
   def self.send_invitation(invited_user)
     UserMailer.send_invitation_email(invited_user).deliver
@@ -72,6 +73,10 @@ class User
     else
       self.company.update_attribute(:name, company_name)
     end
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
   end
 
 end

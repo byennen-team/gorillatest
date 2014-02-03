@@ -1,6 +1,11 @@
 class UserMailer < ActionMailer::Base
   default from: 'support@autotest.io'
 
+  def welcome_email(user)
+    @user = user
+    mail to: user.email, subject: "Welcome to AutoTest"
+  end
+
   def send_invitation_email(invited_user)
     @invited_user = invited_user
     @inviting_user = @invited_user.invited_by

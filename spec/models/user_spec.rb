@@ -4,13 +4,14 @@ describe User do
 
   describe 'on create' do
 
-    before do
-      @user = User.create!({email: "test@test.com", password: "test1234", password_confirmation: "test1234",
-                           company_name: "Test Company"})
+    let!(:user) { create(:user) }
+
+    it "should create a company" do
+      expect(user.company.name).to eq(user.company_name)
     end
 
-    it "should create the user" do
-      expect(@user.company.name).to eq("Test Company")
+    it "sends welcome email after creation" do
+      ActionMailer::Base.deliveries.last.to.should eq [user.email]
     end
 
   end
