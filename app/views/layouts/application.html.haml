@@ -38,25 +38,21 @@
                 %span.caret
               %ul.dropdown-menu{role: "menu", "aria-labelledby" => "user-dropdown"}
                 %li{role: "presentation"}
-                  %a.settings{href: edit_user_registration_path}
-                    %span.glyphicon.glyphicon-cog
-                    &nbsp;
-                    Settings
+                  = user_nav_link("cog", "Settting", edit_user_registration_path)
                 %li{role: "presentation"}
                   %a.teams{href: "#"}
                     %span.glyphicon.glyphicon-user
                     &nbsp;
                     Teams
+                    %span.label.label-danger Coming Soon
                 %li{role: "presentation"}
                   %a{data: {toggle: "modal", target: "#invite-user"}}
                     %span.glyphicon.glyphicon-bullhorn
                     &nbsp;
                     Invite A New User
                 %li{role: "presentation"}
-                  %a.logout{href: destroy_user_session_path, method: :post}
-                    %span.glyphicon.glyphicon-log-out
-                    &nbsp;
-                    Log Out
+                  = link_to raw("#{logout_glyph}&nbsp; Log Out"), destroy_user_session_path, method: :delete
+
     %br{style: "clear: both;"}
     %br
     .container
