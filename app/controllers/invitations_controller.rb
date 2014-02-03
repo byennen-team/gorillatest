@@ -34,7 +34,7 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(resource)
-    new_invitation_path
+    request.env["HTTP_REFERER"]
   end
 
   def after_accept_path_for(resource)

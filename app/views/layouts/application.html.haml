@@ -72,7 +72,7 @@
     #invite-user.modal.fade
       .modal-dialog
         .modal-content
-          = simple_form_for User.new, :url => 'invitation', :html => {:method => :post} do |f|
+          = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form'} do |f|
             .modal-header
               %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
               %h4.modal-title Invite A User
