@@ -64,6 +64,21 @@ selectElementModalTemplate = _.template '<div class="modal-content" style="curso
                               </div>
                               </div>'
 
+addFeatureModalTemplate = _.template '<div class="modal-content">
+                                    <div class="modal-header">
+                                      <button class="close" data-dismiss="modal">×</button>
+                                      <h4>Create a new Feature</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <label>Feature Name</label>
+                                      <input id="feature_name" name="feature[name]" type="text">
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button class="btn btn-primary" disabled="disabled" id="create-feature">Create Feature</button>
+                                    </div>
+                                  </div>'
+
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
@@ -100,6 +115,8 @@ $(document).ready () ->
         autoTestRecorder.setCurrentFeature(data.featureId)
       when "recordClick"
         autoTestGuiController.showScenarioModal()
+      when "addFeature"
+        autoTestGuiController.showFeatureModal()
       when "viewSteps"
         autoTestGuiController.viewSteps()
       when "stopRecording"
@@ -150,7 +167,7 @@ $(document).ready () ->
     #   margin: options.margin
     #   "overflow-y": options["overflow-y"]
 
-    autoTestGuiController.verifyScenarioNamePresent() if options.wrapperId == 'scenario-modal'
+    autoTestGuiController.verifyInputNamePresent(options.wrapperId)
 
     $("#start-recording").click ->
       window.autoTestGuiController.startRecording()
