@@ -10,7 +10,7 @@ class @AutoTestStep
     autoTestStep = ""
     if @id == ""
       that = this
-      $.ajax(@apiUrl + '/api/v1/projects/' + @projectId + '/features/' + @featureId + '/scenarios/' + @scenarioId + '/steps',
+      $.ajax(@apiUrl + '/api/v1/features/' + @featureId + '/scenarios/' + @scenarioId + '/steps',
         type: 'POST',
         dataType: "json",
         data: {step: {event_type: this.type, locator_type: this.locator.type, locator_value: this.locator.value, text: this.text}},
@@ -33,7 +33,7 @@ class @AutoTestStep
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
     steps = new Array
-    $.ajax(apiUrl + "/api/v1/projects/#{projectId}/features/#{featureId}/scenarios/#{scenarioId}/steps",
+    $.ajax(apiUrl + "/api/v1/features/#{featureId}/scenarios/#{scenarioId}/steps",
       type: 'GET',
       dataType: 'json',
       async: false,

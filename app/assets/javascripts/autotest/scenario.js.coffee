@@ -10,7 +10,7 @@ class @AutoTestScenario
     autoTestScenario = ""
     if @id == ""
       that = this
-      $.ajax(@apiUrl + '/api/v1/projects/' + @projectId + '/features/' + @featureId + '/scenarios',
+      $.ajax(@apiUrl + '/api/v1/features/' + @featureId + '/scenarios',
         type: 'POST',
         dataType: "json",
         data: {scenario: {name: this.name, start_url: this.startUrl, window_x: this.windowX, window_y: this.windowY}},
@@ -55,7 +55,7 @@ class @AutoTestScenario
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
     autoTestScenario = ""
-    $.ajax("#{apiUrl}/api/v1/projects/#{projectId}/features/#{featureId}/scenarios/#{id}",
+    $.ajax("#{apiUrl}/api/v1/features/#{featureId}/scenarios/#{id}",
         type: 'GET',
         dataType: 'json',
         async: false,
