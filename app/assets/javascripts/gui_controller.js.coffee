@@ -12,7 +12,7 @@ $(document).ready ->
     $("body *").unbind("click", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
-    $("a").bind("click", AutoTestEvent.bindLink)
+    $("a").bind("click", AutoTestEvent.bindClick)
 
   #create feature modal
   $("input#feature_name").on "keyup", ->
@@ -77,7 +77,7 @@ AutoTestGuiController = {
     window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
 
     # unbind select element buttons
-    # $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
+    # $("button#start-text-highlight").unbind("click", AutoTestEvent.bindClick)
 
   stopRecording: ->
     $(".recording-bar").removeClass("recording")
@@ -126,7 +126,7 @@ AutoTestGuiController = {
     # e.preventDefault()
     # e.stopPropagation()
     #unbind stop recording element selection button
-    # $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindLink)
+    # $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindClick)
 
     $("body *").hover(autoTestGuiController.hoverOutline)
     $("html").unbind("mouseenter").unbind("mouseleave")
@@ -136,7 +136,7 @@ AutoTestGuiController = {
     # $("#recording-bar *").css("cursor", "auto")
 
     # Unbind links and prevent default
-    $("a").unbind("click", AutoTestEvent.bindLink)
+    $("a").unbind("click", AutoTestEvent.bindClick)
     $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
 
     # Unbind hover for body and modal backdrop
@@ -157,7 +157,7 @@ AutoTestGuiController = {
     $("body *").unbind("click", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
-    $("a").bind("click", AutoTestEvent.bindLink)
+    $("a").bind("click", AutoTestEvent.bindClick)
 
   showElementModal: (event, element) ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'select-element-modal'}
