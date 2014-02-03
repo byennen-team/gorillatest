@@ -4,6 +4,8 @@ class ScenariosController < ApplicationController
   before_filter :find_feature
   before_filter :find_scenario, except: [:index, :new, :create]
 
+  def show; end
+
   def new
     @scenario = @feature.scenarios.new
   end
