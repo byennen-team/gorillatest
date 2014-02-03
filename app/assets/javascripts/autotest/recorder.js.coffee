@@ -67,8 +67,11 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
 
   addScenario: (name) ->
-    @currentScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href, $(window).width(), $(window).height())
-    @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
+    newScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href, $(window).width(), $(window).height())
+    if newScenario.status == "success"
+      @currentScenario = newScenario.scenario
+      @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
+    return newScenario
 
   recordHighlight: (text)->
     scenario = this.currentScenario

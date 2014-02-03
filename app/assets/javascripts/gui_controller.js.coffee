@@ -70,12 +70,18 @@ AutoTestGuiController = {
   startRecording: ->
     recorder = window.autoTestRecorder
     event.preventDefault()
-    recorder.addScenario($("input#scenario_name").val())
-    recorder.record()
-    $("#scenario-modal").modal("hide")
-    recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
-    window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
-
+    scenario = recorder.addScenario($("input#scenario_name").val())
+    if scenario.status == "success"
+      recorder.record()
+      $("#scenario-modal").modal("hide")
+      recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
+      window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
+    else
+      if $("#scenario-modal-errors").length == 0
+        $("#scenario-modal .modal-body").append("<ul id='scenario-modal-errors'></ul>")
+      $("#scenario-modal-errors").html('')
+      $.each scenario.errors, (i, message) ->
+        $("#scenario-modal-errors").append("<li class='text-danger'>#{message}</li>")
     # unbind select element buttons
     # $("button#start-text-highlight").unbind("click", AutoTestEvent.bindClick)
 
