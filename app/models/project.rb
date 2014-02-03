@@ -6,12 +6,13 @@ class Project
   field :name, type: String
   field :url, type: String
   field :status, type: String
+  field :api_key, type: String
 
-  belongs_to :company, inverse_of: :projects
+  belongs_to :user
 
   has_many :features
 
-  validates :name, presence: true, uniqueness: {scope: :company}
+  validates :name, presence: true
 
   before_create :add_auth_key
 

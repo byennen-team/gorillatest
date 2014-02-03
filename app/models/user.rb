@@ -48,7 +48,7 @@ class User
   field :first_name, type: String
   field :last_name, type: String
 
-  # has_one :company
+  has_many :projects
 
   validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
 
