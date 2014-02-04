@@ -3,13 +3,14 @@
     /= render 'shared/application/side_menu'
     /.mainy
     / Page title
-    .pull-right
-      %button.btn.btn-success{onclick: "alert('Feature not implemented')"}
-        %span.glyphicon.glyphicon-edit
-        Edit Project
-      %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
-        %span.glyphicon.glyphicon-remove
-        Remove Project
+    - if @project.owner?(current_user)
+      .pull-right
+        %button.btn.btn-success{onclick: "alert('Feature not implemented')"}
+          %span.glyphicon.glyphicon-edit
+          Edit Project
+        %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
+          %span.glyphicon.glyphicon-remove
+          Remove Project
 
     %ol.breadcrumb
       %li

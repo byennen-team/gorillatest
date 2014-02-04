@@ -13,12 +13,15 @@ class ProjectsController < ApplicationController
   def new; @project = Project.new; end
 
   def create
-    @project = current_user.projects.build(project_params)
+    @project = Project.new(project_params)
     @project.user_id = current_user.id
     if @project.save
+      @project_user = ProjectUser.create!({user_id: current_user.id, project_id: @project.id, rights: 'owner'})
       respond_to do |format|
         format.html { redirect_to project_path(@project) }
       end
+    else
+      Rails.logger.debug(@project.inspect)
     end
   end
 

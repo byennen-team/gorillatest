@@ -48,15 +48,20 @@ class User
   field :first_name, type: String
   field :last_name, type: String
 
-  has_many :projects
+  # has_many :projects
+  has_many :project_users
 
   validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
 
   #before_save :strip_phone
   after_create :send_welcome_email
 
-  def self.send_invitation(invited_user)
-    UserMailer.send_invitation_email(invited_user).deliver
+  def send_invitation(inviter_id)
+    InvitationMailer.send_invitation(self.id, inviter_id).deliver
+  end
+
+  def send_project_invitation(inviter_id, project_id)
+    InvitationMailer.send_project_invitation(self.id, inviter_id, project_id).deliver
   end
 
   def gravatar_hash
@@ -66,6 +71,14 @@ class User
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def projects
+    Project.in(id: project_users.map(&:project_id))
+  end
+
+  def owned_projects
+    projects.where(rights: 'owner')
   end
 
   private

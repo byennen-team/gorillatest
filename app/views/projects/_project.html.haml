@@ -3,10 +3,14 @@
   .pull-right
     %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}} View Embed Code
     |
-    -unless Rails.env.production?
+    - if project.owner?(current_user)
+      %a{data: {toggle: "modal", target: "#invite-user-#{project.id}"}} Invite A User
+      |
+    -if Rails.env.development?
       =link_to "View Test Page", test_form_path(project_id: project.id), target: "_blank"
-    |
-    = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
+    - if project.owner?(current_user)
+      |
+      = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
 
   -#%p.p-meta
   -#  / Due date & % Completed
@@ -45,4 +49,17 @@
               &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-project-id="#{project.id}"&lt;/script&gt;
         .modal-footer
           %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+  .modal.fade{id: "invite-user-#{project.id}"}
+    .modal-dialog
+      .modal-content
+        = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form'} do |f|
+          .modal-header
+            %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+            %h4.modal-title Invite A User
+          .modal-body
+            = f.hidden_field :project_id, value: project.id
+            = f.input :email, label: "To invite your friends, and colleagues to #{project.name}, just enter their email:"
+          .modal-footer
+            %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+            = f.submit "Invite User", class: "btn btn-primary"
 
