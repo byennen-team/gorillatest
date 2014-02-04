@@ -100,7 +100,7 @@ $(document).ready () ->
   iframeWrapper.appendChild(iframe)
 
   iframeBottomMargin = document.createElement("DIV")
-  iframeBottomMargin.height = "55px"
+  iframeBottomMargin.style.height = "55px"
 
   document.body.insertBefore(iframeBottomMargin, document.body.firstChild)
 
