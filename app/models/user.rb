@@ -64,6 +64,10 @@ class User
     hash = Digest::MD5.hexdigest(email_address)
   end
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   private
 
   def send_welcome_email

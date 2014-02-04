@@ -14,6 +14,7 @@ class TestRun
   field :start_url, type: String
   field :queued_at, type: DateTime
   field :ran_at, type: DateTime
+  field :number, type: Integer
 
   belongs_to :scenario
   belongs_to :user
@@ -37,6 +38,10 @@ class TestRun
     test_statuses = tests.map(&:status)
     Rails.logger.debug("statuses are #{test_statuses}")
     return  test_statuses.include?("fail") ? "fail" : "pass"
+  end
+
+  def duration
+    tests.last.updated_at - ran_at
   end
 
   def fail!

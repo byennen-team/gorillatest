@@ -39,7 +39,8 @@ class ScenariosController < ApplicationController
   end
 
   def run
-    test_run = @scenario.test_runs.create!()
+    i = @scenario.test_runs.size + 1
+    test_run = @scenario.test_runs.create!({number: i})
     test_run.user = current_user
     @scenario.steps.each do |step|
       test_run.steps << Step.new(step.attributes.except("_id").except("updated_at").except("created_at"))

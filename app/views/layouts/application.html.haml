@@ -33,7 +33,7 @@
           .pull-right{style: "margin-top: 10px"}
             .dropdown
               %a#user-dropdown{data: {toggle: 'dropdown'}}
-                autotest@bigastronaut.com
+                = current_user.name
                 &nbsp;
                 %img{src: "http://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=30"}
                 %span.caret
