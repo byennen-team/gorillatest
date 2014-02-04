@@ -10,13 +10,21 @@
 
 .page-content.blocky
   .container
+    %ol.breadcrumb
+      %li
+        = link_to "Projects", projects_path
+      %li
+        = link_to @scenario.feature.project.name, project_path(@project)
+      %li
+        = link_to @feature.name, project_feature_path(@project, @feature)
+      %li
+        = link_to @scenario.name, project_feature_scenario_path(@project, @feature, @scenario)
+      %li.active
+        Test Run #{@test_run.id.to_s.last(6)}
     - @test_run.tests.each do |test|
-      .test{style: "border: 1px solid #ccc;"}
-        .panel-heading.panel-status
-          %h4.panel-title
-          =image_tag "icons/#{test.browser}-24.png"
-          = test.browser.capitalize
-        %div{id: "#{@test_run.id}_#{test.platform}_#{test.browser}_channel"}
-          .panel-body.terminal
-            / %p Starting test...
-            %ul.steps-list
+      - if test.status != nil
+        .test{class: "#{test.status}"}
+          = render partial: 'test', locals: {test: test}
+      - else
+        .test
+          = render partial: 'test', locals: {test: test}

@@ -16,19 +16,13 @@
 
     %br
     %br
-    - @scenario.test_runs.each do |test_run|
-      .test_run.fail
-        .pull-right.view-test_run{style: "width: 80px; background-color: #ccc; height: 100%; padding-top: 20px; padding-bottom: 20px; padding-left: 25px;"}
-          %a{href: '#', onclick: "alert('Feature not implemented')"}
-            %span.glyphicon.glyphicon-play{style: "font-size: 2.2em"}
-        .pull-left{style: "padding: 10px;"}
-          %p
-            %strong Ran By:&nbsp;
-            %img{src: "http://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=16"}
-            Jim Ray
-          %p
-            %strong Started On:&nbsp;
-            = test_run.created_at.strftime('%m/%d/%Y %H:%m')
+    - @scenario.test_runs.reverse.each do |test_run|
+      - if test_run.status != nil
+        .test_run{class: test_run.status}
+          = render partial: 'test_run', locals: {test_run: test_run}
+      - else
+        .test_run
+          = render partial: 'test_run', locals: {test_run: test_run}
 
 
 

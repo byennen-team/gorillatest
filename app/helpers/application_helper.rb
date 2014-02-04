@@ -30,8 +30,21 @@ module ApplicationHelper
      glyph("log-out", options)
   end
 
+  def status_glyph(status, options={})
+    if status == "pass"
+      glyph("ok-sign", {class: "status status-pass"})
+    else
+      glyph("exclamation-sign", {class: "status status-fail"})
+    end
+  end
+
   def glyph(glyph_name, options={})
-    html = content_tag(:span, "", {class: "glyphicon glyphicon-#{glyph_name}"}.merge!(options))
+    if options[:class]
+      options[:class] += " glyphicon glyphicon-#{glyph_name}"
+    else
+      options[:class] = " glyphicon glyphicon-#{glyph_name}"
+    end
+    html = content_tag(:span, "", options)
     html.html_safe
   end
 

@@ -1,0 +1,10 @@
+.pull-right.view-test_run{style: "width: 80px; background-color: #ccc; height: 100%; padding-top: 20px; padding-bottom: 20px; padding-left: 25px;"}
+  = link_to glyph("play", {style: "font-size: 1.8em;"}), project_feature_scenario_test_run_path(@project, @feature, @scenario, test_run)
+.pull-left{style: "padding: 10px;"}
+  %p
+    %strong Ran By:&nbsp;
+    %img{src: "http://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=16"}
+    Jim Ray
+  %p
+    %strong Started On:&nbsp;
+    = test_run.queued_at.strftime('%m/%d/%Y %H:%M')

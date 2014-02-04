@@ -33,6 +33,12 @@ class TestRun
     end
   end
 
+  def status
+    test_statuses = tests.map(&:status)
+    Rails.logger.debug("statuses are #{test_statuses}")
+    return  test_statuses.include?("fail") ? "fail" : "pass"
+  end
+
   def fail!
     update_attribute("status", "fail")
   end
