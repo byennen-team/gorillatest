@@ -40,6 +40,7 @@ class ScenariosController < ApplicationController
 
   def run
     test_run = @scenario.test_runs.create!()
+    test_run.user = current_user
     @scenario.steps.each do |step|
       test_run.steps << Step.new(step.attributes.except("_id").except("updated_at").except("created_at"))
       test_run.queued_at = Time.now
