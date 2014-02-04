@@ -11,6 +11,6 @@ class Feature
 
   has_many :scenarios
 
-  validate :name, presence: true, uniqueness: {scope: :project}
+  validates :name, presence: true, uniqueness: {scope: :project}
 
 end

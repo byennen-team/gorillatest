@@ -18,6 +18,8 @@ class Api::V1::ScenariosController < Api::V1::BaseController
     @scenario = @feature.scenarios.new(scenario_params)
     if @scenario.save
       render json: @scenario
+    else
+      render json: {errors: @scenario.errors.to_a}.to_json, status: 400
     end
   end
 

@@ -14,6 +14,8 @@ class Api::V1::FeaturesController < Api::V1::BaseController
     @feature = current_project.features.build(feature_params)
     if @feature.save
       render json: @feature
+    else
+      render json: {errors: @feature.errors.to_a}.to_json, status: 400
     end
   end
 

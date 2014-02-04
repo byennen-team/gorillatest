@@ -54,6 +54,11 @@ addEventListener "message", (e)->
       autoTestGuiController.recording(data.message)
     when "stepAdded"
       $("#step-count").text("#{data.message.stepCount} steps")
+    when "featureAdded"
+      feature = data.message
+      $("select#features").append "<option value=#{feature.featureId}>#{feature.featureName}</option>"
+      $("select#features").val(feature.featureId)
+      $("button#record").removeAttr("disabled")
 
 $(document).ready ($)->
   window.postParentMessage = (message)->
@@ -78,6 +83,9 @@ $(document).ready ($)->
     featureId = $(this).val()
     parent.postMessage({messageType: "setFeature", featureId: featureId}, document.referrer)
     autoTestGuiController.enableRecordButton()
+
+  $("#add-feature").click ->
+    postParentMessage({messageType: "addFeature"})
 
   $("#record").click ->
     postParentMessage({messageType: "recordClick"})

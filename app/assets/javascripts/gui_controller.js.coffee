@@ -14,43 +14,22 @@ $(document).ready ->
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
     $("a").bind("click", AutoTestEvent.bindClick)
 
-  #create feature modal
-  $("input#feature_name").on "keyup", ->
-    if $(this).val().length > 0
-      $("button#create-feature").removeAttr("disabled")
-    else
-      $("button#create-feature").attr("disabled", "disabled")
-
-  $("button#create-feature").click (e) ->
-    e.preventDefault()
-    project_id = location.search.split('project_id=')[1]
-    data = { feature: {name: $("#feature_name").val()} }
-
-    $.ajax "/api/v1/projects/#{project_id}/features",
-      type: "POST"
-      data: data
-      async: false
-      beforeSend: (xhr, settings) ->
-        xhr.setRequestHeader('Authorization', "Token token=\"#{window.authToken}\"")
-      success: (data) ->
-        $("#create-feature-modal").modal("hide")
-        $("#feature_name").val('')
-        feature = data.feature
-        $("select#features").append "<option value=#{feature.id}>#{feature.name}</option>"
-        $("select#features").val(feature.id)
-        autoTestRecorder.setCurrentFeature(feature.id)
-        $("button#record").removeAttr("disabled")
-
 AutoTestGuiController = {
   iframeScopeFind: (element)->
     $("iframe").contents().find(element)
 
-  verifyScenarioNamePresent: ->
-    $("#scenario_name").on 'keyup', ->
+  verifyInputNamePresent: (modal)->
+    $("#scenario_name, #feature_name").on 'keyup', ->
       if $(this).val().length > 0
-        $("#start-recording").removeAttr("disabled")
+        if modal == "feature-modal"
+          $("#create-feature").removeAttr("disabled")
+        else
+          $("#start-recording").removeAttr("disabled")
       else
-        $("#start-recording").attr("disabled", "disabled")
+        if modal == "feature-modal"
+          $("#create-feature").attr("disabled", "disabled")
+        else
+          $("#start-recording").attr("disabled", "disabled")
 
   viewSteps: ->
     if $("#autotest-view-steps").is(':visible')
@@ -67,15 +46,52 @@ AutoTestGuiController = {
       window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
     return
 
+  showFeatureModal: ->
+    options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'feature-modal'}
+    window.renderModal("addFeatureModalTemplate", '', options)
+    AutoTestGuiController.createFeature()
+
+  createFeature: ->
+    $("button#create-feature").click (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      project_id = location.search.split('project_id=')[1]
+      data = { feature: {name: $("#feature_name").val()} }
+
+      $.ajax "/api/v1/projects/#{window.projectId}/features",
+        type: "POST"
+        data: data
+        async: false
+        beforeSend: (xhr, settings) ->
+          xhr.setRequestHeader('Authorization', "Token token=\"#{window.authToken}\"")
+        success: (data) ->
+          $("#feature-modal").modal("hide")
+          $("#feature_name").val('')
+          feature = data.feature
+          window.postMessageToIframe({messageType: "featureAdded", message: {featureName: feature.name, featureId: feature.id}})
+          window.autoTestRecorder.setCurrentFeature(feature.id)
+        error:  (jqXHR, textStatus, errorThrown) ->
+          if $("#feature-modal-errors").length == 0
+            $("#feature-modal .modal-body").append("<ul id='feature-modal-errors'></ul>")
+          $("#feature-modal-errors").html('')
+          $.each jqXHR.responseJSON.errors, (i, message) ->
+            $("#feature-modal-errors").append("<li class='text-danger'>#{message}</li>")
+
   startRecording: ->
     recorder = window.autoTestRecorder
     event.preventDefault()
-    recorder.addScenario($("input#scenario_name").val())
-    recorder.record()
-    $("#scenario-modal").modal("hide")
-    recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
-    window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
-
+    scenario = recorder.addScenario($("input#scenario_name").val())
+    if scenario.status == "success"
+      recorder.record()
+      $("#scenario-modal").modal("hide")
+      recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
+      window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
+    else
+      if $("#scenario-modal-errors").length == 0
+        $("#scenario-modal .modal-body").append("<ul id='scenario-modal-errors'></ul>")
+      $("#scenario-modal-errors").html('')
+      $.each scenario.errors, (i, message) ->
+        $("#scenario-modal-errors").append("<li class='text-danger'>#{message}</li>")
     # unbind select element buttons
     # $("button#start-text-highlight").unbind("click", AutoTestEvent.bindClick)
 
