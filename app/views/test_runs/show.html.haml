@@ -20,7 +20,7 @@
       %li
         = link_to @scenario.name, project_feature_scenario_path(@project, @feature, @scenario)
       %li.active
-        Test Run ##{@test_run.number}
+        = link_to "Test Run ##{@test_run.number}", project_feature_scenario_test_run_path(@project, @feature, @scenario, @test_run)
     %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
       %tr
         %th{style: "width: 100px;"} Started By:
