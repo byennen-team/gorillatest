@@ -67,6 +67,12 @@ selectElementModalTemplate = _.template '<div class="modal-content" style="curso
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
+  iframeWrapper = document.createElement("DIV")
+  iframeWrapper.id = "iframe-wrapper"
+  iframeWrapper.style.position = "fixed"
+  iframeWrapper.style.width = "100%"
+  iframeWrapper.style.zIndex = "2000"
+
   iframe = document.createElement("IFRAME")
   iframe.setAttribute("src", "#{window.apiUrl}/recorder?project_id=#{window.projectId}")
   iframe.id = "autotest-iframe"
@@ -76,7 +82,15 @@ $(document).ready () ->
   iframe.style.border = "0px"
   iframe.style.display = "block"
   iframe.onload = '$("iframe").contents().find("input#scenario_name").on("keyup", function() {console.log("WOFIJ");if ($(this).val().length > 0) {return $("button#start-recording").removeAttr("disabled");} else {return $("button#start-recording").attr("disabled", "disabled");}});'
-  document.body.insertBefore(iframe, document.body.firstChild)
+  iframeWrapper.appendChild(iframe)
+
+  iframeBottomMargin = document.createElement("DIV")
+  iframeBottomMargin.height = "55px"
+
+  document.body.insertBefore(iframeBottomMargin, document.body.firstChild)
+
+  document.body.insertBefore(iframeWrapper, iframeBottomMargin)
+
   steps = document.createElement("DIV")
   steps.id = "autotest-view-steps"
   stepsList = document.createElement("UL")
