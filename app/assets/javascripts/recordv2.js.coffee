@@ -104,7 +104,7 @@ $(document).ready () ->
 
   document.body.insertBefore(iframeBottomMargin, document.body.firstChild)
 
-  document.body.insertBefore(iframeWrapper, iframeBottomMargin)
+  document.body.insertBefore(iframeWrapper, document.body.firstChild)
 
   steps = document.createElement("DIV")
   steps.id = "autotest-view-steps"
