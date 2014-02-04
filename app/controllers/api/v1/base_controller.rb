@@ -12,8 +12,8 @@ class Api::V1::BaseController < ApplicationController
 
   after_filter :set_access_control_headers
 
-  def current_company
-    @current_company
+  def current_project
+    @current_project
   end
 
   def preflight
@@ -37,7 +37,7 @@ class Api::V1::BaseController < ApplicationController
     Rails.logger.debug("Authenticating via token")
     authenticate_or_request_with_http_token do |token, options|
       Rails.logger.debug("token is #{token}")
-      @current_company = Company.find_by(api_key: token)
+      @current_project = Project.find_by(api_key: token)
     end
   end
 

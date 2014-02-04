@@ -64,9 +64,30 @@ selectElementModalTemplate = _.template '<div class="modal-content" style="curso
                               </div>
                               </div>'
 
+addFeatureModalTemplate = _.template '<div class="modal-content">
+                                    <div class="modal-header">
+                                      <button class="close" data-dismiss="modal">×</button>
+                                      <h4>Create a new Feature</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <label>Feature Name</label>
+                                      <input id="feature_name" name="feature[name]" type="text">
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button class="btn btn-primary" disabled="disabled" id="create-feature">Create Feature</button>
+                                    </div>
+                                  </div>'
+
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
+  iframeWrapper = document.createElement("DIV")
+  iframeWrapper.id = "iframe-wrapper"
+  iframeWrapper.style.position = "fixed"
+  iframeWrapper.style.width = "100%"
+  iframeWrapper.style.zIndex = "2000"
+
   iframe = document.createElement("IFRAME")
   iframe.setAttribute("src", "#{window.apiUrl}/recorder?project_id=#{window.projectId}")
   iframe.id = "autotest-iframe"
@@ -74,8 +95,17 @@ $(document).ready () ->
   iframe.style.height = "55px"
   iframe.style.top = "0px"
   iframe.style.border = "0px"
+  iframe.style.display = "block"
   iframe.onload = '$("iframe").contents().find("input#scenario_name").on("keyup", function() {console.log("WOFIJ");if ($(this).val().length > 0) {return $("button#start-recording").removeAttr("disabled");} else {return $("button#start-recording").attr("disabled", "disabled");}});'
-  document.body.insertBefore(iframe, document.body.firstChild)
+  iframeWrapper.appendChild(iframe)
+
+  iframeBottomMargin = document.createElement("DIV")
+  iframeBottomMargin.height = "55px"
+
+  document.body.insertBefore(iframeBottomMargin, document.body.firstChild)
+
+  document.body.insertBefore(iframeWrapper, iframeBottomMargin)
+
   steps = document.createElement("DIV")
   steps.id = "autotest-view-steps"
   stepsList = document.createElement("UL")
@@ -99,6 +129,8 @@ $(document).ready () ->
         autoTestRecorder.setCurrentFeature(data.featureId)
       when "recordClick"
         autoTestGuiController.showScenarioModal()
+      when "addFeature"
+        autoTestGuiController.showFeatureModal()
       when "viewSteps"
         autoTestGuiController.viewSteps()
       when "stopRecording"
@@ -149,7 +181,7 @@ $(document).ready () ->
     #   margin: options.margin
     #   "overflow-y": options["overflow-y"]
 
-    autoTestGuiController.verifyScenarioNamePresent() if options.wrapperId == 'scenario-modal'
+    autoTestGuiController.verifyInputNamePresent(options.wrapperId)
 
     $("#start-recording").click ->
       window.autoTestGuiController.startRecording()

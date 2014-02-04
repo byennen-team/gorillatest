@@ -15,11 +15,14 @@
               = f.error_notification
               = devise_error_messages!
               .form-inputs
+                = f.input :first_name, required: false
+                = f.input :last_name, required: false
                 = f.input :email
                 = f.input :password
                 = f.input :password_confirmation
-                = f.input :company_name, label: 'Company Name'
+                = f.input :company_name, label: 'Company Name', required: false
                 = f.input :phone
+                = f.input :location
               .row
                 .form-group
                   .col-lg-12

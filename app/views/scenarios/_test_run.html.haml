@@ -1,0 +1,15 @@
+.pull-right.view-test_run{style: "width: 80px; background-color: #ccc; height: 100%; padding-top: 20px; padding-bottom: 20px; padding-left: 25px;"}
+  = link_to glyph("play", {style: "font-size: 1.8em;"}), project_feature_scenario_test_run_path(@project, @feature, @scenario, test_run)
+.test_run_details{style: "padding-left: 10px;"}
+  %h3{style: "margin-top: 2px;"} Test Run ##{test_run.number}
+  %table
+    %tr
+      %th{style: "padding-right: 5px;"} Ran By:
+      %td{style: "width: 200px;"}
+        %img{src: "http://www.gravatar.com/avatar/#{test_run.user.gravatar_hash}?s=16"}
+        = test_run.user.name
+      %th{style: "padding-right: 5px;"} Started On:
+      %td{style: "width: 200px;"}
+        = test_run.created_at.strftime('%A at %H:%M')
+      %th{style: "padding-right: 5px;"} Duration:
+      %td= duration_to_hours_minutes_seconds(test_run.duration)

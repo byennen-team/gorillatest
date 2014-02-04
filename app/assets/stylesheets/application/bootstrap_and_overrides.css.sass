@@ -2,22 +2,29 @@
 @import "bootstrap/theme"
 @import url(http://fonts.googleapis.com/css?family=Monda)
 
+$red: #c13737
+$green: #419641
+$black: #333
+$darkGrey: #4f4f4f
+$lightGrey: #ccc
+$lightGreyLink: #aaa
+
 a:hover
-  color: #419641 !important
-  border-bottom: 1px dotted #419641 !important
+  color: $green !important
+  border-bottom: 1px dotted $green !important
 
 .header .logo h1 a
   font-family: 'Monda', sans-serif !important
   text-transform: lowercase
 
 .navbar-inverse
-  background-color: #4f4f4f !important
+  background-color: $darkGrey !important
   background-image: none !important
   border-bottom: 0px
 .navbar
   padding-right: 0px
-  background-color: #4f4f4f !important
-  border-top: 6px solid #419641 !important
+  background-color: $darkGrey !important
+  border-top: 6px solid $green !important
   height: 55px !important
   border-bottom: 0px
   .container
@@ -37,15 +44,15 @@ a:hover
       width: 280px
       display: inline-block
       text-align: right
-    a#user-dropdown:hover
-      text-decoration: none !important
-      border-bottom: 0px !important
-      font-size: 1.2em
-      color: #fff !important
+      &:hover
+        text-decoration: none !important
+        border-bottom: 0px !important
+        font-size: 1.2em
+        color: #fff !important
     ul.dropdown-menu
       top: 36px
       width: 280px
-      background-color: #4f4f4f !important
+      background-color: $darkGrey !important
       padding: 0px
       border: 0px !important
       -webkit-border-bottom-right-radius: 4px
@@ -60,35 +67,71 @@ a:hover
           color: #fff
           padding: 10px
           display: inline-box
-        a:hover
-          color: #fff !important
-          background-color: #959595
-          background-image: none
+          &:hover
+            color: #fff !important
+            background-color: #959595
+            background-image: none
 .nav-pills
   li
     a:hover
-      background-color: #419641 !important
+      background-color: $green !important
       border: 0px !important
       color: #fff !important
-  li.active
-    a
-      background-color: #419641 !important
-      color: #fff
+    &.active
+      a
+        background-color: $green !important
+        color: #fff
 
 .breadcrumb > li + li::before
-  color: #333 !important
+  color: $black !important
 
 ol.breadcrumb
   padding: 0px
   height: 40px
   background: none
   li
-    font-size: 2.2em
+    font-size: 1.2em
     font-weight: bold
-    color: #333
+    color: $black
     a
-      color: #333
-  li.active
-    a
-      color: #419641
+      color: $black
+    &.active
+      font-size: 1.5em
+      a
+        color: $green
 
+.test_run
+  height: 75px
+  border: 1px solid #ccc
+  border-radius: 10px
+  padding: 0px
+  margin-bottom: 10px
+  &.pass
+    border-left: 10px solid $green
+  &.fail
+    border-left: 10px solid $red
+
+.view-test_run
+  -webkit-border-bottom-right-radius: 10px
+  -webkit-border-top-right-radius: 10px
+  -webkit-border-bottom-left-radius: 0px
+  -moz-border-radius-bottomright: 10px
+  -moz-border-radius-topright: 10px
+  -moz-border-radius-bottomleft: 0px
+  border-bottom-right-radius: 10px
+  border-top-right-radius: 10px
+  border-bottom-left-radius: 0px
+  a
+    color: $lightGreyLink
+    text-decoration: none
+    &:hover
+      border: 0px !important
+      color: $lightGreyLink !important
+      text-decoration: none
+
+.test
+  border: 1px solid $lightGrey
+  &.pass
+    border-left: 10px solid $green
+  &.fail
+    border-left: 10px solid $red

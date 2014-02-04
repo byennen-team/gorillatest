@@ -18,7 +18,7 @@
     = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
     = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "iframe", data: {project_id: params[:project_id],
-                                              auth: @company.api_key,
+                                              auth: @project.api_key,
                                               api_url: ENV['API_URL'] || '',
                                               env: Rails.env}
 
@@ -44,7 +44,7 @@
           Stop
       .pull-right
         = select_tag "features"
-        %button#add-feature.btn.btn-success{data: {toggle: "modal", target: "#create-feature-modal"}}
+        %button#add-feature.btn.btn-success
           %span.glyphicon.glyphicon-plus
           Add Feature
       = render 'add_new_feature'

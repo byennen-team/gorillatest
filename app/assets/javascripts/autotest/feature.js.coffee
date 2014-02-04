@@ -11,7 +11,7 @@ class @AutoTestFeature
     authToken = window.autoTestAuthToken
     console.log("authTOken in find all is #{authToken}")
     features = new Array
-    $.ajax("#{apiUrl}/api/v1/projects/#{@projectId}/features",
+    $.ajax("#{apiUrl}/api/v1/features",
       type: 'GET',
       dataType: 'json',
       async: false,
@@ -31,7 +31,7 @@ class @AutoTestFeature
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
     autoTestFeature = {}
-    $.ajax("#{apiUrl}/api/v1/projects/#{projectId}/features/#{featureId}",
+    $.ajax("#{apiUrl}/api/v1/features/#{featureId}",
       type: 'GET',
       dataType: 'json',
       async: false,

@@ -1,6 +1,5 @@
 class Api::V1::StepsController < Api::V1::BaseController
 
-  before_filter :find_project
   before_filter :find_feature
   before_filter :find_scenario
 
@@ -19,12 +18,8 @@ class Api::V1::StepsController < Api::V1::BaseController
 
 	private
 
-  def find_project
-    @project = current_company.projects.find(params[:project_id])
-  end
-
   def find_feature
-    @feature = @project.features.find(params[:feature_id])
+    @feature = current_project.features.find(params[:feature_id])
   end
 
 	def find_scenario

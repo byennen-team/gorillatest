@@ -27,6 +27,7 @@ Autotest::Application.routes.draw do
       resources :scenarios do
         post :run, on: :member, as: "run_scenario"
         resources :steps
+        resources :test_runs
       end
     end
   end
@@ -48,16 +49,14 @@ Autotest::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      match '/projects/:project_id/features' => "features#index", via: :options
-      match '/projects/:project_id/features/:feature_id' => "features#show", via: :options
-      match '/projects/:project_id/features/:features_id/scenarios' => "scenarios#create", via: :options
-      match '/projects/:project_id/features/:feature_id/scenarios/:scenario_id' => "scenarios#show", via: :options
-      match '/projects/:project_id/features/:features_id/scenarios/:scenario_id/steps' => "steps#create", via: :options
-      resources :projects do
-        resources :features do
-          resources :scenarios do
-            resources :steps
-          end
+      match '/features' => "features#index", via: :options
+      match '/features/:feature_id' => "features#show", via: :options
+      match '/features/:features_id/scenarios' => "scenarios#create", via: :options
+      match '/features/:feature_id/scenarios/:scenario_id' => "scenarios#show", via: :options
+      match '/features/:features_id/scenarios/:scenario_id/steps' => "steps#create", via: :options
+      resources :features do
+        resources :scenarios do
+          resources :steps
         end
       end
     end

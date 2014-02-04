@@ -1,0 +1,52 @@
+
+- content_for :head do
+  =javascript_include_tag "stepStatus"
+  :javascript
+    channels = []
+    window.channels = channels
+    #{
+      @test_run.tests.map { |test| "window.channels.push(window.pusher.subscribe('#{test.channel_name}'));"}.join(' ')
+    }
+
+.page-content.blocky
+  .container
+    %ol.breadcrumb
+      %li
+        = link_to "Projects", projects_path
+      %li
+        = link_to @scenario.feature.project.name, project_path(@project)
+      %li
+        = link_to @feature.name, project_feature_path(@project, @feature)
+      %li
+        = link_to @scenario.name, project_feature_scenario_path(@project, @feature, @scenario)
+      %li.active
+        = link_to "Test Run ##{@test_run.number}", project_feature_scenario_test_run_path(@project, @feature, @scenario, @test_run)
+    %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
+      %tr
+        %th{style: "width: 100px;"} Started By:
+        %td
+          %img{src: "http://www.gravatar.com/avatar/#{@test_run.user.gravatar_hash}?s=16"}
+          = @test_run.user.name
+        %th{style: "width: 100px;"} Started On:
+        %td= @test_run.created_at.strftime('%A at %H:%M')
+      %tr
+        %th{style: "width: 100px;"} Status:
+        %td
+          - if @test_run.status == "pass"
+            %span.label.label-success Passed
+          - else
+            %span.label.label-danger Danger
+        %th{style: "width: 100px;"} Duration:
+        %td= duration_to_hours_minutes_seconds(@test_run.duration)
+
+
+    %br
+    %br
+
+    - @test_run.tests.each do |test|
+      - if test.status != nil
+        .test{class: "#{test.status}"}
+          = render partial: 'test', locals: {test: test}
+      - else
+        .test
+          = render partial: 'test', locals: {test: test}

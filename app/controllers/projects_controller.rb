@@ -1,10 +1,9 @@
 class ProjectsController < ApplicationController
 
-  before_filter :find_company
   before_filter :find_project, except: [:index, :new, :create]
 
   def index
-    @projects = current_company.projects
+    @projects = current_user.projects
   end
 
   def show
@@ -14,8 +13,8 @@ class ProjectsController < ApplicationController
   def new; @project = Project.new; end
 
   def create
-    @project = current_company.projects.build(project_params)
-    @project.company_id = @company.id
+    @project = current_user.projects.build(project_params)
+    @project.user_id = current_user.id
     if @project.save
       respond_to do |format|
         format.html { redirect_to project_path(@project) }
@@ -44,12 +43,8 @@ class ProjectsController < ApplicationController
 
   private
 
-  def find_company
-    @company = current_user.company
-  end
-
   def find_project
-    @project = @company.projects.find(params[:id])
+    @project = current_user.projects.find(params[:id])
   end
 
   def project_params

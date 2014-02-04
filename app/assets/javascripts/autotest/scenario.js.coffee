@@ -8,9 +8,10 @@ class @AutoTestScenario
 
   save: ->
     autoTestScenario = ""
+    result = ""
     if @id == ""
       that = this
-      $.ajax(@apiUrl + '/api/v1/projects/' + @projectId + '/features/' + @featureId + '/scenarios',
+      $.ajax(@apiUrl + '/api/v1/features/' + @featureId + '/scenarios',
         type: 'POST',
         dataType: "json",
         data: {scenario: {name: this.name, start_url: this.startUrl, window_x: this.windowX, window_y: this.windowY}},
@@ -21,12 +22,13 @@ class @AutoTestScenario
           console.log("Added scenario #{data.scenario.name} - #{data.scenario.id}")
           autoTestScenario = new AutoTestScenario data.scenario.project_id, data.scenario.feature_id, data.scenario.name, @startUrl
           autoTestScenario.id = data.scenario.id
+          result = {status: 'success', scenario: autoTestScenario}
         error:  (jqXHR, textStatus, errorThrown) ->
-          console.log("error thrown")
+          result = {status: "error", errors: jqXHR.responseJSON.errors}
       )
     else
       autoTestScenario = this
-    return  autoTestScenario
+    return result
 
   steps: ->
     autoTestSteps = AutoTestStep.findAll(@projectId, @featureId, @id)
@@ -55,7 +57,7 @@ class @AutoTestScenario
     apiUrl = window.autoTestApiUrl
     authToken = window.autoTestAuthToken
     autoTestScenario = ""
-    $.ajax("#{apiUrl}/api/v1/projects/#{projectId}/features/#{featureId}/scenarios/#{id}",
+    $.ajax("#{apiUrl}/api/v1/features/#{featureId}/scenarios/#{id}",
         type: 'GET',
         dataType: 'json',
         async: false,

@@ -1,0 +1,20 @@
+.panel-heading.panel-status
+  %h4.panel-title
+  =image_tag "icons/#{test.browser}-24.png"
+  = "#{test.platform.capitalize} #{test.browser.capitalize}"
+  .pull-right
+    %a{class: 'collapsed see-test-detail', href: "##{@test_run.id}_#{test.platform}_#{test.browser}_channel", data: {toggle: "collapse"}}
+      View All
+  - if test.status != nil
+    %br
+    %strong Completed On:
+    = test.updated_at.strftime('%m/%d/%Y %H:%M')
+%div{id: "#{@test_run.id}_#{test.platform}_#{test.browser}_channel", class: "#{test.status != nil ? "collapse" : ""}"}
+  .panel-body.terminal
+    / %p Starting test...
+    %ul.steps-list
+      - if test.status != nil
+        - test.steps.each do |step|
+          %li
+            = status_glyph(step.status)
+            = step.to_s

@@ -18,6 +18,7 @@
     =javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
     %script{type: 'text/javascript'}
       pusher = new Pusher("#{Pusher.key}")
+      window.pusher = pusher
     = yield(:head)
     = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags
@@ -32,7 +33,7 @@
           .pull-right{style: "margin-top: 10px"}
             .dropdown
               %a#user-dropdown{data: {toggle: 'dropdown'}}
-                autotest@bigastronaut.com
+                = current_user.name
                 &nbsp;
                 %img{src: "http://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=30"}
                 %span.caret
@@ -68,7 +69,7 @@
     #invite-user.modal.fade
       .modal-dialog
         .modal-content
-          = simple_form_for User.new, :url => 'invitation', :html => {:method => :post} do |f|
+          = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form'} do |f|
             .modal-header
               %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
               %h4.modal-title Invite A User

@@ -44,7 +44,7 @@ class FeaturesController < ApplicationController
   private
 
   def find_project
-    @project = current_company.projects.find(params[:project_id])
+    @project = current_user.projects.find(params[:project_id])
   end
 
   def find_feature

@@ -2,7 +2,6 @@ class Api::V1::ScenariosController < Api::V1::BaseController
 
   respond_to :json, :js
 
-  before_filter :find_project
   before_filter :find_feature
 
   def index
@@ -19,6 +18,8 @@ class Api::V1::ScenariosController < Api::V1::BaseController
     @scenario = @feature.scenarios.new(scenario_params)
     if @scenario.save
       render json: @scenario
+    else
+      render json: {errors: @scenario.errors.to_a}.to_json, status: 400
     end
   end
 
@@ -32,13 +33,9 @@ class Api::V1::ScenariosController < Api::V1::BaseController
 
   private
 
-  def find_project
-    @project = current_company.projects.find(params[:project_id])
-  end
-
   # Need to figure out how features work into scenarios
   def find_feature
-    @feature = @project.features.find(params[:feature_id])
+    @feature = current_project.features.find(params[:feature_id])
   end
 
   def scenario_params

@@ -18,8 +18,8 @@ class @AutoTestEvent
     scenario = recorder.currentScenario
     stepLocator = {}
     console.log("Binding all links")
-    $("a").bind("click", AutoTestEvent.bindLink)
-    $("button").bind("click", AutoTestEvent.bindLink)
+    $("a").bind("click", AutoTestEvent.bindClick)
+    $("button").bind("click", AutoTestEvent.bindClick)
     # Start recording an input as soon as it's focused.
     console.log("Binding all focus events for text and text areas")
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
@@ -53,7 +53,7 @@ class @AutoTestEvent
     element.bind("focus", AutoTestEvent.bindBlur)
     element.on("blur", AutoTestEvent.bindInput)
 
-  @bindLink: (event) ->
+  @bindClick: (event) ->
     recorder = window.autoTestRecorder
     scenario = recorder.currentScenario
     console.log($(event.currentTarget).attr("href"))
@@ -99,8 +99,8 @@ class @AutoTestEvent
 
   @unbind: () ->
     console.log("UNbinding all elements")
-    $("a").unbind("click", AutoTestEvent.bindLink)
-    $("button").unbind("click", AutoTestEvent.bindLink)
+    $("a").unbind("click", AutoTestEvent.bindClick)
+    $("button").unbind("click", AutoTestEvent.bindClick)
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
     "range", "search", "tel", "time", "url", "week"]
     console.log("Binding all blur events for text elements and text areas")
@@ -124,11 +124,11 @@ class @AutoTestEvent
     console.log("Unbinding modal")
     $("#select-element-modal").unbind("mouseenter")
     $("#select-element-modal").unbind("mouseleave")
-    $("#select-element-modal a").unbind("click", AutoTestEvent.bindLink)
-    $("#select-element-modal button").unbind("click", AutoTestEvent.bindLink)
+    $("#select-element-modal a").unbind("click", AutoTestEvent.bindClick)
+    $("#select-element-modal button").unbind("click", AutoTestEvent.bindClick)
     $("#select-element-modal input[type=radio]").unbind("click", AutoTestEvent.bindClick)
-    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindLink)
-    $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindLink)
+    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindClick)
+    $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindClick)
     return
 
 

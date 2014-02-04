@@ -29,11 +29,12 @@ class InvitationsController < Devise::InvitationsController
   private
 
   def invitation_params
-    params.require(:user).permit(:company_name, :phone, :password, :password_confirmation, :invitation_token)
+    params.require(:user).permit(:company_name, :phone, :password, :password_confirmation,
+                                 :invitation_token, :first_name, :last_name, :location)
   end
 
   def after_invite_path_for(resource)
-    new_invitation_path
+    request.env["HTTP_REFERER"]
   end
 
   def after_accept_path_for(resource)
