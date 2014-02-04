@@ -19,6 +19,7 @@ channels = []
 window.channels = channels
 
 $(document).ready ()->
+  bindChannels()
   $("input[type='checkbox']").on "change", () ->
     button = $(this).closest("form.scenario-run").find("input.run-test")
     if $(this).closest("form.scenario-run").find("input:checked").length > 0
@@ -26,28 +27,9 @@ $(document).ready ()->
     else
       button.attr("disabled", true)
 
-  $("form.scenario-run").on 'submit', (e)->
-    browsers = selectedBrowsers()
-    e.preventDefault()
-    that = this
-    _.each $("form.scenario-run input[type='checkbox']"), (input) ->
-      console.log($("form.scenario-run input[type='checkbox']").length)
-      if $(input).is(":checked")
-        window.channels.push(pusher.subscribe("#{$(that).attr('id')}_#{$(input).val()}_channel"))
-    console.log(that)
-    $.ajax
-      url: $(that).attr('action')
-      method: "POST"
-      data: {browsers: browsers}
-      success: (data)->
-        bindChannels()
-        showPanels($(that).attr('action').match(/\/scenarios\/(.*)\/run/)[1])
-        console.log("form submitted")
-
 bindChannels = ()->
   _.each window.channels, (channel)->
-    console.log("BINDING")
-    console.log(channel)
+    console.log("BINDING " + channel)
     channel.bind "step_pass", (data) ->
       console.log data.message
       console.log("appending to #{channel.name}")

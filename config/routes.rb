@@ -27,6 +27,7 @@ Autotest::Application.routes.draw do
       resources :scenarios do
         post :run, on: :member, as: "run_scenario"
         resources :steps
+        resources :test_runs
       end
     end
   end

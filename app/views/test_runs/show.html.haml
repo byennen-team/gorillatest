@@ -1,0 +1,22 @@
+
+- content_for :head do
+  =javascript_include_tag "stepStatus"
+  :javascript
+    channels = []
+    window.channels = channels
+    #{
+      @test_run.tests.map { |test| "window.channels.push(window.pusher.subscribe('#{test.channel_name}'));"}.join(' ')
+    }
+
+.page-content.blocky
+  .container
+    - @test_run.tests.each do |test|
+      .test{style: "border: 1px solid #ccc;"}
+        .panel-heading.panel-status
+          %h4.panel-title
+          =image_tag "icons/#{test.browser}-24.png"
+          = test.browser.capitalize
+        %div{id: "#{@test_run.id}_#{test.platform}_#{test.browser}_channel"}
+          .panel-body.terminal
+            / %p Starting test...
+            %ul.steps-list
