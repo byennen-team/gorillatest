@@ -34,8 +34,10 @@
         %td
           - if @test_run.status == "pass"
             %span.label.label-success Passed
-          - else
+          - elsif @test_run.status == "fail"
             %span.label.label-danger Danger
+          - else
+            %span.label.label-warning Running
         %th{style: "width: 100px;"} Duration:
         %td= duration_to_hours_minutes_seconds(@test_run.duration)
 
