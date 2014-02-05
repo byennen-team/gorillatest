@@ -16,7 +16,7 @@ class Project
   has_many :features
   has_many :project_users
 
-  validates :name, presence: true
+  validates :name, :url, presence: true
 
   before_create :add_auth_key
 
