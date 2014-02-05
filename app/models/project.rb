@@ -9,7 +9,7 @@ class Project
   field :url, type: String
   field :status, type: String
   field :api_key, type: String
-  field :script_verified, type: Boolean
+  field :script_verified, type: Boolean, default: false
 
   belongs_to :user
 
