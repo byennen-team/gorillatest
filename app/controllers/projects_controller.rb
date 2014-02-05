@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     if @project.save
       @project_user = ProjectUser.create!({user_id: current_user.id, project_id: @project.id, rights: 'owner'})
       respond_to do |format|
-        format.html { redirect_to project_path(@project) }
+        format.html { redirect_to projects_path, notice: "Project successfully created! Please embed the AutoTest script code to your website and verify it to continue" }
       end
     else
       Rails.logger.debug(@project.inspect)
@@ -55,11 +55,19 @@ class ProjectsController < ApplicationController
   end
 
   def verify_script
-    if @project.script_present?
-      @project.update_attribute(:script_verified, true)
-      flash[:notice] = "Script has been successfully verified! You can now add features and start recording scenarios"
-    else
-      flash[:notice] = "Could not find script"
+    begin
+      if @project.script_present?
+        @project.update_attribute(:script_verified, true)
+        flash[:notice] = "Script has been successfully verified! You can now add features and start recording scenarios"
+      else
+        flash[:notice] = "Could not find script"
+      end
+    rescue => e
+      if e == SocketError
+        flash[:notice] = "We were not able to find your website. Please make sure the project URL is correct."
+      else
+        flash[:notice] = "Something went wrong. Please try again soon."
+      end
     end
     redirect_to :back
   end

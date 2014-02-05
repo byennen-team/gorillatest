@@ -1,8 +1,8 @@
 %li
-  = link_to project.name, project_path(project)
+  = link_to_if project.script_verified?, project.name, project_path(project)
   .pull-right
     %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}} View Embed Code
-    -if !project.script_verified?
+    -if !project.script_verified? # || project.features.empty?
       |
       = link_to "Verify Embedded Script", project_verify_script_path(project)
     -else
