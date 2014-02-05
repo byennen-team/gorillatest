@@ -54,10 +54,20 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def verify_script
+    if @project.script_present?
+      @project.update_attribute(:script_verified, true)
+      flash[:notice] = "Script has been successfully verified! You can now add features and start recording scenarios"
+    else
+      flash[:notice] = "Could not find script"
+    end
+    redirect_to :back
+  end
+
   private
 
   def find_project
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.projects.find(params[:id] || params[:project_id])
   end
 
   def project_params

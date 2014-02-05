@@ -1,5 +1,7 @@
 class Project
 
+  require 'open-uri'
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -7,6 +9,7 @@ class Project
   field :url, type: String
   field :status, type: String
   field :api_key, type: String
+  field :script_verified, type: Boolean
 
   belongs_to :user
 
@@ -37,7 +40,19 @@ class Project
     owners.include?(user)
   end
 
+  def script_present?
+    search_for_script
+  end
+
   private
+
+  def search_for_script
+    autotest_script_source = "autotest-staging.herokuapp.com/assets/recordv2.js"
+    document = Nokogiri::HTML(open(self.url))
+    document.search("script").detect do |script|
+      script.attributes["src"].value.include?(autotest_script_source) if script.attributes["src"]
+    end
+  end
 
   def add_auth_key
     self.api_key = SecureRandom.hex
