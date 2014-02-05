@@ -22,14 +22,12 @@
         / Project widget
         .awidget
           .awidget-head
-            -#|
-            -#= link_to "Delete Feature", project_feature_path(@project, @feature), method: :delete, confirm: 'Are you sure?'
             %h3 Scenarios
           .awidget-body
             - if @feature.scenarios.size == 0
               %p
                 You haven't added any scenarios for this feature, would you like to
-                %a{href: new_project_feature_scenario_path(@project, @feature), data: {toggle: "modal", target: "#add-scenario"}} create one
+                %a{href: @feature.project.url, target: "_blank"} record one
             - else
               %ul.project
                 = render partial: 'scenarios/scenario', collection: @feature.scenarios.sort_by{|s| s.name.downcase}
