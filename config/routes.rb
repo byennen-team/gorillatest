@@ -23,6 +23,7 @@ Autotest::Application.routes.draw do
   end
 
   resources :projects do
+    post 'remove_user/:user_id', to: 'projects#remove_user', on: :member, as: :remove_user
     resources :features do
       resources :scenarios do
         post :run, on: :member, as: "run_scenario"

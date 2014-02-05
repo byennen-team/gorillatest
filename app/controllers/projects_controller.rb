@@ -44,6 +44,16 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def remove_user
+    @user = User.find(params[:user_id])
+    @project_user = ProjectUser.where(project_id: @project.id, user_id: @user.id)
+    if @project_user.destroy
+      respond_to do |format|
+        format.html { redirect_to edit_project_path(@project) }
+      end
+    end
+  end
+
   private
 
   def find_project
