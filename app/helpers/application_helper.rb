@@ -26,6 +26,10 @@ module ApplicationHelper
     glyph("play", options.merge!({style: "font-size: 1.8em;"}))
   end
 
+  def record_glyph(options={})
+    glyph("record", options.merge!({style: "font-size: 1.8em; color: red;"}))
+  end
+
   def logout_glyph(options={})
      glyph("log-out", options)
   end

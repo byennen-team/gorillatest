@@ -1,5 +1,6 @@
 %li
   = link_to feature.name, project_feature_path(@project, feature)
   .pull-right
+    = link_to record_glyph, @project.url, {target: "_blank"}
     = link_to play_glyph, "#", title: "Playback This Feature", onclick: "alert('Feature not implemented')"
     = link_to delete_glyph, "#", title: "Delete This Feature", onclick: "alert('Feature not impelement')"
