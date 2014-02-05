@@ -52,6 +52,7 @@ Autotest::Application.routes.draw do
     namespace :v1 do
       match '/features' => "features#index", via: :options
       match '/features/:feature_id' => "features#show", via: :options
+      match '/features' => "features#create", via: :options
       match '/features/:features_id/scenarios' => "scenarios#create", via: :options
       match '/features/:feature_id/scenarios/:scenario_id' => "scenarios#show", via: :options
       match '/features/:features_id/scenarios/:scenario_id/steps' => "steps#create", via: :options

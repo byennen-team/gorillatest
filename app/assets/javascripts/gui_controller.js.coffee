@@ -58,7 +58,7 @@ AutoTestGuiController = {
       project_id = location.search.split('project_id=')[1]
       data = { feature: {name: $("#feature_name").val()} }
 
-      $.ajax "/api/v1/projects/#{window.projectId}/features",
+      $.ajax "#{window.apiUrl}/api/v1/features",
         type: "POST"
         data: data
         async: false
