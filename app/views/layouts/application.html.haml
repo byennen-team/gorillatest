@@ -39,7 +39,9 @@
                 %span.caret
               %ul.dropdown-menu{role: "menu", "aria-labelledby" => "user-dropdown"}
                 %li{role: "presentation"}
-                  = user_nav_link("cog", "Settting", edit_user_registration_path)
+                  = user_nav_link("cog", " Settting", edit_user_registration_path)
+                %li{role: "presentation"}
+                  = link_to raw("#{glyph('th-list')}&nbsp; Projects"), projects_path
                 %li{role: "presentation"}
                   %a.teams{href: "#"}
                     %span.glyphicon.glyphicon-user
