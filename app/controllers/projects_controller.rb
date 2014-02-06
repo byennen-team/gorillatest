@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
     @project.attributes = params[:project]
     if @project.save
       respond_to do |format|
-        format.html { redirect_to dashboard_path }
+        format.html { redirect_to projects_path }
       end
     end
   end
