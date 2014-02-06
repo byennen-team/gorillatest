@@ -12,7 +12,7 @@ $ ->
     gif = button.prev(".loading-gif")
     button.hide()
     gif.show()
-    $.ajax $(this).attr("href"),
+    $.ajax "#{window.apiUrl + $(this).attr("href")}",
       type: 'get'
       cache: false
       complete: (jqXHR, textStatus) ->
