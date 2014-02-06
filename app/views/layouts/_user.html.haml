@@ -1,0 +1,25 @@
+.pull-right{style: "margin-top: 10px"}
+  .dropdown
+    %a#user-dropdown{data: {toggle: 'dropdown'}}
+      = current_user.name
+      &nbsp;
+      %img{src: "http://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=30"}
+      %span.caret
+    %ul.dropdown-menu{role: "menu", "aria-labelledby" => "user-dropdown"}
+      %li{role: "presentation"}
+        = user_nav_link("cog", " Settting", edit_user_registration_path)
+      %li{role: "presentation"}
+        = link_to raw("#{glyph('th-list')}&nbsp; Projects"), projects_path
+      %li{role: "presentation"}
+        %a.teams{href: "#"}
+          %span.glyphicon.glyphicon-user
+          &nbsp;
+          Teams
+          %span.label.label-danger Coming Soon
+      %li{role: "presentation"}
+        %a{data: {toggle: "modal", target: "#invite-user"}}
+          %span.glyphicon.glyphicon-bullhorn
+          &nbsp;
+          Invite A New User
+      %li{role: "presentation"}
+        = link_to raw("#{logout_glyph}&nbsp; Log Out"), destroy_user_session_path, method: :delete
