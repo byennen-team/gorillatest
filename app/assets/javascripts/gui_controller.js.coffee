@@ -65,14 +65,14 @@ AutoTestGuiController = {
         beforeSend: (xhr, settings) ->
           xhr.setRequestHeader('Authorization', "Token token=\"#{window.authToken}\"")
         success: (data) ->
-          $("#feature-modal").modal("hide")
+          $("#feature-modal").bPopup().close()
           $("#feature_name").val('')
           feature = data.feature
           window.postMessageToIframe({messageType: "featureAdded", message: {featureName: feature.name, featureId: feature.id}})
           window.autoTestRecorder.setCurrentFeature(feature.id)
         error:  (jqXHR, textStatus, errorThrown) ->
           if $("#feature-modal-errors").length == 0
-            $("#feature-modal .modal-body").append("<ul id='feature-modal-errors'></ul>")
+            $("#feature-modal .autotest-modal-body").append("<ul id='feature-modal-errors'></ul>")
           $("#feature-modal-errors").html('')
           $.each jqXHR.responseJSON.errors, (i, message) ->
             $("#feature-modal-errors").append("<li class='text-danger'>#{message}</li>")
@@ -83,12 +83,12 @@ AutoTestGuiController = {
     scenario = recorder.addScenario($("input#scenario_name").val())
     if scenario.status == "success"
       recorder.record()
-      $("#scenario-modal").modal("hide")
+      $("#scenario-modal").bPopup().close()
       recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
       window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
     else
       if $("#scenario-modal-errors").length == 0
-        $("#scenario-modal .modal-body").append("<ul id='scenario-modal-errors'></ul>")
+        $("#scenario-modal .autotest-modal-body").append("<ul id='scenario-modal-errors'></ul>")
       $("#scenario-modal-errors").html('')
       $.each scenario.errors, (i, message) ->
         $("#scenario-modal-errors").append("<li class='text-danger'>#{message}</li>")
@@ -194,7 +194,7 @@ AutoTestGuiController = {
 
     $(".close-element-modal").bind 'click', (e) ->
       e.stopPropagation()
-      $("#select-element-modal").modal('hide')
+      $("#select-element-modal").bPopup().close()
     $(".validation-radio").click ->
       $("#save-validation").removeAttr('disabled', false)
     $("#save-validation").bind 'click', (e) ->
@@ -203,7 +203,7 @@ AutoTestGuiController = {
       checked = $("input[name=record_text]:checked")
       type = if checked.attr("id") is "record_text_text" then "verifyText" else "verifyElementPresent"
       autoTestRecorder.currentScenario.addStep(type, {type: '', value: ''}, checked.val())
-      $("#select-element-modal").modal("hide")
+      $("#select-element-modal").bPopup().close()
     return
 
   stripStyleClass: ($element) ->

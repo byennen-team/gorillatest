@@ -1,3 +1,4 @@
+//= require bPopup.min
 //= require autotest/recorder
 //= require autotest/feature
 //= require autotest/scenario
@@ -24,28 +25,28 @@ while i < l
     break
   i++
 
-scenarioModalTemplate = _.template '<div class="modal-content">
-          <div class="modal-header">
-            <button class="close" data-dismiss="modal">×</button>
+scenarioModalTemplate = _.template '<div class="autotest-modal-content">
+          <div class="autotest-modal-header">
+            <button class="autotest-modal-close-x" style="font-size: 2em;">×</button>
             <h4>Start Recording A New Scenario</h4>
           </div>
-          <div class="modal-body">
+          <div class="autotest-modal-body">
             <label>Scenario Name</label>
             <input id="scenario_name" name="scenario[name]" type="text">
             <p>Once this modal closes AutoTest will automatically start recording your behavior for this scenario</p>
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-default" data-dismiss="modal">Close</button>
+          <div class="autotest-modal-footer">
+            <button class="btn btn-default autotest-modal-close">Close</button>
             <button class="btn btn-primary" disabled="disabled" id="start-recording">Start Recording</button>
           </div>
         </div>'
 
-selectElementModalTemplate = _.template '<div class="modal-content" style="cursor: auto; outline: none;">
-                              <div class="modal-header" style="cursor: auto; outline: none;">
-                              <button class="close close-element-modal" data-dismiss="modal" style="cursor: auto; outline: none;">×</button>
+selectElementModalTemplate = _.template '<div class="autotest-modal-content" style="cursor: auto; outline: none;">
+                              <div class="autotest-modal-header" style="cursor: auto; outline: none;">
+                              <button class="close autotest-modal-close-x" data-dismiss="modal" style="cursor: auto; outline: none; font-size: 2em;">×</button>
                               <h4 style="cursor: auto; outline: none;">Choose Validation</h4>
                               </div>
-                              <div class="modal-body" style="cursor: auto; outline: none;">
+                              <div class="autotest-modal-body" style="cursor: auto; outline: none;">
                               <input class="validation-radio" id="record_text_text" name="record_text" type="radio" value="Test Form" style="cursor: auto; outline: none;">
                               <label style="cursor: auto; outline: none;">
                               Record element text:
@@ -58,23 +59,23 @@ selectElementModalTemplate = _.template '<div class="modal-content" style="curso
                               </label>
                               <p id="record-element-html" style="cursor: auto; outline: none;"></p>
                               </div>
-                              <div class="modal-footer" style="cursor: auto; outline: none;">
-                              <button class="btn btn-default close-element-modal" data-dismiss="modal" style="cursor: auto; outline: none;">Close</button>
+                              <div class="autotest-modal-footer" style="cursor: auto; outline: none;">
+                              <button class="btn btn-default close-element-modal" style="cursor: auto; outline: none;">Close</button>
                               <button class="btn btn-primary" disabled="disabled" id="save-validation" style="cursor: auto; outline: none;">Save Validation</button>
                               </div>
                               </div>'
 
-addFeatureModalTemplate = _.template '<div class="modal-content">
-                                    <div class="modal-header">
-                                      <button class="close" data-dismiss="modal">×</button>
+addFeatureModalTemplate = _.template '<div class="autotest-modal-content">
+                                    <div class="autotest-modal-header">
+                                      <button class="close autotest-modal-close-x" style: "font-size: 2em;">×</button>
                                       <h4>Create a new Feature</h4>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="autotest-modal-body">
                                       <label>Feature Name</label>
                                       <input id="feature_name" name="feature[name]" type="text">
                                     </div>
-                                    <div class="modal-footer">
-                                      <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <div class="autotest-modal-footer">
+                                      <button class="btn btn-default autotest-modal-close">Close</button>
                                       <button class="btn btn-primary" disabled="disabled" id="create-feature">Create Feature</button>
                                     </div>
                                   </div>'
@@ -117,6 +118,9 @@ $(document).ready () ->
   styleSheetUrl = window.apiUrl + "/assets/application/recorder.css"
   $('head').append("<link rel='stylesheet' type='text/css' href='"+ styleSheetUrl + "'>");
 
+  overlay = document.createElement("DIV")
+  overlay.id = "autotest-overlay"
+  document.body.insertBefore(overlay, document.body.firstChild)
 
   window.autoTestRecorder = new AutoTestRecorder window.projectId
   window.autoTestApiUrl = window.apiUrl
@@ -168,13 +172,16 @@ $(document).ready () ->
       $wrapper = $("##{options.wrapperId}")
       $("##{options.wrapperId}").html($content)
     else
-      $wrapper = $("<div class='autotest-modal modal hide' id='#{options.wrapperId}'></div>")
+      $wrapper = $("<div class='autotest-modal' id='#{options.wrapperId}'></div>")
       $content.appendTo($wrapper)
 
     $this = $wrapper.appendTo(parent)
-    $this.modal()
-
     $this.removeClass("hide")
+
+    $this.bPopup()
+
+    $(".autotest-modal-close, .autotest-modal-close-x").click ->
+      $(this).closest(".autotest-modal").bPopup().close()
     # $this.css
     #   "max-width": options.width
     #   height: options.height
@@ -192,11 +199,3 @@ $(document).ready () ->
     #     $("button#start-recording").removeAttr("disabled")
     #   else
     #     $("button#start-recording").attr("disabled", "disabled")
-
-  # $(".recording-bar .modal").on "show.bs.modal", (e) ->
-    # $(this).css("height", "300px").css("overflow-y", "visible")
-
-
-
-  # $(".recording-bar .modal").on "hidden.bs.modal", (e) ->
-  #   $(this).css("height", "0px").css("overflow-y", "hidden")
