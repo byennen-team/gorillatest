@@ -13,7 +13,7 @@ Autotest::Application.routes.draw do
   #application
   devise_for :users, controllers: {registrations: :registrations}, skip: :invitations
 
-  get 'dashboard', to: "dashboard#index.html.haml"
+  # get 'dashboard', to: "dashboard#index.html.haml"
 
   as :user do
     get 'invitation', to: "invitations#new", as: :new_invitation

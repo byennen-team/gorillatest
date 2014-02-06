@@ -70,6 +70,6 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def after_accept_path_for(resource)
-    dashboard_path
+    projects_path
   end
 end
