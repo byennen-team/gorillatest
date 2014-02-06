@@ -1,10 +1,10 @@
 %li
   = link_to_if project.script_verified?, project.name, project_path(project)
   .pull-right
-    %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}} View Embed Code
+    %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}, class:'view-embed-code'} View Embed Code
     -if !project.script_verified? # || project.features.empty?
       |
-      = link_to "Verify Embedded Script", project_verify_script_path(project)
+      = link_to "Verify Embedded Script", project_verify_script_path(project), class:'verify-script'
     -else
       -if project.owner?(current_user)
         |
@@ -43,7 +43,7 @@
           %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
           %h4.modal-title Embed Code for #{project.name}
         .modal-body
-          %p Insert the code below into the HEAD of the site to be tested.
+          %p Insert the code below into the HEAD of the site to be tested. Click "Verify Embedded Script" to verify that the script has been placed on your website correctly.
           %br
           %blockquote{style: "padding: 40px; margin: 1px solid #ccc; background: #eee; font-family: Menlo"}
             :plain
@@ -52,6 +52,8 @@
               &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-auth="#{project.api_key}"<br >
               &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-project-id="#{project.id}"&lt;/script&gt;
         .modal-footer
+          =image_tag "icons/loading.gif", class: 'loading-gif', style: "display: none;"
+          %a.btn.btn-primary.verify-script-modal-button{href: "#{project_verify_script_path(project)}", project_link: "#{project_path(project)}"} Verify Embedded Script
           %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
   .modal.fade{id: "invite-user-#{project.id}"}
     .modal-dialog

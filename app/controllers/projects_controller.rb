@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 
   before_filter :find_project, except: [:index, :new, :create]
+  before_filter :authenticate_user!
 
   def index
     @projects = current_user.projects
@@ -55,21 +56,28 @@ class ProjectsController < ApplicationController
   end
 
   def verify_script
+    status = nil
     begin
       if @project.script_present?
         @project.update_attribute(:script_verified, true)
-        flash[:notice] = "Script has been successfully verified! You can now add features and start recording scenarios"
+        flash[:notice] = "Script has been successfully verified"
+        status = 200
       else
-        flash[:notice] = "Could not find script"
+        flash[:notice] = "Could not find script."
+        status = 400
       end
     rescue => e
       if e == SocketError
-        flash[:notice] = "We were not able to find your website. Please make sure the project URL is correct."
+        flash[:notice] = "Cannot find website. Please make sure project URL is correct."
       else
-        flash[:notice] = "Something went wrong. Please try again soon."
+        flash[:notice] = "Something went wrong."
       end
+      status = 400
     end
-    redirect_to :back
+    respond_to do |format|
+      format.js {render json: {message: flash[:notice]}.to_json, status: status}
+      format.html {redirect_to :back}
+    end
   end
 
   private
