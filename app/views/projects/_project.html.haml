@@ -1,5 +1,5 @@
 %li
-  = link_to_if project.script_verified?, project.name, project_path(project)
+  = link_to project.name, project_path(project)
   .pull-right
     %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}, class:'view-embed-code'} View Embed Code
     -if !project.script_verified? # || project.features.empty?
@@ -36,27 +36,7 @@
             %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
             = f.submit "Add Feature", class: "btn btn-primary"
 
-  %div.modal.fade{id: "embed-modal-#{project.id}", class: 'embed-modal'}
-    .modal-dialog
-      .modal-content{style: "width: 700px;"}
-        .modal-header
-          - if project.script_verified?
-            %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
-          %h4.modal-title Embed Code for #{project.name}
-        .modal-body
-          %p Insert the code below into the HEAD of the site to be tested. Click "Verify Embedded Script" to verify that the script has been placed on your website correctly.
-          %br
-          %blockquote{style: "padding: 40px; margin: 1px solid #ccc; background: #eee; font-family: Menlo"}
-            :plain
-              &lt;script src="https://autotest-staging.herokuapp.com/assets/recordv2.js"<br />
-              &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-api-url="https://autotest-staging.herokuapp.com/"<br />
-              &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-auth="#{project.api_key}"<br >
-              &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-project-id="#{project.id}"&gt;&lt;/script&gt;
-        .modal-footer
-          =image_tag "icons/loading.gif", class: 'loading-gif', style: "display: none;"
-          %a.btn.btn-primary.verify-script-modal-button{href: "#{project_verify_script_path(project)}",project_link: "#{project_path(project)}"} Verify Embedded Script
-          - if project.script_verified?
-            %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+  = render "embed_script_modal", project: project, show_buttons: true
   .modal.fade{id: "invite-user-#{project.id}"}
     .modal-dialog
       .modal-content

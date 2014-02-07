@@ -1,4 +1,5 @@
 .page-content.blocky
+  %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
   .container
     /= render 'shared/application/side_menu'
     /.mainy
@@ -37,3 +38,4 @@
           / Project widget
 
 = render partial: 'features/new_modal', locals: {project: @project}
+= render 'embed_script_modal', project: @project, show_buttons: false
