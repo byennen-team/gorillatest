@@ -12,8 +12,8 @@
         |
       -if Rails.env.development?
         =link_to "View Test Page", test_form_path(project_id: project.id), target: "_blank"
-      -if project.owner?(current_user)
         |
+      -if project.owner?(current_user)
         = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
 
   -#%p.p-meta
