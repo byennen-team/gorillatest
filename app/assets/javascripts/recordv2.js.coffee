@@ -88,6 +88,8 @@ $(document).ready () ->
   iframeWrapper.style.position = "fixed"
   iframeWrapper.style.width = "100%"
   iframeWrapper.style.zIndex = "2000"
+  iframeWrapper.style.top = "0px"
+  iframeWrapper.style.left = "0px"
 
   iframe = document.createElement("IFRAME")
   iframe.setAttribute("src", "#{window.apiUrl}/recorder?project_id=#{window.projectId}")
