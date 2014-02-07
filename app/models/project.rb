@@ -52,7 +52,7 @@ class Project
     autotest_script_source = "autotest-staging.herokuapp.com/assets/recordv2.js"
     # Need to add a rescue, open will throw an exception if it can't open the URL
     begin
-      document = Nokogiri::HTML(open(self.url))
+      document = Nokogiri::HTML(open(self.url), "Accept" => "text/html")
       document.search("script").detect do |script|
         script.attributes["src"].value.include?(autotest_script_source) if script.attributes["src"]
       end
