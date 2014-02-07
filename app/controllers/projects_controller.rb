@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
     if @project.save
       @project_user = ProjectUser.create!({user_id: current_user.id, project_id: @project.id, rights: 'owner'})
       respond_to do |format|
-        format.html { redirect_to project_path(@project, verified: 'false') }#, notice: "Project successfully created! Please embed the AutoTest script code to your website and verify it to continue"
+        format.html { redirect_to project_path(@project) }#, notice: "Project successfully created! Please embed the AutoTest script code to your website and verify it to continue"
       end
     else
       Rails.logger.debug(@project.inspect)
