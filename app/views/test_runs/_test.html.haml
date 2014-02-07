@@ -2,10 +2,6 @@
   %h4.panel-title
   =image_tag "icons/#{test.browser}-24.png"
   = "#{test.platform.capitalize} #{test.browser.capitalize}"
-  - if step.status == "fail"
-    (
-    = link_to "View Screenshot", "https://s3-us-west-2.amazonaws.com/autotestio-#{Rails.env}/#{test.screenshot_filename}"
-    )
   .pull-right
     %a{class: 'collapsed see-test-detail', href: "##{@test_run.id}_#{test.platform}_#{test.browser}_channel", data: {toggle: "collapse"}}
       View All
