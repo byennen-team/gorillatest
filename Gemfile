@@ -67,4 +67,5 @@ group :development, :test do
   gem 'mongoid-rspec'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'shoulda-matchers'
 end
