@@ -18,6 +18,7 @@
     =javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
     -if Rails.env.staging?
       :javascript
+        var BugHerdConfig = {"feedback":{"tab_position":"bottom-right"}};
         (function (d, t) {
           var bh = d.createElement(t), s = d.getElementsByTagName(t)[0];
           bh.type = 'text/javascript';
