@@ -4,8 +4,8 @@ class InvitationMailer < ActionMailer::Base
   def send_invitation(user_id, inviter_id)
     @user = find_user(user_id)
     @inviting_user = @user.invited_by
-    @invited_user.update_attribute(:invitation_sent_at, Time.now)
-    mail to: invited_user.email, subject: "You're invited to try out AutoTest.io"
+    @user.update_attribute(:invitation_sent_at, Time.now)
+    mail to: @user.email, subject: "You're invited to try out AutoTest.io"
   end
 
   def send_project_invitation(user_id, inviter_id, project_id)
