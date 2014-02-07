@@ -7,7 +7,7 @@
       %li
         = link_to "Projects", projects_path
       %li
-        = link_to @project.name
+        = link_to @project.name, project_path(@project)
       %li.active
         = link_to "Settings"
     = render 'sidebar'
