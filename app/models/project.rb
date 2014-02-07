@@ -49,14 +49,15 @@ class Project
   # Add specs for this.
   def search_for_script
     # Can't have a hard coded script source:
-    autotest_script_source = "autotest-staging.herokuapp.com/assets/recordv2.js"
+    autotest_script_source = "autotest.dev/assets/recordv2.js"
     # Need to add a rescue, open will throw an exception if it can't open the URL
     begin
-      document = Nokogiri::HTML(open(self.url), "Accept" => "text/html")
+      document = Nokogiri::HTML(open(self.url, "Accept" => "text/html"))
       document.search("script").detect do |script|
         script.attributes["src"].value.include?(autotest_script_source) if script.attributes["src"]
       end
     rescue Exception => e
+      Rails.logger.debug("error is #{e.inspect}")
       return false
     end
   end
