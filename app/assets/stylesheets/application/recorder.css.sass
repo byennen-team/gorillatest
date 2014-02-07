@@ -99,7 +99,6 @@ button.btn
   text-align: center
   position: fixed
   overflow-y: auto
-  top: 100px
   left: 50%
   display: none
   background: #fff
@@ -108,7 +107,8 @@ button.btn
   z-index: 1001
   position:absolute
   /* min-width: 375px */
-  width: 400px
+  min-width: 400px
+  max-width: 500px
   border-radius: 4px
   font-family: 'Monda', sans
   text-align: left
@@ -145,6 +145,10 @@ button.btn
     label
       font-weight: bold
       font-size: .8em
+      display: inline
+    input[type=radio]
+      width: 20px
+      vertical-align: middle
     input
       border: 1px solid #ccc
       width: 98%
