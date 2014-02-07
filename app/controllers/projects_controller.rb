@@ -55,6 +55,8 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # Move more of this to the model so it's easier to test.
+  #  After verifying inclusion just update the attribute.
   def verify_script
     status = nil
     begin

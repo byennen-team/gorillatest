@@ -1,6 +1,7 @@
-class Project
+require 'uri'
+require 'open-uri'
 
-  require 'open-uri'
+class Project
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -17,6 +18,7 @@ class Project
   has_many :project_users
 
   validates :name, :url, presence: true
+  validates :url, url: true
 
   before_create :add_auth_key
 
@@ -25,9 +27,6 @@ class Project
 
   def users
     users = User.in(id: project_users.map(&:user_id)).all
-    Rails.logger.debug("Users are ")
-    Rails.logger.debug("\n\n\n\n\n\n\n\n\n")
-    Rails.logger.debug(users.inspect)
     return users.to_a
   end
 
@@ -46,11 +45,19 @@ class Project
 
   private
 
+
+  # Add specs for this.
   def search_for_script
+    # Can't have a hard coded script source:
     autotest_script_source = "autotest-staging.herokuapp.com/assets/recordv2.js"
-    document = Nokogiri::HTML(open(self.url))
-    document.search("script").detect do |script|
-      script.attributes["src"].value.include?(autotest_script_source) if script.attributes["src"]
+    # Need to add a rescue, open will throw an exception if it can't open the URL
+    begin
+      document = Nokogiri::HTML(open(self.url))
+      document.search("script").detect do |script|
+        script.attributes["src"].value.include?(autotest_script_source) if script.attributes["src"]
+      end
+    rescue Exception => e
+      return false
     end
   end
 
