@@ -99,21 +99,24 @@ button.btn
   text-align: center
   position: fixed
   overflow-y: auto
-  top: 50px
+  top: 100px
   left: 50%
   display: none
-  background: #fffceb
-  /* padding: 0 20px 20px
+  background: #fff
+  color: #333s
   overflow: auto
   z-index: 1001
   position:absolute
-  min-width: 300px
-  min-height: 250px
+  /* min-width: 375px */
+  width: 400px
   border-radius: 4px
+  font-family: 'Monda', sans
+  text-align: left
+  padding: 0px
   .autotest-modal-close-x
-    margin-top: -24px
+    margin-top: -0px
     float: right
-    font-size: 2em
+    font-size: 1.3em
     font-weight: bold
     background: transparent
     border: 0
@@ -123,10 +126,76 @@ button.btn
   .autotest-modal-content
     height: 100%
     top: 0px
-    padding: 12px
+    padding: 0px
   .autotest-modal-header
-    margin-top: 24px
-
+    margin-top: 0px
+    margin-bottom: 5px
+    background: #4f4f4f
+    padding: 5px 10px
+    border-top-radius: 4px
+    h4
+      font-size: 1.4em
+      margin: 0px
+      text-align: left
+      color: #fff
+  .autotest-modal-body
+    padding: 10px
+    font-size: 1.2em
+    min-height: 150px
+    label
+      font-weight: bold
+      font-size: .8em
+    input
+      border: 1px solid #ccc
+      width: 98%
+      font-size: 0.8em
+      padding: 4px
+      border-radius: 4px
+      font-family: 'Monda', sans-serif
+  .autotest-modal-footer
+    margin-top: 15px
+    padding: 10px
+    text-align: right
+    .btn
+      display: inline-block
+      margin-bottom: 0
+      font-weight: normal
+      text-align: center
+      vertical-align: middle
+      cursor: pointer
+      background-image: none
+      border: 1px solid transparent
+      white-space: nowrap
+      padding: 6px 12px
+      font-size: 14px
+      line-height: 1.428571429
+      border-radius: 4px
+      -webkit-user-select: none
+      -moz-user-select: none
+      -ms-user-select: none
+      -o-user-select: none
+      user-select: none
+    .btn-primary
+      color: white
+      background-color: #5cb85c
+      border-color: #4cae4c
+      background-image: -webkit-linear-gradient(top, #5cb85c 0%, #419641 100%)
+      background-image: linear-gradient(to bottom, #5cb85c 0%, #419641 100%)
+      background-repeat: repeat-x
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5CB85C', endColorstr='#FF419641', GradientType=0)
+      filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)
+      background-repeat: repeat-x
+      border-color: #3e8f3e
+      &:hover, &:focus
+        background-color: #419641
+        background-position: 0 -15px
+      &:active, .active
+        background-color: #419641
+        border-color: #3e8f3e
+    .btn-default
+      color: #333333
+      background-color: white
+      border-color: #cccccc
 #autotest-view-steps
   position: fixed
   top: 0px
