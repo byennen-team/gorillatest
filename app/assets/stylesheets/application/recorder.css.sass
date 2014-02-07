@@ -140,7 +140,7 @@ button.btn
       color: #fff
   .autotest-modal-body
     padding: 10px
-    font-size: 1.2em
+    font-size: 1em
     min-height: 150px
     label
       font-weight: bold
@@ -227,30 +227,32 @@ button.btn
       color: black
       border: 1px solid golden
 
+$red: #c13737
+$black: #333333
 @keyframes fading
   0%
-    background: red
+    background:  $red
   25%
-    background: black
+    background: $black
   50%
-    background: red
+    background: $red
   75%
-    background: black
+    background: $black
   100%
-    background: red
+    background: $red
 
 
 @-webkit-keyframes fading
   0%
-    background: red
+    background: $red
   25%
-    background: black
+    background: $black
   50%
-    background: red
+    background: $red
   75%
-    background: black
+    background: $black
   100%
-    background: red
+    background: $red
 
 
 @keyframes opacityfading
