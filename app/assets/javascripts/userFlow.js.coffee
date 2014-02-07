@@ -1,6 +1,13 @@
 $ ->
+  $(".embed-modal").modal
+    backdrop: 'static'
+    keyboard: false
+    show: false
+
   if $("ul.project").length == 0
-    $("#add-project").modal("show")
+    $("#add-project").modal
+      backdrop: 'static'
+      keyboard: false
 
   if $(".verify-script").length == 1
     $(".view-embed-code").trigger("click")

@@ -31,11 +31,9 @@
     .modal-content
       = simple_form_for Project.new do |f|
         .modal-header
-          %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
           %h4.modal-title Add Project
         .modal-body
           = f.input :name
           = f.input :url
         .modal-footer
-          %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
           = f.submit "Add Project", class: "btn btn-primary"
