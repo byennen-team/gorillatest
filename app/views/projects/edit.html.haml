@@ -21,17 +21,23 @@
       #users.tab-pane
         %br
         - @project.users.each do |user|
-          - unless user.encrypted_password.blank?
-            %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
-              .pull-left{style: "margin-right: 10px; border: 1px solid #333;"}
-                %img{src: "http://www.gravatar.com/avatar/#{user.gravatar_hash}?s=48"}
-              - unless @project.owner?(user)
-                .pull-right
-                  = link_to glyph('remove'), remove_user_project_path(@project, user.id), method: :post
-              %span{style: "font-size: 1.6em; font-weight: bold;"}= user.name
-              - if @project.owner?(user)
-                %span{style: "font-size: 1.2em"} (owner)
+          %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
+            .pull-left{style: "margin-right: 10px; border: 1px solid #333;"}
+              %img{src: "http://www.gravatar.com/avatar/#{user.gravatar_hash}?s=48"}
+            - unless @project.owner?(user)
+              .pull-right
+                = link_to glyph('remove'), remove_user_project_path(@project, user.id), method: :post
+            %span{style: "font-size: 1.6em; font-weight: bold;"}
+              - if user.encrypted_password.blank?
+                = truncate(user.email, length: 13)
               - else
-                %span{style: "font-size: 1.2em"} (member)
-              %br
+                = user.name
+            - if @project.owner?(user)
+              %span{style: "font-size: 1.2em"} (owner)
+            - elsif user.encrypted_password.blank?
+              %span{style: "font-size: 1.2em"} (invited)
+            - else
+              %span{style: "font-size: 1.2em"} (member)
+            %br
+            - unless user.encrypted_password.blank?
               = user.email
