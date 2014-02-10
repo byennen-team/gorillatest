@@ -1,0 +1,6 @@
+%h1 AutoTest Successful Test Run Notification
+%p
+  A test run for scenario "#{@scenario.name}" has completed successfully on #{@test_run.created_at.strftime("%A %b.%d, %Y")} at #{@test_run.created_at.strftime("%H:%M:%S UTC +00:00")}.
+%p
+  Click here to see your test run logs:
+  = link_to "See Test Runs", project_feature_url(@project.id, @feature.id)

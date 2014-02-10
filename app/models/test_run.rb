@@ -61,7 +61,13 @@ class TestRun
   def complete
     return if status == "running"
     if status == "fail"
-      UserMailer.notify_failed_test(self.user_id, current_step ,self).deliver
+      project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
+        UserMailer.delay.notify_failed_test(member_id, current_step ,self.id)
+      end
+    elsif status == "pass" && project.email_notification == "success"
+      project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
+        UserMailer.delay.notify_successful_test(member_id, self.id)
+      end
     end
     send_complete_notifications
   end

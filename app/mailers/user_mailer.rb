@@ -13,13 +13,22 @@ class UserMailer < ActionMailer::Base
     mail to: invited_user.email, subject: "You're invited to try out AutoTest.io"
   end
 
-  def notify_failed_test(current_user_id, step, test_run)
+  def notify_failed_test(current_user_id, step, test_run_id)
     @step = step
-    @test_run = test_run
+    @test_run = TestRun.find(test_run_id)
     @scenario = @test_run.scenario
     @feature = @scenario.feature
     @project = @feature.project
     @user = User.find(current_user_id)
     mail to: @user.email, subject: "Project #{@project.name} just had a failed test run"
+  end
+
+  def notify_successful_test(user_id, test_run_id)
+    @user = User.find(user_id)
+    @test_run = TestRun.find(test_run_id)
+    @scenario = @test_run.scenario
+    @feature = @scenario.feature
+    @project = @feature.project
+    mail to: @user.email, subject: "Project #{@project.name} just had a successful test run"
   end
 end

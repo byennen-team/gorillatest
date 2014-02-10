@@ -62,6 +62,7 @@ class ProjectsController < ApplicationController
   end
 
   def update_notifications
+    @project.update_attribute(:email_notification, params[:project][:email_notification])
     if @project.notifications
       @notification = @project.notifications.first
     else

@@ -44,6 +44,20 @@
       #notifications.tab-pane
         %br
         =simple_form_for @notification, url: update_notifications_project_path(@project), method: :post do |f|
+          %br
+          %h3 Email Notifications
+          -if @project.email_notification == "success"
+            =radio_button_tag "project[email_notification]", "success", checked: true
+            =label_tag "Send Emails on success and failure"
+            %br
+            =radio_button_tag "project[email_notification]", "fail"
+            =label_tag "Send Emails only on failure"
+          -else
+            =radio_button_tag "project[email_notification]", "success"
+            =label_tag "Send Emails on success and failure"
+            %br
+            =radio_button_tag "project[email_notification]", "fail", checked: true
+            =label_tag "Send Emails only on failure"
           %h3 Campfire
           =f.input :subdomain
           =f.input :token, label: "API Key"

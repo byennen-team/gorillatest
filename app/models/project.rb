@@ -11,6 +11,7 @@ class Project
   field :status, type: String
   field :api_key, type: String
   field :script_verified, type: Boolean, default: false
+  field :email_notification, type: String, default: "success"
 
   belongs_to :user
 
