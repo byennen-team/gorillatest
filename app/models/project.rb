@@ -69,17 +69,27 @@ class Project
   # Add specs for this.
   def search_for_script
     # Can't have a hard coded script source:
-    autotest_script_source = "localhost:4000/assets/recordv2.js"
+    autotest_script_source = "#{ENV['API_URL']}/assets/recordv2.js"
     # Need to add a rescue, open will throw an exception if it can't open the URL
+
     begin
       document = Nokogiri::HTML(open(self.url, "Accept" => "text/html"))
       document.search("script").detect do |script|
-        script.attributes["src"].value.include?(autotest_script_source) if script.attributes["src"]
+        if script.attributes["src"] && script.attributes["src"].value.include?(autotest_script_source)
+          return project_script_valid?(script)
+        end
       end
     rescue Exception => e
       Rails.logger.debug("error is #{e.inspect}")
       return false
     end
+  end
+
+  def project_script_valid?(script)
+    attrs = []
+    attrs << script.attributes['data-auth'].value
+    attrs << script.attributes['data-project-id'].value
+    return attrs.sort == [api_key, id.to_s].sort
   end
 
   def add_auth_key
