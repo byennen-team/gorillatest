@@ -19,14 +19,14 @@ class TestRun
   belongs_to :scenario
   belongs_to :user
 
-  embeds_many :tests
+  embeds_many :browser_tests
   embeds_many :steps
 
   before_create :save_window_size_and_url
 
   def run
     update_attribute(:ran_at, Time.now)
-    tests.each do |test|
+    browser_tests.each do |test|
       test.queued_at = Time.now
       test.steps << steps
       test.save
@@ -35,13 +35,17 @@ class TestRun
   end
 
   def status
-    test_statuses = tests.map(&:status)
+    test_statuses = browser_tests.map(&:status)
+    status = "running"
     Rails.logger.debug("statuses are #{test_statuses}")
-    return  test_statuses.include?("fail") ? "fail" : "pass"
+    if !test_statuses.include?(nil)
+     status = test_statuses.include?("fail") ? "fail" : "pass"
+    end
+    return status
   end
 
   def duration
-    tests.last.updated_at - ran_at
+    browser_tests.last.updated_at - ran_at
   end
 
   def fail!

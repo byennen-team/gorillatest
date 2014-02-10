@@ -48,7 +48,7 @@ class ScenariosController < ApplicationController
     end
     test_run.save
     params[:browsers].each do |browser|
-      test_run.tests << Test.new({browser: browser.split('_').last, platform: browser.split('_').first})
+      test_run.browser_tests << BrowserTest.new({browser: browser.split('_').last, platform: browser.split('_').first})
     end
     test_run.save
     TestWorker.perform_async("queue_tests", test_run.id.to_s)

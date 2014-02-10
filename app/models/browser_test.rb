@@ -1,4 +1,4 @@
-class Test
+class BrowserTest
 
   include Mongoid::Document
   include Mongoid::Timestamps

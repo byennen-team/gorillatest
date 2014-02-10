@@ -5,7 +5,7 @@
     channels = []
     window.channels = channels
     #{
-      @test_run.tests.map { |test| "window.channels.push(window.pusher.subscribe('#{test.channel_name}'));"}.join(' ')
+      @test_run.browser_tests.map { |test| "window.channels.push(window.pusher.subscribe('#{test.channel_name}'));"}.join(' ')
     }
 
 .page-content.blocky
@@ -32,20 +32,14 @@
       %tr
         %th{style: "width: 100px;"} Status:
         %td
-          - if @test_run.status == "pass"
-            %span.label.label-success Passed
-          - elsif @test_run.status == "fail"
-            %span.label.label-danger Danger
-          - else
-            %span.label.label-warning Running
+          = test_run_status(@test_run)
         %th{style: "width: 100px;"} Duration:
         %td= duration_to_hours_minutes_seconds(@test_run.duration)
 
-
     %br
     %br
 
-    - @test_run.tests.each do |test|
+    - @test_run.browser_tests.each do |test|
       - if test.status != nil
         .test{class: "#{test.status}"}
           = render partial: 'test', locals: {test: test}

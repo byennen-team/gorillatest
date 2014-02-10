@@ -14,7 +14,7 @@ class TestWorker
   end
 
   def run_test(test_run_id, test_id)
-    TestRun.find(test_run_id).tests.find(test_id).run
+    TestRun.find(test_run_id).browser_tests.find(test_id).run
   end
 
 end

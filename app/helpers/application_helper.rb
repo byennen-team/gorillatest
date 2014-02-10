@@ -62,4 +62,15 @@ module ApplicationHelper
     duration_string.html_safe
   end
 
+  def test_run_status(test_run)
+    if test_run.status == "pass"
+      html = content_tag(:span, "Passed", class:"label label-success")
+    elsif test_run.status == "fail"
+      html = content_tag(:span, "Failed", class:"label label-danger")
+    else
+      html = content_tag(:span, "Running", class:"label label-warning")
+    end
+
+    return html.html_safe
+  end
 end
