@@ -27,6 +27,13 @@ class Project
   # Figure out how to do the project /user relationships
   # user has_and_belongs_to_many projects / teams. - jkr
 
+
+  def post_notifications(message)
+    notifications.each do |notification|
+      notification.speak(message)
+    end
+  end
+
   def base_url
     base_url = "#{scheme}://#{host}"
     if [80,443].include?(port)

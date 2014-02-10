@@ -109,7 +109,7 @@ class BrowserTest
                        :aws_secret_access_key => ENV['AWS_SECRET_KEY'])
       directory = storage.directories.get(ENV['S3_BUCKET'])
       file = directory.files.create(
-        key: "screenshot_#{scenario_id}_#{self.id}_#{current_step.id}.png",
+        key: "screenshot_#{test_run.scenario_id}_#{test_run.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png",
         body: png,
         public: true
       )

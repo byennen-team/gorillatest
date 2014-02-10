@@ -27,6 +27,7 @@ class TestRun
 
   def run
     update_attribute(:ran_at, Time.now)
+    project.post_notifications("Test Run started for #{self.scenario.name}-#{number}: #{project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV['API_URL'])}")
     browser_tests.each do |test|
       test.queued_at = Time.now
       test.steps << steps
@@ -46,7 +47,7 @@ class TestRun
   end
 
   def duration
-    browser_tests.last.updated_at - ran_at
+    ran_at.nil? ? 0 : browser_tests.last.updated_at - ran_at
   end
 
   def fail!
@@ -60,7 +61,7 @@ class TestRun
   def complete
     return if status == "running"
     if status == "fail"
-      UserMailer.notify_failed_test(test_run.user_id, current_step ,self).deliver
+      UserMailer.notify_failed_test(self.user_id, current_step ,self).deliver
     end
     send_complete_notifications
   end
@@ -77,14 +78,7 @@ class TestRun
   private
 
   def send_complete_notifications
-    project.notifications.each do |notification|
-      case notification.service
-      when "campfire"
-        campfire = Tinder::Campfire.new notification.subdomain, token: notification.token
-        room =campfire.find_room_by_name(notification.room_name)
-        room.speak("Test Run #{status}ed for #{self.scenario.name}-#{number}: #{project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV['API_URL'])}")
-      end
-    end
+    project.post_notifications("Test Run #{status}ed for #{self.scenario.name}-#{number}: #{project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV['API_URL'])}")
   end
 
   def save_window_size_and_url
