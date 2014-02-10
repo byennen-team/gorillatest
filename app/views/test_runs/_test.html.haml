@@ -18,3 +18,8 @@
           %li
             = status_glyph(step.status)
             = step.to_s
+            -if step.status == "fail"
+              (
+              = link_to "View Screenshot", "https://s3-us-west-2.amazonaws.com/autotestio-#{Rails.env}/#{test.screenshot_filename}", target: "_blank", class: "screenshot-link"
+              )
+
