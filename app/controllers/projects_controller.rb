@@ -26,7 +26,13 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    if @project.notifications
+      @notification = @project.notifications.first
+    else
+      @notification = @project.notifications.build
+    end
+  end
 
   def update
     @project.attributes = params[:project]
@@ -52,6 +58,25 @@ class ProjectsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to edit_project_path(@project) }
       end
+    end
+  end
+
+  def update_notifications
+    if @project.notifications
+      @notification = @project.notifications.first
+    else
+      @notification = @project.notifications.build
+    end
+
+    @notification.attributes = notification_params
+    if @notification.save
+      notice = {notice: "Notification Settings successfully saved"}
+    else
+      notice = {alert: "Notification settings cannot be saved"}
+    end
+
+    respond_to do |format|
+      format.html { redirect_to edit_project_path(@project, anchor: "notifications"), notice }
     end
   end
 
@@ -92,4 +117,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:name, :url)
   end
 
+  def notification_params
+    params.require(:notification).permit(:subdomain, :room_name, :token, :service)
+  end
 end

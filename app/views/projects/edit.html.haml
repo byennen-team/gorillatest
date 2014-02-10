@@ -41,3 +41,12 @@
             %br
             - unless user.encrypted_password.blank?
               = user.email
+      #notifications.tab-pane
+        %br
+        =simple_form_for @notification, url: update_notifications_project_path(@project), method: :post do |f|
+          %h3 Campfire
+          =f.input :subdomain
+          =f.input :token, label: "API Key"
+          =f.input :room_name
+          =f.input :service, as: :hidden, value: "campfire"
+          =f.submit "Save Notification Settings", class: "btn btn-success"

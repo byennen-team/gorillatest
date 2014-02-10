@@ -25,6 +25,7 @@ Autotest::Application.routes.draw do
   resources :projects do
     post 'remove_user/:user_id', to: 'projects#remove_user', on: :member, as: :remove_user
     get 'verify_script', to: 'projects#verify_script', as: :verify_script, via: :get
+    post 'update_notifications', to: "projects#update_notifications", on: :member, as: :update_notifications
     resources :features do
       resources :scenarios do
         post :run, on: :member, as: "run_scenario"
