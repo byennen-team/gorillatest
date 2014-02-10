@@ -25,6 +25,15 @@ class Project
   # Figure out how to do the project /user relationships
   # user has_and_belongs_to_many projects / teams. - jkr
 
+  def base_url
+    base_url = "#{scheme}://#{host}"
+    if [80,443].include?(port)
+      return base_url
+    else
+      return "#{base_url}:#{port}"
+    end
+  end
+
   def users
     users = User.in(id: project_users.map(&:user_id)).all
     return users.to_a
@@ -45,11 +54,22 @@ class Project
 
   private
 
+  def port
+    URI.parse(url).port
+  end
+
+  def scheme
+    URI.parse(url).scheme
+  end
+
+  def host
+    URI.parse(url).host
+  end
 
   # Add specs for this.
   def search_for_script
     # Can't have a hard coded script source:
-    autotest_script_source = "autotest-staging.herokuapp.com/assets/recordv2.js"
+    autotest_script_source = "localhost:4000/assets/recordv2.js"
     # Need to add a rescue, open will throw an exception if it can't open the URL
     begin
       document = Nokogiri::HTML(open(self.url, "Accept" => "text/html"))

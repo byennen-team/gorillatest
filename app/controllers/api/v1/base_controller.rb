@@ -8,7 +8,7 @@ class Api::V1::BaseController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
   before_filter :check_preflight
-  before_filter :restrict_access, if: :preflight
+  before_filter :restrict_access
 
   after_filter :set_access_control_headers
 
@@ -24,7 +24,7 @@ class Api::V1::BaseController < ApplicationController
   def check_preflight
     Rails.logger.debug(request.format)
     if request.method == 'OPTIONS'
-      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Origin'] = "*"
       headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
       headers['Access-Control-Request-Method'] = '*'
       headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
@@ -42,9 +42,9 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Origin'] = current_project.base_url
     headers['Access-Control-Request-Method'] = '*'
-      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   end
 
 end
