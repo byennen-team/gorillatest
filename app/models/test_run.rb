@@ -3,6 +3,7 @@ require 'net/http'
 class UrlInaccessible < Exception; end
 
 class TestRun
+  include Rails.application.routes.url_helpers
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -56,11 +57,40 @@ class TestRun
     update_attribute("status", "pass")
   end
 
+  def complete
+    return if status == "running"
+    if status == "fail"
+      UserMailer.notify_failed_test(test_run.user_id, current_step ,self).deliver
+    end
+    send_complete_notifications
+  end
+
+  def project
+    scenario.feature.project
+  end
+
+  def feature
+    scenario.feature
+  end
+
+
   private
+
+  def send_complete_notifications
+    project.notifications.each do |notification|
+      case notification.service
+      when "campfire"
+        campfire = Tinder::Campfire.new notification.subdomain, token: notification.token
+        room =campfire.find_room_by_name(notification.room_name)
+        room.speak("Test Run #{status}ed for #{self.scenario.name}-#{number}: #{project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV['API_URL'])}")
+      end
+    end
+  end
 
   def save_window_size_and_url
     self.window_x = scenario.window_x
     self.window_y = scenario.window_y
     self.start_url = scenario.start_url
   end
+
 end

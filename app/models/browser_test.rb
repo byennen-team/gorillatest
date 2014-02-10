@@ -116,12 +116,10 @@ class BrowserTest
 
       driver.quit
       current_step.fail!
-      if test_run.reload.status != "fail"
-        test_run.fail!
-      end
+      self.fail!
       send_to_pusher
-      UserMailer.notify_failed_test(test_run.user_id, current_step ,self).deliver
     end
+    self.test_run.complete
   end
 
   def fail!

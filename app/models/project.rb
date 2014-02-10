@@ -22,6 +22,8 @@ class Project
 
   before_create :add_auth_key
 
+  embeds_many :notifications
+
   # Figure out how to do the project /user relationships
   # user has_and_belongs_to_many projects / teams. - jkr
 

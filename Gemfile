@@ -21,6 +21,8 @@ gem 'pusher'
 gem 'fog'
 gem 'unf'
 gem 'google-analytics-rails'
+gem 'crack'
+gem 'tinder'
 
 # Devise
 gem 'devise'
