@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project.attributes = params[:project]
+    @project.attributes = project_params
     if @project.save
       respond_to do |format|
         format.html { redirect_to projects_path }
