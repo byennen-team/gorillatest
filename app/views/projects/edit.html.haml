@@ -23,7 +23,7 @@
         - @project.users.each do |user|
           %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
             .pull-left{style: "margin-right: 10px; border: 1px solid #333;"}
-              %img{src: "http://www.gravatar.com/avatar/#{user.gravatar_hash}?s=48"}
+              %img{src: "https://www.gravatar.com/avatar/#{user.gravatar_hash}?s=48"}
             - unless @project.owner?(user)
               .pull-right
                 = link_to glyph('remove'), remove_user_project_path(@project, user.id), method: :post

@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    if @project.notifications
+    if @project.notifications.any?
       @notification = @project.notifications.first
     else
       @notification = @project.notifications.build
@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project.attributes = params[:project]
+    @project.attributes = project_params
     if @project.save
       respond_to do |format|
         format.html { redirect_to projects_path }
@@ -63,17 +63,18 @@ class ProjectsController < ApplicationController
 
   def update_notifications
     @project.update_attribute(:email_notification, params[:project][:email_notification])
-    if @project.notifications
+    if @project.notifications.any?
       @notification = @project.notifications.first
     else
       @notification = @project.notifications.build
     end
 
-    @notification.attributes = notification_params
-    if @notification.save
-      notice = {notice: "Notification Settings successfully saved"}
+    if notification_params.values.reject(&:empty?).length == 0
+      @notification.destroy
+      notice = {notice: "Settings saved"}
     else
-      notice = {alert: "Notification settings cannot be saved"}
+      @notification.attributes = notification_params
+      notice = @notification.save ? {notice: "Notification Settings successfully saved"} : {alert: "Notification settings cannot be saved"}
     end
 
     respond_to do |format|

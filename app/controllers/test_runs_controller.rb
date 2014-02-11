@@ -1,5 +1,7 @@
 class TestRunsController < ApplicationController
 
+  before_filter :authenticate_user!
+
   def show
     @test_run = TestRun.find(params[:id])
     @project = @test_run.scenario.feature.project

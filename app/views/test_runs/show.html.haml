@@ -25,7 +25,7 @@
       %tr
         %th{style: "width: 100px;"} Started By:
         %td
-          %img{src: "http://www.gravatar.com/avatar/#{@test_run.user.gravatar_hash}?s=16"}
+          %img{src: "https://www.gravatar.com/avatar/#{@test_run.user.gravatar_hash}?s=16"}
           = @test_run.user.name
         %th{style: "width: 100px;"} Started On:
         %td= @test_run.created_at.strftime('%A at %H:%M')

@@ -1,5 +1,6 @@
 class ScenariosController < ApplicationController
 
+  before_filter :authenticate_user!
   before_filter :find_project
   before_filter :find_feature
   before_filter :find_scenario, except: [:index, :new, :create]
