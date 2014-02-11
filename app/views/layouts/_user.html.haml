@@ -3,7 +3,7 @@
     %a#user-dropdown{data: {toggle: 'dropdown'}}
       = current_user.name
       &nbsp;
-      %img{src: "http://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=30"}
+      %img{src: "https://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=30"}
       %span.caret
     %ul.dropdown-menu{role: "menu", "aria-labelledby" => "user-dropdown"}
       %li{role: "presentation"}
