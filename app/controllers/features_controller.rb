@@ -1,5 +1,6 @@
 class FeaturesController < ApplicationController
 
+  before_filter :authenticate_user!
   before_filter :find_project
   before_filter :find_feature, except: [:index, :new, :create]
 
