@@ -21,15 +21,24 @@ class BrowserTest
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
-    selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
+    #selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
+    selenium_url = "http://ec2-54-200-175-37.us-west-2.compute.amazonaws.com:4444/wd/hub"
     Rails.logger.debug("SELENIUM URL IS #{selenium_url}")
     case browser
     when 'firefox'
-      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url
+      cap = Selenium::WebDriver::Remote::Capabilities.firefox
+      cap.platform = platform.upcase.to_sym
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     when 'chrome'
-      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :chrome
-    when 'phantomjs'
-      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :phantomjs
+      cap = Selenium::WebDriver::Remote::Capabilities.chrome
+      cap.platform = platform.upcase.to_sym
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
+    when 'ie9'
+      cap = Selenium::WebDriver::Remote::Capabilities.internet_explorer
+      cap.platform = platform.upcase.to_sym
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
+    # when 'phantomjs'
+    #   @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :phantomjs
     end
   end
 
