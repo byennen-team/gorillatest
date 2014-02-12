@@ -80,6 +80,21 @@ class TestRun
     scenario.feature
   end
 
+  def platforms_ran
+    browser_tests.map(&:platform).uniq
+  end
+
+  def platforms_browsers_statuses
+    statuses = {}
+    platforms_ran.each {|p| statuses[p.to_s.capitalize] = {}}
+
+    browser_tests.each do |browser_test|
+      status = {browser_test.browser.capitalize => browser_test.status}
+      statuses[browser_test.platform.capitalize].merge!(status)
+    end
+
+    statuses
+  end
 
   private
 

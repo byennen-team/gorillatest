@@ -8,6 +8,10 @@ Autotest::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
+  if Rails.env.development?
+    mount MailPreview => 'mail_view'
+  end
+
   resources :scenarios
 
   #application
