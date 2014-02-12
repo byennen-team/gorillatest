@@ -44,14 +44,6 @@ class FeaturesController < ApplicationController
 
   private
 
-  def find_project
-    @project = current_user.projects.find(params[:project_id])
-  end
-
-  def find_feature
-    @feature = @project.features.find(params[:id])
-  end
-
   def feature_params
     params.require(:feature).permit(:name)
   end

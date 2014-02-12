@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
-  before_filter :find_project, except: [:index, :new, :create]
   before_filter :authenticate_user!
+  before_filter :find_project, except: [:index, :new, :create]
 
   def index
     @projects = current_user.projects
@@ -110,10 +110,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-
-  def find_project
-    @project = current_user.projects.find(params[:id] || params[:project_id])
-  end
 
   def project_params
     params.require(:project).permit(:name, :url)

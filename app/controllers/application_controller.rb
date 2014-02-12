@@ -34,4 +34,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  protected
+
+  def find_project
+    @project = Project.find(params[:project_id] || params[:id])
+    unless @project.users.include?(current_user)
+      redirect_to projects_path, notice: "You are not authorized to access this project!"
+    end
+  end
+
+  def find_feature
+    @feature = @project.features.find(params[:feature_id])
+  end
+
+  def find_scenario
+    @scenario = @feature.scenarios.find(params[:id])
+  end
 end

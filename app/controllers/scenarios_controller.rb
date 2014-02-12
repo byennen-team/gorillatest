@@ -61,21 +61,8 @@ class ScenariosController < ApplicationController
 
   private
 
-  def find_project
-    @project = Project.find(params[:project_id])
-  end
-
-  def find_feature
-    @feature = @project.features.find(params[:feature_id])
-  end
-
-  def find_scenario
-    @scenario = @feature.scenarios.find(params[:id])
-  end
-
   def scenario_params
     params.require(:scenario).permit(:name, :window_x, :window_y, :start_url)
   end
-
 
 end
