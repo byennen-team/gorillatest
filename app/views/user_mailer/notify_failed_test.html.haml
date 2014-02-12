@@ -1,6 +1,27 @@
 %h1 AutoTest Failed Test Run Notification
 %p
-  A test run for scenario "#{@scenario.name}" that ran on #{@test_run.created_at.strftime("%A %b.%d, %Y")} at #{@test_run.created_at.strftime("%H:%M:%S UTC +00:00")} has failed.
+  A test run for scenario "#{@scenario.name}" that ran on #{@test_run.created_at.strftime("%A %b.%d, %Y")} at #{@test_run.created_at.strftime("%H:%M:%S UTC +00:00")} has failed. #{@test_run.user.first_name} should know more about it.
+%br
+%br
+%p
+  Project: #{@project.name}
+%p
+  Feature: #{@feature.name}
+%p
+  Scenario: #{@scenario.name}
+%p
+  Started by: #{@test_run.user.name}
+%h3 Details
+%ul
+  -@statuses.each do |platform, browsers|
+    %li
+      #{platform}
+      %ul
+        -browsers.each do |browser, status|
+          %li
+            #{browser}: #{status}
+
+
 %p
   Click here to see your test run logs:
   = link_to "See Test Runs", project_feature_url(@project.id, @feature.id)

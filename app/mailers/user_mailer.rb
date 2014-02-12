@@ -20,6 +20,7 @@ class UserMailer < ActionMailer::Base
     @feature = @scenario.feature
     @project = @feature.project
     @user = User.find(current_user_id)
+    @statuses = @test_run.platforms_browsers_statuses
     mail to: @user.email, subject: "Project #{@project.name} just had a failed test run"
   end
 
