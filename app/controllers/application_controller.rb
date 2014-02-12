@@ -44,7 +44,6 @@ class ApplicationController < ActionController::Base
   end
 
   def find_feature
-    binding.pry
     @feature = @project.features.find(params[:feature_id] || params[:id])
   end
 
