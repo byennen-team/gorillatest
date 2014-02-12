@@ -10,8 +10,8 @@
         %br
         %blockquote{style: "padding: 40px; margin: 1px solid #ccc; background: #eee; font-family: Menlo"}
           :plain
-            &lt;script src="https://autotest-staging.herokuapp.com/assets/recordv2.js"<br />
-            &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-api-url="https://autotest-staging.herokuapp.com/"<br />
+            &lt;script src="#{ENV['API_URL']}/assets/recordv2.js"<br />
+            &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-api-url="#{ENV['API_URL']}"<br />
             &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-auth="#{project.api_key}"<br >
             &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-project-id="#{project.id}"&gt;&lt;/script&gt;
       .modal-footer
