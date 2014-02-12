@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_feature
-    @feature = @project.features.find(params[:feature_id])
+    @feature = @project.features.find(params[:feature_id] || params[:id])
   end
 
   def find_scenario
