@@ -18,6 +18,6 @@ class Scenario
 
  has_many :test_runs
 
- validates :name, presence: true, uniqueness: {scope: :feature}
+ validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :feature}
 
 end
