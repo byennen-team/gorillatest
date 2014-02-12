@@ -35,7 +35,7 @@ class Project
     end
   end
 
-  def base_url
+  def base_url(scheme)
     base_url = "#{scheme}://#{host}"
     if [80,443].include?(port)
       return base_url
@@ -68,9 +68,9 @@ class Project
     URI.parse(url).port
   end
 
-  def scheme
-    URI.parse(url).scheme
-  end
+  # def scheme
+  #   URI.parse(url).scheme
+  # end
 
   def host
     URI.parse(url).host
