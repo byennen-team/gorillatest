@@ -28,14 +28,17 @@ class BrowserTest
     when 'firefox'
       cap = Selenium::WebDriver::Remote::Capabilities.firefox
       cap.platform = platform.upcase.to_sym
+      cap.javascript_enabled = true
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     when 'chrome'
       cap = Selenium::WebDriver::Remote::Capabilities.chrome
       cap.platform = platform.upcase.to_sym
+      cap.javascript_enabled = true
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     when 'ie9'
       cap = Selenium::WebDriver::Remote::Capabilities.internet_explorer
       cap.platform = platform.upcase.to_sym
+      cap.javascript_enabled = true
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     # when 'phantomjs'
     #   @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :phantomjs
