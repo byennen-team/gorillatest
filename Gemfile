@@ -23,6 +23,7 @@ gem 'unf'
 gem 'google-analytics-rails'
 gem 'crack'
 gem 'tinder'
+gem 'mail_view'
 
 # Devise
 gem 'devise'
