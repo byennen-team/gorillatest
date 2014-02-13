@@ -17,6 +17,7 @@ class Project
 
   has_many :features
   has_many :project_users
+  has_many :project_test_runs
 
   validates :name, :url, presence: true
   validates :url, url: true

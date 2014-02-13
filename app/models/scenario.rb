@@ -16,7 +16,7 @@ class Scenario
 
  embeds_many :steps
 
- has_many :test_runs
+ has_many :scenario_test_runs
 
  validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :feature}
 

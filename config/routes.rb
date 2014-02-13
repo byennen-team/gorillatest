@@ -31,6 +31,7 @@ Autotest::Application.routes.draw do
     get 'verify_script', to: 'projects#verify_script', as: :verify_script, via: :get
     post 'update_notifications', to: "projects#update_notifications", on: :member, as: :update_notifications
     resources :features do
+      post :run, on: :member
       resources :scenarios do
         post :run, on: :member, as: "run_scenario"
         resources :steps

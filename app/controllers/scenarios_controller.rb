@@ -40,22 +40,13 @@ class ScenariosController < ApplicationController
   end
 
   def run
-    i = @scenario.test_runs.size + 1
-    test_run = @scenario.test_runs.create!({number: i})
-    test_run.user = current_user
-    @scenario.steps.each do |step|
-      test_run.steps << Step.new(step.attributes.except("_id").except("updated_at").except("created_at"))
-      test_run.queued_at = Time.now
-    end
-    test_run.save
-    params[:browsers].each do |browser|
-      test_run.browser_tests << BrowserTest.new({browser: browser.split('_').last, platform: browser.split('_').first})
-    end
-    test_run.save
-    TestWorker.perform_async("queue_tests", test_run.id.to_s)
-    respond_to do |format|
-      format.html { redirect_to project_feature_scenario_test_run_path(@project, @feature, @scenario, test_run) }
-      format.json { }
+    test_run = @scenario.scenario_test_runs.build({user: current_user, platforms: params[:browsers]})
+    if test_run.save
+      TestWorker.perform_async("queue_tests", "Scenario", test_run.id.to_s)
+      respond_to do |format|
+        format.html { redirect_to project_feature_scenario_test_run_path(@project, @feature, @scenario, test_run) }
+        format.json { }
+      end
     end
   end
 

@@ -1,23 +1,25 @@
-class BrowserTest
+require 'net/http'
 
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class UrlInaccessible < Exception; end
 
-  field :browser, type: String
-  field :platform, type: String
-  field :status, type: String
-  field :screenshot_filename, type: String
-  field :queued_at, type: DateTime
-  field :ran_at, type: DateTime
-  field :run_time, type: Integer # in seconds
+module BrowserTest
+  extend ActiveSupport::Concern
 
-  embedded_in :test_run
-  embeds_many :steps
+  included do
+    include Mongoid::Document
+    include Mongoid::Timestamps
 
-  # belongs_to :browser
-  # belongs_to :platform
+    field :browser, type: String
+    field :platform, type: String
+    field :status, type: String
+    field :screenshot_filename, type: String
+    field :queued_at, type: DateTime
+    field :ran_at, type: DateTime
+    field :run_time, type: Integer # in seconds
 
-  attr_accessor :current_step #, :channel_name
+    attr_accessor :current_step #, :channel_name
+    # after_create :run_test
+  end
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
@@ -45,25 +47,17 @@ class BrowserTest
     end
   end
 
-  def channel_name
-    "#{test_run.id}_#{platform}_#{browser}_channel"
-  end
-
-  def run
-    update_attribute(:ran_at, Time.now)
+  def run(scenario_test_run)
     begin
-      puts "Steps size is #{steps.size}"
-      puts "Channel name #{channel_name}"
-
-      if self.test_run.window_x && self.test_run.window_y
-        driver.manage.window.resize_to(self.test_run.window_x, self.test_run.window_y)
-      end
-
       @current_step = steps.first
+      puts "Current Step is #{@current_step.to_s}"
       unless starting_url_success?(steps.first.text)
         raise UrlInaccessible
       end
 
+      if scenario_test_run.window_x && scenario_test_run.window_y
+        driver.manage.window.resize_to(self.test_run.window_x, self.test_run.window_y)
+      end
       driver.navigate.to(current_step.text)
       current_step.pass!
       send_to_pusher
@@ -113,6 +107,8 @@ class BrowserTest
       self.pass!
       driver.quit
     rescue Exception => e
+      p e.inspect
+      p e.backtrace
       p "FAIL, SO TAKING A SCREENSHOT"
       png = driver.screenshot_as(:png)
 
@@ -120,7 +116,7 @@ class BrowserTest
                        :aws_access_key_id => ENV['AWS_ACCESS_KEY'],
                        :aws_secret_access_key => ENV['AWS_SECRET_KEY'])
       directory = storage.directories.get(ENV['S3_BUCKET'])
-      file_name = "screenshot_#{test_run.scenario_id}_#{test_run.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
+      file_name = "screenshot_#{scenario_test_run.scenario_id}_#{scenario_test_run.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
       file = directory.files.create(
         key: file_name,
         body: png,
@@ -143,8 +139,6 @@ class BrowserTest
     update_attribute("status", "pass")
   end
 
-  private
-
   def starting_url_success?(url)
     uri = URI(url)
     response = Net::HTTP.get_response(uri)
@@ -157,8 +151,14 @@ class BrowserTest
     #   message = {status: current_step.status, to_s: current_step.to_s}
     # end
     puts "pushing to channel #{channel_name}"
-    Pusher[channel_name].trigger('step_pass', {
+    Pusher[channel_name].trigger('features', {
           message: current_step.as_json(methods: [:to_s])
     })
   end
+
+  # def run_test
+  #   update_attribute(:queued_at, Time.now)
+  #   TestWorker.perform_async("run_test", test_run.id.to_s, self.id.to_s)
+  # end
+
 end
