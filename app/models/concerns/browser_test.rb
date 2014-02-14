@@ -47,22 +47,23 @@ module BrowserTest
     end
   end
 
-  def run(scenario_test_run)
+  def run(scenario)
     begin
-      @current_step = steps.first
+      @current_step = scenario.steps.first
       puts "Current Step is #{@current_step.to_s}"
-      unless starting_url_success?(steps.first.text)
+      unless starting_url_success?(scenario.steps.first.text)
         raise UrlInaccessible
       end
 
-      if scenario_test_run.window_x && scenario_test_run.window_y
-        driver.manage.window.resize_to(self.test_run.window_x, self.test_run.window_y)
+      if scenario.window_x && scenario.window_y
+        driver.manage.window.resize_to(scenario.window_x, scenario.window_y)
       end
       driver.navigate.to(current_step.text)
       current_step.pass!
-      send_to_pusher
+      save_history(current_step.to_s, current_step.status)
+      #send_to_pusher
 
-      steps.all.each do |step|
+      scenario.steps.all.each do |step|
         next if step.event_type == "get"
         puts "Running Step"
         @current_step = step
@@ -99,6 +100,8 @@ module BrowserTest
         end
         puts 'Setting step to pass'
         current_step.pass!
+        save_history(step.to_s, status)
+
         puts "current step status is #{current_step.status}"
         send_to_pusher
 
@@ -125,6 +128,7 @@ module BrowserTest
       self.update_attribute(:screenshot_filename, file_name)
       driver.quit
       current_step.fail!
+      save_history(current_step.to_s, current_step.status)
       self.fail!
       send_to_pusher
     end

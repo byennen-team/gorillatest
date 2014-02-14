@@ -5,19 +5,18 @@ class Scenario
   include Mongoid::Document
   include Mongoid::Paranoia
 
- field :name, type: String
+  field :name, type: String
+  field :window_x, type: Integer
+  field :window_y, type: Integer
+  field :start_url, type: String
 
- field :window_x, type: Integer
- field :window_y, type: Integer
- field :start_url, type: String
+  #embedded_in :feature, inverse_of: :scenarios
+  belongs_to :feature
 
- #embedded_in :feature
- belongs_to :feature
+  embeds_many :steps
 
- embeds_many :steps
+  has_many :test_runs, class_name: 'ScenarioTestRun'
 
- has_many :scenario_test_runs
-
- validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :feature}
+  validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :feature}
 
 end

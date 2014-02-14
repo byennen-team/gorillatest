@@ -24,7 +24,7 @@ class TestWorker
     case test_run_type
     when 'Scenario'
       scenario_test_run = ScenarioTestRun.find(test_run_id)
-      scenario_test_run.browser_tests.find(test_id).run(scenario_test_run)
+      scenario_test_run.browser_tests.find(test_id).run_all
     when 'Feature'
       FeatureTestRun.find(test_run_id).browser_tests.find(test_id).run_all
     when 'Project'
