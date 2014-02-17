@@ -8,6 +8,7 @@ statusTemplate = _.template("<li><%= status_icon %><%= to_s %></li>")
 
 scenarioTemplate = _.template("<p id='<%= test.platform %>-<%= test.browser %>-scenario-<%= scenario_id %>'>Scenario: <%= scenario_name %></p>
                                <ul class='steps-list' id='<%= channel_name %>-scenario-steps-<%= scenario_id %>'></ul>")
+featureTemplate = _.template("<p id='<%= channel_name %>-feature-<%= feature_id %>'>Feature: <%= feature_name %></p><br /><br />")
 
 selectedBrowsers = ->
   browsers = []
@@ -33,6 +34,13 @@ $(document).ready ()->
 bindChannels = ()->
   _.each window.channels, (channel)->
     console.log("BINDING " + channel)
+    channel.bind "play_feature", (data) ->
+      console.log data
+      console.log("appending to channel - #{channel.name}")
+      data.channel_name = channel.name
+      debugger
+      $("##{channel.name} .panel-body").append(featureTemplate(data))
+      return
     channel.bind "play_scenario", (data) ->
       console.log data
       console.log("appending to channel #{channel.name}")

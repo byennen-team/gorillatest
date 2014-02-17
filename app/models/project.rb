@@ -17,7 +17,7 @@ class Project
 
   has_many :features
   has_many :project_users
-  has_many :project_test_runs
+  has_many :test_runs, class_name: 'ProjectTestRun'
 
   validates :name, :url, presence: true
   validates :url, url: true

@@ -7,10 +7,8 @@ class FeatureTestRun
   belongs_to :feature
 
   embeds_many :browser_tests, class_name: 'FeatureBrowserTest'
-  embeds_many :scenarios, class_name: 'FeatureTestRunScenario'
 
   before_create :set_name
-  before_create :create_scenarios
 
   def run
     update_attribute(:run_at, Time.now)
@@ -50,12 +48,6 @@ class FeatureTestRun
 
   def set_number
     self.number = feature.test_runs.size + 1
-  end
-
-  def create_scenarios
-    feature.scenarios.each do |scenario|
-      scenarios << FeatureTestRunScenario.new(scenario: scenario)
-    end
   end
 
 end
