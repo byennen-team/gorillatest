@@ -17,7 +17,7 @@
       %li
         = link_to @feature.name, project_feature_path(@project, @feature)
       %li.active
-        = link_to "Test Run ##{@test_run.number}", project_feature_feature_test_run_path(@project, @feature, @test_run)
+        = link_to "Test Run ##{@test_run.number}", project_feature_test_run_path(@project, @feature, @test_run)
     %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
       %tr
         %th{style: "width: 100px;"} Started By:
