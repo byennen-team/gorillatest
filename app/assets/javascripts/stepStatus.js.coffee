@@ -38,7 +38,6 @@ bindChannels = ()->
       console.log data
       console.log("appending to channel - #{channel.name}")
       data.channel_name = channel.name
-      debugger
       $("##{channel.name} .panel-body").append(featureTemplate(data))
       return
     channel.bind "play_scenario", (data) ->
@@ -50,7 +49,6 @@ bindChannels = ()->
     channel.bind "step_pass", (data) ->
       console.log data.message
       console.log("appending to #{channel.name}")
-      debugger
       data.status_icon = iconTemplate(data.status)
       steps_list_id = "#{channel.name}-scenario-steps-#{data.scenario_id}"
       $("##{steps_list_id}").append(statusTemplate(data))
