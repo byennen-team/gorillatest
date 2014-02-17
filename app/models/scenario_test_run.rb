@@ -10,6 +10,10 @@ class ScenarioTestRun
 
   has_many :browser_tests, class_name: 'ScenarioBrowserTest'
 
+  def name
+    scenario.name
+  end
+
   def run
     update_attribute(:run_at, Time.now)
     scenario.feature.project.post_notifications(start_notification_message)

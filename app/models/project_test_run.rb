@@ -7,6 +7,10 @@ class ProjectTestRun
 
   def feature; nil; end
 
+  def name
+    project.name
+  end
+
   def run
     update_attribute(:run_at, Time.now)
     puts "\n\n\n\n\n\n\nPUtting NOtifications\n\n\n\n\n\n\n\n\n\n"
