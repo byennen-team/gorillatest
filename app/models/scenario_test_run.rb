@@ -17,7 +17,7 @@ class ScenarioTestRun
   def run
     update_attribute(:run_at, Time.now)
     scenario.feature.project.post_notifications(start_notification_message)
-    platforms.each do |p|
+    browser_tests.each do |browser_test|
       browser_test = self.browser_tests.create!({browser: p.split('_').last,
                                                  platform: p.split('_').first})
       puts "Adding test"

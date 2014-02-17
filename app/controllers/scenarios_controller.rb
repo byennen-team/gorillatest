@@ -42,6 +42,10 @@ class ScenariosController < ApplicationController
   def run
     test_run = @scenario.test_runs.build({user: current_user, platforms: params[:browsers]})
     if test_run.save
+      test_run.platforms.each do |p|
+        browser_test = test_run.browser_tests.create!({browser: p.split('_').last,
+                                                    platform: p.split('_').first})
+      end
       TestWorker.perform_async("queue_tests", "Scenario", test_run.id.to_s)
       respond_to do |format|
         format.html { redirect_to project_feature_scenario_test_run_path(@project, @feature, @scenario, test_run) }

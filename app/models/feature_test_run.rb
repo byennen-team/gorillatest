@@ -14,9 +14,7 @@ class FeatureTestRun
     update_attribute(:run_at, Time.now)
     # Create scenarios
     feature.project.post_notifications(start_notification_message)
-    platforms.each do |p|
-      browser_test = browser_tests.create!({browser: p.split('_').last,
-                                            platform: p.split('_').first})
+    browser_tests.each do |browser_test|
       TestWorker.perform_async("run_test", "Feature", self.id.to_s, browser_test.id.to_s)
     end
   end
