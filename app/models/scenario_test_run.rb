@@ -56,7 +56,7 @@ class ScenarioTestRun
   end
 
   def set_number
-    self.number = scenario.scenario_test_runs.size + 1
+    self.number = scenario.test_runs.size + 1
   end
 
 end

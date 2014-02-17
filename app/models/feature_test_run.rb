@@ -49,7 +49,7 @@ class FeatureTestRun
   end
 
   def set_number
-    self.number = feature.feature_test_runs.size + 1
+    self.number = feature.test_runs.size + 1
   end
 
   def create_scenarios

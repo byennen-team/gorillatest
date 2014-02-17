@@ -6,6 +6,9 @@ iconTemplate = (status) ->
 
 statusTemplate = _.template("<li><%= status_icon %><%= to_s %></li>")
 
+scenarioTemplate = _.template("<p id='<%= test.platform %>-<%= test.browser %>-scenario-<%= scenario_id %>'>Scenario: <%= scenario_name %></p>
+                               <ul class='steps-list' id='<%= channel_name %>-scenario-steps-<%= scenario_id %>'></ul>")
+
 selectedBrowsers = ->
   browsers = []
   _.each $("form.scenario-run input[type='checkbox']"), (input) ->
@@ -30,17 +33,28 @@ $(document).ready ()->
 bindChannels = ()->
   _.each window.channels, (channel)->
     console.log("BINDING " + channel)
+    channel.bind "play_scenario", (data) ->
+      console.log data
+      console.log("appending to channel #{channel.name}")
+      data.channel_name = channel.name
+      $("##{channel.name} .panel-body").append(scenarioTemplate(data))
+      return
     channel.bind "step_pass", (data) ->
       console.log data.message
       console.log("appending to #{channel.name}")
-      data.message.status_icon = iconTemplate(data.message.status)
-      $("##{channel.name} ul").append(statusTemplate(data.message))
+      debugger
+      data.status_icon = iconTemplate(data.status)
+      steps_list_id = "#{channel.name}-scenario-steps-#{data.scenario_id}"
+      $("##{steps_list_id}").append(statusTemplate(data))
 
-      if data.message.status is "fail"
+      if data.status is "fail"
         $("##{channel.name}").prev().removeClass("panel-success").addClass("panel-fail")
         alert("An error has been added to the Github project - bigastronaut/autotest")
       else
         $("##{channel.name}").prev().addClass("panel-success")
+      return
+
+
 
 
 showPanels = (scenario_id)->

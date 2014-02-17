@@ -40,7 +40,7 @@ class ScenariosController < ApplicationController
   end
 
   def run
-    test_run = @scenario.scenario_test_runs.build({user: current_user, platforms: params[:browsers]})
+    test_run = @scenario.test_runs.build({user: current_user, platforms: params[:browsers]})
     if test_run.save
       TestWorker.perform_async("queue_tests", "Scenario", test_run.id.to_s)
       respond_to do |format|

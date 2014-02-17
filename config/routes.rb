@@ -32,6 +32,7 @@ Autotest::Application.routes.draw do
     post 'update_notifications', to: "projects#update_notifications", on: :member, as: :update_notifications
     resources :features do
       post :run, on: :member
+      resources :feature_test_runs
       resources :scenarios do
         post :run, on: :member, as: "run_scenario"
         resources :steps

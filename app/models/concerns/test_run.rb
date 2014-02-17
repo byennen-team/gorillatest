@@ -19,18 +19,18 @@ module TestRun
     before_create :set_number
   end
 
-  def complete
+  def complete(current_step=nil)
     return if status == "running"
-    if status == "fail"
-      project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
-        UserMailer.delay.notify_failed_test(member_id, current_step ,self.id)
-      end
-    elsif status == "pass" && project.email_notification == "success"
-      project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
-        UserMailer.delay.notify_successful_test(member_id, self.id)
-      end
-    end
-    send_complete_notification
+    # if status == "fail"
+    #   project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
+    #     UserMailer.delay.notify_failed_test(member_id, current_step ,self.id)
+    #   end
+    # elsif status == "pass" && project.email_notification == "success"
+    #   project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
+    #     UserMailer.delay.notify_successful_test(member_id, self.id)
+    #   end
+    # end
+    # send_complete_notification
   end
 
   def duration

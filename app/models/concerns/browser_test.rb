@@ -47,7 +47,9 @@ module BrowserTest
     end
   end
 
-  def run(scenario)
+  def run(scenario, history_line_item=nil)
+    send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
+
     begin
       @current_step = scenario.steps.first
       puts "Current Step is #{@current_step.to_s}"
@@ -59,9 +61,14 @@ module BrowserTest
         driver.manage.window.resize_to(scenario.window_x, scenario.window_y)
       end
       driver.navigate.to(current_step.text)
+      puts "Navigated to site"
       current_step.pass!
-      save_history(current_step.to_s, current_step.status)
-      #send_to_pusher
+      puts "Made first step pass"
+      save_history(current_step.to_s, current_step.status, history_line_item)
+      puts "Saved history"
+
+      send_to_pusher
+      puts "Pushed to pusher"
 
       scenario.steps.all.each do |step|
         next if step.event_type == "get"
@@ -100,7 +107,7 @@ module BrowserTest
         end
         puts 'Setting step to pass'
         current_step.pass!
-        save_history(step.to_s, status)
+        save_history(step.to_s, status, history_line_item)
 
         puts "current step status is #{current_step.status}"
         send_to_pusher
@@ -119,7 +126,12 @@ module BrowserTest
                        :aws_access_key_id => ENV['AWS_ACCESS_KEY'],
                        :aws_secret_access_key => ENV['AWS_SECRET_KEY'])
       directory = storage.directories.get(ENV['S3_BUCKET'])
-      file_name = "screenshot_#{scenario_test_run.scenario_id}_#{scenario_test_run.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
+      if history_line_item
+        file_name = "screenshot_#{scenario.id}_#{history_line_item.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
+      else
+        file_name = "screenshot_#{scenario.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
+      end
+
       file = directory.files.create(
         key: file_name,
         body: png,
@@ -128,11 +140,11 @@ module BrowserTest
       self.update_attribute(:screenshot_filename, file_name)
       driver.quit
       current_step.fail!
-      save_history(current_step.to_s, current_step.status)
+      save_history(current_step.to_s, current_step.status, history_line_item)
       self.fail!
       send_to_pusher
     end
-    self.test_run.complete
+    self.test_run.complete(current_step)
   end
 
   def fail!
@@ -149,15 +161,19 @@ module BrowserTest
     response.code == "200" ? true : false
   end
 
-   def send_to_pusher
+   def send_to_pusher(event="step_pass", message=nil)
     # if step_attrs.empty?
     #   current_step.reload
     #   message = {status: current_step.status, to_s: current_step.to_s}
     # end
-    puts "pushing to channel #{channel_name}"
-    Pusher[channel_name].trigger('features', {
-          message: current_step.as_json(methods: [:to_s])
-    })
+    if event == "step_pass"
+      message = current_step.as_json(methods: [:to_s])
+      message.merge!({scenario_id: current_step.scenario.id.to_s})
+      puts "\n\n\n\n\n\n\n#{message.inspect}\n\n\n\n\\n\n\n"
+    else
+      message = message.as_json
+    end
+    pusher_return = Pusher.trigger([channel_name], event, message)
   end
 
   # def run_test

@@ -43,11 +43,11 @@ class FeaturesController < ApplicationController
   end
 
   def run
-    test_run = @feature.feature_test_runs.build({user: current_user, platforms: params[:browsers]})
+    test_run = @feature.test_runs.build({user: current_user, platforms: params[:browsers]})
     if test_run.save
       TestWorker.perform_async("queue_tests", "Feature", test_run.id.to_s)
       respond_to do |format|
-        format.html { redirect_to project_feature_test_run_path(@project, @feature, test_run) }
+        format.html { redirect_to project_feature_feature_test_run_path(@project, @feature, test_run) }
         format.json { }
       end
     end

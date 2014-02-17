@@ -2,14 +2,10 @@ class FeatureBrowserTest
 
   include BrowserTest
 
+  belongs_to :feature
+
   embedded_in :feature_test_run
-  embeds_many :scenarios, class_name: 'FeatureTestRunScenario'
-
-  belongs_to :project_browser_test
-
-  has_many :scenario_browser_test
-
-  before_create :create_scenarios
+  embeds_one :test_history
 
   def test_run; feature_test_run; end
 
@@ -18,17 +14,23 @@ class FeatureBrowserTest
   end
 
   def run_all
-    scenarios.each do |scenario|
-      send_to_pusher("event_type", message)
-      run(scenario)
+    create_test_history
+    sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
+    feature_test_run.feature.scenarios.each do |scenario|
+      line_item = save_history("Running #{scenario.name}", nil, nil)
+      run(scenario, line_item)
     end
   end
 
   private
 
-  def create_scenarios
-    test_run.scenarios.each do |scenario|
-      scenarios << FeatureTestRunScenario.new(scenario: scenario)
+  def save_history(msg, status, line_item=nil)
+    if line_item.nil?
+      line_item = test_history.history_line_items.create({text: msg, status: status, parent: id})
+      return line_item
+    else
+      child = line_item.children.create({text: msg, status: status})
+      return child
     end
   end
 

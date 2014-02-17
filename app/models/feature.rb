@@ -11,7 +11,7 @@ class Feature
   belongs_to :user
 
   has_many :scenarios
-  has_many :feature_test_runs
+  has_many :test_runs, class_name: 'FeatureTestRun'
 
   validates :name, presence: true, uniqueness: {scope: :project}
 
