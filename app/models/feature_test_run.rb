@@ -13,7 +13,7 @@ class FeatureTestRun
   def run
     update_attribute(:run_at, Time.now)
     # Create scenarios
-
+    feature.project.post_notifications(start_notification_message)
     platforms.each do |p|
       browser_test = browser_tests.create!({browser: p.split('_').last,
                                             platform: p.split('_').first})
@@ -34,7 +34,7 @@ class FeatureTestRun
   end
 
   def complete_notification_message
-    notification += "Test Run #{status}ed for #{self.project.name}- #{self.feature.name} - #{number}:"
+    notification = "Test Run #{status}ed for #{self.project.name}- #{self.feature.name} - #{number}:"
     url = project_feature_test_run_url(project, feature, self, host: ENV['API_URL'])
     notification += " "
     notification += url

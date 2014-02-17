@@ -161,7 +161,7 @@ module BrowserTest
     response.code == "200" ? true : false
   end
 
-   def send_to_pusher(event="step_pass", message=nil)
+  def send_to_pusher(event="step_pass", message=nil)
     # if step_attrs.empty?
     #   current_step.reload
     #   message = {status: current_step.status, to_s: current_step.to_s}

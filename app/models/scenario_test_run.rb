@@ -9,12 +9,10 @@ class ScenarioTestRun
   belongs_to :scenario
 
   has_many :browser_tests, class_name: 'ScenarioBrowserTest'
-  embeds_many :steps
-
-  before_create :copy_scenario_values
 
   def run
     update_attribute(:run_at, Time.now)
+    scenario.feature.project.post_notifications(start_notification_message)
     platforms.each do |p|
       browser_test = self.browser_tests.create!({browser: p.split('_').last,
                                                  platform: p.split('_').first})
@@ -33,14 +31,14 @@ class ScenarioTestRun
 
   def start_notification_message
     notification = "Test Run started for "
-    notificiation += "#{self.project.name} - #{self.feature.name} - #{self.scenario.name} - #{number}:"
-    url = project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV["API_UR"])
+    notification += "#{self.project.name} - #{self.feature.name} - #{self.scenario.name} - #{number}:"
+    url = project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV["API_URL"])
     notification += " "
     notification += url
   end
 
   def complete_notification_message
-    notification += "Test Run #{status}ed for #{self.project.name}- #{self.feature.name} - #{self.scenario.name} - #{number}:"
+    notification = "Test Run #{status}ed for #{self.project.name}- #{self.feature.name} - #{self.scenario.name} - #{number}:"
     url = project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV['API_URL'])
     notification += " "
     notification += url
