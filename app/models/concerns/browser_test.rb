@@ -1,23 +1,25 @@
-class BrowserTest
+require 'net/http'
 
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class UrlInaccessible < Exception; end
 
-  field :browser, type: String
-  field :platform, type: String
-  field :status, type: String
-  field :screenshot_filename, type: String
-  field :queued_at, type: DateTime
-  field :ran_at, type: DateTime
-  field :run_time, type: Integer # in seconds
+module BrowserTest
+  extend ActiveSupport::Concern
 
-  embedded_in :test_run
-  embeds_many :steps
+  included do
+    include Mongoid::Document
+    include Mongoid::Timestamps
 
-  # belongs_to :browser
-  # belongs_to :platform
+    field :browser, type: String
+    field :platform, type: String
+    field :status, type: String
+    field :screenshot_filename, type: String
+    field :queued_at, type: DateTime
+    field :ran_at, type: DateTime
+    field :run_time, type: Integer # in seconds
 
-  attr_accessor :current_step #, :channel_name
+    attr_accessor :current_step #, :channel_name
+    # after_create :run_test
+  end
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
@@ -45,30 +47,30 @@ class BrowserTest
     end
   end
 
-  def channel_name
-    "#{test_run.id}_#{platform}_#{browser}_channel"
-  end
+  def run(scenario, history_line_item=nil)
+    send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
 
-  def run
-    update_attribute(:ran_at, Time.now)
     begin
-      puts "Steps size is #{steps.size}"
-      puts "Channel name #{channel_name}"
-
-      if self.test_run.window_x && self.test_run.window_y
-        driver.manage.window.resize_to(self.test_run.window_x, self.test_run.window_y)
-      end
-
-      @current_step = steps.first
-      unless starting_url_success?(steps.first.text)
+      @current_step = scenario.steps.first
+      puts "Current Step is #{@current_step.to_s}"
+      unless starting_url_success?(scenario.steps.first.text)
         raise UrlInaccessible
       end
 
+      if scenario.window_x && scenario.window_y
+        driver.manage.window.resize_to(scenario.window_x, scenario.window_y)
+      end
       driver.navigate.to(current_step.text)
+      puts "Navigated to site"
       current_step.pass!
-      send_to_pusher
+      puts "Made first step pass"
+      save_history(current_step.to_s, current_step.status, history_line_item)
+      puts "Saved history"
 
-      steps.all.each do |step|
+      send_to_pusher
+      puts "Pushed to pusher"
+
+      scenario.steps.all.each do |step|
         next if step.event_type == "get"
         puts "Running Step"
         @current_step = step
@@ -105,6 +107,8 @@ class BrowserTest
         end
         puts 'Setting step to pass'
         current_step.pass!
+        save_history(step.to_s, status, history_line_item)
+
         puts "current step status is #{current_step.status}"
         send_to_pusher
 
@@ -113,6 +117,8 @@ class BrowserTest
       self.pass!
       driver.quit
     rescue Exception => e
+      p e.inspect
+      p e.backtrace
       p "FAIL, SO TAKING A SCREENSHOT"
       png = driver.screenshot_as(:png)
 
@@ -120,7 +126,12 @@ class BrowserTest
                        :aws_access_key_id => ENV['AWS_ACCESS_KEY'],
                        :aws_secret_access_key => ENV['AWS_SECRET_KEY'])
       directory = storage.directories.get(ENV['S3_BUCKET'])
-      file_name = "screenshot_#{test_run.scenario_id}_#{test_run.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
+      if history_line_item
+        file_name = "screenshot_#{scenario.id}_#{history_line_item.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
+      else
+        file_name = "screenshot_#{scenario.id}_#{self.platform}_#{self.browser}_#{current_step.id}.png"
+      end
+
       file = directory.files.create(
         key: file_name,
         body: png,
@@ -129,10 +140,11 @@ class BrowserTest
       self.update_attribute(:screenshot_filename, file_name)
       driver.quit
       current_step.fail!
+      save_history(current_step.to_s, current_step.status, history_line_item)
       self.fail!
       send_to_pusher
     end
-    self.test_run.complete
+    self.test_run.complete(current_step)
   end
 
   def fail!
@@ -143,22 +155,30 @@ class BrowserTest
     update_attribute("status", "pass")
   end
 
-  private
-
   def starting_url_success?(url)
     uri = URI(url)
     response = Net::HTTP.get_response(uri)
     response.code == "200" ? true : false
   end
 
-   def send_to_pusher
+   def send_to_pusher(event="step_pass", message=nil)
     # if step_attrs.empty?
     #   current_step.reload
     #   message = {status: current_step.status, to_s: current_step.to_s}
     # end
-    puts "pushing to channel #{channel_name}"
-    Pusher[channel_name].trigger('step_pass', {
-          message: current_step.as_json(methods: [:to_s])
-    })
+    if event == "step_pass"
+      message = current_step.as_json(methods: [:to_s])
+      message.merge!({scenario_id: current_step.scenario.id.to_s})
+      puts "\n\n\n\n\n\n\n#{message.inspect}\n\n\n\n\\n\n\n"
+    else
+      message = message.as_json
+    end
+    pusher_return = Pusher.trigger([channel_name], event, message)
   end
+
+  # def run_test
+  #   update_attribute(:queued_at, Time.now)
+  #   TestWorker.perform_async("run_test", test_run.id.to_s, self.id.to_s)
+  # end
+
 end

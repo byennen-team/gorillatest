@@ -1,0 +1,3 @@
+= render partial: '/shared/test_run_header', locals: {test: test}
+%div{id: "#{@test_run.id}_#{test.platform}_#{test.browser}_channel", class: "#{test.status != nil ? "collapse" : ""}"}
+  .panel-body.terminal

@@ -109,6 +109,17 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def run
+    test_run = @project.test_runs.build({user: current_user, platforms: params[:browsers]})
+    if test_run.save
+      TestWorker.perform_async("queue_tests", "Project", test_run.id.to_s)
+      respond_to do |format|
+        format.html { redirect_to project_test_run_path(@project, test_run) }
+        format.json { }
+      end
+    end
+  end
+
   private
 
   def project_params

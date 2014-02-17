@@ -1,3 +1,6 @@
+-content_for :head do
+  =javascript_include_tag "stepStatus"
+
 .page-content.blocky
   %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
   .container

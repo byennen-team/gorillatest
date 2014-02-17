@@ -1,4 +1,3 @@
-
 - content_for :head do
   =javascript_include_tag "stepStatus"
   :javascript
@@ -14,13 +13,9 @@
       %li
         = link_to "Projects", projects_path
       %li
-        = link_to @scenario.feature.project.name, project_path(@project)
-      %li
-        = link_to @feature.name, project_feature_path(@project, @feature)
-      %li
-        = link_to @scenario.name, project_feature_scenario_path(@project, @feature, @scenario)
+        = link_to @project.name, project_path(@project)
       %li.active
-        = link_to "Test Run ##{@test_run.number}", project_feature_scenario_test_run_path(@project, @feature, @scenario, @test_run)
+        = link_to "Test Run ##{@test_run.number}", project_test_run_path(@project, @test_run)
     %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
       %tr
         %th{style: "width: 100px;"} Started By:
@@ -46,3 +41,5 @@
       - else
         .test
           = render partial: 'test', locals: {test: test}
+
+

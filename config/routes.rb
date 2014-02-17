@@ -30,11 +30,15 @@ Autotest::Application.routes.draw do
     post 'remove_user/:user_id', to: 'projects#remove_user', on: :member, as: :remove_user
     get 'verify_script', to: 'projects#verify_script', as: :verify_script, via: :get
     post 'update_notifications', to: "projects#update_notifications", on: :member, as: :update_notifications
+    post :run, on: :member
+    resources :test_runs, controller: :project_test_runs, only: [:index, :show]
     resources :features do
+      post :run, on: :member
+      resources :test_runs, controller: :feature_test_runs, only: [:index, :show]
       resources :scenarios do
         post :run, on: :member, as: "run_scenario"
         resources :steps
-        resources :test_runs
+        resources :test_runs, only: [:index, :show]
       end
     end
   end

@@ -1,0 +1,17 @@
+= render partial: '/shared/test_run_header', locals: {test: test}
+%div{id: "#{test.channel_name}", class: "#{test.status != nil ? "collapse" : ""}"}
+  .panel-body.terminal{id: "#{test.platform}-#{test.browser}"}
+    / %p Starting test...
+    - test.test_history.history_line_items.each do |scenario|
+      %p{id: "#{test.channel_name}-scenario-#{scenario.id}"}
+        Scenario:
+        = scenario.text
+      %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{scenario.id}"}
+        - scenario.children.each do |step|
+          %li
+            = status_glyph(step.status)
+            = step.text
+            -if step.status == "fail"
+              (
+              = link_to "View Screenshot", "https://s3-us-west-2.amazonaws.com/autotestio-#{Rails.env}/#{test.screenshot_filename}", target: "_blank", class: "screenshot-link"
+              )

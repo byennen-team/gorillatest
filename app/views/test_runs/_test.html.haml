@@ -12,7 +12,7 @@
 %div{id: "#{@test_run.id}_#{test.platform}_#{test.browser}_channel", class: "#{test.status != nil ? "collapse" : ""}"}
   .panel-body.terminal
     / %p Starting test...
-    %ul.steps-list
+    %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{@test_run.scenario.id.to_s}"}
       - if test.status != nil
         - test.steps.each do |step|
           %li
