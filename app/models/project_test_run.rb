@@ -9,6 +9,8 @@ class ProjectTestRun
 
   def run
     update_attribute(:run_at, Time.now)
+    puts "\n\n\n\n\n\n\nPUtting NOtifications\n\n\n\n\n\n\n\n\n\n"
+    project.post_notifications(start_notification_message)
     platforms.each do |p|
       browser_test = browser_tests.create!({browser: p.split('_').last,
                                             platform: p.split('_').first})
@@ -25,7 +27,7 @@ class ProjectTestRun
   end
 
   def complete_notification_message
-    notification += "Test Run #{status}ed for #{self.project.name} - #{number}:"
+    notification = "Test Run #{status}ed for #{self.project.name} - #{number}:"
     url = project_test_run_url(project, self, host: ENV['API_URL'])
     notification += " "
     notification += url

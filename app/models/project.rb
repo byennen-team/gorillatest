@@ -31,6 +31,7 @@ class Project
 
 
   def post_notifications(message)
+    puts "\n\n\n\n\n\n\n\nPosting notifications\n\n\n\n\n\n\n"
     notifications.each do |notification|
       notification.speak(message)
     end

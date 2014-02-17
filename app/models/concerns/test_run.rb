@@ -30,7 +30,7 @@ module TestRun
     #     UserMailer.delay.notify_successful_test(member_id, self.id)
     #   end
     # end
-    # send_complete_notification
+    send_complete_notification
   end
 
   def duration
