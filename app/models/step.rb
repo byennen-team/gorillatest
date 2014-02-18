@@ -35,28 +35,30 @@ class Step
   end
 
   def to_s
-    prefix = ""
-    puts "Event type is #{event_type}"
     case event_type
     when "setElementText"
-      prefix = "Set input value #{text} for element ##{locator_value}"
+      return "Set input value #{text} for element ##{locator_value}"
     when "setElementSelected"
-      prefix = "Set select element #{locator_value} to value #{text}"
+        return "Set select element #{locator_value} to value #{text}"
     when "clickElement"
-      prefix = "Click element #{locator_value}"
+      return "Click element #{locator_value}"
     when "submitElement"
-      prefix = "Submit Form #{locator_value}"
+      return "Submit Form #{locator_value}"
     when "waitForCurrentUrl"
-      prefix = "Waiting for URL to load - #{text}"
+      return "Waiting for URL to load - #{text}"
     when "verifyText"
-      prefix = "Verifying text presence - #{text}"
+      return "Verifying text presence - #{text}"
     when "verifyElementPresent"
-      prefix = "Verify element presence - #{Rack::Utils.escape_html(text)}"
+      return "Verify element presence - #{Rack::Utils.escape_html(text)}"
     when "get"
-      prefix = "Get URL - #{text}"
+      return "Get URL - #{text}"
+    when "assertConfirmation"
+      return "Assert confirmation dialog with message - #{text}"
+    when "chooseCancelOnNextConfirmation"
+      return "Choose Cancel on Confirmation"
+    when "chooseAcceptOnNextConfirmation"
+      return "Choose Accept on Confirmation"
     end
-    puts "Prefix is #{prefix}"
-    return prefix
   end
 
   def pass!

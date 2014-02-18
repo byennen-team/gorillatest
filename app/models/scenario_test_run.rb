@@ -18,8 +18,6 @@ class ScenarioTestRun
     update_attribute(:run_at, Time.now)
     scenario.feature.project.post_notifications(start_notification_message)
     browser_tests.each do |browser_test|
-      browser_test = self.browser_tests.create!({browser: p.split('_').last,
-                                                 platform: p.split('_').first})
       puts "Adding test"
       TestWorker.perform_async("run_test", "Scenario", self.id.to_s, browser_test.id.to_s)
     end
