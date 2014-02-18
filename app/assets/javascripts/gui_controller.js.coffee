@@ -18,6 +18,10 @@ AutoTestGuiController = {
   iframeScopeFind: (element)->
     $("iframe").contents().find(element)
 
+  removeStepsList: ->
+    $("#autotest-view-steps").slideUp()
+    $("ul#autotest-steps").html("")
+
   verifyInputNamePresent: (modal)->
     $("#scenario_name, #feature_name").on 'keyup', ->
       if $(this).val().length > 0
@@ -110,8 +114,6 @@ AutoTestGuiController = {
     $("#step-count-text").hide()
     $("#step-count").text('')
     $("#step-count").hide()
-    $("#view-steps").slideUp()
-    $("#view-steps ul").html("")
     $("#stop-recording").hide()
     $("#start-text-highlight").hide()
     $("button#add-feature").show()
