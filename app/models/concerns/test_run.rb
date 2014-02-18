@@ -30,7 +30,10 @@ module TestRun
         UserMailer.delay.notify_successful_test(member_id, self.class.to_s.underscore, self.id)
       end
     end
+    channel_name = browser_tests.first.channel_name
+    pusher_return = Pusher.trigger([channel_name], "test_run_complete", {status: status})
     send_complete_notification
+
   end
 
   def duration

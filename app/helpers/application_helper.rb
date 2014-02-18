@@ -64,11 +64,11 @@ module ApplicationHelper
 
   def test_run_status(test_run)
     if test_run.status == "pass"
-      html = content_tag(:span, "Passed", class:"label label-success")
+      html = content_tag(:span, "Passed", class:"label label-success", id: "test-run-status")
     elsif test_run.status == "fail"
-      html = content_tag(:span, "Failed", class:"label label-danger")
+      html = content_tag(:span, "Failed", class:"label label-danger", id: "test-run-status")
     else
-      html = content_tag(:span, "Running", class:"label label-warning")
+      html = content_tag(:span, "Running", class:"label label-warning", id: "test-run-status")
     end
 
     return html.html_safe

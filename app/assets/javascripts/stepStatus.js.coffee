@@ -34,6 +34,15 @@ $(document).ready ()->
 bindChannels = ()->
   _.each window.channels, (channel)->
     console.log("BINDING " + channel)
+    channel.bind "test_run_complete", (data) ->
+      if (data.status == "fail")
+        className = "label-danger"
+        text = "Failed"
+      else
+        className = "label-success"
+        text = "Passed"
+      $("#test-run-status").text(text)
+      $("#test-run-status").removeClass("label-warning").addClass(className)
     channel.bind "play_feature", (data) ->
       console.log data
       console.log("appending to channel - #{channel.name}")
