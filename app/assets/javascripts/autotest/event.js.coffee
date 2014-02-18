@@ -104,12 +104,9 @@ class @AutoTestEvent
     scenario = recorder.currentScenario
     window.originalConfirm = window.confirm
     window.confirm = (message) ->
-      console.log("Creating step that alert is shown")
-      console.log("store message " + message)
       result = window.originalConfirm(message)
       scenario.addStep("assertConfirmation", {}, message)
       if (!result)
-        console.log("user clicked false")
         scenario.addStep("chooseCancelOnNextConfirmation", {}, "Cancel")
       else
         scenario.addStep("chooseAcceptOnNextConfirmation", {}, "OK")
@@ -118,10 +115,12 @@ class @AutoTestEvent
 
   @bindAlert: () ->
     window.originalAlert = window.alert
-    window.alert = (message) ->
-      window.originalAlert
+    window.alert = (alert) ->
+      window.originalAlert(alert)
       # Add step here:
-      console.log("Recording alert")
+      scenario.addStep("assertAlert", {}, alert)
+      return
+    return
 
   @unbind: () ->
     console.log("UNbinding all elements")
@@ -145,6 +144,7 @@ class @AutoTestEvent
     console.log("Binding all submit click events")
     $("input[type=submit]").unbind("click", AutoTestEvent.bindSubmit)
     window.confirm = window.originalConfirm
+    window.alert = window.originalAlert
     return
 
   @unbindElementModal: ->
