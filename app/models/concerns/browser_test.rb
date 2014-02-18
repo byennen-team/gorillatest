@@ -52,7 +52,9 @@ module BrowserTest
   end
 
   def run(scenario, history_line_item=nil)
-    send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
+    if history_line_item
+      send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
+    end
     begin
       puts "Fetching scenario - #{scenario.name} URL"
       @current_step = scenario.steps.first
