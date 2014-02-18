@@ -38,6 +38,8 @@ class @AutoTestEvent
     $("input[type=radio], input[type=checkbox]").bind("click", AutoTestEvent.bindClick)
     console.log("Binding all submit click events")
     $("input[type=submit]").bind("click", AutoTestEvent.bindSubmit)
+    AutoTestEvent.bindConfirmation()
+    AutoTestEvent.bindAlert()
     return
 
   @createInputBinding: (elementName, elementType) ->
@@ -97,6 +99,30 @@ class @AutoTestEvent
     # {type: "id", value: $(this).attr("id")}
     scenario.addStep("submitElement", stepLocator, "")
 
+  @bindConfirmation: ->
+    recorder = window.autoTestRecorder
+    scenario = recorder.currentScenario
+    window.originalConfirm = window.confirm
+    window.confirm = (message) ->
+      console.log("Creating step that alert is shown")
+      console.log("store message " + message)
+      result = window.originalConfirm(message)
+      scenario.addStep("assertConfirmation", {}, message)
+      if (!result)
+        console.log("user clicked false")
+        scenario.addStep("chooseCancelOnNextConfirmation", {}, "Cancel")
+      else
+        scenario.addStep("chooseAcceptOnNextConfirmation", {}, "OK")
+      return result
+    return
+
+  @bindAlert: () ->
+    window.originalAlert = window.alert
+    window.alert = (message) ->
+      window.originalAlert
+      # Add step here:
+      console.log("Recording alert")
+
   @unbind: () ->
     console.log("UNbinding all elements")
     $("a").unbind("click", AutoTestEvent.bindClick)
@@ -118,6 +144,7 @@ class @AutoTestEvent
     $("input[type=radio], input[type=checkbox]").unbind("click", AutoTestEvent.bindClick)
     console.log("Binding all submit click events")
     $("input[type=submit]").unbind("click", AutoTestEvent.bindSubmit)
+    window.confirm = window.originalConfirm
     return
 
   @unbindElementModal: ->
