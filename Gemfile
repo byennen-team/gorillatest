@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 ruby '2.0.0'
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 gem 'thin'
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
