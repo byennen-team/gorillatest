@@ -110,7 +110,7 @@ module BrowserTest
           raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
         end
         current_step.pass!
-        save_history(step.to_s, status, history_line_item)
+        save_history(step.to_s, current_step.status, history_line_item)
         send_to_pusher
 
       end
