@@ -113,10 +113,9 @@ module BrowserTest
         current_step.pass!
         save_history(step.to_s, current_step.status, history_line_item)
         send_to_pusher
-
       end
-      self.pass!
       @driver = driver.quit
+      return true
     rescue Exception => e
       p e.inspect
       p e.backtrace
@@ -140,10 +139,9 @@ module BrowserTest
       @driver = driver.quit
       current_step.fail!
       save_history(current_step.to_s, current_step.status, history_line_item)
-      self.fail!
       send_to_pusher
+      return false
     end
-    self.test_run.complete(current_step)
   end
 
   def fail!

@@ -19,7 +19,7 @@ module TestRun
     before_create :set_number
   end
 
-  def complete(current_step=nil)
+  def complete
     return if status == "running"
     if status == "fail"
       project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
@@ -40,7 +40,7 @@ module TestRun
   def status
     test_statuses = browser_tests.map(&:status)
     status = "running"
-    Rails.logger.debug("statuses are #{test_statuses}")
+    puts "\n\n\n\n\n\n\n\n\nstatuses are #{test_statuses}\n\n\n\n\n\n\n\n\n"
     if !test_statuses.include?(nil)
      status = test_statuses.include?("fail") ? "fail" : "pass"
     end

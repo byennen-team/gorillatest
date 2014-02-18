@@ -14,7 +14,13 @@ class ScenarioBrowserTest
 
   def run_all
     create_test_history
-    run(scenario_test_run.scenario)
+    status = run(scenario_test_run.scenario)
+    if status == "false"
+      self.update_attribute(:status, "fail")
+    else
+      self.update_attribute(:status, "pass")
+    end
+    self.test_run.complete
   end
 
   def save_history(msg, status, id=nil)
