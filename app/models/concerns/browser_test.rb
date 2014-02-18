@@ -78,6 +78,10 @@ module BrowserTest
         if step.to_selenium != nil
           element = driver.find_element(step.locator_type, step.locator_value)
           if step.has_args?
+            if step.event_type == "setElementText"
+              puts "\n\n\n\n\n\n\n\n\nSetting text to nil\n\n\n\n\n\n\n\n"
+              element.clear
+            end
             element.send(step.to_selenium, step.to_args)
           else
             if !element.displayed?
