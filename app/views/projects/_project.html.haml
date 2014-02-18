@@ -16,7 +16,7 @@
       -if project.owner?(current_user)
         = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
       |
-      = link_to "Play", "#", onclick: "$('#test_run-#{project.id}').slideDown()"
+      = link_to "Play", "#", onclick: "$('#test_run-#{project.id}').slideToggle()"
   %div{id: "test_run-#{project.id}", style: "display: none;"}
     = form_tag run_project_path(project), class:"scenario-run", id: "project_#{project.id}" do
       %div.pull-left{style: "width: 33%"}
