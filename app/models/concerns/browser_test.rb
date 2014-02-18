@@ -54,6 +54,7 @@ module BrowserTest
   def run(scenario, history_line_item=nil)
     send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
     begin
+      puts "Fetching scenario - #{scenario.name} URL"
       @current_step = scenario.steps.first
       unless starting_url_success?(scenario.steps.first.text)
         raise UrlInaccessible
@@ -115,7 +116,7 @@ module BrowserTest
 
       end
       self.pass!
-      driver.quit
+      @driver = driver.quit
     rescue Exception => e
       p e.inspect
       p e.backtrace
@@ -136,7 +137,7 @@ module BrowserTest
         public: true
       )
       self.update_attribute(:screenshot_filename, file_name)
-      driver.quit
+      @driver = driver.quit
       current_step.fail!
       save_history(current_step.to_s, current_step.status, history_line_item)
       self.fail!
@@ -156,6 +157,7 @@ module BrowserTest
   def starting_url_success?(url)
     uri = URI(url)
     response = Net::HTTP.get_response(uri)
+    puts response.inspect
     response.code == "200" ? true : false
   end
 
