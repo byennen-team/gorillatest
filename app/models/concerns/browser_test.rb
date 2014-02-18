@@ -25,11 +25,9 @@ module BrowserTest
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
-    #selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
+    selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
     #selenium_url = "http://ec2-54-200-175-37.us-west-2.compute.amazonaws.com:4444/wd/hub"
-    selenium_url = "http://127.0.0.1:4444/wd/hub"
-    Rails.logger.debug("SELENIUM URL IS #{selenium_url}")
-    platform = "mac"
+    #selenium_url = "http://127.0.0.1:4444/wd/hub"
     case browser
     when 'firefox'
       cap = Selenium::WebDriver::Remote::Capabilities.firefox
