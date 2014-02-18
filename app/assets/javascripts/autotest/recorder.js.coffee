@@ -61,6 +61,7 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
     @sessionStorage.removeItem("autoTestRecorder.currentFeature")
     @sessionStorage.removeItem("autoTestRecorder.currentScenario")
+    autoTestGuiController.removeStepsList()
 
   setCurrentFeature: (featureId) ->
     @currentFeature = AutoTestFeature.find(@projectId, featureId)
