@@ -103,7 +103,6 @@ class User
       user.last_name = auth.info.last_name
       user.email = auth.info.email
     end
-    binding.pry
     return user
   end
 
