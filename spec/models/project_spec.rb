@@ -40,7 +40,7 @@ describe Project do
 
   it "returns base url of project" do
     project = create(:project, url: "http://factor75.com/menu")
-    expect(project.base_url).to eq "http://factor75.com"
+    expect(project.base_url('http')).to eq "http://factor75.com"
   end
 
 end
