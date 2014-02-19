@@ -2,10 +2,8 @@ class ProjectBrowserTest
 
   include BrowserTest
 
-  embedded_in :project_test_run
+  embedded_in :test_run, class_name: 'ProjectTestRun'
   embeds_one :test_history
-
-  def test_run; project_test_run; end
 
   def channel_name
     "#{test_run.id}_#{platform}_#{browser}_channel"

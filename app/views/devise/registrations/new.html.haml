@@ -7,19 +7,23 @@
           .awidget-body
             / Page title
             .page-title.text-center
-              %h2 Sign Up is Free!
+              -if  session["devise.user_attributes"]
+                %h2 Finish Signing up
+              -else
+                %h2 Sign up is Free!
               %hr/
             / Page title
             %br/
+            -binding.pry
             = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {:class => 'form-vertical' }) do |f|
               = f.error_notification
               = devise_error_messages!
               .form-inputs
-                = f.input :first_name, required: false
-                = f.input :last_name, required: false
-                = f.input :email
-                = f.input :password
-                = f.input :password_confirmation
+                = f.input :first_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[], "first_name")}
+                = f.input :last_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[],"last_name")}
+                -unless session["devise.user_attributes"]
+                  = f.input :password
+                  = f.input :password_confirmation
                 = f.input :company_name, label: 'Company Name', required: false
                 = f.input :phone
                 = f.input :location
@@ -27,3 +31,10 @@
                 .form-group
                   .col-lg-12
                     = f.submit 'Sign Up', class: 'btn btn-success btn-lg btn-block'
+            - unless  session["devise.user_attributes"]
+              %p.text-center
+                OR
+              %br
+                =link_to user_omniauth_authorize_path(:google_oauth2), class: 'google-sign-in-button btn btn-block btn-social btn-google-plus' do
+                  Sign up with Google
+                  %i.fa.fa-google-plus

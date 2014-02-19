@@ -43,7 +43,6 @@ module TestRun
   def status
     test_statuses = browser_tests.map(&:status)
     status = "running"
-    puts "\n\n\n\n\n\n\n\n\nstatuses are #{test_statuses}\n\n\n\n\n\n\n\n\n"
     if !test_statuses.include?(nil)
      status = test_statuses.include?("fail") ? "fail" : "pass"
     end

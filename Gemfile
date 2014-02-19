@@ -24,6 +24,8 @@ gem 'google-analytics-rails'
 gem 'crack'
 gem 'tinder'
 gem 'mail_view'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 # Devise
 gem 'devise'
@@ -58,18 +60,17 @@ group :development do
   gem 'letter_opener'
 end
 
-group :test do
+group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'capybara'
   gem 'factory_girl_rails'
-end
-
-group :development, :test do
   gem 'jasmine'
   gem 'mongoid-rspec'
   gem 'guard'
   gem 'guard-rspec'
   gem 'shoulda-matchers'
+  gem 'simplecov'
+  gem 'fuubar'
 end

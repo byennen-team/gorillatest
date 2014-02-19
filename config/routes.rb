@@ -15,7 +15,7 @@ Autotest::Application.routes.draw do
   resources :scenarios
 
   #application
-  devise_for :users, controllers: {registrations: :registrations}, skip: :invitations
+  devise_for :users, controllers: {registrations: :registrations, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations
 
   # get 'dashboard', to: "dashboard#index.html.haml"
 

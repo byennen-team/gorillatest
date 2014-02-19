@@ -17,14 +17,17 @@
               = devise_error_messages!
               = f.input :email
               = f.input :password
-              %label{for: "user[remember_me]"}Remember Me?            
-              = f.check_box :remember_me  
+              %label{for: "user[remember_me]"}Remember Me?
+              = f.check_box :remember_me
               %hr/
               .row
                 .form-group
                   .col-lg-12
                     = f.submit 'Login', class: 'btn btn-success btn-lg btn-block'
-
-
-
-
+            %br
+            %p.text-center
+              OR
+            %br
+              =link_to user_omniauth_authorize_path(:google_oauth2), class: 'google-sign-in-button btn btn-block btn-social btn-google-plus' do
+                Sign in with Google
+                %i.fa.fa-google-plus

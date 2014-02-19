@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :scenario_test_run do
+  factory :project_test_run do
   end
 end

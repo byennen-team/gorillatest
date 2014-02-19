@@ -2,11 +2,8 @@ class ScenarioBrowserTest
 
   include BrowserTest
 
-  belongs_to :scenario_test_run
-
+  belongs_to :test_run, class_name: 'ScenarioTestRun'
   embeds_one :test_history, as: :test_runnable
-
-  def test_run; scenario_test_run; end
 
   def channel_name
     "#{scenario_test_run.id}_#{platform}_#{browser}_channel"
@@ -14,7 +11,7 @@ class ScenarioBrowserTest
 
   def run_all
     create_test_history
-    status = run(scenario_test_run.scenario)
+    status = run(test_run.scenario)
     if status == false
       self.update_attribute(:status, "fail")
     else

@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe TestRun do
+describe ScenarioTestRun do
   let(:scenario) { create(:scenario)}
-  let(:test_run) { create(:test_run, scenario: scenario) }
+  let(:test_run) { create(:scenario_test_run, scenario: scenario) }
 
   context "all tests passed" do
     before do
       2.times do
-        create(:browser_test, status: "pass", test_run: test_run)
+        create(:scenario_browser_test, status: "pass", test_run: test_run)
       end
     end
 
@@ -18,8 +18,8 @@ describe TestRun do
 
   context "one test failed" do
     before do
-      create(:browser_test, status: "pass", test_run: test_run)
-      create(:browser_test, status: "fail", test_run: test_run)
+      create(:scenario_browser_test, status: "pass", test_run: test_run)
+      create(:scenario_browser_test, status: "fail", test_run: test_run)
     end
 
     it "returns fail" do
@@ -29,9 +29,9 @@ describe TestRun do
 
   context "no status on tests" do
     before do
-      create(:browser_test, status: nil, test_run: test_run)
-      create(:browser_test, status: "pass", test_run: test_run)
-      create(:browser_test, status: "fail", test_run: test_run)
+      create(:scenario_browser_test, status: nil, test_run: test_run)
+      create(:scenario_browser_test, status: "pass", test_run: test_run)
+      create(:scenario_browser_test, status: "fail", test_run: test_run)
     end
 
     it "return running" do
