@@ -28,7 +28,7 @@ describe ProjectTestRun do
 
     it "should have a start notifiation message" do
       message = "Test Run Started For: #{project.name} - #{test_run.number}"
-      message += " http://localhost:3000/projects/#{project.id}/test_runs/#{test_run.id}"
+      message += " #{ENV["API_URL"]}/projects/#{project.id}/test_runs/#{test_run.id}"
       expect(test_run.start_notification_message).to eq(message)
     end
 
