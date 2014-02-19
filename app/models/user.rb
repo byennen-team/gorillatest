@@ -111,7 +111,9 @@ class User
   private
 
   def send_welcome_email
-    UserMailer.welcome_email(self).deliver
+    if self.invitation_token.blank?
+      UserMailer.welcome_email(self).deliver
+    end
   end
 
 end
