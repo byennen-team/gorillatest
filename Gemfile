@@ -24,6 +24,8 @@ gem 'google-analytics-rails'
 gem 'crack'
 gem 'tinder'
 gem 'mail_view'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 # Devise
 gem 'devise'

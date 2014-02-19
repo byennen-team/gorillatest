@@ -7,4 +7,6 @@
  *= require ./plugins/rateit
  *= require application/layout
  *= require application/dashboard
+ *= require font-awesome
+ *= require bootstrap-social
  */

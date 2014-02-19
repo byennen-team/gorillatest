@@ -3,10 +3,12 @@ require 'digest/md5'
 class User
 
   include Mongoid::Document
+  include Mongoid::Timestamps
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :invitable
+         :recoverable, :rememberable, :trackable, :validatable, :invitable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -32,6 +34,9 @@ class User
   field :invitation_sent_at, type: Time
   field :invitation_accepted_at, type: Time
   field :invitation_limit, type: Integer
+
+  field :provider, type: String
+  field :uid, type: String
 
   index( {invitation_token: 1}, {:background => true} )
   index( {invitation_by_id: 1}, {:background => true} )
@@ -79,6 +84,28 @@ class User
 
   def owned_projects
     projects.where(rights: 'owner')
+  end
+
+  def self.from_omniauth(auth, invitation_token = nil)
+    user = nil
+    if user = User.where(email: auth.info.email).first
+      user.provider = auth.provider
+      user.uid = auth.uid
+    else
+      if invitation_token
+        user = User.find_by(invitation_token: invitation_token)
+      else
+        user = where(auth.slice(:provider, :uid)).first_or_create
+      end
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.password_confirmation = Devise.friendly_token[0,20]
+    end
+    return user
   end
 
   private
