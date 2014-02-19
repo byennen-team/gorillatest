@@ -54,7 +54,6 @@ module BrowserTest
       send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
     end
     begin
-      puts "Fetching scenario - #{scenario.name} URL"
       @current_step = scenario.steps.first
       unless starting_url_success?(scenario.steps.first.text)
         raise UrlInaccessible
@@ -68,7 +67,6 @@ module BrowserTest
       save_history(current_step.to_s, current_step.status, history_line_item)
 
       send_to_pusher
-      puts "Pushed to pusher"
 
       scenario.steps.all.each do |step|
         next if step.event_type == "get"
@@ -77,7 +75,6 @@ module BrowserTest
           element = driver.find_element(step.locator_type, step.locator_value)
           if step.has_args?
             if step.event_type == "setElementText"
-              puts "\n\n\n\n\n\n\n\n\nSetting text to nil\n\n\n\n\n\n\n\n"
               element.clear
             end
             element.send(step.to_selenium, step.to_args)
@@ -159,7 +156,6 @@ module BrowserTest
   def starting_url_success?(url)
     uri = URI(url)
     response = Net::HTTP.get_response(uri)
-    puts response.inspect
     response.code == "200" ? true : false
   end
 
