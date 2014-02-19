@@ -32,7 +32,40 @@ describe ProjectTestRun do
       expect(test_run.start_notification_message).to eq(message)
     end
 
-    it "should have a complete notification message" do
+    describe 'complete notification messsage' do
+
+      context 'with status passed' do
+
+        let(:test_run) { create(:project_test_run, project: project) }
+
+        before do
+          test_run.stub(:status).and_return("pass")
+        end
+
+        it "should have a passed complete notification message" do
+          msg = "Test Run passed for #{project.name} - #{test_run.number}: "
+          msg += "#{ENV['API_URL']}/projects/#{project.id}/test_runs/#{test_run.id}"
+          expect(test_run.complete_notification_message).to eq(msg)
+        end
+
+      end
+
+      context 'with status failed' do
+
+        let(:test_run) { create(:project_test_run, project: project) }
+
+        before do
+          test_run.stub(:status).and_return("fail")
+        end
+
+        it "should have a failed complete notification message" do
+          msg = "Test Run failed for #{project.name} - #{test_run.number}: "
+          msg += "#{ENV['API_URL']}/projects/#{project.id}/test_runs/#{test_run.id}"
+          expect(test_run.complete_notification_message).to eq(msg)
+        end
+
+      end
+
     end
 
   end
