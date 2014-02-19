@@ -27,6 +27,7 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def edit
+    session[:invitation_token] ||= params[:invitation_token]
     super
   end
 
