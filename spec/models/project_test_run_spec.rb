@@ -61,7 +61,7 @@ describe ProjectTestRun do
         it "should have a failed complete notification message" do
           msg = "Test Run failed for #{project.name} - #{test_run.number}: "
           msg += "#{ENV['API_URL']}/projects/#{project.id}/test_runs/#{test_run.id}"
-          expect(test_run.complete_notification_message).to eq(msg)
+            expect(test_run.complete_notification_message).to eq(msg)
         end
 
       end

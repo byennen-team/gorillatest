@@ -23,6 +23,10 @@ module BrowserTest
     # after_create :run_test
   end
 
+  def channel_name
+    "#{test_run.id}_#{platform}_#{browser}_channel"
+  end
+
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
     selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
@@ -167,6 +171,16 @@ module BrowserTest
       message = message.as_json
     end
     pusher_return = Pusher.trigger([channel_name], event, message)
+  end
+
+  def save_history(msg, status, line_item=nil)
+    if line_item.nil?
+      line_item = test_history.history_line_items.create({text: msg, status: status, parent: id})
+      return line_item
+    else
+      child = line_item.children.create({text: msg, status: status})
+      return child
+    end
   end
 
 end
