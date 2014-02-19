@@ -42,7 +42,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = current_project.base_url(URI.parse(request.env["HTTP_REFERER"]).scheme)
+    headers['Access-Control-Allow-Origin'] = "http://localhost:3000"
     headers['Access-Control-Request-Method'] = '*'
     headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   end

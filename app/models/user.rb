@@ -59,7 +59,7 @@ class User
   validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
 
   #before_save :strip_phone
-  after_create :send_welcome_email
+  after_create :send_welcome_email, :set_random_password
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
@@ -102,13 +102,20 @@ class User
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-      user.password_confirmation = Devise.friendly_token[0,20]
     end
+    binding.pry
     return user
   end
 
   private
+
+  def set_random_password
+    if self.errors.messages.length == 0 && !self.uid.blank? && !self.provider.blank?
+      self.password = Devise.friendly_token[0,20]
+      self.password_confirmation = Devise.friendly_token[0,20]
+      self.save
+    end
+  end
 
   def send_welcome_email
     if self.invitation_token.blank?
