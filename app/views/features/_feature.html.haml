@@ -2,7 +2,7 @@
   = link_to feature.name, project_feature_path(@project, feature)
   .pull-right
     = link_to record_glyph, @project.url, {target: "_blank"}
-    = link_to play_glyph, "#", title: "Playback This Feature", onclick: "$('#test_run-#{feature.id}').slideDown()"
+    = link_to play_glyph, "#", title: "Playback This Feature", onclick: "$('#test_run-#{feature.id}').slideToggle()"
     = link_to delete_glyph, "#", title: "Delete This Feature", onclick: "alert('Feature not impelement')"
     = link_to "View Test Runs", project_feature_test_runs_path(@project, feature)
   %div{id: "test_run-#{feature.id}", style: "display: none;"}
