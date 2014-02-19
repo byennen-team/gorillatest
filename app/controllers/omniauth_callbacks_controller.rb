@@ -7,7 +7,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       session["devise.user_attributes"] = user.attributes
       flash.notice = "You are almost Done! Please provide a password to finish setting up your account"
-      redirect_to new_user_registration_url(user)
+      if session[:invitation_token]
+        redirect_to accept_invitation_url(invitation_token: session[:invitation_token])
+      else
+        redirect_to new_user_registration_url(user)
+      end
     end
   end
 end
