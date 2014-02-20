@@ -63,7 +63,7 @@ class InvitationsController < Devise::InvitationsController
 
   def invitation_params
     params.require(:user).permit(:company_name, :phone, :password, :password_confirmation,
-                                 :invitation_token, :first_name, :last_name, :location)
+                                 :invitation_token, :first_name, :last_name, :location, :uid, :provider)
   end
 
   def after_invite_path_for(resource)

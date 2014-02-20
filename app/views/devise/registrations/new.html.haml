@@ -14,7 +14,6 @@
               %hr/
             / Page title
             %br/
-            -binding.pry
             = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {:class => 'form-vertical' }) do |f|
               = f.error_notification
               = devise_error_messages!
