@@ -34,7 +34,7 @@ describe FeatureTestRun do
       context 'with failed status' do
 
         before do
-          test_run.stub(:status).and_return('fail')
+          test_run.stubs(:status).returns('fail')
         end
 
         it "should have a failed notification message" do
@@ -48,7 +48,7 @@ describe FeatureTestRun do
       context 'with passed status' do
 
         before do
-          test_run.stub(:status).and_return('pass')
+          test_run.stubs(:status).returns('pass')
         end
 
         it "shoud have a passed complete notification message" do

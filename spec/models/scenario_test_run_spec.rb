@@ -39,7 +39,7 @@ describe ScenarioTestRun do
       context 'with fail status' do
 
         before do
-          test_run.stub(:status).and_return('fail')
+          test_run.stubs(:status).returns('fail')
         end
 
         it "should have a failed complete_notification_message" do
@@ -53,7 +53,7 @@ describe ScenarioTestRun do
       context 'with pass status' do
 
         before do
-          test_run.stub(:status).and_return('pass')
+          test_run.stubs(:status).returns('pass')
         end
 
         it "should have a passed complete_notification_message" do

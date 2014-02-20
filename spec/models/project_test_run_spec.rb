@@ -39,7 +39,7 @@ describe ProjectTestRun do
         let(:test_run) { create(:project_test_run, project: project) }
 
         before do
-          test_run.stub(:status).and_return("pass")
+          test_run.stubs(:status).returns("pass")
         end
 
         it "should have a passed complete notification message" do
@@ -55,7 +55,7 @@ describe ProjectTestRun do
         let(:test_run) { create(:project_test_run, project: project) }
 
         before do
-          test_run.stub(:status).and_return("fail")
+          test_run.stubs(:status).returns("fail")
         end
 
         it "should have a failed complete notification message" do

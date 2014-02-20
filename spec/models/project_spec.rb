@@ -85,7 +85,7 @@ describe Project do
     context 'with script present' do
 
       before do
-        project.stub(:search_for_script).and_return(true)
+        project.stubs(:search_for_script).returns(true)
       end
 
       it "should have a script_present? of true" do
@@ -96,7 +96,7 @@ describe Project do
     context 'without script present' do
 
       before do
-        project.stub(:search_for_script).and_return(false)
+        project.stubs(:search_for_script).returns(false)
       end
 
       it "should have a script_present? of false" do

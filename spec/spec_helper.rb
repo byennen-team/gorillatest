@@ -57,6 +57,8 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
+  config.mock_framework = :mocha
+
   # Clean up the database
   require 'database_cleaner'
   config.before(:suite) do
