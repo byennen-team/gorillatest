@@ -59,7 +59,8 @@ class User
   validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
 
   #before_save :strip_phone
-  after_create :send_welcome_email, :set_random_password
+  after_create :send_welcome_email
+  before_validation :set_random_password, on: [:create]
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
@@ -83,7 +84,8 @@ class User
   end
 
   def owned_projects
-    projects.where(rights: 'owner')
+    pu_owners = project_users.select { |pu| pu.user if pu.rights == 'owner' }
+    pu_owners.map(&:project)
   end
 
   def self.from_omniauth(auth, invitation_token = nil)
@@ -114,10 +116,10 @@ class User
   end
 
   def set_random_password
-    if self.errors.messages.length == 0 && !self.uid.blank? && !self.provider.blank?
-      self.password = Devise.friendly_token[0,20]
-      self.password_confirmation = Devise.friendly_token[0,20]
-      self.save
+    if !self.company_name.blank? && !self.uid.blank? && !self.provider.blank? && self.encrypted_password.blank?
+      password =  Devise.friendly_token[0,20]
+      self.password = password
+      self.password_confirmation = password
     end
   end
 
