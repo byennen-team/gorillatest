@@ -6,6 +6,11 @@ require 'rspec/autorun'
 require 'simplecov'
 if ENV["COVERAGE"]
   SimpleCov.start do
+    add_group "Models", "app/models"
+    add_group "Controllers", "app/controllers"
+    add_group "Mailer", "app/mailers"
+    add_group "Workers", "app/workers"
+    add_group "Validators", "app/validators"
     add_filter "/spec/"
   end
 end
