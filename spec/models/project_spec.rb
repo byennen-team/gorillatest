@@ -107,4 +107,28 @@ describe Project do
 
   end
 
+  # describe 'project script valid' do
+
+  #   let!(:project) { create(:project) }
+
+  #   context 'with valid attributes' do
+
+  #     before do
+  #       Script = Struct.new(:project) do
+  #         def attributes
+  #           {"data-auth" => project.api_key, "data-project-id" => project.id}
+  #         end
+  #       end
+  #       @script = Script.new(project)
+  #       puts @script.inspect
+  #     end
+
+  #     it "should return true" do
+  #       expect(project.project_script_valid?(@script)).to be_true
+  #     end
+
+  #   end
+
+  # end
+
 end
