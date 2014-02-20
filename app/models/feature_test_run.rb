@@ -25,14 +25,13 @@ class FeatureTestRun
 
   def start_notification_message
     notification = "Test Run Started For: "
-    notification += "#{self.project.name} - #{self.feature.name} - #{self.number}"
+    notification += "#{self.project.name} - #{self.feature.name} - #{self.number}: "
     url = project_feature_test_run_url(project, feature, self, host: ENV["API_URL"])
-    notification += " "
     notification += url
   end
 
   def complete_notification_message
-    notification = "Test Run #{status}ed for #{self.project.name}- #{self.feature.name} - #{number}:"
+    notification = "Test Run #{status}ed For: #{self.project.name} - #{self.feature.name} - #{number}:"
     url = project_feature_test_run_url(project, feature, self, host: ENV['API_URL'])
     notification += " "
     notification += url

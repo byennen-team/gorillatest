@@ -2,11 +2,10 @@ class ScenarioBrowserTest
 
   include BrowserTest
 
-  belongs_to :test_run, class_name: 'ScenarioTestRun'
+  embedded_in :test_run, class_name: 'ScenarioTestRun'
   embeds_one :test_history, as: :test_runnable
 
   def run_all
-    create_test_history
     status = run(test_run.scenario)
     if status == false
       self.update_attribute(:status, "fail")

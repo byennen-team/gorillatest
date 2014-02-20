@@ -6,8 +6,6 @@ class ProjectBrowserTest
   embeds_one :test_history
 
   def run_all
-    Rails.logger.debug("running all")
-    create_test_history
     #sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
     status = []
     test_run.project.features.each do |feature|

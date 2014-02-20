@@ -3,8 +3,11 @@ FactoryGirl.define do
     browser "firefox"
     platform "linux"
   end
-
   factory :project_browser_test do
+    browser "firefox"
+    platform "linux"
+  end
+  factory :feature_browser_test do
     browser "firefox"
     platform "linux"
   end

@@ -20,7 +20,7 @@ module BrowserTest
     field :run_time, type: Integer # in seconds
 
     attr_accessor :current_step, :alert #, :channel_name
-    # after_create :run_test
+    after_create :initialize_test_history
   end
 
   def channel_name
@@ -182,5 +182,10 @@ module BrowserTest
       return child
     end
   end
+
+  def initialize_test_history
+    create_test_history
+  end
+
 
 end

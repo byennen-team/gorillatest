@@ -8,7 +8,6 @@ class FeatureBrowserTest
   embeds_one :test_history
 
   def run_all
-    create_test_history
     #sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
     status = []
     test_run.feature.scenarios.each do |scenario|

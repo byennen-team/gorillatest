@@ -6,10 +6,8 @@ class Step
  field :locator_type, type: String
  field :locator_value, type: String
  field :text, type: String
- field :status, type: String
 
   embedded_in :scenario
-  embedded_in :test_run
 
   def to_selenium
     case event_type
@@ -59,14 +57,6 @@ class Step
     when "chooseAcceptOnNextConfirmation"
       return "Choose Accept on Confirmation"
     end
-  end
-
-  def pass!
-    update_attribute("status", "pass")
-  end
-
-  def fail!
-    update_attribute("status", "fail")
   end
 
 end
