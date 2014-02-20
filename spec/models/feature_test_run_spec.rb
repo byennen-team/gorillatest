@@ -40,6 +40,7 @@ describe FeatureTestRun do
         it "should have a failed notification message" do
           msg = "Test Run failed For: #{project.name} - #{feature.name} - #{test_run.number}: "
           msg += "#{ENV['API_URL']}/projects/#{project.id}/features/#{feature.id}/test_runs/#{test_run.id}"
+          expect(test_run.complete_notification_message).to eq msg
         end
 
       end

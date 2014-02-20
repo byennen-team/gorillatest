@@ -29,8 +29,8 @@ describe ScenarioTestRun do
     end
 
     it "should have a start_notification_message" do
-          msg = "Test Run started for #{project.name} - #{feature.name} - #{scenario.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.id}/features/#{feature.id}/scenarios/#{scenario.id}/test_runs/#{test_run.id}"
+      msg = "Test Run started for #{project.name} - #{feature.name} - #{scenario.name} - #{test_run.number}: "
+      msg += "#{ENV['API_URL']}/projects/#{project.id}/features/#{feature.id}/scenarios/#{scenario.id}/test_runs/#{test_run.id}"
       expect(test_run.start_notification_message).to eq(msg)
     end
 
