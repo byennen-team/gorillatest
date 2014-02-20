@@ -69,9 +69,9 @@ class User
     InvitationMailer.send_project_invitation(self.id, inviter_id, project_id).deliver
   end
 
-  def gravatar_hash
-    email_address = self.email.downcase
-    hash = Digest::MD5.hexdigest(email_address)
+
+  def gravatar_url(size)
+    "https://www.gravatar.com/avatar/#{gravatar_hash}?s=#{size}"
   end
 
   def name
@@ -107,6 +107,11 @@ class User
   end
 
   private
+
+  def gravatar_hash
+    email_address = self.email.downcase
+    hash = Digest::MD5.hexdigest(email_address)
+  end
 
   def set_random_password
     if self.errors.messages.length == 0 && !self.uid.blank? && !self.provider.blank?
