@@ -192,10 +192,13 @@ GEM
       treetop (~> 1.4.8)
     mail_view (2.0.4)
       tilt
+    metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
+    mocha (1.0.0)
+      metaclass (~> 0.0.1)
     mongoid-rspec (1.10.0)
       mongoid (>= 3.0.1)
       rake
@@ -406,6 +409,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   mail_view
+  mocha
   mongoid!
   mongoid-paranoia!
   mongoid-rspec
