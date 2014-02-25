@@ -25,6 +25,9 @@ gem 'crack'
 gem 'tinder'
 gem 'mail_view'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'mongoid_slug'
 
 # Devise
 gem 'devise'
@@ -44,7 +47,6 @@ gem 'active_model_serializers'
 # sidekiq
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
-
 
 # selenium
 gem 'selenium-webdriver'

@@ -25,7 +25,7 @@ describe FeatureTestRun do
 
     it "should have a start notification message" do
       msg = "Test Run Started For: #{project.name} - #{feature.name} - #{test_run.number}: "
-      msg += "#{ENV['API_URL']}/projects/#{project.id}/features/#{feature.id}/test_runs/#{test_run.id}"
+      msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/test_runs/#{test_run.id}"
       expect(test_run.start_notification_message).to eq(msg)
     end
 
@@ -39,7 +39,7 @@ describe FeatureTestRun do
 
         it "should have a failed notification message" do
           msg = "Test Run failed For: #{project.name} - #{feature.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.id}/features/#{feature.id}/test_runs/#{test_run.id}"
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/test_runs/#{test_run.id}"
           expect(test_run.complete_notification_message).to eq msg
         end
 
@@ -53,7 +53,7 @@ describe FeatureTestRun do
 
         it "shoud have a passed complete notification message" do
           msg = "Test Run passed For: #{project.name} - #{feature.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.id}/features/#{feature.id}/test_runs/#{test_run.id}"
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/test_runs/#{test_run.id}"
           expect(test_run.complete_notification_message).to eq(msg)
         end
 

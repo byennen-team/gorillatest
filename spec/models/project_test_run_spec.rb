@@ -28,7 +28,7 @@ describe ProjectTestRun do
 
     it "should have a start notifiation message" do
       message = "Test Run Started For: #{project.name} - #{test_run.number}"
-      message += " #{ENV["API_URL"]}/projects/#{project.id}/test_runs/#{test_run.id}"
+      message += " #{ENV["API_URL"]}/projects/#{project.slug}/test_runs/#{test_run.id}"
       expect(test_run.start_notification_message).to eq(message)
     end
 
@@ -44,7 +44,7 @@ describe ProjectTestRun do
 
         it "should have a passed complete notification message" do
           msg = "Test Run passed for #{project.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.id}/test_runs/#{test_run.id}"
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/test_runs/#{test_run.id}"
           expect(test_run.complete_notification_message).to eq(msg)
         end
 
@@ -60,7 +60,7 @@ describe ProjectTestRun do
 
         it "should have a failed complete notification message" do
           msg = "Test Run failed for #{project.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.id}/test_runs/#{test_run.id}"
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/test_runs/#{test_run.id}"
             expect(test_run.complete_notification_message).to eq(msg)
         end
 
