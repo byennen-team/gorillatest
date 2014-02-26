@@ -8,7 +8,7 @@ class User
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable,
-         :omniauthable, omniauth_providers: [:google_oauth2, :github]
+         :omniauthable, :confirmable, :registerable, omniauth_providers: [:google_oauth2, :github]
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -35,11 +35,17 @@ class User
   field :invitation_accepted_at, type: Time
   field :invitation_limit, type: Integer
 
+  field :confirmation_token, type: String
+  field :confirmed_at, type: Time
+  field :confirmation_sent_at, type: Time
+
   field :provider, type: String
   field :uid, type: String
 
-  index( {invitation_token: 1}, {:background => true} )
-  index( {invitation_by_id: 1}, {:background => true} )
+  index( {invitation_token: 1}, {background: true} )
+  index( {invitation_by_id: 1}, {background: true} )
+  # index( {confirmation_token: 1}, {background: true} ) # TODO: errors out when running rake db:mongoid:create_indexes
+
 
   ## Lockable
   # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
@@ -59,7 +65,7 @@ class User
   validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
 
   #before_save :strip_phone
-  after_create :send_welcome_email
+  # after_create :send_welcome_email
   before_validation :set_random_password
 
   def send_invitation(inviter_id)
@@ -115,9 +121,16 @@ class User
     end
   end
 
-  # def personal_attributes
-  #   attributes.except("updated_at","created_at","_id")
-  # end
+  def confirm!
+    self.send_welcome_email
+    super
+  end
+
+  def send_welcome_email
+    if self.invitation_token.blank?
+      UserMailer.welcome_email(self).deliver
+    end
+  end
 
   private
 
@@ -133,11 +146,4 @@ class User
       self.password_confirmation = password
     end
   end
-
-  def send_welcome_email
-    if self.invitation_token.blank?
-      UserMailer.welcome_email(self).deliver
-    end
-  end
-
 end
