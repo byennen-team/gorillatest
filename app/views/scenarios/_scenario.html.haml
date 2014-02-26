@@ -4,7 +4,7 @@
     = link_to raw(play_glyph),  '#', onclick: "$('#test_run-#{scenario.id}').slideToggle()", title: "Play Scenario"
     = link_to delete_glyph, project_feature_scenario_path(@project, @feature, scenario), data: { confirm: 'Are you sure?' }, method: :delete, title: "Delete Scenario"
   %div{id: "test_run-#{scenario.id}", style: "display: none;"}
-    = form_tag run_scenario_project_feature_scenario_path(@project.id, @feature.id, scenario.id), class:"scenario-run", id: "scenario_#{scenario.id}" do
+    = form_tag run_scenario_project_feature_scenario_path(@project, @feature, scenario), class:"scenario-run", id: "scenario_#{scenario.id}" do
       %div.pull-left{style: "width: 33%"}
         %h4 Windows
         %ul{style: "list-style-type: none;"}

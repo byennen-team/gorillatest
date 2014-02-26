@@ -1,8 +1,11 @@
 class Feature
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
 
   field :name, type: String
+
+  slug :name
 
   # embedded_in :test_run
   embeds_many :scenarios

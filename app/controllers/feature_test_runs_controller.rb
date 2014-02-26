@@ -18,7 +18,7 @@ class FeatureTestRunsController < ApplicationController
     end
 
     def find_feature_test_run
-      @test_run = @feature.test_runs.find(params[:id])
+      @test_run = @feature.test_runs.find_by(number: params[:id])
     end
 
 end

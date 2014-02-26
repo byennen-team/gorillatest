@@ -10,6 +10,10 @@ class ScenarioTestRun
 
   embeds_many :browser_tests, class_name: 'ScenarioBrowserTest'
 
+  def to_param
+    number.to_s
+  end
+
   def name
     scenario.name
   end
@@ -48,7 +52,11 @@ class ScenarioTestRun
   private
 
   def set_number
-    self.number = scenario.test_runs.size + 1
+    if scenario.test_runs.include?(self)
+      self.number = scenario.test_runs.size
+    else
+      self.number = scenario.test_runs.size + 1
+    end
   end
 
 end

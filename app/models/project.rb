@@ -5,6 +5,7 @@ class Project
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
 
   field :name, type: String
   field :url, type: String
@@ -13,13 +14,16 @@ class Project
   field :script_verified, type: Boolean, default: false
   field :email_notification, type: String, default: "success"
 
+  slug :name
+
   belongs_to :user
 
   has_many :features
   has_many :project_users
   has_many :test_runs, class_name: 'ProjectTestRun'
 
-  validates :name, :url, presence: true
+  validates :name, :url, presence: true, uniqueness: true
+
   validates :url, url: true
 
   before_create :add_auth_key

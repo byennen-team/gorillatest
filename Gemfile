@@ -24,12 +24,19 @@ gem 'google-analytics-rails'
 gem 'crack'
 gem 'tinder'
 gem 'mail_view'
+
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'mongoid_slug'
 
 # Devise
 gem 'devise'
 gem 'cancan'
+
+# Alternative login
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github'
 
 # invitation
 gem 'devise_invitable'
@@ -40,7 +47,6 @@ gem 'active_model_serializers'
 # sidekiq
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
-
 
 # selenium
 gem 'selenium-webdriver'

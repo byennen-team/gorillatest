@@ -203,6 +203,9 @@ GEM
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.14)
+    mongoid_slug (3.2.0)
+      mongoid (> 3.0)
+      stringex (~> 2.0)
     moped (2.0.0.beta5)
       bson (~> 2.1)
       connection_pool (~> 1.2)
@@ -225,6 +228,9 @@ GEM
     omniauth (1.2.1)
       hashie (>= 1.2, < 3)
       rack (~> 1.0)
+    omniauth-github (1.1.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-google-oauth2 (0.2.2)
       omniauth (~> 1.0)
       omniauth-oauth2
@@ -342,6 +348,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    stringex (2.2.0)
     thin (1.6.1)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -413,7 +420,9 @@ DEPENDENCIES
   mongoid!
   mongoid-paranoia!
   mongoid-rspec
+  mongoid_slug
   omniauth
+  omniauth-github
   omniauth-google-oauth2
   pry
   pry-rails

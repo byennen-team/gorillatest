@@ -8,7 +8,7 @@ class User
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+         :omniauthable, omniauth_providers: [:google_oauth2, :github]
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -60,7 +60,7 @@ class User
 
   #before_save :strip_phone
   after_create :send_welcome_email
-  before_validation :set_random_password, on: [:create]
+  before_validation :set_random_password
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
@@ -99,14 +99,25 @@ class User
       else
         user = where(auth.slice(:provider, :uid)).first_or_create
       end
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.email = auth.info.email
+      user.assign_user_info_from_oauth(auth)
     end
     return user
   end
+
+  def assign_user_info_from_oauth(auth)
+    self.attributes = {email: auth.info.email, provider: auth.provider, uid: auth.uid}
+    if auth.info.first_name
+      self.first_name = auth.info.first_name
+      self.last_name = auth.info.last_name
+    else
+      self.first_name = auth.info.name.split(' ').first
+      self.last_name = auth.info.name.split(' ').last
+    end
+  end
+
+  # def personal_attributes
+  #   attributes.except("updated_at","created_at","_id")
+  # end
 
   private
 

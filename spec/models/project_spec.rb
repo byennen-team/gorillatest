@@ -8,6 +8,7 @@ describe Project do
     it { should have_many(:features) }
     it { should belong_to(:user) }
     it { should have_many(:test_runs) }
+    it { should validate_uniqueness_of(:name) }
 
   end
 
@@ -45,6 +46,18 @@ describe Project do
       expect(project.api_key.blank?).to eq(false)
     end
 
+  end
+
+  context "slug id" do
+    let(:project) { create(:project, name: "Factor 75 Autotest") }
+
+    it "gets created for user friendly id using project name" do
+      expect(project.slug).to eq "factor-75-autotest"
+    end
+
+    it "can be used to find project" do
+      expect(Project.find(project.slug)).to eq project
+    end
   end
 
   it "returns base url of project" do

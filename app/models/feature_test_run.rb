@@ -10,6 +10,10 @@ class FeatureTestRun
 
   before_create :set_name
 
+  def to_param
+    number.to_s
+  end
+
   def run
     update_attribute(:run_at, Time.now)
     # Create scenarios
@@ -44,7 +48,11 @@ class FeatureTestRun
   end
 
   def set_number
-    self.number = feature.test_runs.size + 1
+    if feature.test_runs.include?(self)
+      self.number = feature.test_runs.size
+    else
+      self.number = feature.test_runs.size + 1
+    end
   end
 
 end
