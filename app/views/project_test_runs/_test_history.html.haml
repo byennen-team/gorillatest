@@ -12,7 +12,7 @@
           Scenario:
           = scenario.text
           %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{scenario.id}"}
-            - feature.children.each do |step|
+            - scenario.children.each do |step|
               %li
                 = status_glyph(step.status)
                 = step.text
