@@ -118,7 +118,6 @@ module BrowserTest
         @current_line_item = save_history(step.to_s, "pass", history_line_item)
         send_to_pusher
       end
-      # driver.close
       return true
     rescue Exception => e
       p e.inspect
@@ -140,7 +139,6 @@ module BrowserTest
         public: true
       )
       self.update_attribute(:screenshot_filename, file_name)
-      # driver.close
       @current_line_item = save_history(current_step.to_s, "fail", history_line_item)
       send_to_pusher
       return false

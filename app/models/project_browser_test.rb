@@ -6,6 +6,7 @@ class ProjectBrowserTest
   embeds_one :test_history
 
   def run_all
+    driver
     #sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
     status = []
     test_run.project.features.each do |feature|
@@ -22,6 +23,7 @@ class ProjectBrowserTest
       self.update_attribute(:status, "pass")
     end
     self.test_run.complete
+    @driver = driver.quit
   end
 
 end

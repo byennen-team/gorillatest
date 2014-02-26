@@ -6,6 +6,7 @@ class ScenarioBrowserTest
   embeds_one :test_history, as: :test_runnable
 
   def run_all
+    driver
     status = run(test_run.scenario)
     if status == false
       self.update_attribute(:status, "fail")
@@ -13,6 +14,7 @@ class ScenarioBrowserTest
       self.update_attribute(:status, "pass")
     end
     self.test_run.complete
+    driver.quit
   end
 
 end
