@@ -106,7 +106,6 @@ class User
 
   def assign_user_info_from_oauth(auth)
     self.attributes = {email: auth.info.email, provider: auth.provider, uid: auth.uid}
-    binding.pry
     if auth.info.first_name
       self.first_name = auth.info.first_name
       self.last_name = auth.info.last_name

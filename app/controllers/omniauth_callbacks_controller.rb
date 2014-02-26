@@ -22,7 +22,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github"
       sign_in_and_redirect user, event: :authentication
     else
-      binding.pry
       session["devise.user_attributes"] = user.attributes
       flash[:notice] = "You are almost Done! Please finish signing up."
       if user.invited_by_id
