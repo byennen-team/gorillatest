@@ -59,4 +59,11 @@ class Step
     end
   end
 
+  def fail!
+    update_attribute("status", "fail")
+  end
+
+  def pass!
+    update_attribute("status", "pass")
+  end
 end
