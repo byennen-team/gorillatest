@@ -10,6 +10,10 @@ class FeatureTestRun
 
   before_create :set_name
 
+  def to_param
+    number.to_s
+  end
+
   def run
     update_attribute(:run_at, Time.now)
     # Create scenarios

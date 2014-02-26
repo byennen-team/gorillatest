@@ -7,6 +7,10 @@ class ProjectTestRun
 
   def feature; nil; end
 
+  def to_param
+    number.to_s
+  end
+
   def name
     project.name
   end

@@ -8,7 +8,7 @@ class ProjectTestRunsController < ApplicationController
   end
 
   def show
-    @test_run = @project.test_runs.find(params[:id])
+    @test_run = @project.test_runs.find_by(number: params[:id])
   end
 
 end

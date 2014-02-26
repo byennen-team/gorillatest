@@ -10,6 +10,10 @@ class ScenarioTestRun
 
   embeds_many :browser_tests, class_name: 'ScenarioBrowserTest'
 
+  def to_param
+    number.to_s
+  end
+
   def name
     scenario.name
   end
