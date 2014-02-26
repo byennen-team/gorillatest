@@ -30,7 +30,7 @@ describe ScenarioTestRun do
 
     it "should have a start_notification_message" do
       msg = "Test Run started for #{project.name} - #{feature.name} - #{scenario.name} - #{test_run.number}: "
-      msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/scenarios/#{scenario.slug}/test_runs/#{test_run.id}"
+      msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/scenarios/#{scenario.slug}/test_runs/#{test_run.number}"
       expect(test_run.start_notification_message).to eq(msg)
     end
 
@@ -44,7 +44,7 @@ describe ScenarioTestRun do
 
         it "should have a failed complete_notification_message" do
           msg = "Test Run failed for #{project.name} - #{feature.name} - #{scenario.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/scenarios/#{scenario.slug}/test_runs/#{test_run.id}"
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/scenarios/#{scenario.slug}/test_runs/#{test_run.number}"
           expect(test_run.complete_notification_message).to eq(msg)
         end
 
@@ -58,7 +58,7 @@ describe ScenarioTestRun do
 
         it "should have a passed complete_notification_message" do
           msg = "Test Run passed for #{project.name} - #{feature.name} - #{scenario.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/scenarios/#{scenario.slug}/test_runs/#{test_run.id}"
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/features/#{feature.slug}/scenarios/#{scenario.slug}/test_runs/#{test_run.number}"
           expect(test_run.complete_notification_message).to eq(msg)
         end
 
