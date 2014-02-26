@@ -24,12 +24,16 @@ gem 'google-analytics-rails'
 gem 'crack'
 gem 'tinder'
 gem 'mail_view'
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
+
 
 # Devise
 gem 'devise'
 gem 'cancan'
+
+# Alternative login
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github'
 
 # invitation
 gem 'devise_invitable'
