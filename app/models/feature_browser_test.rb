@@ -9,6 +9,7 @@ class FeatureBrowserTest
 
   def run_all
     #sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
+    driver
     status = []
     test_run.feature.scenarios.each do |scenario|
       line_item = save_history("Running #{scenario.name}", nil, nil)
@@ -20,6 +21,7 @@ class FeatureBrowserTest
       self.udpate_attribute(:status, "pass")
     end
     test_run.complete
+    @driver = driver.quit
   end
 
 end
