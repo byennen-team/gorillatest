@@ -44,7 +44,11 @@ class FeatureTestRun
   end
 
   def set_number
-    self.number = feature.test_runs.size + 1
+    if feature.test_runs.include?(self)
+      self.number = feature.test_runs.size
+    else
+      self.number = feature.test_runs.size + 1
+    end
   end
 
 end

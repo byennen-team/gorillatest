@@ -48,7 +48,11 @@ class ScenarioTestRun
   private
 
   def set_number
-    self.number = scenario.test_runs.size + 1
+    if scenario.test_runs.include?(self)
+      self.number = scenario.test_runs.size
+    else
+      self.number = scenario.test_runs.size + 1
+    end
   end
 
 end

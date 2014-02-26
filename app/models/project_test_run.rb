@@ -37,7 +37,11 @@ class ProjectTestRun
   private
 
   def set_number
-    self.number = project.test_runs.size + 1
+    if project.test_runs.include?(self)
+      self.number = project.test_runs.size
+    else
+      self.number = project.test_runs.size + 1
+    end
   end
 
 end
