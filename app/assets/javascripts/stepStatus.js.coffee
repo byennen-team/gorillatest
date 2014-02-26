@@ -4,7 +4,7 @@ iconTemplate = (status) ->
   else
     return "<span class='glyphicon glyphicon-exclamation-sign status status-fail'></span>&nbsp;"
 
-statusTemplate = _.template("<li><%= status_icon %><%= to_s %></li>")
+statusTemplate = _.template("<li><%= status_icon %><%= text %></li>")
 
 scenarioTemplate = _.template("<p id='<%= test.platform %>-<%= test.browser %>-scenario-<%= scenario_id %>'>Scenario: <%= scenario_name %></p>
                                <ul class='steps-list' id='<%= channel_name %>-scenario-steps-<%= scenario_id %>'></ul>")

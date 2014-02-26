@@ -19,7 +19,7 @@ module BrowserTest
     field :ran_at, type: DateTime
     field :run_time, type: Integer # in seconds
 
-    attr_accessor :current_step, :alert #, :channel_name
+    attr_accessor :current_step, :alert, :current_line_item #, :channel_name
     after_create :initialize_test_history
   end
 
@@ -67,8 +67,7 @@ module BrowserTest
         driver.manage.window.resize_to(scenario.window_x, scenario.window_y)
       end
       driver.navigate.to(current_step.text)
-      current_step.pass!
-      save_history(current_step.to_s, current_step.status, history_line_item)
+      @current_line_item = save_history(current_step.to_s, "pass", history_line_item)
 
       send_to_pusher
 
@@ -115,8 +114,7 @@ module BrowserTest
           search = dom_string.scan(target)
           raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
         end
-        current_step.pass!
-        save_history(step.to_s, current_step.status, history_line_item)
+        @current_line_item = save_history(step.to_s, "pass", history_line_item)
         send_to_pusher
       end
       @driver = driver.quit
@@ -142,8 +140,7 @@ module BrowserTest
       )
       self.update_attribute(:screenshot_filename, file_name)
       @driver = driver.quit
-      current_step.fail!
-      save_history(current_step.to_s, current_step.status, history_line_item)
+      @current_line_item = save_history(current_step.to_s, "fail", history_line_item)
       send_to_pusher
       return false
     end
@@ -157,7 +154,7 @@ module BrowserTest
 
   def send_to_pusher(event="step_pass", message=nil)
     if event == "step_pass"
-      message = current_step.as_json(methods: [:to_s])
+      message = current_line_item.as_json(methods: [:to_s])
       message.merge!({scenario_id: current_step.scenario.id.to_s})
     else
       message = message.as_json
