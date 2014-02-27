@@ -14,7 +14,7 @@ class ScenarioBrowserTest
       else
         self.update_attribute(:status, "pass")
       end
-      self.test_run.complete
+      self.test_run.reload.complete
       driver.quit
     else
       update_attribute(:retry_count, retry_count+1)
