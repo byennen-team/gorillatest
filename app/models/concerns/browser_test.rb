@@ -54,6 +54,7 @@ module BrowserTest
   end
 
   def run(scenario, history_line_item=nil)
+    driver.manage.delete_all_cookies
     if history_line_item
       send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
     end
@@ -117,7 +118,6 @@ module BrowserTest
         @current_line_item = save_history(step.to_s, "pass", history_line_item)
         send_to_pusher
       end
-      @driver = driver.quit
       return true
     rescue Exception => e
       p e.inspect
@@ -139,7 +139,6 @@ module BrowserTest
         public: true
       )
       self.update_attribute(:screenshot_filename, file_name)
-      @driver = driver.quit
       @current_line_item = save_history(current_step.to_s, "fail", history_line_item)
       send_to_pusher
       return false

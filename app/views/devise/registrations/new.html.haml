@@ -18,6 +18,8 @@
               = f.error_notification
               = devise_error_messages!
               .form-inputs
+                -unless session["devise.user_attributes"]
+                  = f.input :email, required: false
                 = f.input :first_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[], "first_name")}
                 = f.input :last_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[],"last_name")}
                 -unless session["devise.user_attributes"]
