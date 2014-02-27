@@ -18,9 +18,20 @@ module BrowserTest
     field :queued_at, type: DateTime
     field :ran_at, type: DateTime
     field :run_time, type: Integer # in seconds
+    field :retry_count, type: Integer, default: 0
 
     attr_accessor :current_step, :alert, :current_line_item #, :channel_name
     after_create :initialize_test_history
+  end
+
+  def delay
+    if retry_count < 3
+      return 30.seconds
+    elsif retry_count.between?(3,5)
+      return 60.seconds
+    else
+      return false
+    end
   end
 
   def channel_name
@@ -30,7 +41,6 @@ module BrowserTest
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
     selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
-    #selenium_url = "http://ec2-54-200-175-37.us-west-2.compute.amazonaws.com:4444/wd/hub"
     #selenium_url = "http://127.0.0.1:4444/wd/hub"
     case browser
     when 'firefox'
@@ -46,6 +56,7 @@ module BrowserTest
     when 'ie9'
       cap = Selenium::WebDriver::Remote::Capabilities.internet_explorer
       cap.platform = platform.upcase.to_sym
+      cap.browser_name = "ie9"
       cap.javascript_enabled = true
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     # when 'phantomjs'
