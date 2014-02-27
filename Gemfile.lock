@@ -411,6 +411,7 @@ DEPENDENCIES
   guard
   guard-rspec
   haml-rails
+  httparty
   jasmine
   jbuilder (~> 1.2)
   jquery-rails

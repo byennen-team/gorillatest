@@ -43,6 +43,12 @@ bindChannels = ()->
         text = "Passed"
       $("#test-run-status").text(text)
       $("#test-run-status").removeClass("label-warning").addClass(className)
+    channel.bind "slot_unavailable", (data) ->
+      console.log data
+      console.log("appending to channel - #{channel.name}")
+      data.channel_name = channel.name
+      $("##{channel.name} .panel-body").append(data)
+      alert(data)
     channel.bind "play_feature", (data) ->
       console.log data
       console.log("appending to channel - #{channel.name}")

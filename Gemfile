@@ -48,6 +48,8 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 # selenium
 gem 'selenium-webdriver'
 
+gem 'httparty'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'
