@@ -40,7 +40,7 @@ class ScenariosController < ApplicationController
   end
 
   def run
-    test_run = @scenario.test_runs.build({user: current_user, platforms: params[:browsers]})
+    test_run = @scenario.test_runs.build({user: current_user, platforms: params[:browsers], queued_at: Time.now})
     if test_run.save
       test_run.platforms.each do |p|
         browser_test = test_run.browser_tests.create!({browser: p.split('_').last,

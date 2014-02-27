@@ -53,13 +53,13 @@ module ApplicationHelper
   end
 
   def duration_to_hours_minutes_seconds(duration)
-    seconds = duration.ceil % 60
+    seconds = duration
     minutes = (seconds / 60) % 60
     hours = minutes / (60 * 60)
     duration_string = hours != 0 ? "#{hours}h" : ""
     duration_string += minutes == 0 ? " 0m" : " #{minutes}m"
     duration_string += " #{seconds}s"
-    duration_string.html_safe
+    content_tag("span", duration_string, id: "duration").html_safe
   end
 
   def test_run_status(test_run)

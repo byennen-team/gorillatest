@@ -9,6 +9,7 @@ module TestRun
 
     field :queued_at, type: DateTime
     field :ran_at, type: DateTime
+    field :completed_at, type: DateTime
     field :number, type: Integer
     field :platforms, type: Array
 
@@ -32,12 +33,18 @@ module TestRun
     end
     channel_name = browser_tests.first.channel_name
     pusher_return = Pusher.trigger([channel_name], "test_run_complete", {status: status})
+    update_attribute(:completed_at, Time.now)
     send_complete_notification
-
   end
 
   def duration
-    ran_at.nil? ? 0 : browser_tests.last.updated_at - ran_at
+    if ran_at.nil?
+      return 0
+    elsif completed_at.nil?
+      return Time.now.to_i - ran_at.to_i
+    else
+      return completed_at.to_i - ran_at.to_i
+    end
   end
 
   def status

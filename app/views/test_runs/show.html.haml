@@ -7,6 +7,8 @@
     #{
       @test_run.browser_tests.map { |test| "window.channels.push(window.pusher.subscribe('#{test.channel_name}'));"}.join(' ')
     }
+    window.sec = #{@test_run.duration}
+    window.completed = #{!@test_run.completed_at.nil?}
 
 .page-content.blocky
   .container

@@ -23,6 +23,14 @@ channels = []
 window.channels = channels
 
 $(document).ready ()->
+  if(completed? && completed == false)
+    window.durationCounter = setInterval (->
+      seconds = ++sec % 60
+      minutes = parseInt(sec / 60, 10)
+      $("#duration").html("#{minutes}m #{seconds}s")
+      return
+    ), 1000
+
   bindChannels()
   $("input[type='checkbox']").on "change", () ->
     button = $(this).closest("form.scenario-run").find("input.run-test")
@@ -43,6 +51,8 @@ bindChannels = ()->
         text = "Passed"
       $("#test-run-status").text(text)
       $("#test-run-status").removeClass("label-warning").addClass(className)
+      if(completed? && completed == false)
+        clearInterval(durationCounter)
     channel.bind "slot_unavailable", (data) ->
       console.log data
       console.log("appending to channel - #{channel.name}")
