@@ -8,6 +8,7 @@ class ScenarioBrowserTest
   def run_all
     if TestSlot.find_available(platform, browser)
       driver
+      set_ran_at_time
       status = run(test_run.scenario)
       if status == false
         self.update_attribute(:status, "fail")

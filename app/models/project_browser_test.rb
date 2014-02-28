@@ -9,6 +9,7 @@ class ProjectBrowserTest
     driver
     #sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
     status = []
+    set_ran_at_time
     test_run.project.features.each do |feature|
       send_to_pusher('play_feature', {feature_id: feature.id.to_s, feature_name: feature.name})
       feature_line_item = save_history("Feature: #{feature.name}", nil)
@@ -22,7 +23,7 @@ class ProjectBrowserTest
     else
       self.update_attribute(:status, "pass")
     end
-    self.test_run.complete
+    self.test_run.reload.complete
     @driver = driver.quit
   end
 

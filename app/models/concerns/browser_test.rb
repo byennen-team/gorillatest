@@ -74,8 +74,6 @@ module BrowserTest
         raise UrlInaccessible
       end
 
-      set_ran_at_time
-
       if scenario.window_x && scenario.window_y
         driver.manage.window.resize_to(scenario.window_x, scenario.window_y)
       end

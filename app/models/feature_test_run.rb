@@ -15,7 +15,7 @@ class FeatureTestRun
   end
 
   def run
-    update_attribute(:run_at, Time.now)
+    update_attribute(:ran_at, Time.now)
     # Create scenarios
     feature.project.post_notifications(start_notification_message)
     browser_tests.each do |browser_test|

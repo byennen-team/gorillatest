@@ -16,7 +16,7 @@ class ProjectTestRun
   end
 
   def run
-    update_attribute(:run_at, Time.now)
+    update_attribute(:ran_at, Time.now)
     project.post_notifications(start_notification_message)
     browser_tests.each do |browser_test|
       TestWorker.perform_async("run_test", "Project", self.id.to_s, browser_test.id.to_s)
