@@ -17,4 +17,11 @@ module TestDuration
     end
   end
 
+  def set_ran_at_time
+    update_attribute(:ran_at, Time.now)
+  end
+
+  def set_completed_at_time
+    update_attribute(:completed_at, Time.now)
+  end
 end

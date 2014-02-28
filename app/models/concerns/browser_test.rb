@@ -74,6 +74,8 @@ module BrowserTest
         raise UrlInaccessible
       end
 
+      set_ran_at_time
+
       if scenario.window_x && scenario.window_y
         driver.manage.window.resize_to(scenario.window_x, scenario.window_y)
       end
@@ -128,6 +130,7 @@ module BrowserTest
         @current_line_item = save_history(step.to_s, "pass", history_line_item)
         send_to_pusher
       end
+      set_completed_at_time
       return true
     rescue Exception => e
       p e.inspect
@@ -151,6 +154,7 @@ module BrowserTest
       self.update_attribute(:screenshot_filename, file_name)
       @current_line_item = save_history(current_step.to_s, "fail", history_line_item)
       send_to_pusher
+      set_completed_at_time
       return false
     end
   end

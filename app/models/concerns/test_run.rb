@@ -47,4 +47,7 @@ module TestRun
     project.post_notifications(complete_notification_message)
   end
 
+  def total_duration
+    browser_tests.sum(&:duration)
+  end
 end
