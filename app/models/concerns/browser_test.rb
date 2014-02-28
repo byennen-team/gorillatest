@@ -4,20 +4,19 @@ class UrlInaccessible < Exception; end
 class AlertNotFound < Exception; end
 class AlertInvalidText < Exception; end
 
+
 module BrowserTest
   extend ActiveSupport::Concern
 
   included do
     include Mongoid::Document
     include Mongoid::Timestamps
+    include TestDuration
 
     field :browser, type: String
     field :platform, type: String
     field :status, type: String
     field :screenshot_filename, type: String
-    field :queued_at, type: DateTime
-    field :ran_at, type: DateTime
-    field :run_time, type: Integer # in seconds
     field :retry_count, type: Integer, default: 0
 
     attr_accessor :current_step, :alert, :current_line_item #, :channel_name

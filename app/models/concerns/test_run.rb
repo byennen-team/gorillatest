@@ -1,15 +1,12 @@
 module TestRun
-
   extend ActiveSupport::Concern
 
   included do
     include Rails.application.routes.url_helpers
     include Mongoid::Document
     include Mongoid::Timestamps
+    include TestDuration
 
-    field :queued_at, type: DateTime
-    field :ran_at, type: DateTime
-    field :completed_at, type: DateTime
     field :number, type: Integer
     field :platforms, type: Array
 
@@ -35,16 +32,6 @@ module TestRun
     pusher_return = Pusher.trigger([channel_name], "test_run_complete", {status: status})
     update_attribute(:completed_at, Time.now)
     send_complete_notification
-  end
-
-  def duration
-    if ran_at.nil?
-      return 0
-    elsif completed_at.nil?
-      return Time.now.to_i - ran_at.to_i
-    else
-      return completed_at.to_i - ran_at.to_i
-    end
   end
 
   def status
