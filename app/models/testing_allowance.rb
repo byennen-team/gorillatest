@@ -4,19 +4,21 @@ class TestingAllowance
   include Mongoid::Timestamps
   include Mongoid::Paranoia
 
-  field :seconds_used, type: Integer
-  field :start_at, type: DateTime
+  field :seconds_used, type: Integer, default: 0
+  field :start_at, type: DateTime, default: Time.now.beginning_of_month
 
   belongs_to :timeable, polymorphic: true
 
-  #scope :current_month, where(start_at: "2014-02-01 00:00:00")
-
-  def minutes_used
-    (seconds_used / 60)
+  def self.current_month
+    current_allowance = where(start_at: Time.now.beginning_of_month).first
+    unless current_allowance
+      return create(timeable_id: scoped.selector["timeable_id"], timeable_type: scoped.selector["timeable_type"])
+    end
+    return current_allowance
   end
 
-  def self.current_month
-    where(start_at: Time.now.beginning_of_month).first
+  def minutes_used
+    (seconds_used / 60.0).floor
   end
 
 end

@@ -22,4 +22,8 @@ class Scenario
 
   validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :feature}
   validates :window_x, :window_y, presence: true
+
+  def project
+    feature.project
+  end
 end

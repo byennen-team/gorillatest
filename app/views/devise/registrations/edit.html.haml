@@ -18,7 +18,7 @@
           = f.submit "Update", class: "btn btn-success"
       #change-plan.tab-pane
         %h2 Change My Plan
-        %p There should be plan stuff here
+        %p You have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
       #cancel-account.tab-pane
         %h2 Unhappy?
         %p{style: 'font-size: 1.4em'}

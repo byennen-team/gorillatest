@@ -78,4 +78,14 @@ module ApplicationHelper
     html = image_tag(user.gravatar_url(size))
     html.html_safe
   end
+
+  def play_button(testable)
+    project = testable.is_a?(Project) ? testable : testable.project
+    if project.creator.has_minutes_available?
+      html = link_to play_glyph, "#", onclick: "$('#test_run-#{testable.id}').slideToggle()"
+    else
+      html = link_to play_glyph, edit_user_registration_path(anchor: "change-plan")
+    end
+    html.html_safe
+  end
 end

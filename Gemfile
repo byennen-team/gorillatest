@@ -50,6 +50,9 @@ gem 'selenium-webdriver'
 
 gem 'httparty'
 
+# money
+gem 'money-rails'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'

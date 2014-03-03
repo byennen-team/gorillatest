@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe User do
 
+  it { should belong_to(:plan) }
+
   let(:user) {create(:user)}
 
   it "#name returns user's full name" do
@@ -106,6 +108,43 @@ describe User do
 
       it "sets password for omniauth authenticated user after create" do
         expect(@user.encrypted_password).to_not be_blank
+      end
+    end
+  end
+
+  describe "testing allowance" do
+    let(:free_plan) { create(:plan) }
+    let(:user) { create(:user, plan: free_plan) }
+
+    context "with available minutes" do
+      let!(:testing_allowance) { create(:testing_allowance, timeable: user) }
+
+      it "#has_minutes_available? returns true" do
+        expect(user.has_minutes_available?).to eq true
+      end
+
+      it "#used_minutes" do
+        expect(user.used_minutes).to eq 0
+      end
+
+      it "#available_minutes" do
+        expect(user.available_minutes).to eq (free_plan.minutes_available - user.used_minutes)
+      end
+    end
+
+    context "without available minutes" do
+      let!(:testing_allowance) { create(:testing_allowance, seconds_used: 3600, timeable: user)}
+
+      it "#has_minutes_available? returns false" do
+        expect(user.has_minutes_available?).to eq false
+      end
+
+      it "#used_minutes" do
+        expect(user.used_minutes).to eq 60
+      end
+
+      it "#available_minutes" do
+        expect(user.available_minutes).to eq 0
       end
     end
   end
