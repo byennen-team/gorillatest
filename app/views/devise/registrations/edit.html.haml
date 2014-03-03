@@ -18,7 +18,14 @@
           = f.submit "Update", class: "btn btn-success"
       #change-plan.tab-pane
         %h2 Change My Plan
-        %p You have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
+        - if current_user.plan.unlimited?
+          You have unlimited testing minutes.
+        - else
+          %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
+        = form_tag redeem_coupon_path, method: :post do
+          %p
+            Please enter your coupon code: #{text_field_tag :coupon_code, nil, class: "coupon-input form-control"}
+            #{submit_tag "Redeem Coupon", class: 'btn btn-success'}
       #cancel-account.tab-pane
         %h2 Unhappy?
         %p{style: 'font-size: 1.4em'}

@@ -38,4 +38,9 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def send_coupon_email(coupon_id, user_id)
+    @coupon = Coupon.find(coupon_id)
+    @user = User.find(user_id)
+    mail to: @user.email, subject: "Here is a coupon code for additional minutes"
+  end
 end

@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Plan.create(name: "Free", seconds_available: 3600, price: 0)
-Plan.create(name: "Unlimited", seconds_available: Plan::UNLIMITED_MINUTES, price: 0)
+Plan.find_or_create_by(name: "Free", seconds_available: 3600, price: 0)
+Plan.find_or_create_by(name: "Unlimited", seconds_available: Plan::UNLIMITED_MINUTES, price: 0)
 
+Coupon.find_or_create_by(code: "BETAUNLIMITED", to_plan: Plan.where(name: "Unlimited").first)

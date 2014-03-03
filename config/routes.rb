@@ -74,6 +74,7 @@ Autotest::Application.routes.draw do
     end
   end
   resources :beta_invitations
+  post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 
   root 'welcome#index'
 

@@ -60,6 +60,7 @@ class User
 
   # has_many :projects
   has_many :project_users
+  has_many :coupon_users
 
   has_many :testing_allowances, as: :timeable
 
@@ -89,6 +90,10 @@ class User
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def coupons
+    Coupon.in(id: coupon_users.map(&:coupon_id))
   end
 
   def projects
