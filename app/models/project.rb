@@ -18,6 +18,8 @@ class Project
 
   belongs_to :user
 
+  alias :creator :user
+
   has_many :features
   has_many :project_users
   has_many :test_runs, class_name: 'ProjectTestRun'

@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 class User
-
+  UNLIMITED_MINUTES = 60*60*1000
   include Mongoid::Document
   include Mongoid::Timestamps
   # Include default devise modules. Others available are:
@@ -59,8 +59,11 @@ class User
   field :first_name, type: String
   field :last_name, type: String
 
+  field :seconds_available, type: Integer, default: 3600
   # has_many :projects
   has_many :project_users
+
+  has_many :testing_allowances, as: :timeable
 
   validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
 
@@ -130,6 +133,19 @@ class User
     if self.invitation_token.blank?
       UserMailer.welcome_email(self).deliver
     end
+  end
+
+  def has_minutes_available?
+    return true if minutes_available == UNLIMITED_MINUTES
+    testing_allowances.current_month.seconds_used < seconds_available ? true : false
+  end
+
+  def available_minutes
+    (seconds_available / 60) - used_minutes
+  end
+
+  def used_minutes
+    (testing_allowances.current_month.seconds_used / 60.0).floor
   end
 
   private
