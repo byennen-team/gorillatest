@@ -164,7 +164,7 @@ class User
   private
 
   def assign_default_plan
-    self.plan = Plan.find_by(name:"Free")
+    self.plan = Plan.where(name:"Free").first
     self.save
   end
 
