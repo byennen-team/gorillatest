@@ -31,6 +31,7 @@ module TestRun
     channel_name = browser_tests.first.channel_name
     pusher_return = Pusher.trigger([channel_name], "test_run_complete", {status: status})
     update_attribute(:completed_at, Time.now)
+    deduct_seconds_used
     send_complete_notification
   end
 
@@ -49,5 +50,11 @@ module TestRun
 
   def total_duration
     browser_tests.sum(&:duration)
+  end
+
+  def deduct_seconds_used
+    current_allowance = project.creator.testing_allowances.current_month
+    current_allowance.seconds_used += total_duration
+    current_allowance.save
   end
 end
