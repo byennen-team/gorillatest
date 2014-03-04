@@ -53,8 +53,8 @@ module TestRun
   end
 
   def deduct_seconds_used
-    current_allowance = project.creator.testing_allowances.current_month
-    current_allowance.seconds_used += total_duration
-    current_allowance.save
+    allowance = project.creator.current_allowance
+    allowance.seconds_used += total_duration
+    allowance.save
   end
 end

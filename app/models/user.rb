@@ -145,7 +145,7 @@ class User
   end
 
   def has_minutes_available?
-    testing_allowances.current_month.minutes_used < minutes_available
+    current_allowance.minutes_used < minutes_available
   end
 
   def available_minutes
@@ -153,7 +153,11 @@ class User
   end
 
   def used_minutes
-    testing_allowances.current_month.minutes_used
+    current_allowance.minutes_used
+  end
+
+  def current_allowance
+    testing_allowances.current_month
   end
 
   private
