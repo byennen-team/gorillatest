@@ -1,7 +1,11 @@
 Autotest::Application.routes.draw do
-
-  get "admin/beta_invitations/index"
-  get "admin/beta_invitations/invite"
+  namespace :admin do
+    resources :beta_invitations, only: [:index] do
+      member do
+        post 'invite'
+      end
+    end
+  end
 
   get "/recorder" => "recorder#index"
 

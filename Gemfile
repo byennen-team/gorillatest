@@ -29,6 +29,7 @@ gem 'mongoid_slug'
 # Devise
 gem 'devise'
 gem 'cancan'
+gem 'rolify', git: 'git://github.com/EppO/rolify.git'
 
 # Alternative login
 gem 'omniauth'

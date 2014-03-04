@@ -2,6 +2,7 @@ require 'digest/md5'
 
 class User
   include Mongoid::Document
+  rolify
   include Mongoid::Timestamps
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
