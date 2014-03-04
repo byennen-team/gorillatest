@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/EppO/rolify.git
+  revision: befc8db8d1894cc2fe86407dbedc1aebb3f3592f
+  specs:
+    rolify (3.4.0)
+
+GIT
   remote: git://github.com/mongoid/mongoid.git
   revision: e7aef3bc79f159709dcf394807926f305762eaa7
   specs:
@@ -440,6 +446,7 @@ DEPENDENCIES
   quiet_assets (~> 1.0.1)
   rails (= 4.0.3)
   rails_12factor
+  rolify!
   rspec-rails
   sass-rails (~> 4.0.0)
   selenium-webdriver
