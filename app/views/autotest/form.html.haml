@@ -1,6 +1,5 @@
-.col-md-4.col-md-offset-4
-  %h1 Test Form
-  = link_to "Test", "#"
+.col-md-6
+  %h1 Test Signup Form
   = form_tag(test_form_post_path(project_id: @project_id), class: 'test-form') do
     = label_tag("name")
     = text_field_tag("name", nil, class: 'form-control')
@@ -8,65 +7,28 @@
     = label_tag("email")
     = email_field_tag("email", nil, class: 'form-control')
     %br
-    = label_tag("color")
-    = color_field_tag("color", nil, class: 'form-control')
+    = label_tag("password")
+    = password_field_tag("password", nil, class: 'form-control')
     %br
-    = label_tag("date")
-    = date_field_tag("date", nil, class: 'form-control')
+    = label_tag("password_confirmation")
+    = password_field_tag("password_confirmation", nil, class: 'form-control')
     %br
-    = label_tag("datetime")
-    = datetime_field_tag("datetime", nil, class: 'form-control')
-    %br
-    = label_tag("month")
-    = month_field_tag("month", nil, class: 'form-control')
-    %br
-    = label_tag("number")
-    = number_field_tag("number", nil, class: 'form-control')
-    %br
-    = label_tag("range")
-    = range_field_tag("range", nil, class: 'form-control')
-    %br
-    = label_tag("search")
-    = search_field_tag("search", nil, class: 'form-control')
-    %br
-    = label_tag('tel')
-    = telephone_field_tag('tel', nil, class: 'form-control')
-    %br
-    = label_tag("time")
-    = time_field_tag('time', nil, class: 'form-control')
-    %br
-    = label_tag("url")
-    = url_field_tag('url', nil, class: 'form-control')
-    %br
-    = label_tag("week")
-    = week_field_tag('week', nil, class: 'form-control')
-    %br
-    = label_tag("textarea")
-    = text_area_tag("textarea", nil, class: 'form-control')
-    %br
-    = label_tag("selects")
-    = select_tag("select", options_for_select(["option1", "option2"]), class: 'form-control')
-    %br
-    = label_tag("radios")
-    = radio_button_tag("id", "value1")
-    %br
-    = label_tag("checkboxes")
-    = check_box_tag("checkbox", {"value1" => "value1"})
-    Value1
-    = check_box_tag("checkbox", {"value2" => "value2"})
-    Value2
+    = label_tag("company")
+    = text_field_tag("company", nil, class: "form-control")
     %br
     = submit_tag("Save", class: 'btn btn-default')
-
-  %h1 Test Text Selection
+.col-md-1
+.col-md-5
+  %h1 Test Element Selection
 
   %h1 Test H1 Select
+  %h2 Test H2 Select
+  %h3 Test H3 select
+  %h4 Test H4 Select
+  %h5 Test H5 Select
+  %h6 Test H6 Select
+
   %p Here is an example paragraph to test
-  / %h2 Test H2 Select
-  / %h3 Test H3 select
-  / %h4 Test H4 Select
-  / %h5 Test H5 Select
-  / %h6 Test H6 Select
 
   %h3 Ordered list
   %ol
@@ -84,12 +46,6 @@
     %span
       SPAN
     in the middle of this sentence
-
   %br
   %a{href: "http://autotest.io"} Test Anchor Select
-  %br
-  %br
-  %img{src: "http://big-astronaut.s3.amazonaws.com/blue-full-logo-200x90.png", class: 'test-image'}
-  %br
-  %img{src: "/assets/welcome/autotest-runs-on-all-browsers.jpg", class: 'test-image'}
 
