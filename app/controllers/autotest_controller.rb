@@ -17,6 +17,7 @@ class AutotestController < ApplicationController
       flash.now[:error] = "Please fill out your name"
       render 'form', location: test_form_path(project_id: params[:project_id])
     else
+      session[:autotest_signup] = params
   	  redirect_to test_thankyou_path(project_id: params[:project_id])
     end
 	end
@@ -27,7 +28,6 @@ class AutotestController < ApplicationController
 
     def find_project
       @project = Project.find(params[:project_id])
-      @company = @project.company
     end
 
 

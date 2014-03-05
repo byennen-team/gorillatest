@@ -2,4 +2,4 @@
   %h1
     Thanks!
   %p
-    Thank you for submitting our test form. Click #{link_to "here", test_form_path(project_id: params[:project_id])} to go back to the form!
+    Thank you #{session[:autotest_signup][:name]} <#{session[:autotest_signup][:email]}> for submitting our test form. Click #{link_to "here", test_form_path(project_id: params[:project_id])} to go back to the form!

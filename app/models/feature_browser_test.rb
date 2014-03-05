@@ -19,7 +19,7 @@ class FeatureBrowserTest
     if status.include?(false)
       self.update_attribute(:status, "fail")
     else
-      self.udpate_attribute(:status, "pass")
+      self.update_attribute(:status, "pass")
     end
     test_run.reload.complete
     @driver = driver.quit

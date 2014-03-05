@@ -75,6 +75,7 @@ class User
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
+  after_create :assign_default_plan
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
@@ -145,7 +146,7 @@ class User
   end
 
   def has_minutes_available?
-    testing_allowances.current_month.minutes_used < minutes_available
+    current_allowance.minutes_used < minutes_available
   end
 
   def available_minutes
@@ -153,10 +154,19 @@ class User
   end
 
   def used_minutes
-    testing_allowances.current_month.minutes_used
+    current_allowance.minutes_used
+  end
+
+  def current_allowance
+    testing_allowances.current_month
   end
 
   private
+
+  def assign_default_plan
+    self.plan = Plan.where(name:"Free").first
+    self.save
+  end
 
   def gravatar_hash
     email_address = self.email.downcase
