@@ -28,7 +28,7 @@ gem 'mongoid_slug'
 
 # Devise
 gem 'devise'
-gem 'cancan'
+gem 'cancancan', '~> 1.7.0'
 gem 'rolify', git: 'git://github.com/EppO/rolify.git'
 
 # Alternative login
