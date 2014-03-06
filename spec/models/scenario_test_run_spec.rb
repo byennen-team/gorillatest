@@ -17,15 +17,15 @@ describe ScenarioTestRun do
     let(:test_run) { create(:scenario_test_run, scenario: scenario) }
 
     it "should have a name" do
-      expect(test_run.name).should eq(scenario.name)
+      expect(test_run.name).to eq(scenario.name)
     end
 
     it "should have a project" do
-      expect(test_run.project).should eq(project)
+      expect(test_run.project).to eq(project)
     end
 
     it "should have a feature" do
-      expect(test_run.feature).should eq(feature)
+      expect(test_run.feature).to eq(feature)
     end
 
     it "should have a start_notification_message" do
