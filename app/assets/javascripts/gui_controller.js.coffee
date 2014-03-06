@@ -74,7 +74,7 @@ AutoTestGuiController = {
           feature = data.feature
           window.postMessageToIframe({messageType: "featureAdded", message: {featureName: feature.name, featureId: feature.id}})
           window.autoTestRecorder.setCurrentFeature(feature.id)
-          AutoTestGuiController.disableTooltip()
+          autoTestGuiController.disableTooltip()
         error:  (jqXHR, textStatus, errorThrown) ->
           if $("#feature-modal-errors").length == 0
             $("#feature-modal .autotest-modal-body").append("<ul id='feature-modal-errors'></ul>")
