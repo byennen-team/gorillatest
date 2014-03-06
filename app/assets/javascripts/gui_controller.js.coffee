@@ -74,6 +74,7 @@ AutoTestGuiController = {
           feature = data.feature
           window.postMessageToIframe({messageType: "featureAdded", message: {featureName: feature.name, featureId: feature.id}})
           window.autoTestRecorder.setCurrentFeature(feature.id)
+          AutoTestGuiController.disableTooltip()
         error:  (jqXHR, textStatus, errorThrown) ->
           if $("#feature-modal-errors").length == 0
             $("#feature-modal .autotest-modal-body").append("<ul id='feature-modal-errors'></ul>")
@@ -116,6 +117,7 @@ AutoTestGuiController = {
     $("#step-count").hide()
     $("#stop-recording").hide()
     $("#start-text-highlight").hide()
+    $("#stop-record-text-highlight").hide()
     $("button#add-feature").show()
     $("#record").show()
 
