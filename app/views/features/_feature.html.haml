@@ -2,7 +2,7 @@
   = link_to feature.name, project_feature_path(@project, feature)
   .pull-right
     = play_button(feature)
-    = link_to delete_glyph, "#", title: "Delete This Feature", onclick: "alert('Feature not impelement')"
+    = link_to delete_glyph, project_feature_path(@project, feature), title: "Delete This Feature", method: :delete, confirm: "Are you sure?"
     = link_to "View Test Runs", project_feature_test_runs_path(@project, feature)
   %div{id: "test_run-#{feature.id}", style: "display: none;"}
     = form_tag run_project_feature_path(@project.id, feature.id), class:"scenario-run", id: "feature_#{feature.id}" do
