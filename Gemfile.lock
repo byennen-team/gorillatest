@@ -23,7 +23,7 @@ GIT
       mongoid (> 3)
 
 GIT
-  remote: git@github.com:RubyMoney/money-rails.git
+  remote: https://github.com/RubyMoney/money-rails.git
   revision: c0bf5ef27b55938933c189a5324a810028ff3303
   ref: c0bf5ef27b55938933c189a5324a810028ff3303
   specs:
