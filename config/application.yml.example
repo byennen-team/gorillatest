@@ -1,0 +1,21 @@
+STAGING_USERNAME: 'autotest'
+STAGING_PASSWORD: 'autotest2014'
+development:
+  API_URL: "http://autotest.dev/"
+  SELENIUM_HOST: "localhost"
+  SELENIUM_PORT: "4444"
+  PUSHER_URL: "http://963dba5416414fb92c8f:6b004db0659f6eb150d9@api.pusherapp.com/apps/64224"
+  PUSHER_APP_ID: '64224'
+  PUSHER_KEY: '963dba5416414fb92c8f'
+  PUSHER_SECRET: '6b004db0659f6eb150d9'
+  AWS_ACCESS_KEY: 'AKIAIT3LCONX3AGX3CVQ'
+  AWS_SECRET_KEY: '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'
+  S3_BUCKET: 'autotestio-development'
+staging:
+  API_URL: "http://staging.autotest.io/"
+  SELENIUM_HOST: "ec2-54-200-175-37.us-west-2.compute.amazonaws.com"
+  SELENIUM_PORT: "4444"
+test:
+  API_URL: "http://localhost:3000"
+
+
