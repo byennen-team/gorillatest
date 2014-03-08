@@ -115,6 +115,7 @@ AutoTestGuiController = {
     $("#step-count-text").hide()
     $("#step-count").text('')
     $("#step-count").hide()
+    $("#autotest-steps").html('')
     $("#stop-recording").hide()
     $("#start-text-highlight").hide()
     $("#stop-record-text-highlight").hide()
@@ -222,6 +223,7 @@ AutoTestGuiController = {
 
   recording: (message) ->
     $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
+    $("#current-scenario").show()
     $("button#record").hide()
     $("button#stop-recording").show()
     $("#start-text-highlight").show()
