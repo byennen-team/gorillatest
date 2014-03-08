@@ -52,7 +52,7 @@ gem 'selenium-webdriver'
 gem 'httparty'
 
 # money
-gem 'money-rails'
+gem 'money-rails', git: 'git@github.com:RubyMoney/money-rails.git', ref: 'c0bf5ef27b55938933c189a5324a810028ff3303'
 
 #heroku platform gem
 group :production do
