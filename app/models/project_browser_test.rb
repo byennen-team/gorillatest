@@ -12,9 +12,9 @@ class ProjectBrowserTest
     set_ran_at_time
     test_run.project.features.each do |feature|
       send_to_pusher('play_feature', {feature_id: feature.id.to_s, feature_name: feature.name})
-      feature_line_item = save_history("Feature: #{feature.name}", nil)
+      feature_line_item = save_history(feature, "Feature: #{feature.name}", nil)
       feature.scenarios.each do |scenario|
-        line_item = save_history("Running #{scenario.name}", nil, feature_line_item)
+        line_item = save_history(scenario, "Running #{scenario.name}", nil, feature_line_item)
         status << run(scenario, line_item)
       end
     end

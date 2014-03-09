@@ -39,8 +39,9 @@ module BrowserTest
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
-    selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
-    #selenium_url = "http://127.0.0.1:4444/wd/hub"
+    #selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
+    selenium_url = "http://127.0.0.1:4444/wd/hub"
+    platform = "mac"
     case browser
     when 'firefox'
       cap = Selenium::WebDriver::Remote::Capabilities.firefox
@@ -78,7 +79,8 @@ module BrowserTest
         driver.manage.window.resize_to(scenario.window_x, scenario.window_y)
       end
       driver.navigate.to(current_step.text)
-      @current_line_item = save_history(current_step.to_s, "pass", history_line_item)
+      puts "Saving current line item"
+      @current_line_item = save_history(current_step, current_step.to_s, "pass", history_line_item)
 
       send_to_pusher
 
@@ -125,7 +127,7 @@ module BrowserTest
           search = dom_string.scan(target)
           raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
         end
-        @current_line_item = save_history(step.to_s, "pass", history_line_item)
+        @current_line_item = save_history(step, step.to_s, "pass", history_line_item)
         send_to_pusher
       end
       set_completed_at_time
@@ -150,7 +152,7 @@ module BrowserTest
         public: true
       )
       self.update_attribute(:screenshot_filename, file_name)
-      @current_line_item = save_history(current_step.to_s, "fail", history_line_item)
+      @current_line_item = save_history(current_step, current_step.to_s, "fail", history_line_item)
       send_to_pusher
       set_completed_at_time
       return false
@@ -173,12 +175,12 @@ module BrowserTest
     pusher_return = Pusher.trigger([channel_name], event, message)
   end
 
-  def save_history(msg, status, line_item=nil)
+  def save_history(testable, msg, status, line_item=nil)
     if line_item.nil?
-      line_item = test_history.history_line_items.create({text: msg, status: status, parent: id})
+      line_item = test_history.history_line_items.create({testable: testable, text: msg, status: status, parent: id})
       return line_item
     else
-      child = line_item.children.create({text: msg, status: status})
+      child = line_item.children.create({testable: testable, text: msg, status: status})
       return child
     end
   end

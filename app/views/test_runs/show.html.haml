@@ -42,9 +42,9 @@
     %br
 
     - @test_run.browser_tests.each do |test|
-      - if test.status != nil
-        .test{class: "#{test.status}"}
-          = render partial: 'test_history', locals: {test: test}
-      - else
-        .test
-          = render partial: 'test', locals: {test: test}
+      / - if test.status != nil
+      / .test{class: "#{test.status}"}
+      /   = render partial: 'test_history', locals: {test: test}
+      / - else
+      .test
+        = render partial: 'test', locals: {test: test}
