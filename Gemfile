@@ -8,6 +8,7 @@ gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
+gem 'bourbon'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
