@@ -8,6 +8,7 @@ class HistoryLineItem
   belongs_to :test_history
   belongs_to :parent, class_name: 'HistoryLineItem'
   has_many :children, class_name: 'HistoryLineItem'
+  belongs_to :testable, polymorphic: true
 
 
 

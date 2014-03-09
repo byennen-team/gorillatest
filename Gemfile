@@ -8,6 +8,7 @@ gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
+gem 'bourbon'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
@@ -52,7 +53,7 @@ gem 'selenium-webdriver'
 gem 'httparty'
 
 # money
-gem 'money-rails'
+gem 'money-rails', git: 'https://github.com/RubyMoney/money-rails.git', ref: 'c0bf5ef27b55938933c189a5324a810028ff3303'
 
 #heroku platform gem
 group :production do

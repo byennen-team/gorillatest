@@ -1,0 +1,24 @@
+!!!
+/[if lt IE 7 ] <html class="ie ie6" lang="en">
+/[if IE 7 ] <html class="ie ie7" lang="en">
+/[if IE 8 ] <html class="ie ie8" lang="en">
+/ [if (gte IE 9)|!(IE)]><!
+%html{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %title= content_for?(:title) ? "AutoTest - " + yield(:title) : "AutoTest - AutoTest Slogan."
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"}
+    %meta{:content => content_for?(:description) ? yield(:description) : "AutoTest Description", :name => "description"}
+    %meta{:content => content_for?(:keywords) ? yield(:keywords) : "AutoTest Keywords", :name => "keywords"}
+    = favicon_link_tag 'favicon.ico'
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300", rel: "stylesheet", type: "text/css"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600", rel: "stylesheet", type: "text/css"}/
+    = stylesheet_link_tag "session/application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = yield(:head)
+    = csrf_meta_tags
+  %body
+    = yield
+    = analytics_init if Rails.env.production?

@@ -11,20 +11,18 @@ class @AutoTestEvent
         AutoTestEvent.unbind()
         AutoTestEvent.bind()
         AutoTestEvent.unbindElementModal()
+        AutoTestEvent.unbindScenarioModal()
       ), true)
 
   @bind: () ->
     recorder = window.autoTestRecorder
     scenario = recorder.currentScenario
     stepLocator = {}
-    console.log("Binding all links")
     $("a").bind("click", AutoTestEvent.bindClick)
     $("button").bind("click", AutoTestEvent.bindClick)
     # Start recording an input as soon as it's focused.
-    console.log("Binding all focus events for text and text areas")
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
     "range", "search", "tel", "time", "url", "week"]
-    console.log("Binding all blur events for text elements and text areas")
     for fieldType in fieldTypes
       elementType = AutoTestEvent.createInputBinding("input", fieldType)
       elementType.bind("focus", AutoTestEvent.bindFocus)
@@ -32,11 +30,8 @@ class @AutoTestEvent
     textArea = AutoTestEvent.createInputBinding("textarea", "")
     textArea.bind("focus", AutoTestEvent.bindFocus)
     textArea.bind("blur", AutoTestEvent.bindBlur)
-    console.log("Binding all select dropdown changes")
     $("select").bind("change", AutoTestEvent.bindSelect)
-    console.log("Binding all click events for radio buttons and checkboxes")
     $("input[type=radio], input[type=checkbox]").bind("click", AutoTestEvent.bindClick)
-    console.log("Binding all submit click events")
     $("input[type=submit]").bind("click", AutoTestEvent.bindSubmit)
     AutoTestEvent.bindConfirmation()
     AutoTestEvent.bindAlert()
@@ -58,7 +53,6 @@ class @AutoTestEvent
   @bindClick: (event) ->
     recorder = window.autoTestRecorder
     scenario = recorder.currentScenario
-    console.log($(event.currentTarget).attr("href"))
     stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
     # {type: "id", value: $(this).attr("id")}
     scenario.addStep("clickElement", stepLocator, $(this).attr("href"))
@@ -128,7 +122,6 @@ class @AutoTestEvent
     $("button").unbind("click", AutoTestEvent.bindClick)
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
     "range", "search", "tel", "time", "url", "week"]
-    console.log("Binding all blur events for text elements and text areas")
     for fieldType in fieldTypes
       elementType = AutoTestEvent.createInputBinding("input", fieldType)
       elementType.unbind("focus", AutoTestEvent.bindBlur)
@@ -137,18 +130,18 @@ class @AutoTestEvent
     textArea = AutoTestEvent.createInputBinding("textarea", "")
     textArea.unbind("focus", AutoTestEvent.bindFocus)
     textArea.unbind("blur", AutoTestEvent.bindBlur)
-    console.log("Binding all select dropdown changes")
     $("select").unbind("change", AutoTestEvent.bindSelect)
-    console.log("Binding all click events for radio buttons and checkboxes")
     $("input[type=radio], input[type=checkbox]").unbind("click", AutoTestEvent.bindClick)
-    console.log("Binding all submit click events")
     $("input[type=submit]").unbind("click", AutoTestEvent.bindSubmit)
     window.confirm = window.originalConfirm
     window.alert = window.originalAlert
     return
 
+  @unbindIframe: ->
+    $("#step-count").unbind("click", AutoTestEvent.bindClick)
+
   @unbindElementModal: ->
-    console.log("Unbinding modal")
+    console.log("Unbinding element modal")
     $("#select-element-modal").unbind("mouseenter")
     $("#select-element-modal").unbind("mouseleave")
     $("#select-element-modal a").unbind("click", AutoTestEvent.bindClick)
@@ -157,5 +150,10 @@ class @AutoTestEvent
     $("button#start-text-highlight").unbind("click", AutoTestEvent.bindClick)
     $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindClick)
     return
+
+  @unbindScenarioModal: ->
+    console.log("unbinding scenario modal")
+    $("#autotest-modal button").unbind("click", AutoTestEvent.bindClick)
+
 
 

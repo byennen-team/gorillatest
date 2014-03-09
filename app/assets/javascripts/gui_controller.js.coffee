@@ -222,6 +222,7 @@ AutoTestGuiController = {
 
   recording: (message) ->
     $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
+    $("#current-scenario").show()
     $("button#record").hide()
     $("button#stop-recording").show()
     $("#start-text-highlight").show()

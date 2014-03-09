@@ -13,7 +13,7 @@ class FeatureBrowserTest
     status = []
     set_ran_at_time
     test_run.feature.scenarios.each do |scenario|
-      line_item = save_history("Running #{scenario.name}", nil, nil)
+      line_item = save_history(scenario, "Running #{scenario.name}", nil, nil)
       status << run(scenario, line_item)
     end
     if status.include?(false)

@@ -6,8 +6,8 @@
       %p{id: "#{test.channel_name}-scenario-#{scenario.id}"}
         Scenario:
         = scenario.text
-      %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{scenario.id}"}
-        - scenario.children.each do |step|
+      %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{scenario.testable.id.to_s}"}
+        - scenario.children.each.each do |step|
           %li
             = status_glyph(step.status)
             = step.text

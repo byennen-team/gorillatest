@@ -19,7 +19,10 @@ Autotest::Application.routes.draw do
   resources :scenarios
 
   #application
-  devise_for :users, controllers: {registrations: :registrations, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations
+  devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations
+  devise_scope :user do
+    get "/login" => "sessions#new"
+  end
 
   # get 'dashboard', to: "dashboard#index.html.haml"
 
