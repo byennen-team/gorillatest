@@ -9,7 +9,7 @@ $(document).ready ->
     $('body').unbind('mouseup')
     $("*").css('cursor', 'auto')
     # window.autoTestRecorder.recordHighlight($("#highlighted-text").text())
-    $("body *").unbind("click", AutoTestGuiController.bindBodyClick)
+    $("body *").unbind("mousedown", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
     $("a").bind("click", AutoTestEvent.bindClick)
@@ -164,7 +164,7 @@ AutoTestGuiController = {
     $(".modal-backdrop").unbind("hover", autoTestGuiController.hoverOutline)
 
     # Bind click for all elements in a page
-    $("body *").bind('click', autoTestGuiController.bindBodyClick)
+    $("body *").bind('mousedown', autoTestGuiController.bindBodyClick)
 
     # Unbind recording bar
 
@@ -174,7 +174,7 @@ AutoTestGuiController = {
     $('body').unbind('mouseup')
     $("*").css('cursor', 'auto')
 
-    $("body *").unbind("click", AutoTestGuiController.bindBodyClick)
+    $("body *").unbind("mousedown", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
     $("a").bind("click", AutoTestEvent.bindClick)
@@ -208,7 +208,7 @@ AutoTestGuiController = {
       type = if checked.attr("id") is "record_text_text" then "verifyText" else "verifyElementPresent"
       autoTestRecorder.currentScenario.addStep(type, {type: '', value: ''}, checked.val())
       $("#select-element-modal").bPopup().close()
-    return
+    return false
 
   stripStyleClass: ($element) ->
     $element.removeClass("autotest-highlight")
@@ -234,10 +234,8 @@ AutoTestGuiController = {
     $("#step-count-text").show()
 
   showScenarioModal: (event) ->
-    console.log("show scenario")
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
     window.parent.renderModal("scenarioModalTemplate", '', options, ->
-      console.log($("input#scenario_name"))
       $("input#scenario_name").bind "blur", ->
         if $(this).val().length > 0
           $("button#start-recording").removeAttr("disabled")
@@ -250,8 +248,8 @@ AutoTestGuiController = {
   bindBodyClick: (event) ->
     event.preventDefault()
     event.stopPropagation()
-    console.log("Showign element modal")
     autoTestGuiController.showElementModal(event, event.currentTarget)
+    return false
 
   preventClicks: (event) ->
     event.preventDefault

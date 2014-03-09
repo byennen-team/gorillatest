@@ -39,9 +39,9 @@ module BrowserTest
 
   # Needs to be dynamic between FF, Chrome, PhantomJS
   def driver
-    #selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
-    selenium_url = "http://127.0.0.1:4444/wd/hub"
-    platform = "mac"
+    selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
+    #selenium_url = "http://127.0.0.1:4444/wd/hub"
+    platform = ENV['BROWSER_TEST_PLATFORM'] if ENV['BROWSER_TEST_PLATFORM']
     case browser
     when 'firefox'
       cap = Selenium::WebDriver::Remote::Capabilities.firefox
