@@ -19,6 +19,6 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = yield(:head)
     = csrf_meta_tags
-  %body
+  %body{:id => "#{controller_name}-#{action_name}"}
     = yield
     = analytics_init if Rails.env.production?

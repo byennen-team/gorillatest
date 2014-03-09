@@ -1,10 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
   layout 'session'
 
-  def new
-    # super
-    redirect_to root_path, flash: {notice: "If you want to try out AutoTest, please request a beta invite below."}
-  end
+  #def new
+  #  # super
+  #  #redirect_to root_path, flash: {notice: "If you want to try out AutoTest, please request a beta invite below."}
+  #end
 
   def edit
     super
