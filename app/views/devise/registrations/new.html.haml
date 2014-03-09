@@ -1,41 +1,45 @@
-.page-content.blocky
-  .container
-    .row
-      .col-md-12
-        .awidget.login-reg
-          .awidget-head
-          .awidget-body
-            / Page title
-            .page-title.text-center
-              -if  session["devise.user_attributes"]
-                %h2 Finish Signing up
-              -else
-                %h2 Sign up is Free!
-              %hr/
-            / Page title
-            %br/
-            = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {:class => 'form-vertical' }) do |f|
-              = f.error_notification
-              = devise_error_messages!
-              .form-inputs
-                -unless session["devise.user_attributes"]
-                  = f.input :email, required: false
+.container
+  .row
+    .col-md-12
+      %h1 AutoTest
+.row
+  #form.col-md-12
+    .container
+      .row
+        #create_your_account.col-md-12
+          .row
+            .col-md-1
+              %i.fa.fa-user.fa-4x
+            .col-md-11
+              %h2 Create your AutoTest account
+      .row
+        .col-md-12
+          %h3 The basics
+      .row
+        .col-md-8
+          = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {:class => 'form-vertical' }) do |f|
+            = f.error_notification
+            = devise_error_messages!
+            #form-content.row
+              .col-md-6
                 = f.input :first_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[], "first_name")}
+                = f.input :email, required: false
+                = f.input :password
+
+              .col-md-6
                 = f.input :last_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[],"last_name")}
-                -unless session["devise.user_attributes"]
-                  = f.input :password
-                  = f.input :password_confirmation
                 = f.input :company_name, label: 'Company Name', required: false
-                = f.input :phone
-                = f.input :location
-              .row
-                .form-group
-                  .col-lg-12
-                    = f.submit 'Sign Up', class: 'btn btn-success btn-lg btn-block'
-            - unless  session["devise.user_attributes"]
-              %p.text-center
-                OR
-              %br
-                =link_to user_omniauth_authorize_path(:google_oauth2), class: 'google-sign-in-button btn btn-block btn-social btn-google-plus' do
-                  Sign up with Google
-                  %i.fa.fa-google-plus
+                = f.input :password_confirmation
+            #form-options.row
+              .col-md-12
+                .pull-right= f.submit 'Create account', class: 'btn btn-primary create-account-btn'
+
+        #already-have-account.col-md-4
+          =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
+            %i.fa.fa-google-plus
+            Sign in with Google
+          =link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-default' do
+            %i.fa.fa-github
+            Sign in with Github
+          %p Your AutoTest account can be used to access any AutoTest product or service.
+          = link_to 'I already have a AutoTest account', login_path

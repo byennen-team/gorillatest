@@ -4,38 +4,92 @@ html {
   height: 100%;
 }
 
-body {
+//Login
+body#sessions-new {
   @include linear-gradient(to top, slategray, darkgray);
 }
-#login-box {
-  opacity: 0;
-  margin-top: 10%;
-}
-.awidget {
-  background: whitesmoke;
-  padding: 30px;
-  border-radius: 6px;
-  border-left: 1px solid #eee;
-  border-top: 1px solid #eee;
-  border-bottom: 3px solid #eee;
-  border-right: 3px solid #eee;
+#sessions-new {
+  #login-box {
+    opacity: 0;
+    margin-top: 10%;
+  }
+  .awidget {
+    background: whitesmoke;
+    padding: 30px;
+    border-radius: 6px;
+    border-left: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-bottom: 3px solid #eee;
+    border-right: 3px solid #eee;
+//  TODO: add box shadow
 //  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.24) inset;
-  border-color: none;
-}
+    border-color: none;
+  }
 
-a {
-  color: #676E75;
-  &:hover, &:active {
-    color: #1492D6;
-    text-decoration: none;
+  a {
+    color: #676E75;
+    &:hover, &:active {
+      color: #1492D6;
+      text-decoration: none;
+    }
+  }
+
+  .btn-default {
+    color: #676E75;
+  }
+
+  #auth_options {
+    margin-top: 20px;
+    opacity: 0;
   }
 }
 
-.btn-default {
-  color: #676E75;
-}
-
-#auth_options {
-  margin-top: 20px;
-  opacity: 0;
+//registration
+#registrations-new {
+  #form {
+    background: #F2F4F5;
+  }
+  #create_your_account {
+    margin: 30px 0;
+  }
+  .fa-user {
+    padding: 10px 0 0 26px;
+    color: #8B8F94;
+  }
+  h1, h2 {
+    color: #8B8F94;
+    font-weight: 400;
+  }
+  h3 {
+    font-size: 1.57143em;
+    font-weight: 300;
+    line-height: 1.45455em;
+    color: #162633;
+    text-shadow: 0 0.0357143em 0 rgba(255, 255, 255, 0.5);
+  }
+  #form-content {
+    border-top: 1px solid #CFD4D7;
+    border-bottom: 1px solid #CFD4D7;
+    padding: 30px 0;
+    margin: 0 0 20px 0;
+  }
+  label {
+    color: #8B8F94;
+    display: block;
+    font-weight: 500;
+  }
+  .create-account-btn {
+    margin-right: 15px;
+  }
+  #form-options {
+    margin-bottom: 40px;
+  }
+  #already-have-account {
+    border-top: 1px solid #CFD4D7;
+    padding-top: 20px;
+    color: #8B8F94;
+  }
+  #already-have-account .btn {
+    margin: 30px 0 20px;
+  }
 }
