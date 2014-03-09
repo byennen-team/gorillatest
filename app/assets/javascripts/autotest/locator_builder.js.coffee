@@ -3,7 +3,7 @@ class @AutoTestLocatorBuilder
   constructor: (@element) ->
 
   build: ->
-    if $(@element).attr("id")
+    if $(@element).attr("id") && this.idIsUnique()
       return new AutoTestLocator "id", $(@element).attr("id")
     else if $(@element).attr("name") && this.nameIsUnique()
       return new AutoTestLocator "name", $(@element).attr("name")
@@ -12,8 +12,11 @@ class @AutoTestLocatorBuilder
     else
       return new AutoTestLocator "xpath", this.buildXpath()
 
+  idIsUnique: ->
+    $("[id='#{$(@element).attr("id")}']").length == 1
+
   nameIsUnique: ->
-    if $("[name='#{$(@element).attr("name")}']").length == 1 then true else false
+    $("[name='#{$(@element).attr("name")}']").length == 1
 
   linkTextisUnique: ->
     unique = true
@@ -44,6 +47,7 @@ class @AutoTestLocatorBuilder
       paths.splice(0, 0, tagName + pathIndex)
       element = element.parentNode
 
+    console.log(paths)
     if paths.length
       return "/" + paths.join("/")
     else
