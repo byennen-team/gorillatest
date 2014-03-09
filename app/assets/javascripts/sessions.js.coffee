@@ -1,6 +1,6 @@
 $(document).ready ->
   $("#login-box").animate
-    top:'+=50',
+    top:'+=20',
     opacity:'1.0',
     1000, 'easeInExpo'
 
