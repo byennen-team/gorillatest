@@ -13,13 +13,12 @@
   .panel-body.terminal
     / %p Starting test...
     %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{@test_run.scenario.id.to_s}"}
-      - if test.status != nil
-        - test.steps.each do |step|
-          %li
-            = status_glyph(step.status)
-            = step.to_s
-            -if step.status == "fail"
-              (
-              = link_to "View Screenshot", "https://s3-us-west-2.amazonaws.com/autotestio-#{Rails.env}/#{test.screenshot_filename}", target: "_blank", class: "screenshot-link"
-              )
+      - test.test_history.history_line_items.each.each do |step|
+        %li
+          = status_glyph(step.status)
+          = step.text
+          -if step.status == "fail"
+            (
+            = link_to "View Screenshot", "https://s3-us-west-2.amazonaws.com/autotestio-#{Rails.env}/#{test.screenshot_filename}", target: "_blank", class: "screenshot-link"
+            )
 
