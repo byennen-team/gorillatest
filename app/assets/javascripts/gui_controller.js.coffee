@@ -115,7 +115,6 @@ AutoTestGuiController = {
     $("#step-count-text").hide()
     $("#step-count").text('')
     $("#step-count").hide()
-    $("#autotest-steps").html('')
     $("#stop-recording").hide()
     $("#start-text-highlight").hide()
     $("#stop-record-text-highlight").hide()
