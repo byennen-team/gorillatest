@@ -26,6 +26,7 @@ gem 'crack'
 gem 'tinder'
 gem 'mail_view'
 gem 'mongoid_slug'
+gem 'stripe'
 
 # Devise
 gem 'devise'

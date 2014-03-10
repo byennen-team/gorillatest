@@ -42,9 +42,11 @@ class User
   field :provider, type: String
   field :uid, type: String
 
+  field :stripe_customer_token, type: String
+
   index( {invitation_token: 1}, {background: true} )
   index( {invitation_by_id: 1}, {background: true} )
-  # index( {confirmation_token: 1}, {background: true} ) # TODO: errors out when running rake db:mongoid:create_indexes
+  # index( {confirmation_token: 1}, {background: true} ) # TODO: errors out when running rake db:mongoid:key => "value", create_indexes
 
 
   ## Lockable
@@ -66,6 +68,7 @@ class User
   has_many :testing_allowances, as: :timeable
 
   validates :first_name, :last_name, :email, :password, :password_confirmation, presence: { message: "can't be blank"}
+  has_one :credit_card
 
   belongs_to :plan
 
@@ -159,6 +162,16 @@ class User
 
   def current_allowance
     testing_allowances.current_month
+  end
+
+  def create_or_retrieve_stripe_customer
+    unless stripe_customer_token.nil?
+      customer = Stripe::Customer.retrieve(stripe_customer_token)
+    else
+      customer = Stripe::Customer.create(description: "#{first_name} #{last_name}", email: email)
+      update_attribute(:stripe_customer_token, customer.id)
+    end
+    customer
   end
 
   private
