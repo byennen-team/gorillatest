@@ -23,6 +23,8 @@ Autotest::Application.routes.draw do
   devise_scope :user do
     get "/login" => "sessions#new"
     get '/get-started' => 'registrations#new', as: 'get_started'
+    post "/upgrade/:plan_id" => 'registrations#upgrade', as: 'upgrade'
+    get '/upgrade/:plan_id' => "registrations#upgrade", as: "get_upgrade"
   end
 
   # get 'dashboard', to: "dashboard#index.html.haml"

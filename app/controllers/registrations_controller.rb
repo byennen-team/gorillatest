@@ -10,6 +10,20 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  def upgrade
+    @plan = Plan.find(params[:plan_id])
+    if request.post?
+      if current_user.credit_card
+        current_user.upgrade_plan(plan)
+      # Just update the plan
+      else
+        # create the credit card and stuff
+      end
+    else
+
+    end
+  end
+
   protected
 
   def after_sign_up_path_for(resource)

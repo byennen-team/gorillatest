@@ -30,7 +30,10 @@
                   (Current)
                 - else
                   - if plan.id > current_user.plan.id
-                    %a{href: "#billing-modal", data: {toggle: "modal"}} Upgrade Now
+                    - if current_user.credit_card
+                      = link_to "Upgrade Now", upgrade_path(plan.id.to_s), method: :post
+                    - else
+                      = link_to "Upgrade Now", get_upgrade_path(plan.id.to_s)
 
         = form_tag redeem_coupon_path, method: :post do
           %p
