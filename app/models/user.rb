@@ -65,7 +65,7 @@ class User
 
   has_many :testing_allowances, as: :timeable
 
-  validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
+  validates :first_name, :last_name, :email, :password, :password_confirmation, presence: { message: "can't be blank"}
 
   belongs_to :plan
 

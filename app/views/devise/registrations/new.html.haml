@@ -1,3 +1,6 @@
+- content_for :head do
+  = javascript_include_tag 'forms/registration'
+
 .container
   .row
     .col-md-12
@@ -17,18 +20,18 @@
           %h3 The basics
       .row
         .col-md-8
-          = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {:class => 'form-vertical' }) do |f|
+          = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {class: 'form-vertical', id: 'registration-form' }) do |f|
             = f.error_notification
             = devise_error_messages!
             #form-content.row
               .col-md-6
-                = f.input :first_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[], "first_name")}
-                = f.input :email, required: false
+                = f.input :first_name
+                = f.input :email
                 = f.input :password
 
               .col-md-6
-                = f.input :last_name, required: false, input_html: {value: session["devise.user_attributes"].try(:[],"last_name")}
-                = f.input :company_name, label: 'Company Name', required: false
+                = f.input :last_name
+                = f.input :company_name, label: 'Company Name'
                 = f.input :password_confirmation
             #form-options.row
               .col-md-12
