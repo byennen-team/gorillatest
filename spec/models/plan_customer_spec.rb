@@ -1,19 +1,28 @@
 require 'spec_helper'
 
 describe PlanCustomer do
-  class Subject
-    include Mongoid::Document
-    include Mongoid::Timestamps
-    include PlanCustomer
-  end
+  let(:user) { create(:user) }
 
-  subject { Subject.new }
-  it { should belong_to(:plan) }
-  it { should have_one(:credit_card) }
+  describe 'generates subscription when setting payment'
+
+  describe 'upgrade plan' do
+    context "qualifies for upgrade" do
+      it 'generates card charge for user and generates subscription' do
+
+      end
+      it 'changes plan on plan customer'
+      it 'changes plan on stripe customer subscription'
+    end
+    context "does not qualify for upgrade" do
+      it 'changes plan on plan customer' do
+
+      end
+      it 'changes plan on stripe customer subscription'
+    end
+  end
 
   describe 'creating stripe customer' do
 
-    let(:user) { create(:user) }
     let(:stripe_customer_token) {"12344555"}
     let(:customer) {stub('customer', {description: "#{user.first_name} #{user.last_name}",
                                       email: user.email,

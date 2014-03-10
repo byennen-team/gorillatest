@@ -17,11 +17,11 @@ class CreditCard
 
   before_validation :fetch_stripe_data
 
-
   private
 
   def fetch_stripe_data
     stripe_customer = user.create_or_retrieve_stripe_customer
+    user.subscribe_to(Plan.order(sort_option: :price).first.stripe_id)
     # begin
       stripe_card = stripe_customer.cards.create({card: self.stripe_token})
       self.stripe_id = stripe_card.id

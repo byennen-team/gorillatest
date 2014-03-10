@@ -5,15 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
 Plan.delete_all
 Plan.find_or_create_by(name: "Free", seconds_available: 3600, num_projects: 2,
                        concurrent_browsers: 2, num_users: 1, price: 0, stripe_id: "free")
 Plan.find_or_create_by(name: "Starter", seconds_available: 7200, num_projects: 3,
                        concurrent_browsers: 4, num_users: 2, price: 12.00, stripe_id: "starter")
 Plan.find_or_create_by(name: "Pro", seconds_available: 21600, num_projects: 10,
-                       concurrent_browsers: 5, num_users: 5, price: 37.00)
+                       concurrent_browsers: 5, num_users: 5, price: 37.00, stripe_id: "pro")
 Plan.find_or_create_by(name: "Team", seconds_available: 50400, num_projects:  50,
-                        concurrent_browsers: 15, num_users: 999, price: 68.00)
+                        concurrent_browsers: 15, num_users: 999, price: 68.00, stripe_id: "team")
 
-Coupon.find_or_create_by(code: "BETAUNLIMITED", to_plan: Plan.where(name: "Unlimited").first)
+Coupon.find_or_create_by(code: "BETAUNLIMITED", to_plan: Plan.where(name: "Starter").first)

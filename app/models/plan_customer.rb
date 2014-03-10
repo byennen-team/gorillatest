@@ -24,6 +24,22 @@ module PlanCustomer
     customer
   end
 
+  def subscribe_to(plan)
+    customer = create_or_retrieve_stripe_customer
+    customer.subscriptions.create(:plan => plan)
+  end
+
+  #def upgrade(plan)
+  #  if qualifies?(plan)
+  #    customer = create_or_retrieve_stripe_customer
+  #    subscription = customer.subscriptions.all.first
+  #    subscription.plan = plan
+  #    subscription.save
+  #    self.plan = plan
+  #    save!
+  #  end
+  #end
+
   private
 
   def assign_default_plan
