@@ -2,13 +2,14 @@ require 'digest/md5'
 
 class User
   include Mongoid::Document
-  rolify
   include Mongoid::Timestamps
+  include PlanCustomer
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable,
          :omniauthable, :confirmable, :registerable, omniauth_providers: [:google_oauth2, :github]
+  rolify
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -42,8 +43,6 @@ class User
   field :provider, type: String
   field :uid, type: String
 
-  field :stripe_customer_token, type: String
-
   index( {invitation_token: 1}, {background: true} )
   index( {invitation_by_id: 1}, {background: true} )
   # index( {confirmation_token: 1}, {background: true} ) # TODO: errors out when running rake db:mongoid:key => "value", create_indexes
@@ -68,17 +67,10 @@ class User
   has_many :testing_allowances, as: :timeable
 
   validates :first_name, :last_name, :email, :password, :password_confirmation, presence: { message: "can't be blank"}
-  has_one :credit_card
-
-  belongs_to :plan
-
-  delegate :seconds_available, to: :plan
-  delegate :minutes_available, to: :plan
 
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
-  after_create :assign_default_plan
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
@@ -164,22 +156,7 @@ class User
     testing_allowances.current_month
   end
 
-  def create_or_retrieve_stripe_customer
-    unless stripe_customer_token.nil?
-      customer = Stripe::Customer.retrieve(stripe_customer_token)
-    else
-      customer = Stripe::Customer.create(description: "#{first_name} #{last_name}", email: email)
-      update_attribute(:stripe_customer_token, customer.id)
-    end
-    customer
-  end
-
   private
-
-  def assign_default_plan
-    self.plan = Plan.where(name:"Free").first
-    self.save
-  end
 
   def gravatar_hash
     email_address = self.email.downcase

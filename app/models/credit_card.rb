@@ -24,7 +24,6 @@ class CreditCard
     stripe_customer = user.create_or_retrieve_stripe_customer
     # begin
       stripe_card = stripe_customer.cards.create({card: self.stripe_token})
-      puts stripe_card.inspect
       self.stripe_id = stripe_card.id
       self.last4 = stripe_card.last4
       self.cc_type = stripe_card.type
