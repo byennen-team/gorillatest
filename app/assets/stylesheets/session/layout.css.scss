@@ -42,6 +42,14 @@ body#sessions-new {
     margin-top: 20px;
     opacity: 0;
   }
+  .error {
+    color: #2D6CA2;
+    padding: 2px;
+  }
+  .valid {
+    color: green !important;
+    padding: 2px;
+  }
 }
 
 //registration
@@ -92,13 +100,14 @@ body#sessions-new {
   #already-have-account .btn {
     margin: 30px 0 20px;
   }
+  .error {
+    color: #2D6CA2;
+    padding: 2px;
+  }
+  .valid {
+    color: green !important;
+    padding: 2px;
+  }
 }
 
-.error {
-  color: #2D6CA2;
-  padding: 2px;
-}
-.valid {
-  color: green !important;
-  padding: 2px;
-}
+
