@@ -16,6 +16,15 @@ describe Plan do
     end
   end
 
+  context "free plan" do
+    let(:plan) { create(:plan, price: 0) }
+
+    it "#free? returns true" do
+      expect(plan.free?).to eq(true)
+    end
+
+  end
+
   context "limited plan" do
     let(:plan) { create(:plan) }
 

@@ -18,18 +18,20 @@
           = f.submit "Update", class: "btn btn-success"
       #change-plan.tab-pane
         %h2 Change My Plan
-        - if current_user.plan.unlimited?
-          You have unlimited testing minutes.
-        - else
-          %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
+        %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
 
         %h3 Upgrade your plan
         .row
           .col-md-12
-            %p Free
-            %p
-              Unlimited $1
-              %a{href: "#billing-modal", data: {toggle: "modal"}} Upgrade Now
+            - Plan.all.each do |plan|
+              %p
+                = plan.name
+                - if plan == current_user.plan
+                  (Current)
+                - else
+                  - if plan.id > current_user.plan.id
+                    %a{href: "#billing-modal", data: {toggle: "modal"}} Upgrade Now
+
         = form_tag redeem_coupon_path, method: :post do
           %p
             Please enter your coupon code: #{text_field_tag :coupon_code, nil, class: "coupon-input form-control"}

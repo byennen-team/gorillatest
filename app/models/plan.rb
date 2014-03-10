@@ -7,6 +7,10 @@ class Plan
   field :name, type: String
   field :price, type: Money
   field :seconds_available, type: Integer
+  field :num_projects, type: Integer
+  field :num_users, type: Integer
+  field :concurrent_browsers, type: Integer
+  field :stripe_id, type: String
 
   validates :name, :price, :seconds_available, presence: true
 
@@ -14,6 +18,10 @@ class Plan
 
   def unlimited?
     seconds_available == UNLIMITED_MINUTES
+  end
+
+  def free?
+    price == 0
   end
 
   def minutes_available

@@ -6,9 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Plan.delete_all
 Plan.find_or_create_by(name: "Free", seconds_available: 3600, num_projects: 2,
                        concurrent_browsers: 2, num_users: 1, price: 0, stripe_id: "free")
-Plan.find_or_create_by(name: "Starter", seconds_avaialable: 7200, num_projects: 3,
+Plan.find_or_create_by(name: "Starter", seconds_available: 7200, num_projects: 3,
                        concurrent_browsers: 4, num_users: 2, price: 12.00, stripe_id: "starter")
 Plan.find_or_create_by(name: "Pro", seconds_available: 21600, num_projects: 10,
                        concurrent_browsers: 5, num_users: 5, price: 37.00)
