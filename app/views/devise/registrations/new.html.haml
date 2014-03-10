@@ -23,16 +23,23 @@
           = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {class: 'form-vertical', id: 'registration-form' }) do |f|
             = f.error_notification
             = devise_error_messages!
-            #form-content.row
-              .col-md-6
-                = f.input :first_name
-                = f.input :email
-                = f.input :password
+            #form-content
+              .row
+                .col-md-6
+                  = f.input :first_name
+                .col-md-6
+                  = f.input :last_name
+              .row
+                .col-md-6
+                  = f.input :email
+                .col-md-6
+                  = f.input :company_name, label: 'Company Name'
+              .row
+                .col-md-6
+                  = f.input :password
+                .col-md-6
+                  = f.input :password_confirmation
 
-              .col-md-6
-                = f.input :last_name
-                = f.input :company_name, label: 'Company Name'
-                = f.input :password_confirmation
             #form-options.row
               .col-md-12
                 .pull-right= f.submit 'Create account', class: 'btn btn-primary create-account-btn'
