@@ -6,15 +6,15 @@ $(document).ready ->
         required: true
 
       last_name:
+        minlength: 2
         required: true
-        email: true
 
       email:
-        minlength: 2
+        email: true
         required: true
 
       password:
-        minlength: 2
+        minlength: 6
         required: true
 
     highlight: (element) ->

@@ -20,5 +20,6 @@
     = yield(:head)
     = csrf_meta_tags
   %body{:id => "#{controller_name}-#{action_name}"}
+    = render 'layouts/welcome/messages'
     = yield
     = analytics_init if Rails.env.production?

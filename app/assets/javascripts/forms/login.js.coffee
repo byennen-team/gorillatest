@@ -3,10 +3,11 @@ $(document).ready ->
     rules:
       email:
         required: true
+        email: true
 
       password:
+        minlength: 6
         required: true
-        email: true
 
     highlight: (element) ->
       $(element).closest(".control-group").removeClass("success").addClass "error"
