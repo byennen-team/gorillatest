@@ -7,6 +7,9 @@ class RegistrationsController < Devise::RegistrationsController
   #end
 
   def edit
+    if request.parameters.try(:[], "plan") == "maxed" && !current_user.can_create_project?
+      flash[:notice] = I18n.t "devise.projects.max_number_reached"
+    end
     super
   end
 

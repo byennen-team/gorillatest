@@ -44,6 +44,10 @@ module PlanCustomer
     customer.subscriptions.first
   end
 
+  def can_create_project?
+    self.owned_projects.count < self.plan.num_projects
+  end
+
   private
 
   def assign_default_plan
