@@ -180,7 +180,13 @@ $(document).ready () ->
     $this = $wrapper.appendTo(parent)
     $this.removeClass("hide")
 
-    $this.bPopup()
+    $this.bPopup
+      onOpen: ()->
+        input = $this.find("input")
+        button = $this.find("button#create-feature")
+        $(input).keypress (e)->
+          if e.which == 13 && $(button).attr("disabled") != "disabled"
+            $(button).trigger("click")
 
     $(".autotest-modal-close, .autotest-modal-close-x").click ->
       $(this).closest(".autotest-modal").bPopup().close()
