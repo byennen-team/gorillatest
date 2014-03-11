@@ -19,6 +19,8 @@
       #change-plan.tab-pane
         = render 'devise/registrations/plan_options'
 
+        %p You have used #{current_user.invitations_sent_count} of your #{current_user.plan.num_users-1} available invitations.
+
         %h3 Upgrade your plan
         .row
           .col-md-12

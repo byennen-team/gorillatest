@@ -14,6 +14,10 @@ describe User do
     user.name.should eq user.first_name + " " + user.last_name
   end
 
+  it "has default free plan assigned" do
+    expect(user.plan).to_not be_nil
+  end
+
   it "#gravatar_url returns correct gravatar image url" do
     hash = Digest::MD5.hexdigest(user.email.downcase)
     expect(user.gravatar_url(16)).to eq "https://www.gravatar.com/avatar/#{hash}?s=16"
@@ -46,6 +50,43 @@ describe User do
     it "sends project invitation" do
       InvitationMailer.expects(:send_project_invitation).with(invited_user.id, user.id, project.id).returns(mailer)
       invited_user.send_project_invitation(user.id, project.id)
+    end
+  end
+
+  context "invitations limit" do
+    describe "for user on free plan" do
+      let!(:free_user) { create(:user) }
+
+      it "should have no invitations to give out" do
+        expect(free_user.invitation_limit).to eq free_user.plan.num_users - 1
+      end
+    end
+
+    describe "for user on paid plan" do
+      let!(:paying_user) { create(:user) }
+      let(:plan) { create(:plan, num_users: 3) }
+
+      before do
+        paying_user.upgrade_plan(plan)
+      end
+
+      it "should have invites to send out" do
+        expect(paying_user.invitation_limit).to eq plan.num_users - 1
+      end
+    end
+
+    describe "increases when upgrading plan" do
+      let!(:inviting_user) { create(:user) }
+      let!(:invited_user) { create(:user, invited_by_id: inviting_user.id) }
+      let(:upgrade_plan) { create(:plan, num_users: 5)}
+
+      before do
+        inviting_user.upgrade_plan(upgrade_plan)
+      end
+
+      it "increases minus invitations already sent out" do
+        expect(inviting_user.invitation_limit).to eq 3
+      end
     end
   end
 

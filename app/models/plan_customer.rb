@@ -48,10 +48,17 @@ module PlanCustomer
     self.owned_projects.count < self.plan.num_projects
   end
 
+  def upgrade_plan(plan)
+    self.plan = plan
+    self.invitation_limit = plan.num_users - invitations_sent_count - 1
+    self.save
+  end
+
   private
 
   def assign_default_plan
     self.plan = Plan.where(name:"Free").first
+    self.invitation_limit = self.plan.num_users - 1
     self.save
   end
 

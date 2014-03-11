@@ -21,6 +21,7 @@ class InvitationsController < Devise::InvitationsController
         @invited_user.send_project_invitation(current_user.id, project_id)
       end
     end
+    current_user.update_attribute(:invitation_limit, current_user.invitation_limit-1)
     respond_to do |format|
       format.html { redirect_to request.env["HTTP_REFERER"], notice: "Your invitation to #{@invited_user.email} has been sent."}
     end

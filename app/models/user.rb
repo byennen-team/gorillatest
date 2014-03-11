@@ -11,6 +11,7 @@ class User
          :omniauthable, :confirmable, :registerable, omniauth_providers: [:google_oauth2, :github]
   rolify
 
+
   ## Database authenticatable
   field :email,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
@@ -71,6 +72,7 @@ class User
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
+  after_invitation_accepted :assign_default_plan
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
@@ -80,6 +82,13 @@ class User
     InvitationMailer.send_project_invitation(self.id, inviter_id, project_id).deliver
   end
 
+  def has_invitations?
+    invitation_limit > 0
+  end
+
+  def invitations_sent_count
+    User.where(invited_by_id: id).count
+  end
 
   def gravatar_url(size)
     "https://www.gravatar.com/avatar/#{gravatar_hash}?s=#{size}"
