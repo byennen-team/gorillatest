@@ -51,4 +51,8 @@ class ApplicationController < ActionController::Base
   def find_scenario
     @scenario = @feature.scenarios.find(params[:scenario_id] || params[:id])
   end
+
+  def get_concurrency_limit
+    @concurrency_limit = current_user.plan.concurrent_browsers
+  end
 end
