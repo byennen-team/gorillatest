@@ -3,8 +3,10 @@ module PlanCustomer
   def self.included(some_class)
     some_class.class_eval do
       field :stripe_customer_token, type: String
+      field :stripe_subscription_token, type: String
 
       after_create :assign_default_plan
+      after_create :subscribe_to_plan
 
       belongs_to :plan
       has_one :credit_card
@@ -26,7 +28,14 @@ module PlanCustomer
 
   def subscribe_to(plan)
     customer = create_or_retrieve_stripe_customer
-    customer.subscriptions.create(:plan => plan)
+    if !stripe_subscription_token.nil?
+      subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
+      subscription.plan = plan.stripe_id
+      subscription.save
+    else
+      subscription = customer.subscriptions.create(plan: plan.stripe_id)
+    end
+    update_attribute(:stripe_subscription_token, subscription.id)
   end
 
   #def upgrade(plan)
@@ -47,5 +56,9 @@ module PlanCustomer
     self.save
   end
 
+  # Make sure they have a stripe customer and free plan
+  def subscribe_to_plan
+    subscribe_to(plan)
+  end
 
 end

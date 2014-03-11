@@ -69,6 +69,7 @@ describe Project do
 
     describe 'owners' do
 
+      let!(:plan)    { create(:plan, stripe_id: "free") }
       let(:user)    { create(:user) }
       let(:project) { create(:project) }
       let!(:project_user) { create(:project_user, project: project, user: user, rights: 'owner') }

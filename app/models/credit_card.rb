@@ -21,8 +21,9 @@ class CreditCard
 
   def fetch_stripe_data
     stripe_customer = user.create_or_retrieve_stripe_customer
-    user.subscribe_to(Plan.order(sort_option: :price).first.stripe_id)
-    # begin
+    Rails.logger.debug("stripe customer is #{stripe_customer.inspect}")
+    # user.subscribe_to(Plan.order(sort_option: :price).first.stripe_id)
+    begin
       stripe_card = stripe_customer.cards.create({card: self.stripe_token})
       self.stripe_id = stripe_card.id
       self.last4 = stripe_card.last4
@@ -30,10 +31,10 @@ class CreditCard
       self.name = stripe_card.name
       self.exp_month = stripe_card.exp_month
       self.exp_year = stripe_card.exp_year
-    # rescue Exception => e
-      # Rails.logger.error(e.inspect)
-      #errors.base(e.message)
-    # end
+    rescue Exception => e
+      Rails.logger.error(e.inspect)
+      # errors.base(e.message)
+    end
    end
 
 end

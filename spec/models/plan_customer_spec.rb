@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe PlanCustomer do
+  let!(:plan) { create(:plan, stripe_id: "free") }
   let(:user) { create(:user) }
 
   describe 'generates subscription when setting payment'
@@ -23,6 +24,7 @@ describe PlanCustomer do
 
   describe 'creating stripe customer' do
 
+    let!(:plan) { create(:plan, stripe_id: "free") }
     let(:stripe_customer_token) {"12344555"}
     let(:customer) {stub('customer', {description: "#{user.first_name} #{user.last_name}",
                                       email: user.email,

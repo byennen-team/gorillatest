@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
 
+  let!(:plan) { create(:plan, stripe_id: "free") }
   let(:user) {create(:user)}
 
   it "#name returns user's full name" do
@@ -111,7 +112,7 @@ describe User do
   end
 
   describe "testing allowance" do
-    let(:free_plan) { create(:plan) }
+    let(:free_plan) { create(:plan, stripe_id: "free") }
     let(:user) { create(:user, plan: free_plan) }
 
     context "with available minutes" do
