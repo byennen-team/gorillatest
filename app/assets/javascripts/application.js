@@ -5,6 +5,7 @@
 //= require userFlow
 //= require plugins/jquery.validate.min
 //= require plugins/jquery.easing.min
+//= require credit_card
 
 $(document).ready(function(){
   var target = window.location.hash
