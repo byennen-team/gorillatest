@@ -10,6 +10,7 @@
     = form_for CreditCard.new, url: upgrade_path(params[:plan_id]), html: {role: "form"} do |f|
       / #stripe_error{style: "color: red;"}
       /   %noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
+      #stripe_error
       .form-group
         = label_tag :name, "Name", class: "control-label"
         = text_field_tag :name, current_user.name, class: "form-control"

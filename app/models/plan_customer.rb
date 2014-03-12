@@ -53,6 +53,10 @@ module PlanCustomer
     update_attribute(:invitation_limit, plan.num_users-1-invitations_sent_count)
   end
 
+  def can_downgrade?(plan)
+    return false if current_user.projects > plan.num_projects
+  end
+
   private
 
   def assign_default_plan
