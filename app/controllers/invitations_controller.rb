@@ -1,6 +1,7 @@
 class InvitationsController < Devise::InvitationsController
 
   before_filter :authenticate_user!, except: [:edit, :update]
+  before_filter :ensure_user_has_invitations_remaining, only: [:create]
 
   def create
     project_id = params[:user][:project_id] ? params[:user].delete(:project_id) : nil
@@ -61,6 +62,12 @@ class InvitationsController < Devise::InvitationsController
   # end
 
   private
+
+  def ensure_user_has_invitations_remaining
+    unless current_user.has_invitations?
+      redirect_to :back, notice: "Sorry, you do not have any invitations remaining! Upgrade your plan to invite more users."
+    end
+  end
 
   def invitation_params
     params.require(:user).permit(:company_name, :phone, :password, :password_confirmation,
