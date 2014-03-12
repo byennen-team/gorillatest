@@ -31,23 +31,18 @@ module PlanCustomer
     if !stripe_subscription_token.nil?
       subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
       subscription.plan = plan.stripe_id
-      subscription.save
+      self.plan_id = plan.id
+      subscription.save && self.save
     else
       subscription = customer.subscriptions.create(plan: plan.stripe_id)
     end
     update_attribute(:stripe_subscription_token, subscription.id)
   end
 
-  #def upgrade(plan)
-  #  if qualifies?(plan)
-  #    customer = create_or_retrieve_stripe_customer
-  #    subscription = customer.subscriptions.all.first
-  #    subscription.plan = plan
-  #    subscription.save
-  #    self.plan = plan
-  #    save!
-  #  end
-  #end
+  def stripe_subscription
+    customer = create_or_retrieve_stripe_customer
+    customer.subscriptions.first
+  end
 
   private
 

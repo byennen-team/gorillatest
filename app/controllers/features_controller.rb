@@ -3,6 +3,7 @@ class FeaturesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_project
   before_filter :find_feature, except: [:index, :new, :create]
+  before_filter :get_concurrency_limit, only: [:index, :show]
 
   def index
     @features = @project.features

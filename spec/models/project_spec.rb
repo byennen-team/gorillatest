@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe Project do
 
+  let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
+                                           interval: 'month',
+                                           name: 'Free',
+                                           currency: 'usd',
+                                           id: 'free')}
+
   describe 'relations' do
 
     it { should have_many(:project_users) }

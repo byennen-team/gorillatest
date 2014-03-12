@@ -2,56 +2,65 @@ require 'spec_helper'
 
 describe PlanCustomer do
   let!(:plan) { create(:plan, stripe_id: "free") }
+  let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
+                                           interval: 'month',
+                                           name: 'Free',
+                                           currency: 'usd',
+                                           id: 'free')}
+
   let(:user) { create(:user) }
 
-  describe 'generates subscription when setting payment'
+  describe 'creating stripe customer and initial plan' do
 
-  describe 'upgrade plan' do
-    context "qualifies for upgrade" do
-      it 'generates card charge for user and generates subscription' do
+    let!(:plan) { create(:plan, stripe_id: "free") }
 
+    context 'stripe customer should be created w/ user' do
+
+      it "should have a stripe customer token" do
+         expect(user.stripe_customer_token).to_not be_nil
       end
-      it 'changes plan on plan customer'
-      it 'changes plan on stripe customer subscription'
-    end
-    context "does not qualify for upgrade" do
-      it 'changes plan on plan customer' do
 
+      it "should have a stipre_subscription_token" do
+        expect(user.stripe_subscription_token).to_not be_nil
       end
-      it 'changes plan on stripe customer subscription'
+
+      it "should have be subscribed to a free plan" do
+        expect(user.plan).to eq(plan)
+      end
+
+      it "should have a stripe subscription that is for a free plan" do
+        expect(user.stripe_subscription.id).to eq(user.stripe_subscription_token)
+      end
+
     end
   end
 
-  describe 'creating stripe customer' do
+  describe 'upgrade plan' do
 
-    let!(:plan) { create(:plan, stripe_id: "free") }
-    let(:stripe_customer_token) {"12344555"}
-    let(:customer) {stub('customer', {description: "#{user.first_name} #{user.last_name}",
-                                      email: user.email,
-                                      id: stripe_customer_token})}
-    context 'without being a current stripe customer' do
-      before do
-        Stripe::Customer.expects(:create).with(email: user.email, description: "#{user.first_name} #{user.last_name}").returns(customer)
-      end
+      let!(:non_free_plan)       { create(:plan, name: "Starter", price: 12.00, stripe_id: "starter")}
+      let!(:stripe_starter_plan) { Stripe::Plan.create(amount: 1200,
+                                                       interval: 'month',
+                                                       name: 'Starter',
+                                                       currency: 'usd',
+                                                       id: 'starter')}
+      let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
+      let!(:user)                 { create(:user) }
+      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
 
-      it "should create and return stripe user" do
-        stripe_customer = user.create_or_retrieve_stripe_customer
-        stripe_customer.should == customer
-        user.reload.stripe_customer_token.should_not be_nil
-      end
-
+    before do
+      # Update the stripe customer card default mocking doesn't set default card
+      stripe_customer = user.create_or_retrieve_stripe_customer
+      stripe_customer.default_card = user_credit_card.stripe_id
+      stripe_customer.save
+      user.subscribe_to(non_free_plan)
     end
 
-    context 'with being a current stripe customer' do
-      before do
-        user.update_attribute(:stripe_customer_token, stripe_customer_token)
-        Stripe::Customer.expects(:retrieve).with(stripe_customer_token).returns(customer)
-      end
+    it "should have an upgraded plan" do
+      expect(user.plan).to eq(non_free_plan)
+    end
 
-      it "should return stripe user" do
-        stripe_customer = user.create_or_retrieve_stripe_customer
-        stripe_customer.should == customer
-      end
+    it "should have an upgraded stripe plan" do
+      expect(user.stripe_subscription.plan.id).to eq(stripe_starter_plan.id)
     end
 
   end

@@ -84,4 +84,5 @@ group :development, :test do
   gem 'simplecov'
   gem 'fuubar'
   gem 'mocha'
+  gem 'stripe-ruby-mock'
 end

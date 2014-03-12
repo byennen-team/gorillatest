@@ -33,11 +33,21 @@ $(document).ready ()->
 
   bindChannels()
   $("input[type='checkbox']").on "change", () ->
-    button = $(this).closest("form.scenario-run").find("input.run-test")
-    if $(this).closest("form.scenario-run").find("input:checked").length > 0
-      button.removeAttr("disabled")
-    else
-      button.attr("disabled", true)
+    switchRunTestButton(this)
+
+switchRunTestButton = (el)->
+  button = $(el).closest("form.scenario-run").find("input.run-test")
+  concurrencyLimit = parseInt $(".concurrency-limit").text()
+  numChecked = $(el).closest("form.scenario-run").find("input:checked").length
+
+  if numChecked > concurrencyLimit
+    button.attr("disabled", true)
+    button.siblings(".concurrency-warning").removeClass("hide")
+  else if $(el).closest("form.scenario-run").find("input:checked").length > 0
+    button.siblings(".concurrency-warning").addClass("hide")
+    button.removeAttr("disabled")
+  else
+    button.attr("disabled", true)
 
 bindChannels = ()->
   _.each window.channels, (channel)->

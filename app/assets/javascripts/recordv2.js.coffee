@@ -180,7 +180,21 @@ $(document).ready () ->
     $this = $wrapper.appendTo(parent)
     $this.removeClass("hide")
 
-    $this.bPopup()
+    $this.bPopup
+      onOpen: ()->
+        input = $this.find("input")
+        if $this.find("button#create-feature").length == 1
+          button = $this.find("button#create-feature")
+        else
+          button = $this.find("button#start-recording")
+        $(input).keypress (e)->
+          e.stopPropagation()
+          if e.which == 13 && $(button).attr("disabled") != "disabled"
+            $(button).trigger("click")
+      onClose: ()->
+        input = $this.find("input")
+        $(input).unbind("blur")
+        $(input).unbind("keypress")
 
     $(".autotest-modal-close, .autotest-modal-close-x").click ->
       $(this).closest(".autotest-modal").bPopup().close()
