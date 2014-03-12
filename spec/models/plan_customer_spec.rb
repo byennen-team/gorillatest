@@ -7,27 +7,10 @@ describe PlanCustomer do
                                            name: 'Free',
                                            currency: 'usd',
                                            id: 'free')}
+
   let(:user) { create(:user) }
 
-  describe 'generates subscription when setting payment'
-
-  describe 'upgrade plan' do
-    context "qualifies for upgrade" do
-      it 'generates card charge for user and generates subscription' do
-
-      end
-      it 'changes plan on plan customer'
-      it 'changes plan on stripe customer subscription'
-    end
-    context "does not qualify for upgrade" do
-      it 'changes plan on plan customer' do
-
-      end
-      it 'changes plan on stripe customer subscription'
-    end
-  end
-
-  describe 'creating stripe customer' do
+  describe 'creating stripe customer and initial plan' do
 
     let!(:plan) { create(:plan, stripe_id: "free") }
 
@@ -49,6 +32,35 @@ describe PlanCustomer do
         expect(user.stripe_subscription.id).to eq(user.stripe_subscription_token)
       end
 
+    end
+  end
+
+  describe 'upgrade plan' do
+
+      let!(:non_free_plan)       { create(:plan, name: "Starter", price: 12.00, stripe_id: "starter")}
+      let!(:stripe_starter_plan) { Stripe::Plan.create(amount: 1200,
+                                                       interval: 'month',
+                                                       name: 'Starter',
+                                                       currency: 'usd',
+                                                       id: 'starter')}
+      let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
+      let!(:user)                 { create(:user) }
+      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+
+    before do
+      # Update the stripe customer card default mocking doesn't set default card
+      stripe_customer = user.create_or_retrieve_stripe_customer
+      stripe_customer.default_card = user_credit_card.stripe_id
+      stripe_customer.save
+      user.subscribe_to(non_free_plan)
+    end
+
+    it "should have an upgraded plan" do
+      expect(user.plan).to eq(non_free_plan)
+    end
+
+    it "should have an upgraded stripe plan" do
+      expect(user.stripe_subscription.plan.id).to eq(stripe_starter_plan.id)
     end
 
   end

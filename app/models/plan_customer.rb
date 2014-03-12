@@ -31,7 +31,8 @@ module PlanCustomer
     if !stripe_subscription_token.nil?
       subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
       subscription.plan = plan.stripe_id
-      subscription.save
+      self.plan_id = plan.id
+      subscription.save && self.save
     else
       subscription = customer.subscriptions.create(plan: plan.stripe_id)
     end

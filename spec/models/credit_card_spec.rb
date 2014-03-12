@@ -19,40 +19,30 @@ describe CreditCard do
 
     let!(:plan) { create(:plan, stripe_id: "free") }
     let!(:user) { create(:user) }
-    let(:credit_card) { stub('credit_card', id: "12345", name: "Donald Duck",
-                                            last4: "1111", type: "Visa",
-                                            exp_month: "04", exp_year: "2016") }
-    let(:stripe_customer_token) {"12344555"}
-    let(:customer) {stub('customer', description: "#{user.first_name} #{user.last_name}",
-                                     email: user.email,
-                                     id: stripe_customer_token,
-                                     subscriptions: [])}
-    let(:stripe_token) {"12233333"}
+    let(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242",
+                                                                exp_month: Time.now.month,
+                                                                exp_year: (Time.now+1.year).year,
+                                                                name: "Donald Duck",
+                                                                type: "Visa") }
+    let(:credit_card) { user.create_credit_card({stripe_token: stripe_card_token}) }
     let(:stripe_plan_id) { plan.stripe_id}
 
-    before do
-      user.update_attribute(:stripe_customer_token, stripe_customer_token)
-      Stripe::Customer.stubs(:retrieve).with(stripe_customer_token).returns(customer)
-      cards = stub('cards')
-      customer.stubs(:cards).returns(cards)
-      cards.stubs(:create).with({card: stripe_token}).returns(credit_card)
-      customer.subscriptions.stubs(:create).with(:plan => plan).returns(OpenStruct.new(plan: plan))
+    it "should store the payment info for the last 4" do
+      expect(credit_card.last4).to eq("4242")
     end
 
-    it "should store the payment info" do
-      cc = user.create_credit_card({stripe_token: stripe_token})
-      cc.last4.should == "1111"
-      cc.stripe_id.should == "12345"
-      cc.cc_type.should == "Visa"
-      cc.name.should == "Donald Duck"
+    it "should store the payment infor for the stripe id" do
+      expect(credit_card.stripe_id).to_not be_nil
     end
 
-    it "should create Stripe subscription to cheapest plan" do
-      # customer.subscriptions.expects(:create).with(:plan => plan).returns(OpenStruct.new(plan: plan.stripe_id))
-      # customer.subscriptions.stubs(:first).returns(OpenStruct.new(plan: plan.stripe_id))
-      # cc = user.create_credit_card({stripe_token: stripe_token})
-      # cc.user.create_or_retrieve_stripe_customer.subscriptions.first.plan.should == "free"
+    it "should store the payment info for the cc type" do
+      expect(credit_card.cc_type).to eq("Visa")
     end
+
+    it "should store the payment info for the cc name" do
+      expect(credit_card.name).to eq("Johnny App")
+    end
+
   end
 
 end
