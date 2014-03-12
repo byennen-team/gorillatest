@@ -1,5 +1,4 @@
 /*
- *= require_self
  *= require application/bootstrap_and_overrides
  *= require ./plugins/animate
  *= require ./plugins/jquery-gritter
@@ -9,4 +8,5 @@
  *= require application/dashboard
  *= require font-awesome
  *= require bootstrap-social
+ *= require application/new_layout
  */

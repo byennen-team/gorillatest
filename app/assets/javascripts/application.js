@@ -7,7 +7,7 @@
 //= require plugins/jquery.easing.min
 //= require credit_card
 
-  $(document).ready(function(){
+$(document).ready(function(){
   var target = window.location.hash
   if(target != ""){
     $("a[href='" + target + "']").tab("show")

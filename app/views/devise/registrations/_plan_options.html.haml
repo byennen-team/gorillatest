@@ -1,0 +1,204 @@
+.row
+  .col-sm-12
+    .well.well-light
+      .row
+        .col-sm-12
+          %h1 Change Your Plan
+          %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
+      .row
+        - Plan.all.each do |plan|
+          .col-xs-12.col-sm-6.col-md-3
+            .panel.panel-success.pricing-big
+              .panel-heading
+                %h3.panel-title
+                  = plan.name
+                  - if plan == current_user.plan
+                    (Current)
+              .panel-body.no-padding.text-align-center
+                .the-price
+                  %h1
+                    %strong FREE
+                .price-features
+                  %ul.list-unstyled.text-left
+                    %li
+                      %i.fa.fa-check.text-success
+                      2 years access
+                      %strong to all storage locations
+                    %li
+                      %i.fa.fa-check.text-success
+                      %strong Unlimited
+                      storage
+                    %li
+                      %i.fa.fa-check.text-success
+                      Limited
+                      %strong download quota
+                    %li
+                      %i.fa.fa-check.text-success
+                      %strong Cash on Delivery
+                    %li
+                      %i.fa.fa-check.text-success
+                      All time
+                      %strong updates
+                    %li
+                      %i.fa.fa-times.text-danger
+                      %strong Unlimited
+                      access to all files
+                    %li
+                      %i.fa.fa-times.text-danger
+                      %strong Allowed
+                      to be exclusing per sale
+              - unless plan == current_user.plan
+                - if plan.id > current_user.plan.id
+                  .panel-footer.text-align-center
+                    - if current_user.credit_card
+                      = link_to "Upgrade Now", upgrade_path(plan.id.to_s), method: :post, class: 'btn btn-primary btn-block'
+                    - else
+                      = link_to "Upgrade Now", get_upgrade_path(plan.id.to_s), class: 'btn btn-primary btn-block'
+
+
+
+
+        .col-xs-12.col-sm-6.col-md-3
+          .panel.panel-teal.pricing-big
+            .panel-heading
+              %h3.panel-title
+                Personal Project
+            .panel-body.no-padding.text-align-center
+              .the-price
+                %h1
+                  $99
+                  %span.subscript / mo
+              .price-features
+                %ul.list-unstyled.text-left
+                  %li
+                    %i.fa.fa-check.text-success
+                    2 years access
+                    %strong to all storage locations
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Unlimited
+                    storage
+                  %li
+                    %i.fa.fa-check.text-success
+                    Superbig
+                    %strong download quota
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Cash on Delivery
+                  %li
+                    %i.fa.fa-check.text-success
+                    All time
+                    %strong updates
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Unlimited
+                    access to all files
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Allowed
+                    to be exclusing per sale
+            .panel-footer.text-align-center
+              %a.btn.btn-primary.btn-block{href: "javascript:void(0);", role: "button"}
+                Purchase
+                %span via Paypal
+              %div
+                %a{href: "javascript:void(0);"}
+                  %i We accept all major credit cards
+        .col-xs-12.col-sm-6.col-md-3
+          .panel.panel-primary.pricing-big
+            = image_tag('layout/ribbon.png', class: 'ribbon')
+            .panel-heading
+              %h3.panel-title
+                Developer Bundle
+            .panel-body.no-padding.text-align-center
+              .the-price
+                %h1
+                  $350
+                  %span.subscript / mo
+              .price-features
+                %ul.list-unstyled.text-left
+                  %li
+                    %i.fa.fa-check.text-success
+                    2 years access
+                    %strong to all storage locations
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Unlimited
+                    storage
+                  %li
+                    %i.fa.fa-check.text-success
+                    Superbig
+                    %strong download quota
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Cash on Delivery
+                  %li
+                    %i.fa.fa-check.text-success
+                    All time
+                    %strong updates
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Unlimited
+                    access to all files
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Allowed
+                    to be exclusing per sale
+            .panel-footer.text-align-center
+              %a.btn.btn-primary.btn-block{href: "javascript:void(0);", role: "button"}
+                Purchase
+                %span via Paypal
+              %div
+                %a{href: "javascript:void(0);"}
+                  %i We accept all major credit cards
+        .col-xs-12.col-sm-6.col-md-3
+          .panel.panel-darken.pricing-big
+            .panel-heading
+              %h3.panel-title
+                Premium Package
+            .panel-body.no-padding.text-align-center
+              .the-price
+                %h1
+                  $999
+                  %span.subscript / mo
+              .price-features
+                %ul.list-unstyled.text-left
+                  %li
+                    %i.fa.fa-check.text-success
+                    Lifetime access
+                    %strong to all storage locations
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Unlimited
+                    storage
+                  %li
+                    %i.fa.fa-check.text-success
+                    Superbig
+                    %strong download quota
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Cash on Delivery
+                  %li
+                    %i.fa.fa-check.text-success
+                    All time
+                    %strong updates
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Unlimited
+                    access to all files
+                  %li
+                    %i.fa.fa-check.text-success
+                    %strong Allowed
+                    to be exclusing per sale
+            .panel-footer.text-align-center
+              %a.btn.btn-primary.btn-block{href: "javascript:void(0);", role: "button"}
+                Purchase
+                %span via Paypal
+              %div
+                %a{href: "javascript:void(0);"}
+                  %i We accept all major credit cards
+      .row
+        .col-xs-12.col-sm-6.col-md-3
+          = simple_form_for redeem_coupon_path, :html => { :method => :post } do |f|
+            = f.input :coupon_code, class: 'coupon-input form-control'
+            = f.submit :submit, class: 'btn btn-success'
