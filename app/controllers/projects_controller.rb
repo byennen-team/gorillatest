@@ -135,7 +135,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:name, :url)
+    params.require(:project).permit(:name, :url, :basic_auth_username, :basic_auth_password)
   end
 
   def notification_params
