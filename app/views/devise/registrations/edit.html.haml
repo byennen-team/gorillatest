@@ -19,6 +19,25 @@
       #change-plan.tab-pane
         = render 'devise/registrations/plan_options'
 
+        %h3 Upgrade your plan
+        .row
+          .col-md-12
+            - Plan.all.each do |plan|
+              %p
+                = plan.name
+                - if plan == current_user.plan
+                  (Current)
+                - else
+                  - if plan.id > current_user.plan.id
+                    - if current_user.credit_card
+                      = link_to "Upgrade Now", upgrade_path(plan.id.to_s), method: :post
+                    - else
+                      = link_to "Upgrade Now", get_upgrade_path(plan.id.to_s)
+
+        / = form_tag redeem_coupon_path, method: :post do
+        /   %p
+        /     Please enter your coupon code: #{text_field_tag :coupon_code, nil, class: "coupon-input form-control"}
+        /     #{submit_tag "Redeem Coupon", class: 'btn btn-success'}
       #cancel-account.tab-pane
         %h2 Unhappy?
         %p{style: 'font-size: 1.4em'}
