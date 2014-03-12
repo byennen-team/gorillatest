@@ -13,6 +13,8 @@ class Project
   field :api_key, type: String
   field :script_verified, type: Boolean, default: false
   field :email_notification, type: String, default: "success"
+  field :basic_auth_username, type: String
+  field :basic_auth_password, type: String
 
   slug :name
 
@@ -26,7 +28,7 @@ class Project
 
   validates :name, presence: true, uniqueness: true
 
-  validates :url, url: true
+  validates :url, presence: true, url: true
 
   before_create :add_auth_key
 

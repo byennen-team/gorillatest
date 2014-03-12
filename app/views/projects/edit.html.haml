@@ -17,6 +17,8 @@
         = simple_form_for @project do |f|
           = f.input :name
           = f.input :url
+          = f.input :basic_auth_username
+          = f.input :basic_auth_password
           = f.submit "Save Project", class: "btn btn-success"
       #users.tab-pane
         %br
