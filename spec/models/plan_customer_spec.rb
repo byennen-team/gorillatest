@@ -37,15 +37,15 @@ describe PlanCustomer do
 
   describe 'upgrade plan' do
 
-      let!(:non_free_plan)       { create(:plan, name: "Starter", price: 12.00, stripe_id: "starter")}
-      let!(:stripe_starter_plan) { Stripe::Plan.create(amount: 1200,
-                                                       interval: 'month',
-                                                       name: 'Starter',
-                                                       currency: 'usd',
-                                                       id: 'starter')}
-      let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
-      let!(:user)                 { create(:user) }
-      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+    let!(:non_free_plan)       { create(:plan, name: "Starter", price: 12.00, stripe_id: "starter")}
+    let!(:stripe_starter_plan) { Stripe::Plan.create(amount: 1200,
+                                                     interval: 'month',
+                                                     name: 'Starter',
+                                                     currency: 'usd',
+                                                     id: 'starter')}
+    let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
+    let!(:user)                 { create(:user) }
+    let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
 
     before do
       # Update the stripe customer card default mocking doesn't set default card
