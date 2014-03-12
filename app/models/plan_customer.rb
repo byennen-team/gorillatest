@@ -38,6 +38,11 @@ module PlanCustomer
     update_attribute(:stripe_subscription_token, subscription.id)
   end
 
+  def stripe_subscription
+    customer = create_or_retrieve_stripe_customer
+    customer.subscriptions.first
+  end
+
   #def upgrade(plan)
   #  if qualifies?(plan)
   #    customer = create_or_retrieve_stripe_customer

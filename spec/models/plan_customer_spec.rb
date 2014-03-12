@@ -30,29 +30,26 @@ describe PlanCustomer do
   describe 'creating stripe customer' do
 
     let!(:plan) { create(:plan, stripe_id: "free") }
-    let(:stripe_customer_token) { "p_eroqweiruoqweiruoweiruw" }
 
-    context 'without being a current stripe customer' do
-      # before do
-      #   Stripe::Customer.expects(:create).with(email: user.email, description: "#{user.first_name} #{user.last_name}").returns(customer)
-      # end
+    context 'stripe customer should be created w/ user' do
 
-      it "should create and return stripe user" do
-        stripe_customer = user.create_or_retrieve_stripe_customer
-        user.reload.stripe_customer_token.should_not be_nil
+      it "should have a stripe customer token" do
+         expect(user.stripe_customer_token).to_not be_nil
+      end
+
+      it "should have a stipre_subscription_token" do
+        expect(user.stripe_subscription_token).to_not be_nil
+      end
+
+      it "should have be subscribed to a free plan" do
+        expect(user.plan).to eq(plan)
+      end
+
+      it "should have a stripe subscription that is for a free plan" do
+        expect(user.stripe_subscription.id).to eq(user.stripe_subscription_token)
       end
 
     end
-
-    # context 'with being a current stripe customer' do
-    #   before do
-    #     user.update_attribute(:stripe_customer_token, stripe_customer_token)
-    #   end
-
-    #   it "should return stripe user" do
-    #     stripe_customer = user.create_or_retrieve_stripe_customer
-    #   end
-    # end
 
   end
 
