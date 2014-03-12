@@ -44,17 +44,6 @@ module PlanCustomer
     customer.subscriptions.first
   end
 
-  #def upgrade(plan)
-  #  if qualifies?(plan)
-  #    customer = create_or_retrieve_stripe_customer
-  #    subscription = customer.subscriptions.all.first
-  #    subscription.plan = plan
-  #    subscription.save
-  #    self.plan = plan
-  #    save!
-  #  end
-  #end
-
   private
 
   def assign_default_plan

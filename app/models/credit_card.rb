@@ -15,11 +15,11 @@ class CreditCard
 
   validates :stripe_id, :name, :last4, :cc_type, presence: true
 
-  before_validation :fetch_stripe_data
+  before_validation :update_data_from_stripe
 
   private
 
-  def fetch_stripe_data
+  def update_data_from_stripe
     stripe_customer = user.create_or_retrieve_stripe_customer
     begin
       stripe_card = stripe_customer.cards.create({card: self.stripe_token})
