@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe CreditCard do
 
+  let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
+                                           interval: 'month',
+                                           name: 'Free',
+                                           currency: 'usd',
+                                           id: 'free')}
+
   it { should belong_to(:user) }
   it { should validate_presence_of(:stripe_id) }
   it { should validate_presence_of(:name) }

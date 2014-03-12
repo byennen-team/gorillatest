@@ -4,6 +4,11 @@ describe User do
 
   let!(:plan) { create(:plan, stripe_id: "free") }
   let(:user) {create(:user)}
+  let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
+                                           interval: 'month',
+                                           name: 'Free',
+                                           currency: 'usd',
+                                           id: 'free')}
 
   it "#name returns user's full name" do
     user.name.should eq user.first_name + " " + user.last_name
