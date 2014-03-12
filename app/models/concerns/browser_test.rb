@@ -96,7 +96,12 @@ module BrowserTest
             element.send(step.to_selenium, step.to_args)
           else
             if !element.displayed?
-              driver.execute_script("arguments[0].click()", element)
+              if current_step.event_type == "setElementSelected"
+                p "hidden SELECT"
+                driver.execute_script("arguments[0].value = arguments[1]", element, current_step.text)
+              else
+                driver.execute_script("arguments[0].click()", element)
+              end
             else
               element.send(step.to_selenium)
             end
