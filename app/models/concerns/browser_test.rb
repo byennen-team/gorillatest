@@ -41,7 +41,7 @@ module BrowserTest
   def driver
     selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
     #selenium_url = "http://127.0.0.1:4444/wd/hub"
-    platform = ENV['BROWSER_TEST_PLATFORM'] if ENV['BROWSER_TEST_PLATFORM']
+    # platform = ENV['BROWSER_TEST_PLATFORM'] if ENV['BROWSER_TEST_PLATFORM']
     case browser
     when 'firefox'
       cap = Selenium::WebDriver::Remote::Capabilities.firefox
@@ -97,7 +97,6 @@ module BrowserTest
           else
             if !element.displayed?
               if current_step.event_type == "setElementSelected"
-                p "hidden SELECT"
                 driver.execute_script("arguments[0].value = arguments[1]", element, current_step.text)
               else
                 driver.execute_script("arguments[0].click()", element)
@@ -173,7 +172,7 @@ module BrowserTest
       uri = URI(url)
       response = Net::HTTP.get_response(uri)
     end
-    response.code == "200" ? true : false
+    response.code.to_s == "200" ? true : false
   end
 
   def send_to_pusher(event="step_pass", message=nil)

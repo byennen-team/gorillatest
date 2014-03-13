@@ -11,7 +11,7 @@ class Step
 
   # override for http auth
   def text
-    if self.event_type == "waitForCurrentUrl" || self.event_type == "get"
+    if self.event_type == "get"
       project = scenario.project
       if !project.basic_auth_username.blank?
         url_match = self[:text].match(/(https?:\/\/)(.+)/)
@@ -23,7 +23,6 @@ class Step
       return self[:text]
     end
   end
-
 
   def to_selenium
     case event_type
