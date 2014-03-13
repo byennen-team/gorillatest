@@ -1,3 +1,10 @@
+-##name: "Team",
+-##price: {"cents"=>6800, "currency_iso"=>"USD"},
+-##seconds_available: 50400,
+-##num_projects: 50,
+-##num_users: 999,
+-##concurrent_browsers: 15,
+
 .row
   .col-sm-12
     .well.well-light
@@ -8,7 +15,9 @@
       .row
         - Plan.all.each do |plan|
           .col-xs-12.col-sm-6.col-md-3
-            .panel.panel-success.pricing-big
+            .panel.pricing-big
+              = plan.plan_style
+              = image_tag('layout/ribbon.png', class: 'ribbon') if plan.popular == true
               .panel-heading
                 %h3.panel-title
                   = plan.name
@@ -17,36 +26,53 @@
               .panel-body.no-padding.text-align-center
                 .the-price
                   %h1
-                    %strong FREE
+                    - if plan.price == "0.00"
+                      %strong FREE
+                    - else
+                      %strong
+                        = plan.price.symbol
+                        = plan.price
+                      %span.subscript / mo
                 .price-features
                   %ul.list-unstyled.text-left
                     %li
                       %i.fa.fa-check.text-success
-                      2 years access
-                      %strong to all storage locations
+                      %strong= plan.seconds_available
+                      Testing Time
                     %li
                       %i.fa.fa-check.text-success
-                      %strong Unlimited
-                      storage
+                      %strong= plan.num_projects
+                      Active Projects
                     %li
                       %i.fa.fa-check.text-success
-                      Limited
-                      %strong download quota
+                      %strong= plan.concurrent_browsers
+                      Concurrent Browsers
                     %li
                       %i.fa.fa-check.text-success
-                      %strong Cash on Delivery
+                      %strong= plan.num_users
+                      users
                     %li
                       %i.fa.fa-check.text-success
                       All time
                       %strong updates
                     %li
-                      %i.fa.fa-times.text-danger
-                      %strong Unlimited
-                      access to all files
+                      %i.fa.fa-check.text-success
+                      Element-level testing
+                    %li
+                      %i.fa.fa-check.text-success
+                      Real-time virtual browers
+                    %li
+                      %i.fa.fa-check.text-success
+                      Screenshots of test results
+                    %li
+                      %i.fa.fa-check.text-success
+                      Debugging tools
+                    %li
+                      %i.fa.fa-check.text-success
+                      Step by step reporting of page events
                     %li
                       %i.fa.fa-times.text-danger
-                      %strong Allowed
-                      to be exclusing per sale
+
               - unless plan == current_user.plan
                 - if plan.id > current_user.plan.id
                   .panel-footer.text-align-center

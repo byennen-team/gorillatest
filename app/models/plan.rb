@@ -5,12 +5,24 @@ class Plan
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :price, type: Money
+  field :price, type:   Money
   field :seconds_available, type: Integer
   field :num_projects, type: Integer
   field :num_users, type: Integer
   field :concurrent_browsers, type: Integer
   field :stripe_id, type: String
+  field :developer_mode, type: Boolean
+  field :import_selenium_scripts, type: Boolean
+  field :test_scheduling, type: Boolean
+  field :deploy_process, type: Boolean
+  field :popular, type: Boolean
+  field :plan_style, type: String
+
+
+  #Developer Mode
+  #Import Selenium Scripts
+  #Test Scheduling
+  #Integrate into Deploy Process
 
   validates :name, :price, :seconds_available, presence: true
 
