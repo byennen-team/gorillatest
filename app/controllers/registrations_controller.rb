@@ -34,7 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def downgrade
     @plan = Plan.find(params[:plan_id])
-    if current_user.subscribe_to(@plan)
+    if current_user.can_downgrade?(@plan) && current_user.subscribe_to(@plan)
       respond_to do |format|
         format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
       end
