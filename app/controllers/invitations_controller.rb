@@ -66,7 +66,8 @@ class InvitationsController < Devise::InvitationsController
     if params[:user][:project_id]
       @project = Project.find(params[:user][:project_id])
       if @project.creator.plan.num_users == @project.users.count
-      redirect_to :back, notice: "Sorry, you do not have any invitations remaining! Upgrade your plan to invite more users."
+        redirect_to :back, notice: "Sorry, you do not have any invitations remaining! Upgrade your plan to invite more users."
+      end
     end
   end
 
