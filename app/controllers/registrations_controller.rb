@@ -22,13 +22,13 @@ class RegistrationsController < Devise::RegistrationsController
         credit_card = current_user.create_credit_card({stripe_token: params[:stripe_token]})
       end
       current_user.subscribe_to(@plan)
+      if current_user.subscribe_to(@plan)
+        respond_to do |format|
+          format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
+        end
+      end
     else
 
-    end
-    if current_user.subscribe_to(@plan)
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
-      end
     end
   end
 
