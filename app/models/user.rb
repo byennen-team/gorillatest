@@ -61,7 +61,7 @@ class User
   field :first_name, type: String
   field :last_name, type: String
 
-  # has_many :projects
+  has_many :created_projects, class_name: "Project"
   has_many :project_users
   has_many :coupon_users
 

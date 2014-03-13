@@ -54,7 +54,14 @@ module PlanCustomer
   end
 
   def can_downgrade?(plan)
-    return false if current_user.projects > plan.num_projects
+    return false if self.owned_projects.length > plan.num_projects
+    # Project members
+    self.owned_projects.each do |project|
+     return false if project.users.length > plan.num_users
+    end
+    # Minutes used
+    return false if testing_allowances.current_month.seconds_used >= plan.seconds_available
+    return true
   end
 
   private
