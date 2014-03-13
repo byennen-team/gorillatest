@@ -54,6 +54,10 @@ class Project
     end
   end
 
+  def has_invitations_left?
+    creator.plan.num_users > users.count
+  end
+
   def users
     users = User.in(id: project_users.map(&:user_id)).all
     return users.to_a
