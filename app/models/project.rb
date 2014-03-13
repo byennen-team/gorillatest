@@ -5,6 +5,7 @@ class Project
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   include Mongoid::Slug
 
   field :name, type: String
@@ -23,8 +24,8 @@ class Project
   alias :creator :user
 
   has_many :features
-  has_many :project_users
-  has_many :test_runs, class_name: 'ProjectTestRun'
+  has_many :project_users, dependent: :destroy
+  has_many :test_runs, class_name: 'ProjectTestRun', dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 
