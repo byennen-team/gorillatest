@@ -165,8 +165,14 @@ module BrowserTest
   end
 
   def starting_url_success?(url)
-    uri = URI(url)
-    response = Net::HTTP.get_response(uri)
+    response = nil
+    if !test_run.project.basic_auth_username.blank?
+      auth = {username: test_run.project.basic_auth_username, password: test_run.project.basic_auth_password}
+      response = HTTParty.get(url, basic_auth: auth)
+    else
+      uri = URI(url)
+      response = Net::HTTP.get_response(uri)
+    end
     response.code == "200" ? true : false
   end
 
