@@ -41,6 +41,17 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def cancel_user
+    stripe_customer = current_user.create_or_retrieve_stripe_customer
+    stripe_customer.subscriptions.retrieve(current_user.stripe_subscription_token).delete()
+    user = current_user
+    user.destroy
+    Rails.logger.debug("user is destroyed")
+    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    # current_user.destroy
+    redirect_to "/"
+  end
+
   protected
 
   def after_sign_up_path_for(resource)

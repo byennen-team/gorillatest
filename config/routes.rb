@@ -26,6 +26,7 @@ Autotest::Application.routes.draw do
     post "/upgrade/:plan_id" => 'registrations#upgrade', as: 'upgrade'
     get '/upgrade/:plan_id' => "registrations#upgrade", as: "get_upgrade"
     get '/downgrade/:plan_id' => "registrations#downgrade", as: "get_downgrade"
+    post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 
   # get 'dashboard', to: "dashboard#index.html.haml"

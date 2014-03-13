@@ -3,7 +3,10 @@ require 'digest/md5'
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
+
   include PlanCustomer
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
