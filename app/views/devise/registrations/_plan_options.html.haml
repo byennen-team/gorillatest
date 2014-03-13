@@ -15,8 +15,7 @@
       .row
         - Plan.all.each do |plan|
           .col-xs-12.col-sm-6.col-md-3
-            .panel.pricing-big
-              = plan.plan_style
+            .panel.pricing-big{class: "#{plan.plan_style}"}
               = image_tag('layout/ribbon.png', class: 'ribbon') if plan.popular == true
               .panel-heading
                 %h3.panel-title
@@ -71,7 +70,30 @@
                       %i.fa.fa-check.text-success
                       Step by step reporting of page events
                     %li
-                      %i.fa.fa-times.text-danger
+                      - if plan.developer_mode == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Developer Mode
+                    %li
+                      - if plan.import_selenium_scripts == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Import Selenium Scripts
+                    %li
+                      - if plan.test_scheduling == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Test Scheduling
+                    %li
+                      - if plan.deploy_process == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Integrate into Deploy Process
+
 
               - unless plan == current_user.plan
                 - if plan.id > current_user.plan.id
@@ -83,146 +105,6 @@
 
 
 
-
-        .col-xs-12.col-sm-6.col-md-3
-          .panel.panel-teal.pricing-big
-            .panel-heading
-              %h3.panel-title
-                Personal Project
-            .panel-body.no-padding.text-align-center
-              .the-price
-                %h1
-                  $99
-                  %span.subscript / mo
-              .price-features
-                %ul.list-unstyled.text-left
-                  %li
-                    %i.fa.fa-check.text-success
-                    2 years access
-                    %strong to all storage locations
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Unlimited
-                    storage
-                  %li
-                    %i.fa.fa-check.text-success
-                    Superbig
-                    %strong download quota
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Cash on Delivery
-                  %li
-                    %i.fa.fa-check.text-success
-                    All time
-                    %strong updates
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Unlimited
-                    access to all files
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Allowed
-                    to be exclusing per sale
-            .panel-footer.text-align-center
-              %a.btn.btn-primary.btn-block{href: "javascript:void(0);", role: "button"}
-                Purchase
-                %span via Paypal
-              %div
-                %a{href: "javascript:void(0);"}
-                  %i We accept all major credit cards
-        .col-xs-12.col-sm-6.col-md-3
-          .panel.panel-primary.pricing-big
-            = image_tag('layout/ribbon.png', class: 'ribbon')
-            .panel-heading
-              %h3.panel-title
-                Developer Bundle
-            .panel-body.no-padding.text-align-center
-              .the-price
-                %h1
-                  $350
-                  %span.subscript / mo
-              .price-features
-                %ul.list-unstyled.text-left
-                  %li
-                    %i.fa.fa-check.text-success
-                    2 years access
-                    %strong to all storage locations
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Unlimited
-                    storage
-                  %li
-                    %i.fa.fa-check.text-success
-                    Superbig
-                    %strong download quota
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Cash on Delivery
-                  %li
-                    %i.fa.fa-check.text-success
-                    All time
-                    %strong updates
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Unlimited
-                    access to all files
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Allowed
-                    to be exclusing per sale
-            .panel-footer.text-align-center
-              %a.btn.btn-primary.btn-block{href: "javascript:void(0);", role: "button"}
-                Purchase
-                %span via Paypal
-              %div
-                %a{href: "javascript:void(0);"}
-                  %i We accept all major credit cards
-        .col-xs-12.col-sm-6.col-md-3
-          .panel.panel-darken.pricing-big
-            .panel-heading
-              %h3.panel-title
-                Premium Package
-            .panel-body.no-padding.text-align-center
-              .the-price
-                %h1
-                  $999
-                  %span.subscript / mo
-              .price-features
-                %ul.list-unstyled.text-left
-                  %li
-                    %i.fa.fa-check.text-success
-                    Lifetime access
-                    %strong to all storage locations
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Unlimited
-                    storage
-                  %li
-                    %i.fa.fa-check.text-success
-                    Superbig
-                    %strong download quota
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Cash on Delivery
-                  %li
-                    %i.fa.fa-check.text-success
-                    All time
-                    %strong updates
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Unlimited
-                    access to all files
-                  %li
-                    %i.fa.fa-check.text-success
-                    %strong Allowed
-                    to be exclusing per sale
-            .panel-footer.text-align-center
-              %a.btn.btn-primary.btn-block{href: "javascript:void(0);", role: "button"}
-                Purchase
-                %span via Paypal
-              %div
-                %a{href: "javascript:void(0);"}
-                  %i We accept all major credit cards
       .row
         .col-xs-12.col-sm-6.col-md-3
           = simple_form_for redeem_coupon_path, :html => { :method => :post } do |f|
