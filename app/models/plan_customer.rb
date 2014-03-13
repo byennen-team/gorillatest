@@ -48,7 +48,6 @@ module PlanCustomer
     self.owned_projects.count < self.plan.num_projects
   end
 
-
   def can_downgrade?(plan)
     return false if self.owned_projects.length > plan.num_projects
     # Project members
