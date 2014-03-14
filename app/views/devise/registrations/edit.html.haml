@@ -1,33 +1,32 @@
-.page-content.blocky
-  .container
-    = render 'sidebar'
-    %div.tab-content
-      #home.tab-pane.active
-        %h2 Edit User
-        = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-          = devise_error_messages!
 
-          = f.input :email
-          = f.input :first_name
-          = f.input :last_name
-          = f.input :phone
-          = f.input :location
-          = f.input :password
-          = f.input :password_confirmation
-          = f.input :current_password
-          = f.submit "Update", class: "btn btn-success"
-      #change-plan.tab-pane
-        = render 'devise/registrations/plan_options'
+= render 'sidebar'
+%div.tab-content
+  #home.tab-pane.active
+    %h2 Edit User
+    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+      = devise_error_messages!
 
-        %p You have used #{current_user.invitations_sent_count} of your #{current_user.plan.num_users-1} available invitations.
+      = f.input :email
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :phone
+      = f.input :location
+      = f.input :password
+      = f.input :password_confirmation
+      = f.input :current_password
+      = f.submit "Update", class: "btn btn-success"
+  #change-plan.tab-pane
+    = render 'shared/plan_options'
 
-      #cancel-account.tab-pane
-        %h2 Unhappy?
-        %p{style: 'font-size: 1.4em'}
-          We're sorry to see you go.  If there is anything we can help you with please
-          %a{href: "#"} contact us.
-        %br
-        = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-success"
+    %p You have used #{current_user.invitations_sent_count} of your #{current_user.plan.num_users-1} available invitations.
+
+  #cancel-account.tab-pane
+    %h2 Unhappy?
+    %p{style: 'font-size: 1.4em'}
+      We're sorry to see you go.  If there is anything we can help you with please
+      %a{href: "#"} contact us.
+    %br
+    = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-success"
 
 #billing-modal.modal.fade
   .modal-dialog

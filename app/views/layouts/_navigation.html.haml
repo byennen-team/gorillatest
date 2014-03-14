@@ -1,0 +1,56 @@
+%aside#left-panel
+  / User info
+  .login-info
+    %span
+      / User image size is adjusted inside CSS, it should stay as it
+      %a#show-shortcut{href: "javascript:void(0);"}
+        = gravatar_image_tag(current_user, 32)
+        %span
+          = current_user.name
+  %nav
+    %ul
+      %li.active
+        = link_to root_path do
+          %i.fa.fa-lg.fa-fw.fa-home
+          %span.menu-item-parent Dashboard
+
+      %li
+        = link_to projects_path do
+          %i.fa.fa-lg.fa-fw.fa-desktop
+          %span.menu-item-parent Projects
+
+      %li
+        %a{data: {toggle: "modal", target: "#invite-user"}}
+          %i.fa.fa-lg.fa-fw.fa-group
+          %span.menu-item-parent Invite Users
+
+      %li
+        = link_to "javascript:;" do
+          %i.fa.fa-lg.fa-fw.fa-bullhorn
+          %span.menu-item-parent Teams
+          .menu-item-parent.label.label-danger Coming Soon
+
+      %li
+        = link_to edit_user_registration_path do
+          %i.fa.fa-lg.fa-fw.fa-cog
+          %span.menu-item-parent Settings
+
+      %li
+        = link_to destroy_user_session_path, method: :delete do
+          %i.fa.fa-lg.fa-fw.fa-sign-out
+          %span.menu-item-parent Logout
+
+      -#%li
+      -#  %a{href: "#"}
+      -#    %i.fa.fa-lg.fa-fw.fa-bar-chart-o
+      -#    %span.menu-item-parent Graphs
+      -#  %ul
+      -#    %li
+      -#      %a{href: "flot.html"} Flot Chart
+      -#    %li
+      -#      %a{href: "morris.html"} Morris Charts
+      -#    %li
+      -#      %a{href: "inline-charts.html"} Inline Charts
+  %span.minifyme
+    %i.fa.fa-arrow-circle-left.hit
+/ END NAVIGATION

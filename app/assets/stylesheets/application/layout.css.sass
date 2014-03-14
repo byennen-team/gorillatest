@@ -1,872 +1,872 @@
-/* Basic CSS starts
-
-body
-  font-family: 'Open Sans', sans-serif
-  color: #444
-  font-size: 13px
-  line-height: 25px
-  -webkit-font-smoothing: antialiased
-  background: #fafafa
-
-h1, h2, h3, h4
-  font-family: 'Monda', sans-serif
-
-h5, h6
-  font-family: 'Open Sans', sans-serif
-
-p
-  margin: 0
-  padding: 0
-
-ul, ol
-  padding-left: 15px
-
-a
-  color: #419641
-  text-decoration: none
-  &:hover
-    color: #0fa6bc
-    text-decoration: none
-    border-bottom: 1px dotted #0fa6bc
-    outline: 0
-  &:active, &:focus
-    outline: 0
-
-hr!
-
-strong
-  font-family: 'Open Sans', sans-serif !important
-  font-weight: 600
-
-  \:focus
-  outline: none
-
-  \::-moz-focus-inner
-  border: 0
-
-.form *
-  font-size: 13px
-
-#myTab li.active a
-  color: #fff !important
-  background: #16cbe6 !important
-  border-color: #16cbe6 !important
-
-/* Basic CSS ends
-
-.container
-  width: 1200px
-
-.color
-  color: #16cbe6
-
-.sep-bor
-  border-top: 1px dashed #ccc
-  border-bottom: 1px dashed #ccc
-  margin: 20px 0px
-  height: 5px
-
-.sep
-  height: 5px
-  margin: 20px 0px
-  background: url("../img/sep.png") repeat
-
-.blocky
-  margin: 30px 0px
-
-.modal h4
-  font-family: "Open Sans", sans-serif
-  font-weight: bold
-  color: #777
-  font-size: 16px
-
-.pagination
-  margin: 5px 0px
-
-.page-title
-  margin: 0px 0px 10px 0px
-  i
-    font-size: 30px
-    margin-right: 5px
-  h2
-    font-size: 35px
-    margin: 0px
-    padding: 0px
-  small
-    font-size: 21px
-    margin-left: 5px
-
-.section-title h4
-  margin: 0px
-  padding: 0px
-  font-family: "Open Sans", sans-serif
-  font-size: 22px
-  margin-bottom: 5px
-  color: #777
-  padding-bottom: 10px
-  border-bottom: 1px solid #eee
-
-.btn-blue
-  color: #fff !important
-  background: #16cbe6
-  border: 1px solid #0fa6bc
-  border-bottom: 2px solid #0fa6bc
-  font-size: 13px
-  &:hover
-    color: #fff !important
-    background: #14b9d1
-    border: 1px solid #0fa6bc
-    border-bottom: 2px solid #0fa6bc
-    font-size: 13px
-
-.input-group .btn
-  margin-top: 0px !important
-
-/* CL Editor
-
-.cleditorMain
-  border: 1px solid #ccc
-  margin: 10px 0px
-  textarea, iframe
-    width: 100% !important
-
-/* Logo & Navigation
-
-.header
-  height: 70px
-  background: #6cbc16
-  border-top: 4px solid #419641
-  border-bottom: 1px solid #419641
-  .logo h1
-    font-size: 40px
-    margin: 0px
-    padding: 10px 0px
-    font-weight: 800
-    a
-      color: #fff
-      font-family: 'Open Sans Condensed', sans-serif
-      &:hover
-        color: #fff
-        text-decoration: none
-        border: 0px
-  .form
-    margin-top: 15px
-    width: 100%
-    max-width: 300px
-    margin: 15px auto
-  .navbar
-    *
-    box-shadow: none !important
-    .label
-      font-size: 12px
-      padding: 4px 8px
-      margin: 0px 2px
-      border-radius: 15px !important
-    background: none !important
-    border: 0px !important
-    i
-      margin-right: 3px
-    .nav > li > a
-      color: #fff !important
-      font-size: 13px !important
-      border-bottom: 0px !important
-      margin-top: 7px !important
-      font-weight: bold
-  .navbar-nav > .open > a
-    background: none !important
-    &:hover, &:focus
-      background: none !important
-  .navbar-collapse
-    border: 0px !important
-  .navbar-header
-    width: 43px
-    margin: 0 auto
-    button
-      color: #fff !important
-      padding: 5px 10px
-  .navbar-toggle
-    background-color: #1dc1da !important
-    border: 1px solid #0fa6bc !important
-    &:hover, &:focus
-      background-color: #0fa6bc !important
-      border: 1px solid #0fa6bc !important
-  .dropdown-menu
-    border-radius: 6px !important
-    background: #fff !important
-    li
-      font-size: 13px
-      padding: 6px 15px
-      border-bottom: 1px dashed #f3f3f3
-      a
-        color: #888
-        padding-left: 0px !important
-      &:last-child
-        border: 0px
-      a:hover
-        background: none !important
-        color: #666 !important
-        border: 0px !important
-  .dropdown-big
-    min-width: 300px
-    .dropdown-head
-      padding: 7px 15px
-      background: #fcfcfc
-      border-bottom: 1px solid #ddd
-      margin-top: -5px
-      border-top-left-radius: 5px
-      border-top-right-radius: 5px
-    .dropdown-title
-      font-size: 13px
-      font-weight: bold
-      color: #999
-    .dropdown-body
-      background: #fff
-    .dropdown-foot
-      padding: 7px 15px
-      background: #fcfcfc
-      border-top: 1px solid #ddd
-      margin-bottom: -5px
-      border-bottom-left-radius: 5px
-      border-bottom-right-radius: 5px
-      font-size: 12px
-      a
-        color: #888
-        &:hover
-          color: #555
-          border-bottom: 0px
-  .navbar-nav
-    .caret
-      border-top-color: #fff !important
-      border-bottom-color: #fff !important
-    > .open > a
-      .caret, &:hover .caret, &:focus .caret
-        border-top-color: #fff !important
-        border-bottom-color: #fff !important
-
-/* Sidebar navigation
-
-.sidey
-  margin-bottom: 30px
-  width: 220px
-  display: block
-  float: left
-  background: #fff
-  border-radius: 10px
-  padding: 10px
-  border-left: 1px solid #eee
-  border-top: 1px solid #eee
-  border-right: 2px solid #eee
-  border-bottom: 2px solid #eee
-  position: absolute
-  ul.nav
-    list-style: none
-    padding: 0px
-    margin: 0px
-    ul
-      list-style: none
-      padding: 0px
-      margin: 0px
-      margin: 0px
-      padding: 0px
-      display: none
-  .nav
-    li
-      &.open ul
-        display: block
-      a:hover, &.current > a
-        background: #fff
-        color: #555
-        border-bottom: 0px
-      &.open > a
-        background: #fff
-        border-bottom: 1px dashed #eee
-    > li
-      margin: 0
-      border-bottom: 1px dashed #eee
-      &:last-child
-        border-bottom: 0px
-      li
-        margin: 0
-        a
-          padding-left: 25px
-      >
-        a
-        font-size: 14px
-        line-height: 20px
-        padding: 15px 15px
-        color: #999
-        display: block
-        font-weight: bold
-        background: none
-        text-decoration: none
-        border-top: 0px
-        font-weight: bold
-        > i
-          margin-right: 5px
-        ul > li
-          > a
-            font-size: 13px
-            line-height: 20px
-            padding: 8px 10px 8px 40px
-            color: #999
-            background: #fff
-            display: block
-            text-decoration: none
-            border-top: 0px
-            font-weight: bold
-          &.active > a
-            background: #fff
-            border-top: 0px
-            color: #555
-          > a:hover
-            background: #fff
-            color: #555
-            border-bottom: 0px
-    a
-      .caret
-        float: right
-        width: 0
-        height: 0
-        display: inline-block
-        vertical-align: top
-        border-top: 4px solid #aaa
-        border-right: 4px solid transparent
-        border-left: 4px solid transparent
-        content: ""
-        margin-top: 8px
-        margin-left: 2px
-      &:hover .caret
-        border-top-color: #aaa
-    li.open > a
-      > .caret
-        border-top: none
-        border-bottom: 4px solid #aaa !important
-        border-right: 4px solid transparent
-        border-left: 4px solid transparent
-      &:hover > .caret
-        border-bottom-color: #aaa
-
-.sidebar-dropdown
-  display: none
-
-/* Main
-
-.mainy
-  position: relative
-  margin-left: 240px
-  margin-right: 0px
-  width: auto
-  min-height: 900px
-  .container
-    width: 100%
-
-/* Make post
-
-.make-post h5
-  margin: 0px
-  margin-bottom: 12px
-  padding: 0px
-  font-weight: bold
-
-/* Admin hero
-
-.admin-hero
-  color: #fff
-  margin: 10px 0px
-  hr
-    margin: 12px 0px
-    border-top: 1px solid #40d1e7
-  ul li
-    padding: 30px 30px
-    text-align: center
-    background: #16cbe6
-    height: 180px
-    margin: 5px 3px
-    border-radius: 5px
-    border: 1px solid #0fa6bc
-    h2
-      font-size: 40px
-      line-height: 40px
-      margin: 0px
-    .label
-      font-size: 15px
-      position: relative
-      top: -10px
-  .hero-icon
-    font-size: 40px
-    line-height: 58px
-
-/* Admin widget
-
-.awidget
-  background: #fff
-  margin: 10px 0px
-  padding: 5px
-  border-radius: 10px
-  border-left: 1px solid #eee
-  border-top: 1px solid #eee
-  border-bottom: 3px solid #eee
-  border-right: 3px solid #eee
-  .awidget-head
-    padding: 10px
-    h3
-      margin: 0px
-      font-family: "Open Sans", sans-serif
-      font-size: 15px
-      line-height: 25px
-      color: #666
-      margin-bottom: 10px
-      padding-bottom: 10px
-      border-bottom: 1px dashed #eee
-  .awidget-body
-    padding: 5px 12px
-    color: #777
-
-.chart-container
-  box-sizing: border-box
-  width: 100%
-  height: 300px
-
-.chart-placeholder
-  width: 100%
-  height: 100%
-
-#pie-chart, #pie-chart2, #pie-chart3
-  height: 250px
-  max-width: 100%
-
-/* Login & Register
-
-.login-reg
-  width: 100%
-  max-width: 500px
-  margin: 70px auto
-
-/* Admin media
-
-.admin-media img
-  max-width: 40px
-
-/* Recent Activity starts
-
-.activity
-  list-style-type: none
-  margin: 0px
-  padding: 0px
-  li
-    padding: 10px 10px
-    background-color: #fff
-    border-top: 1px dashed #eee
-    &:first-child
-      border-top: 0px
-  i
-    margin-right: 5px
-
-/* Google maps
-
-.gmap iframe
-  width: 100%
-  margin: 0px !important
-  padding: 0px !important
-
-/* Recent posts & Comments widgets starts
-
-.recent-content .btn
-  font-size: 12px !important
-  margin-top: 5px
-
-.recent-meta
-  font-size: 11px
-  color: #999
-
-.recent
-  list-style-type: none
-  margin: 0px
-  font-size: 13px
-  line-height: 22px
-  img
-    margin-top: 5px
-    margin-right: 10px
-    max-width: 50px
-  li
-    margin-bottom: 8px
-    padding-bottom: 8px
-    border-bottom: 1px dashed #eee
-
-/* Recent posts and comments widget ends
-
-/* Tasks starts
-
-.task
-  list-style-type: none
-  margin: 0px
-  padding: 0px
-  li
-    padding: 12px 10px
-    border-top: 1px dashed #eee
-    &:first-child
-      border-top: 0px
-  .label
-    margin-left: 5px
-  .btn
-    font-size: 11px !important
-
-/* Date & time picker
-
-.picker
-  padding: 4px
-  border-radius: 8px
-  border: 1px solid #999
-
-/* Slider
-
-#eq span
-  height: 120px
-  float: left
-  margin: 15px
-
-.ui-slider .ui-slider-handle
-  position: absolute
-  z-index: 2
-  width: 1.1em
-  height: 1.1em
-  cursor: default
-  background: #fafafa !important
-  border: 1px solid #ccc !important
-
-.ui-slider-horizontal
-  height: .5em
-  border: 0px solid #eee !important
-  background: #dfdfdf !important
-
-.ui-slider-vertical
-  height: 100px
-  width: 0.5em
-  border: 0px solid #fff !important
-  background: #dfdfdf !important
-
-#master1, #master2, #master3, #master4, #master5, #master6
-  width: 100%
-  margin: 15px 0px !important
-
-.slider-red .ui-widget-header
-  background: #dd514c !important
-  border-color: #dd514c !important
-
-.slider-blue .ui-widget-header
-  background: #36a5c6 !important
-  border-color: #36a5c6 !important
-
-.slider-green .ui-widget-header
-  background: #44c636 !important
-  border-color: #44c636 !important
-
-.slider-yellow .ui-widget-header
-  background: #fcd419 !important
-  border-color: #fcd419 !important
-
-.slider-orange .ui-widget-header
-  background: #fc9419 !important
-  border-color: #fc9419 !important
-
-.slider-violet .ui-widget-header
-  background: #9919fc !important
-  border-color: #9919fc !important
-
-/* Toggle button
-
-.make-switch
-  margin: 5px 0px
-
-/* Error log
-
-.error-log
-  height: 400px
-  overflow: auto
-  ul
-    list-style-type: none
-    margin: 0px
-    padding: 0px
-    li
-      padding: 10px 0px
-
-/* Table border
-
-.no-table-bor .table
-  thead > tr > th, tbody > tr > th, tfoot > tr > th, thead > tr > td, tbody > tr > td, tfoot > tr > td
-    border-bottom: 1px dashed #eee
-    border-top: 0px
-
-/* Portfolio
-
-.img-portfolio ul
-  margin: 0
-  padding: 0
-
-.portfolio li
-  display: inline !important
-  border: none !important
-  a
-    color: #777
-    padding: 5px 10px
-    margin: 0px 5px
-    &:visited
-      color: #777
-      padding: 5px 10px
-      margin: 0px 5px
-    &:hover
-      color: #555
-
-#portfolio
-  .element
-    margin: 20px 10px 10px 0px
-    padding: 0px
-    display: inline-block
-  a
-    color: #666
-    text-decoration: none
-    &:visited, &:hover
-      color: #666
-      text-decoration: none
-  img
-    width: 200px
-    max-width: 200px
-    height: 150px
-
-/* PrettyPhoto
-
-div.ppt
-  display: none !important
-
-/* Chat Widget starts
-
-.chats
-  list-style-type: none
-  margin: 0px
-  padding-left: 0px
-  li
-    margin-bottom: 8px
-    padding-bottom: 8px
-  .by-me
-    img
-      max-width: 40px
-      margin-top: 5px
-      margin-right: 10px
-    .chat-meta
-      font-size: 11px
-    .chat-content
-      margin-left: 60px
-      position: relative
-      background: #fcfcfc
-      padding: 7px 10px
-      font-size: 13px
-      border-radius: 5px
-      border: 1px solid #eee
-      &:after, &:before
-        right: 100%
-        border: solid transparent
-        content: " "
-        height: 0
-        width: 0
-        position: absolute
-      &:after
-        border-color: rgba(255, 255, 255, 1)
-        border-right-color: #16cbe6
-        border-width: 10px
-        top: 30%
-        margin-top: -10px
-      &:before
-        border-color: rgba(238, 238, 238, 0)
-        border-right-color: #ccc
-        border-width: 11px
-        top: 30%
-        margin-top: -11px
-  .by-other
-    img
-      max-width: 40px
-      margin-top: 5px
-      margin-left: 10px
-    .chat-meta
-      font-size: 11px
-      color: #999
-    .chat-content
-      margin-right: 60px
-      position: relative
-      background: #fcfcfc
-      padding: 7px 10px
-      font-size: 13px
-      border: 1px solid #eee
-      border-radius: 5px
-      &:after, &:before
-        left: 100%
-        border: solid transparent
-        content: " "
-        height: 0
-        width: 0
-        position: absolute
-        pointer-events: none
-      &:after
-        border-color: rgba(255, 255, 255, 1)
-        border-left-color: #16cbe6
-        border-width: 10px
-        top: 30%
-        margin-top: -10px
-      &:before
-        border-color: rgba(238, 238, 238, 0)
-        border-left-color: #ccc
-        border-width: 11px
-        top: 30%
-        margin-top: -11px
-
-/* Chat widget ends
-
-/* Project widget starts
-
-.project
-  list-style-type: none
-  margin: 0px !important
-  padding: 0px !important
-  li
-    padding-top: 10px
-    padding-bottom: 10px
-    border-top: 1px solid #ddd
-    &:first-child
-      border-top: 0px
-      padding-top: 0px
-      margin-top: 0px
-  p
-    font-weight: bold
-    margin: 0px !important
-    padding: 0px !important
-  input
-    margin-right: 3px
-    position: relative
-    top: 2px
-  .p-meta
-    font-size: 11px
-    font-weight: normal
-    margin-left: 20px !important
-    margin-bottom: 5px !important
-  .progress
-    margin: 0px !important
-    padding: 0px !important
-    margin-left: 20px !important
-
-/* Proejct widget ends
-
-/* Back to top
-
-.totop
-  position: fixed
-  bottom: 0px
-  right: 0px
-  z-index: 104400
-  background: #16cbe6
-  a
-    display: block
-    width: 30px
-    height: 30px
-    color: #fff
-    text-align: center
-    line-height: 30px
-    &:visited
-      display: block
-      width: 30px
-      height: 30px
-      color: #fff
-      text-align: center
-      line-height: 30px
-    &:hover
-      color: #eee
-      text-decoration: none
-
-/* Footer
-
-footer
-  background: #333333 url("../img/footer-back.png") repeat
-  border-top: 3px solid #ddd
-  box-shadow: inset 0px 0px 3px #111
-  color: #ccc
-  font-size: 14px
-  line-height: 25px
-  padding: 10px 0px 10px 0px
-  a
-    color: #eee
-    text-decoration: none
-    border-bottom: 1px dotted #888
-    &:hover
-      color: #aaa
-      text-decoration: none
-      border: 0px
-  hr
-    margin-top: 10px
-    margin-bottom: 10px
-    border-top: #000 1px solid
-    border-bottom: #212121 1px solid
-  .copy
-    font-size: 13px
-    margin: 15px 0px
-
-/* Responsive CSS
-
-/* Mobile phones
-@media (max-width: 480px)
-
-  /* Tablets
-  @media (max-width: 767px)
-    .container
-      width: 100%
-    .header
-      height: auto
-      padding: 15px 0px
-      .logo
-        text-align: center
-        padding-bottom: 10px
-      .navbar .nav > li > a:hover
-        background: #0fa6bc
-        border-radius: 5px
-    .navbar-toggle
-      margin-right: 0px !important
-
-  /* Desktop
-
-  @media (max-width: 991px)
-    .header
-      height: auto
-      padding: 15px 0px
-      .logo
-        text-align: center
-        padding-bottom: 10px
-      .form
-        margin: 10px auto
-    .sidey
-      margin-bottom: 30px
-      width: 100%
-      float: none
-      display: none
-      position: relative
-    .mainy
-      margin-left: 0px
-    .sidebar-dropdown
-      display: block
-      text-align: center
-      margin: 0 auto
-      margin-bottom: 10px
-      border-bottom: 1px dashed #eee
-      padding-bottom: 10px
-      a
-        color: #fff
-        background: #16cbe6
-        display: block
-        padding: 6px 12px
-        border-bottom: 0px
-        box-shadow: 0px 0px 1px #0fa6bc
-        border-radius: 10px
-        &:hover
-          color: #fff
-          background: #16cbe6
-          display: block
-          padding: 6px 12px
-          border-bottom: 0px
-          box-shadow: 0px 0px 1px #0fa6bc
-          border-radius: 10px
+///* Basic CSS starts
+//
+//body
+//  font-family: 'Open Sans', sans-serif
+//  color: #444
+//  font-size: 13px
+//  line-height: 25px
+//  -webkit-font-smoothing: antialiased
+//  background: #fafafa
+//
+//h1, h2, h3, h4
+//  font-family: 'Monda', sans-serif
+//
+//h5, h6
+//  font-family: 'Open Sans', sans-serif
+//
+//p
+//  margin: 0
+//  padding: 0
+//
+//ul, ol
+//  padding-left: 15px
+//
+//a
+//  color: #419641
+//  text-decoration: none
+//  &:hover
+//    color: #0fa6bc
+//    text-decoration: none
+//    border-bottom: 1px dotted #0fa6bc
+//    outline: 0
+//  &:active, &:focus
+//    outline: 0
+//
+//hr!
+//
+//strong
+//  font-family: 'Open Sans', sans-serif !important
+//  font-weight: 600
+//
+//  \:focus
+//  outline: none
+//
+//  \::-moz-focus-inner
+//  border: 0
+//
+//.form *
+//  font-size: 13px
+//
+//#myTab li.active a
+//  color: #fff !important
+//  background: #16cbe6 !important
+//  border-color: #16cbe6 !important
+//
+///* Basic CSS ends
+//
+//.container
+//  width: 1200px
+//
+//.color
+//  color: #16cbe6
+//
+//.sep-bor
+//  border-top: 1px dashed #ccc
+//  border-bottom: 1px dashed #ccc
+//  margin: 20px 0px
+//  height: 5px
+//
+//.sep
+//  height: 5px
+//  margin: 20px 0px
+//  background: url("../img/sep.png") repeat
+//
+//.blocky
+//  margin: 30px 0px
+//
+//.modal h4
+//  font-family: "Open Sans", sans-serif
+//  font-weight: bold
+//  color: #777
+//  font-size: 16px
+//
+//.pagination
+//  margin: 5px 0px
+//
+//.page-title
+//  margin: 0px 0px 10px 0px
+//  i
+//    font-size: 30px
+//    margin-right: 5px
+//  h2
+//    font-size: 35px
+//    margin: 0px
+//    padding: 0px
+//  small
+//    font-size: 21px
+//    margin-left: 5px
+//
+//.section-title h4
+//  margin: 0px
+//  padding: 0px
+//  font-family: "Open Sans", sans-serif
+//  font-size: 22px
+//  margin-bottom: 5px
+//  color: #777
+//  padding-bottom: 10px
+//  border-bottom: 1px solid #eee
+//
+//.btn-blue
+//  color: #fff !important
+//  background: #16cbe6
+//  border: 1px solid #0fa6bc
+//  border-bottom: 2px solid #0fa6bc
+//  font-size: 13px
+//  &:hover
+//    color: #fff !important
+//    background: #14b9d1
+//    border: 1px solid #0fa6bc
+//    border-bottom: 2px solid #0fa6bc
+//    font-size: 13px
+//
+//.input-group .btn
+//  margin-top: 0px !important
+//
+///* CL Editor
+//
+//.cleditorMain
+//  border: 1px solid #ccc
+//  margin: 10px 0px
+//  textarea, iframe
+//    width: 100% !important
+//
+///* Logo & Navigation
+//
+//.header
+//  height: 70px
+//  background: #6cbc16
+//  border-top: 4px solid #419641
+//  border-bottom: 1px solid #419641
+//  .logo h1
+//    font-size: 40px
+//    margin: 0px
+//    padding: 10px 0px
+//    font-weight: 800
+//    a
+//      color: #fff
+//      font-family: 'Open Sans Condensed', sans-serif
+//      &:hover
+//        color: #fff
+//        text-decoration: none
+//        border: 0px
+//  .form
+//    margin-top: 15px
+//    width: 100%
+//    max-width: 300px
+//    margin: 15px auto
+//  .navbar
+//    *
+//    box-shadow: none !important
+//    .label
+//      font-size: 12px
+//      padding: 4px 8px
+//      margin: 0px 2px
+//      border-radius: 15px !important
+//    background: none !important
+//    border: 0px !important
+//    i
+//      margin-right: 3px
+//    .nav > li > a
+//      color: #fff !important
+//      font-size: 13px !important
+//      border-bottom: 0px !important
+//      margin-top: 7px !important
+//      font-weight: bold
+//  .navbar-nav > .open > a
+//    background: none !important
+//    &:hover, &:focus
+//      background: none !important
+//  .navbar-collapse
+//    border: 0px !important
+//  .navbar-header
+//    width: 43px
+//    margin: 0 auto
+//    button
+//      color: #fff !important
+//      padding: 5px 10px
+//  .navbar-toggle
+//    background-color: #1dc1da !important
+//    border: 1px solid #0fa6bc !important
+//    &:hover, &:focus
+//      background-color: #0fa6bc !important
+//      border: 1px solid #0fa6bc !important
+//  .dropdown-menu
+//    border-radius: 6px !important
+//    background: #fff !important
+//    li
+//      font-size: 13px
+//      padding: 6px 15px
+//      border-bottom: 1px dashed #f3f3f3
+//      a
+//        color: #888
+//        padding-left: 0px !important
+//      &:last-child
+//        border: 0px
+//      a:hover
+//        background: none !important
+//        color: #666 !important
+//        border: 0px !important
+//  .dropdown-big
+//    min-width: 300px
+//    .dropdown-head
+//      padding: 7px 15px
+//      background: #fcfcfc
+//      border-bottom: 1px solid #ddd
+//      margin-top: -5px
+//      border-top-left-radius: 5px
+//      border-top-right-radius: 5px
+//    .dropdown-title
+//      font-size: 13px
+//      font-weight: bold
+//      color: #999
+//    .dropdown-body
+//      background: #fff
+//    .dropdown-foot
+//      padding: 7px 15px
+//      background: #fcfcfc
+//      border-top: 1px solid #ddd
+//      margin-bottom: -5px
+//      border-bottom-left-radius: 5px
+//      border-bottom-right-radius: 5px
+//      font-size: 12px
+//      a
+//        color: #888
+//        &:hover
+//          color: #555
+//          border-bottom: 0px
+//  .navbar-nav
+//    .caret
+//      border-top-color: #fff !important
+//      border-bottom-color: #fff !important
+//    > .open > a
+//      .caret, &:hover .caret, &:focus .caret
+//        border-top-color: #fff !important
+//        border-bottom-color: #fff !important
+//
+///* Sidebar navigation
+//
+//.sidey
+//  margin-bottom: 30px
+//  width: 220px
+//  display: block
+//  float: left
+//  background: #fff
+//  border-radius: 10px
+//  padding: 10px
+//  border-left: 1px solid #eee
+//  border-top: 1px solid #eee
+//  border-right: 2px solid #eee
+//  border-bottom: 2px solid #eee
+//  position: absolute
+//  ul.nav
+//    list-style: none
+//    padding: 0px
+//    margin: 0px
+//    ul
+//      list-style: none
+//      padding: 0px
+//      margin: 0px
+//      margin: 0px
+//      padding: 0px
+//      display: none
+//  .nav
+//    li
+//      &.open ul
+//        display: block
+//      a:hover, &.current > a
+//        background: #fff
+//        color: #555
+//        border-bottom: 0px
+//      &.open > a
+//        background: #fff
+//        border-bottom: 1px dashed #eee
+//    > li
+//      margin: 0
+//      border-bottom: 1px dashed #eee
+//      &:last-child
+//        border-bottom: 0px
+//      li
+//        margin: 0
+//        a
+//          padding-left: 25px
+//      >
+//        a
+//        font-size: 14px
+//        line-height: 20px
+//        padding: 15px 15px
+//        color: #999
+//        display: block
+//        font-weight: bold
+//        background: none
+//        text-decoration: none
+//        border-top: 0px
+//        font-weight: bold
+//        > i
+//          margin-right: 5px
+//        ul > li
+//          > a
+//            font-size: 13px
+//            line-height: 20px
+//            padding: 8px 10px 8px 40px
+//            color: #999
+//            background: #fff
+//            display: block
+//            text-decoration: none
+//            border-top: 0px
+//            font-weight: bold
+//          &.active > a
+//            background: #fff
+//            border-top: 0px
+//            color: #555
+//          > a:hover
+//            background: #fff
+//            color: #555
+//            border-bottom: 0px
+//    a
+//      .caret
+//        float: right
+//        width: 0
+//        height: 0
+//        display: inline-block
+//        vertical-align: top
+//        border-top: 4px solid #aaa
+//        border-right: 4px solid transparent
+//        border-left: 4px solid transparent
+//        content: ""
+//        margin-top: 8px
+//        margin-left: 2px
+//      &:hover .caret
+//        border-top-color: #aaa
+//    li.open > a
+//      > .caret
+//        border-top: none
+//        border-bottom: 4px solid #aaa !important
+//        border-right: 4px solid transparent
+//        border-left: 4px solid transparent
+//      &:hover > .caret
+//        border-bottom-color: #aaa
+//
+//.sidebar-dropdown
+//  display: none
+//
+///* Main
+//
+//.mainy
+//  position: relative
+//  margin-left: 240px
+//  margin-right: 0px
+//  width: auto
+//  min-height: 900px
+//  .container
+//    width: 100%
+//
+///* Make post
+//
+//.make-post h5
+//  margin: 0px
+//  margin-bottom: 12px
+//  padding: 0px
+//  font-weight: bold
+//
+///* Admin hero
+//
+//.admin-hero
+//  color: #fff
+//  margin: 10px 0px
+//  hr
+//    margin: 12px 0px
+//    border-top: 1px solid #40d1e7
+//  ul li
+//    padding: 30px 30px
+//    text-align: center
+//    background: #16cbe6
+//    height: 180px
+//    margin: 5px 3px
+//    border-radius: 5px
+//    border: 1px solid #0fa6bc
+//    h2
+//      font-size: 40px
+//      line-height: 40px
+//      margin: 0px
+//    .label
+//      font-size: 15px
+//      position: relative
+//      top: -10px
+//  .hero-icon
+//    font-size: 40px
+//    line-height: 58px
+//
+///* Admin widget
+//
+//.awidget
+//  background: #fff
+//  margin: 10px 0px
+//  padding: 5px
+//  border-radius: 10px
+//  border-left: 1px solid #eee
+//  border-top: 1px solid #eee
+//  border-bottom: 3px solid #eee
+//  border-right: 3px solid #eee
+//  .awidget-head
+//    padding: 10px
+//    h3
+//      margin: 0px
+//      font-family: "Open Sans", sans-serif
+//      font-size: 15px
+//      line-height: 25px
+//      color: #666
+//      margin-bottom: 10px
+//      padding-bottom: 10px
+//      border-bottom: 1px dashed #eee
+//  .awidget-body
+//    padding: 5px 12px
+//    color: #777
+//
+//.chart-container
+//  box-sizing: border-box
+//  width: 100%
+//  height: 300px
+//
+//.chart-placeholder
+//  width: 100%
+//  height: 100%
+//
+//#pie-chart, #pie-chart2, #pie-chart3
+//  height: 250px
+//  max-width: 100%
+//
+///* Login & Register
+//
+//.login-reg
+//  width: 100%
+//  max-width: 500px
+//  margin: 70px auto
+//
+///* Admin media
+//
+//.admin-media img
+//  max-width: 40px
+//
+///* Recent Activity starts
+//
+//.activity
+//  list-style-type: none
+//  margin: 0px
+//  padding: 0px
+//  li
+//    padding: 10px 10px
+//    background-color: #fff
+//    border-top: 1px dashed #eee
+//    &:first-child
+//      border-top: 0px
+//  i
+//    margin-right: 5px
+//
+///* Google maps
+//
+//.gmap iframe
+//  width: 100%
+//  margin: 0px !important
+//  padding: 0px !important
+//
+///* Recent posts & Comments widgets starts
+//
+//.recent-content .btn
+//  font-size: 12px !important
+//  margin-top: 5px
+//
+//.recent-meta
+//  font-size: 11px
+//  color: #999
+//
+//.recent
+//  list-style-type: none
+//  margin: 0px
+//  font-size: 13px
+//  line-height: 22px
+//  img
+//    margin-top: 5px
+//    margin-right: 10px
+//    max-width: 50px
+//  li
+//    margin-bottom: 8px
+//    padding-bottom: 8px
+//    border-bottom: 1px dashed #eee
+//
+///* Recent posts and comments widget ends
+//
+///* Tasks starts
+//
+//.task
+//  list-style-type: none
+//  margin: 0px
+//  padding: 0px
+//  li
+//    padding: 12px 10px
+//    border-top: 1px dashed #eee
+//    &:first-child
+//      border-top: 0px
+//  .label
+//    margin-left: 5px
+//  .btn
+//    font-size: 11px !important
+//
+///* Date & time picker
+//
+//.picker
+//  padding: 4px
+//  border-radius: 8px
+//  border: 1px solid #999
+//
+///* Slider
+//
+//#eq span
+//  height: 120px
+//  float: left
+//  margin: 15px
+//
+//.ui-slider .ui-slider-handle
+//  position: absolute
+//  z-index: 2
+//  width: 1.1em
+//  height: 1.1em
+//  cursor: default
+//  background: #fafafa !important
+//  border: 1px solid #ccc !important
+//
+//.ui-slider-horizontal
+//  height: .5em
+//  border: 0px solid #eee !important
+//  background: #dfdfdf !important
+//
+//.ui-slider-vertical
+//  height: 100px
+//  width: 0.5em
+//  border: 0px solid #fff !important
+//  background: #dfdfdf !important
+//
+//#master1, #master2, #master3, #master4, #master5, #master6
+//  width: 100%
+//  margin: 15px 0px !important
+//
+//.slider-red .ui-widget-header
+//  background: #dd514c !important
+//  border-color: #dd514c !important
+//
+//.slider-blue .ui-widget-header
+//  background: #36a5c6 !important
+//  border-color: #36a5c6 !important
+//
+//.slider-green .ui-widget-header
+//  background: #44c636 !important
+//  border-color: #44c636 !important
+//
+//.slider-yellow .ui-widget-header
+//  background: #fcd419 !important
+//  border-color: #fcd419 !important
+//
+//.slider-orange .ui-widget-header
+//  background: #fc9419 !important
+//  border-color: #fc9419 !important
+//
+//.slider-violet .ui-widget-header
+//  background: #9919fc !important
+//  border-color: #9919fc !important
+//
+///* Toggle button
+//
+//.make-switch
+//  margin: 5px 0px
+//
+///* Error log
+//
+//.error-log
+//  height: 400px
+//  overflow: auto
+//  ul
+//    list-style-type: none
+//    margin: 0px
+//    padding: 0px
+//    li
+//      padding: 10px 0px
+//
+///* Table border
+//
+//.no-table-bor .table
+//  thead > tr > th, tbody > tr > th, tfoot > tr > th, thead > tr > td, tbody > tr > td, tfoot > tr > td
+//    border-bottom: 1px dashed #eee
+//    border-top: 0px
+//
+///* Portfolio
+//
+//.img-portfolio ul
+//  margin: 0
+//  padding: 0
+//
+//.portfolio li
+//  display: inline !important
+//  border: none !important
+//  a
+//    color: #777
+//    padding: 5px 10px
+//    margin: 0px 5px
+//    &:visited
+//      color: #777
+//      padding: 5px 10px
+//      margin: 0px 5px
+//    &:hover
+//      color: #555
+//
+//#portfolio
+//  .element
+//    margin: 20px 10px 10px 0px
+//    padding: 0px
+//    display: inline-block
+//  a
+//    color: #666
+//    text-decoration: none
+//    &:visited, &:hover
+//      color: #666
+//      text-decoration: none
+//  img
+//    width: 200px
+//    max-width: 200px
+//    height: 150px
+//
+///* PrettyPhoto
+//
+//div.ppt
+//  display: none !important
+//
+///* Chat Widget starts
+//
+//.chats
+//  list-style-type: none
+//  margin: 0px
+//  padding-left: 0px
+//  li
+//    margin-bottom: 8px
+//    padding-bottom: 8px
+//  .by-me
+//    img
+//      max-width: 40px
+//      margin-top: 5px
+//      margin-right: 10px
+//    .chat-meta
+//      font-size: 11px
+//    .chat-content
+//      margin-left: 60px
+//      position: relative
+//      background: #fcfcfc
+//      padding: 7px 10px
+//      font-size: 13px
+//      border-radius: 5px
+//      border: 1px solid #eee
+//      &:after, &:before
+//        right: 100%
+//        border: solid transparent
+//        content: " "
+//        height: 0
+//        width: 0
+//        position: absolute
+//      &:after
+//        border-color: rgba(255, 255, 255, 1)
+//        border-right-color: #16cbe6
+//        border-width: 10px
+//        top: 30%
+//        margin-top: -10px
+//      &:before
+//        border-color: rgba(238, 238, 238, 0)
+//        border-right-color: #ccc
+//        border-width: 11px
+//        top: 30%
+//        margin-top: -11px
+//  .by-other
+//    img
+//      max-width: 40px
+//      margin-top: 5px
+//      margin-left: 10px
+//    .chat-meta
+//      font-size: 11px
+//      color: #999
+//    .chat-content
+//      margin-right: 60px
+//      position: relative
+//      background: #fcfcfc
+//      padding: 7px 10px
+//      font-size: 13px
+//      border: 1px solid #eee
+//      border-radius: 5px
+//      &:after, &:before
+//        left: 100%
+//        border: solid transparent
+//        content: " "
+//        height: 0
+//        width: 0
+//        position: absolute
+//        pointer-events: none
+//      &:after
+//        border-color: rgba(255, 255, 255, 1)
+//        border-left-color: #16cbe6
+//        border-width: 10px
+//        top: 30%
+//        margin-top: -10px
+//      &:before
+//        border-color: rgba(238, 238, 238, 0)
+//        border-left-color: #ccc
+//        border-width: 11px
+//        top: 30%
+//        margin-top: -11px
+//
+///* Chat widget ends
+//
+///* Project widget starts
+//
+//.project
+//  list-style-type: none
+//  margin: 0px !important
+//  padding: 0px !important
+//  li
+//    padding-top: 10px
+//    padding-bottom: 10px
+//    border-top: 1px solid #ddd
+//    &:first-child
+//      border-top: 0px
+//      padding-top: 0px
+//      margin-top: 0px
+//  p
+//    font-weight: bold
+//    margin: 0px !important
+//    padding: 0px !important
+//  input
+//    margin-right: 3px
+//    position: relative
+//    top: 2px
+//  .p-meta
+//    font-size: 11px
+//    font-weight: normal
+//    margin-left: 20px !important
+//    margin-bottom: 5px !important
+//  .progress
+//    margin: 0px !important
+//    padding: 0px !important
+//    margin-left: 20px !important
+//
+///* Proejct widget ends
+//
+///* Back to top
+//
+//.totop
+//  position: fixed
+//  bottom: 0px
+//  right: 0px
+//  z-index: 104400
+//  background: #16cbe6
+//  a
+//    display: block
+//    width: 30px
+//    height: 30px
+//    color: #fff
+//    text-align: center
+//    line-height: 30px
+//    &:visited
+//      display: block
+//      width: 30px
+//      height: 30px
+//      color: #fff
+//      text-align: center
+//      line-height: 30px
+//    &:hover
+//      color: #eee
+//      text-decoration: none
+//
+///* Footer
+//
+//footer
+//  background: #333333 url("../img/footer-back.png") repeat
+//  border-top: 3px solid #ddd
+//  box-shadow: inset 0px 0px 3px #111
+//  color: #ccc
+//  font-size: 14px
+//  line-height: 25px
+//  padding: 10px 0px 10px 0px
+//  a
+//    color: #eee
+//    text-decoration: none
+//    border-bottom: 1px dotted #888
+//    &:hover
+//      color: #aaa
+//      text-decoration: none
+//      border: 0px
+//  hr
+//    margin-top: 10px
+//    margin-bottom: 10px
+//    border-top: #000 1px solid
+//    border-bottom: #212121 1px solid
+//  .copy
+//    font-size: 13px
+//    margin: 15px 0px
+//
+///* Responsive CSS
+//
+///* Mobile phones
+//@media (max-width: 480px)
+//
+//  /* Tablets
+//  @media (max-width: 767px)
+//    .container
+//      width: 100%
+//    .header
+//      height: auto
+//      padding: 15px 0px
+//      .logo
+//        text-align: center
+//        padding-bottom: 10px
+//      .navbar .nav > li > a:hover
+//        background: #0fa6bc
+//        border-radius: 5px
+//    .navbar-toggle
+//      margin-right: 0px !important
+//
+//  /* Desktop
+//
+//  @media (max-width: 991px)
+//    .header
+//      height: auto
+//      padding: 15px 0px
+//      .logo
+//        text-align: center
+//        padding-bottom: 10px
+//      .form
+//        margin: 10px auto
+//    .sidey
+//      margin-bottom: 30px
+//      width: 100%
+//      float: none
+//      display: none
+//      position: relative
+//    .mainy
+//      margin-left: 0px
+//    .sidebar-dropdown
+//      display: block
+//      text-align: center
+//      margin: 0 auto
+//      margin-bottom: 10px
+//      border-bottom: 1px dashed #eee
+//      padding-bottom: 10px
+//      a
+//        color: #fff
+//        background: #16cbe6
+//        display: block
+//        padding: 6px 12px
+//        border-bottom: 0px
+//        box-shadow: 0px 0px 1px #0fa6bc
+//        border-radius: 10px
+//        &:hover
+//          color: #fff
+//          background: #16cbe6
+//          display: block
+//          padding: 6px 12px
+//          border-bottom: 0px
+//          box-shadow: 0px 0px 1px #0fa6bc
+//          border-radius: 10px

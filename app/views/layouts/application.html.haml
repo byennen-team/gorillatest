@@ -43,38 +43,15 @@
     = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags
 
-  %body
-    / Logo & Navigation starts
-    .navbar.navbar-inverse.navbar-fixed-top.row{role: "navigation"}
-      .container
-        .navbar-header
-          %a.navbar-brand{href: "/projects"} autotest
-        - if current_user
-          = render '/layouts/user'
+  %body.smart-style-1.fixed-header.fixed-ribbon.fixed-navigation
+    = render 'layouts/header'
+    = render 'layouts/navigation'
+    / MAIN PANEL
+    #main{role: "main"}
+      = render 'layouts/breadcrumb'
+      #content
+        .row
+          .col-lg-12
+            = yield
 
-    %br{style: "clear: both;"}
-    %br
-    .container
-      .row
-        .col-md-5
-          - flash.each do |name, msg|
-            - if msg.is_a?(String)
-              .alert.fade.in{:class => "alert-#{name == :notice ? "success" : "danger"}"}
-                %a.close{"data-dismiss" => "alert"} ×
-                = content_tag :div, msg, :id => "flash_#{name}"
-
-      = yield
-    #invite-user.modal.fade
-      .modal-dialog
-        .modal-content
-          = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form'} do |f|
-            .modal-header
-              %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
-              %h4.modal-title Invite A User
-            .modal-body
-              = f.input :email
-            .modal-footer
-              %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
-              = f.submit "Invite User", class: "btn btn-primary", disabled: !current_user.has_invitations?
-              -unless current_user.has_invitations?
-                %p You are out of invitations. Click #{link_to "here", edit_user_registration_path(anchor: "change-plan")} to upgrade your plan to invite more users.
+= render 'shared/modals/invitations'

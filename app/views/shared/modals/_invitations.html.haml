@@ -1,0 +1,14 @@
+#invite-user.modal.fade
+  .modal-dialog
+    .modal-content
+      = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form'} do |f|
+        .modal-header
+          %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+          %h4.modal-title Invite A User
+        .modal-body
+          = f.input :email
+        .modal-footer
+          %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+          = f.submit "Invite User", class: "btn btn-primary", disabled: !current_user.has_invitations?
+          -unless current_user.has_invitations?
+            %p You are out of invitations. Click #{link_to "here", edit_user_registration_path(anchor: "change-plan")} to upgrade your plan to invite more users.

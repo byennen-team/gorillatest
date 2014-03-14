@@ -1,37 +1,35 @@
 -content_for :head do
   =javascript_include_tag "stepStatus"
 
-.page-content.blocky
-  .container
-    .pull-right
-      - if current_user.can_create_project?
-        %button.btn.btn-success{data: {toggle: "modal", target: "#add-project"}}
-          %span.glyphicon.glyphicon-plus
-          Add Project
-      -else
-        %a.btn.btn-success{href: edit_user_registration_path(current_user, plan:"maxed", anchor: "change-plan")}
-          %span.glyphicon.glyphicon-plus
-          Add Project
-    %ol.breadcrumb
-      %li.active
-        = link_to "Projects", projects_path
-    .row
-      .col-md-12
-        / Project widget
-        .awidget
-          /.awidget-head
-          / .pull-right
-          /   %a{data: {toggle: "modal", target: "#add-project"}} Add Project
-          / %h3 Projects
-          .awidget-body
-            - if current_user.projects.size == 0
-              %p
-                You don't current have any projects, would you like to
-                %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
-            - else
-              %ul.project
-                = render partial: 'project', collection: @projects
-              .clearfix
+.pull-right
+  - if current_user.can_create_project?
+    %button.btn.btn-success{data: {toggle: "modal", target: "#add-project"}}
+      %span.glyphicon.glyphicon-plus
+      Add Project
+  -else
+    %a.btn.btn-success{href: edit_user_registration_path(current_user, plan:"maxed", anchor: "change-plan")}
+      %span.glyphicon.glyphicon-plus
+      Add Project
+%ol.breadcrumb
+  %li.active
+    = link_to "Projects", projects_path
+.row
+  .col-md-12
+    / Project widget
+    .awidget
+      /.awidget-head
+      / .pull-right
+      /   %a{data: {toggle: "modal", target: "#add-project"}} Add Project
+      / %h3 Projects
+      .awidget-body
+        - if current_user.projects.size == 0
+          %p
+            You don't current have any projects, would you like to
+            %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+        - else
+          %ul.project
+            = render partial: 'project', collection: @projects
+          .clearfix
 
 
 #add-project.modal.fade
