@@ -15,24 +15,21 @@ class CreditCard
 
   validates :stripe_id, :name, :last4, :cc_type, presence: true
 
-  before_validation :update_data_from_stripe
+  before_validation :update_data_from_stripe, on: :create
 
   private
 
   def update_data_from_stripe
+    Rails.logger.debug("creating card for #{stripe_token}")
     stripe_customer = user.create_or_retrieve_stripe_customer
-    begin
-      stripe_card = stripe_customer.cards.create({card: self.stripe_token})
-      self.stripe_id = stripe_card.id
-      self.last4 = stripe_card.last4
-      self.cc_type = stripe_card.type
-      self.name = stripe_card.name
-      self.exp_month = stripe_card.exp_month
-      self.exp_year = stripe_card.exp_year
-    rescue Exception => e
-      Rails.logger.error(e.inspect)
-      # errors.base(e.message)
-    end
+    card = stripe_customer.cards.create({card: self.stripe_token})
+    self.stripe_id = card.id
+    self.last4 = card.last4
+    self.cc_type = card.type
+    self.name = card.name
+    self.exp_month = card.exp_month
+    self.exp_year = card.exp_year
+    self.stripe_token = nil
    end
 
    def stripe_card

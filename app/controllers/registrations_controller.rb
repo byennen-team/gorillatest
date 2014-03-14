@@ -15,16 +15,26 @@ class RegistrationsController < Devise::RegistrationsController
 
   def upgrade
     @plan = Plan.find(params[:plan_id])
-    Rails.logger.debug("Plan is #{@plan.inspect}")
     if request.post?
-      Rails.logger.debug("current user credit card is #{current_user.credit_card.inspect}")
-      unless current_user.credit_card
-        credit_card = current_user.create_credit_card({stripe_token: params[:stripe_token]})
-      end
-      current_user.subscribe_to(@plan)
-      if current_user.subscribe_to(@plan)
+      begin
+        Rails.logger.debug("credit card is #{current_user.credit_card.inspect}")
+        unless current_user.credit_card
+          credit_card = current_user.create_credit_card({stripe_token: params[:stripe_token]})
+        end
+        if current_user.subscribe_to(@plan)
+          respond_to do |format|
+            format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
+            format.js { render text: "success"}
+          end
+        end
+      rescue Exception => e
+        # Rails.logger.debug(e.backtrace)
+        Rails.logger.debug(e.inspect)
+
+        flash[:alert] = "Your card could not be processed"
         respond_to do |format|
-          format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
+          format.js { render text: "Your card could not be processed", status: 402}
+          format.html {}
         end
       end
     else
@@ -38,6 +48,7 @@ class RegistrationsController < Devise::RegistrationsController
       respond_to do |format|
         format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
       end
+    else
     end
   end
 

@@ -28,12 +28,16 @@ module PlanCustomer
 
   def subscribe_to(plan)
     customer = create_or_retrieve_stripe_customer
-    if !stripe_subscription_token.nil?
+    #binding.pry
+    unless stripe_subscription_token.nil?
+      Rails.logger.debug("upating customer subscdription")
       subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
       subscription.plan = plan.stripe_id
-      self.plan_id = plan.id
-      subscription.save && self.save
+      if subscription.save
+        update_attribute(:plan_id, plan.id)
+      end
     else
+      Rails.logger.debug("creating a new subscription")
       subscription = customer.subscriptions.create(plan: plan.stripe_id)
     end
     update_attribute(:stripe_subscription_token, subscription.id)

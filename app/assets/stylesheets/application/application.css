@@ -1,5 +1,10 @@
 /*
  *= require application/bootstrap_and_overrides
+ *= require ./plugins/animate
+ *= require ./plugins/jquery-gritter
+ *= require ./plugins/bootstrap-switch
+ *= require ./plugins/rateit
+ *= require application/dashboard
  *= require font-awesome
  *= require application/plugins/animate
  *= require application/plugins/jquery-gritter

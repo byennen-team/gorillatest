@@ -40,7 +40,7 @@ describe CreditCard do
     end
 
     it "should store the payment info for the cc name" do
-      expect(credit_card.name).to eq("Johnny App")
+      expect(credit_card.name).to eq("Donald Duck")
     end
 
   end

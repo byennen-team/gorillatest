@@ -43,24 +43,50 @@ describe PlanCustomer do
                                                      name: 'Starter',
                                                      currency: 'usd',
                                                      id: 'starter')}
-    let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
-    let!(:user)                 { create(:user) }
-    let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+    context 'with valid and chargeable card' do
+      let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
+      let!(:user)                 { create(:user) }
+      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
 
-    before do
-      # Update the stripe customer card default mocking doesn't set default card
-      stripe_customer = user.create_or_retrieve_stripe_customer
-      stripe_customer.default_card = user_credit_card.stripe_id
-      stripe_customer.save
-      user.subscribe_to(non_free_plan)
+      before do
+        # Update the stripe customer card default mocking doesn't set default card
+        stripe_customer = user.create_or_retrieve_stripe_customer
+        stripe_customer.default_card = user_credit_card.stripe_id
+        stripe_customer.save
+        user.subscribe_to(non_free_plan)
+      end
+
+      it "should have an upgraded plan" do
+        expect(user.plan).to eq(non_free_plan)
+      end
+
+      it "should have an upgraded stripe plan" do
+        expect(user.stripe_subscription.plan.id).to eq(stripe_starter_plan.id)
+      end
     end
 
-    it "should have an upgraded plan" do
-      expect(user.plan).to eq(non_free_plan)
-    end
+    context 'with failing charge on card' do
 
-    it "should have an upgraded stripe plan" do
-      expect(user.stripe_subscription.plan.id).to eq(stripe_starter_plan.id)
+      let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
+      let!(:user)                 { create(:user) }
+      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+
+      before do
+        # StripeMock.prepare_card_error(:card_declined)
+        # custom_error = StandardError.new("Please knock first.")
+        # StripeMock.prepare_error(custom_error, :create_subscription)
+        # Update the stripe customer card default mocking doesn't set default card
+        stripe_customer = user.create_or_retrieve_stripe_customer
+        stripe_customer.default_card = user_credit_card.stripe_id
+        stripe_customer.save
+      end
+
+      it "should raise an error" do
+        custom_error = StandardError.new("Please knock first.")
+        StripeMock.prepare_card_error(:card_declined, :update_subscription)
+        expect {user.subscribe_to(non_free_plan)}.to raise_error(Stripe::CardError)
+      end
+
     end
 
   end

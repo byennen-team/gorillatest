@@ -7,16 +7,13 @@ $ ->
 
 credit_card =
   setupForm: ->
-    $('#new_credit_card').submit ->
-      event.preventDefault()
+    $('#new_credit_card').submit (e) ->
+      e.preventDefault()
       $("#new_credit_card .spinner").toggle()
       $('#new_credit_card input[type=submit]').val("Saving...")
       $('#new_credit_card input[type=submit]').attr('disabled', true)
       if $('#card_number').length
         credit_card.processCard()
-        false
-      else
-        true
 
   processCard: ->
     card =
@@ -34,8 +31,21 @@ credit_card =
       $('#new_credit_card input[type=submit]').val("Save Credit Card")
       $('#new_credit_card input[type=submit]').attr('disabled', false)
     else
-      # $('#stripe_token').val(response.id)
+      #$('#stripe_token').val(response.id)
+      #debugger
       # $('#new_credit_card').get(0).submit()
       stripe_token = response.id
       url = $("form#new_credit_card").attr("action");
-      $.post(url,{stripe_token: stripe_token}, (->) , "script")
+      console.log("Calling AJAX")
+      $.ajax(
+        url: url
+        type: 'POST'
+        data: {stripe_token: stripe_token}
+        success: ->
+          console.log("Calling successes")
+          console.log("We have liftoff")
+          window.location.href = "/users/edit#change-plan"
+        error: ->
+          console.log("Calling error")
+          alert("Your card could not be charged")
+      )
