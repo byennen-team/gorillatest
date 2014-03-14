@@ -85,4 +85,5 @@ group :development, :test do
   gem 'fuubar'
   gem 'mocha'
   gem 'stripe-ruby-mock'
+  gem 'rubocop'
 end
