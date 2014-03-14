@@ -22,9 +22,34 @@ class RegistrationsController < Devise::RegistrationsController
         credit_card = current_user.create_credit_card({stripe_token: params[:stripe_token]})
       end
       current_user.subscribe_to(@plan)
+      if current_user.subscribe_to(@plan)
+        respond_to do |format|
+          format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
+        end
+      end
     else
 
     end
+  end
+
+  def downgrade
+    @plan = Plan.find(params[:plan_id])
+    if current_user.can_downgrade?(@plan) && current_user.subscribe_to(@plan)
+      respond_to do |format|
+        format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
+      end
+    end
+  end
+
+  def cancel_user
+    stripe_customer = current_user.create_or_retrieve_stripe_customer
+    stripe_customer.subscriptions.retrieve(current_user.stripe_subscription_token).delete()
+    user = current_user
+    user.destroy
+    Rails.logger.debug("user is destroyed")
+    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    # current_user.destroy
+    redirect_to "/"
   end
 
   protected

@@ -110,6 +110,6 @@
           .modal-footer
             %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
             = f.submit "Invite User", class: "btn btn-primary", disabled: !current_user.has_invitations?
-            -unless current_user.has_invitations?
+            -unless project.has_invitations_left?
               %p You are out of invitations. Click #{link_to "here", edit_user_registration_path(anchor: "change-plan")} to upgrade your plan to invite more users.
 

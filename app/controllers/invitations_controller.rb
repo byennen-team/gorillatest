@@ -1,7 +1,7 @@
 class InvitationsController < Devise::InvitationsController
 
   before_filter :authenticate_user!, except: [:edit, :update]
-  before_filter :ensure_user_has_invitations_remaining, only: [:create]
+  before_filter :ensure_user_can_invite_to_project, only: [:create]
 
   def create
     project_id = params[:user][:project_id] ? params[:user].delete(:project_id) : nil
@@ -22,7 +22,6 @@ class InvitationsController < Devise::InvitationsController
         @invited_user.send_project_invitation(current_user.id, project_id)
       end
     end
-    current_user.update_attribute(:invitation_limit, current_user.invitation_limit-1)
     respond_to do |format|
       format.html { redirect_to request.env["HTTP_REFERER"], notice: "Your invitation to #{@invited_user.email} has been sent."}
     end
@@ -63,9 +62,12 @@ class InvitationsController < Devise::InvitationsController
 
   private
 
-  def ensure_user_has_invitations_remaining
-    unless current_user.has_invitations?
-      redirect_to :back, notice: "Sorry, you do not have any invitations remaining! Upgrade your plan to invite more users."
+  def ensure_user_can_invite_to_project
+    if params[:user][:project_id]
+      @project = Project.find(params[:user][:project_id])
+      if @project.creator.plan.num_users == @project.users.count
+        redirect_to :back, notice: "Sorry, you do not have any invitations remaining! Upgrade your plan to invite more users."
+      end
     end
   end
 

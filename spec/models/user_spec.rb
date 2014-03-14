@@ -53,59 +53,6 @@ describe User do
     end
   end
 
-  context "invitations limit" do
-    describe "for user on free plan" do
-      let(:free_user) { create(:user) }
-
-      it "should have no invitations to give out" do
-        expect(free_user.invitation_limit).to eq free_user.plan.num_users - 1
-      end
-    end
-
-    describe "for user on paid plan" do
-      let(:plan) { create(:plan, stripe_id: "free") }
-      let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
-                                               interval: 'month',
-                                               name: 'Free',
-                                               currency: 'usd',
-                                               id: 'free')}
-      let(:paying_user) { create(:user) }
-
-      before do
-        paying_user.plan = plan
-      end
-
-      it "should have invites to send out" do
-        expect(paying_user.invitation_limit).to eq plan.num_users - 1
-      end
-    end
-
-    describe "increases when upgrading plan" do
-      let(:free_plan) { create(:plan, name: "Free", num_users: 3, stripe_id: "free") }
-      let!(:free_stripe_plan) { Stripe::Plan.create(amount: 0,
-                                               interval: 'month',
-                                               name: 'Free',
-                                               currency: 'usd',
-                                               id: 'free')}
-      let(:upgrade_plan) { create(:plan, name: "Premium", num_users: 5, stripe_id: "paid")}
-      let!(:paid_stripe_plan) { Stripe::Plan.create(amount: 0,
-                                               interval: 'month',
-                                               name: 'Paid',
-                                               currency: 'usd',
-                                               id: 'paid')}
-      let!(:inviting_user) { create(:user, plan: free_plan)}
-      let!(:invited_user) { create(:user, invited_by_id: inviting_user.id) }
-
-      before do
-        inviting_user.update_invitation_limit(upgrade_plan)
-      end
-
-      it "increases minus invitations already sent out" do
-        expect(inviting_user.invitation_limit).to eq 3
-      end
-    end
-  end
-
   describe "omniauth" do
     let(:unsaved_user) { build(:user) }
     let(:auth_data) do

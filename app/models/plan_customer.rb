@@ -36,7 +36,6 @@ module PlanCustomer
     else
       subscription = customer.subscriptions.create(plan: plan.stripe_id)
     end
-    update_invitation_limit(plan)
     update_attribute(:stripe_subscription_token, subscription.id)
   end
 
@@ -49,8 +48,15 @@ module PlanCustomer
     self.owned_projects.count < self.plan.num_projects
   end
 
-  def update_invitation_limit(plan)
-    update_attribute(:invitation_limit, plan.num_users-1-invitations_sent_count)
+  def can_downgrade?(plan)
+    return false if self.owned_projects.length > plan.num_projects
+    # Project members
+    self.owned_projects.each do |project|
+     return false if project.users.length > plan.num_users
+    end
+    # Minutes used
+    return false if testing_allowances.current_month.seconds_used >= plan.seconds_available
+    return true
   end
 
   private

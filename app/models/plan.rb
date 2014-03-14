@@ -39,4 +39,9 @@ class Plan
   def minutes_available
     (seconds_available / 60.0).floor
   end
+
+  def hours_available
+    minutes_available / 60
+  end
+
 end

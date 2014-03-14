@@ -30,7 +30,6 @@ credit_card =
   handleStripeResponse: (status, response) ->
     if response.error
       $('#stripe_error').empty().text(response.error.message)
-      console.log("error is #{response.error.message}")
       $("#new_credit_card .spinner").toggle()
       $('#new_credit_card input[type=submit]').val("Save Credit Card")
       $('#new_credit_card input[type=submit]').attr('disabled', false)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe PlanCustomer do
-  let!(:plan) { create(:plan, stripe_id: "free") }
+  let!(:plan) { create(:plan) }
   let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
                                            interval: 'month',
                                            name: 'Free',
@@ -37,7 +37,7 @@ describe PlanCustomer do
 
   describe 'upgrade plan' do
 
-    let!(:non_free_plan)       { create(:plan, name: "Starter", price: 12.00, stripe_id: "starter")}
+    let!(:non_free_plan)       { create(:starter_plan) }
     let!(:stripe_starter_plan) { Stripe::Plan.create(amount: 1200,
                                                      interval: 'month',
                                                      name: 'Starter',
@@ -64,5 +64,57 @@ describe PlanCustomer do
     end
 
   end
+
+  describe '#can_downgrade' do
+
+    let!(:non_free_plan) { create(:starter_plan) }
+    let!(:user)          { create(:user, plan: non_free_plan) }
+
+    context 'with more projects that free' do
+
+      before do
+        (0..3).each do |i|
+          project = Project.create!(name: "Project#{i}", url: "http://test#{i}.io", user_id: user.id)
+          project_user = ProjectUser.create(user_id: user.id, project_id: project.id, rights: "owner")
+        end
+      end
+
+      it "should return false for free plan" do
+        expect(user.can_downgrade?(plan)).to eq false
+      end
+
+    end
+
+    context 'with more users on a project than allowed' do
+
+      let!(:project)       { create(:project, user_id: user.id) }
+      let!(:project_owner) { create(:project_user, user: user, project: project, rights: "owner") }
+
+      before do
+        (0..3).each do |i|
+          u = create(:user)
+          project_user = ProjectUser.create(user_id: u.id, project_id: project.id, rights: "member")
+        end
+      end
+
+      it "should return false for free plan" do
+        expect(user.can_downgrade?(plan)).to eq(false)
+      end
+
+    end
+
+    context 'with more minutes than plan allows' do
+
+      let!(:testing_allowance) { create(:testing_allowance, timeable: user, seconds_used: non_free_plan.seconds_available) }
+
+      it "should return false for free plan" do
+        expect(user.can_downgrade?(plan)).to eq(false)
+      end
+
+    end
+
+
+  end
+
 
 end

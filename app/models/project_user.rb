@@ -1,6 +1,7 @@
 class ProjectUser
 
   include Mongoid::Document
+  include Mongoid::Paranoia
 
   field :rights, type: String
 

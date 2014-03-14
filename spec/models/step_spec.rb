@@ -102,14 +102,6 @@ describe Step do
       end
     end
 
-    context "waitForCurrentUrl" do
-      let(:wait_step) { scenario.steps.create(event_type: "waitForCurrentUrl", text: "http://www.factor75.com/menu")}
-
-      it "auth gets added" do
-        expect(wait_step.text).to eq "http://username:password@www.factor75.com/menu"
-      end
-    end
-
     context "non url related steps" do
       let(:click_step) { scenario.steps.create(event_type: "clickElement", text: "shopping cart")}
 
