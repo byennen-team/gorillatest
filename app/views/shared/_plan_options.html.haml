@@ -5,6 +5,13 @@
         .col-sm-12
           %h1 Change Your Plan
           %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
+
+      #coupon_code.row
+        .col-xs-12.col-sm-6.col-md-3
+          = simple_form_for redeem_coupon_path, :html => { :method => :post } do |f|
+            = f.input :coupon_code, class: 'coupon-input form-control'
+            = f.submit :submit, class: 'btn btn-success'
+
       .row
         - Plan.all.each do |plan|
           .col-xs-12.col-sm-6.col-md-3
@@ -100,12 +107,3 @@
                       = link_to "Downgrade", get_downgrade_path(plan.id.to_s), class: 'btn btn-primary btn-block'
                     - else
                       = link_to "Downgrade", get_downgrade_path(plan.id.to_s), class: 'btn btn-primary btn-block', disabled: 'disabled'
-
-
-
-
-      .row
-        .col-xs-12.col-sm-6.col-md-3
-          = simple_form_for redeem_coupon_path, :html => { :method => :post } do |f|
-            = f.input :coupon_code, class: 'coupon-input form-control'
-            = f.submit :submit, class: 'btn btn-success'

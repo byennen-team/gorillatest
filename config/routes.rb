@@ -23,15 +23,18 @@ Autotest::Application.routes.draw do
   devise_scope :user do
     get "/login" => "sessions#new"
     get '/get-started' => 'registrations#new', as: 'get_started'
+    get '/my-info' => 'registrations#edit', as: 'my_info'
+    get '/change-plan' => 'registrations#change_plan', as: 'change_plan'
     post "/upgrade/:plan_id" => 'registrations#upgrade', as: 'upgrade'
     get '/upgrade/:plan_id' => "registrations#upgrade", as: "get_upgrade"
     get '/downgrade/:plan_id' => "registrations#downgrade", as: "get_downgrade"
     post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 
-  # get 'dashboard', to: "dashboard#index.html.haml"
+  get 'dashboard', to: "dashboard#index.html.haml"
 
   as :user do
+    get 'invitations', to: 'invitations#index', as: 'invitations'
     get 'invitation', to: "invitations#new", as: :new_invitation
     post 'invitation', to: "invitations#create"
     get 'invitation/accept', to: "invitations#edit", as: :accept_invitation

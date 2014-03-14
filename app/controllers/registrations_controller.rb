@@ -52,6 +52,10 @@ class RegistrationsController < Devise::RegistrationsController
     redirect_to "/"
   end
 
+  def change_plan
+
+  end
+
   protected
 
   def after_sign_up_path_for(resource)
@@ -60,7 +64,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def get_layout
-    return 'session' unless %w(edit upgrade).include?(params[:action])
+    return 'session' unless %w(edit upgrade change_plan).include?(params[:action])
     return 'application'
   end
 

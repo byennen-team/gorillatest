@@ -1,12 +1,12 @@
 /*
  *= require application/bootstrap_and_overrides
- *= require ./plugins/animate
- *= require ./plugins/jquery-gritter
- *= require ./plugins/bootstrap-switch
- *= require ./plugins/rateit
- *= require application/dashboard
  *= require font-awesome
- *= require bootstrap-social
- *= require application/new_layout
+ *= require application/plugins/animate
+ *= require application/plugins/jquery-gritter
+ *= require application/plugins/bootstrap-switch
+ *= require application/plugins/rateit
+ *= require application/plugins/bootstrap-social
+ *= require application/layout
  *= require application/styles
- */
+ *= require application/dashboard
+*/
