@@ -1,5 +1,5 @@
 /*
- *= require bootstrap_and_overrides.css.sass
+ *= require application/bootstrap_and_overrides
  *= require ./plugins/animate
  *= require ./plugins/jquery-gritter
  *= require ./plugins/bootstrap-switch
