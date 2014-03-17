@@ -35,11 +35,11 @@ class UserMailer < ActionMailer::Base
   def link_to_test_run(class_name, test_run_id)
     case class_name
     when 'project_test_run'
-      return project_test_run_url(@test_run.project.id, @test_run.number)
+      return project_test_run_url(@test_run.project.id, @test_run.number, at_e: "completed_test")
     when 'feature_test_run'
-      return project_feature_test_run_url(@test_run.project.id, @test_run.feature.id, @test_run.number)
+      return project_feature_test_run_url(@test_run.project.id, @test_run.feature.id, @test_run.number, at_e: "completed_test")
     when 'scenario_test_run'
-      return project_feature_scenario_test_run_url(@test_run.project.id, @test_run.feature.id, @test_run.scenario.id, @test_run.number)
+      return project_feature_scenario_test_run_url(@test_run.project.id, @test_run.feature.id, @test_run.scenario.id, @test_run.number, at_e: "completed_test")
     end
   end
 

@@ -82,8 +82,12 @@ class User
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
   end
 
-  def send_project_invitation(inviter_id, project_id)
-    InvitationMailer.send_project_invitation(self.id, inviter_id, project_id).deliver
+  def send_project_invitation_new_user(inviter_id, project_id)
+    InvitationMailer.send_project_invitation_new_user(self.id, inviter_id, project_id).deliver
+  end
+
+  def send_project_invitation_existing_user(inviter_id, project_id)
+    InvitationMailer.send_project_invitation_existing_user(self.id, inviter_id, project_id).deliver
   end
 
   def has_invitations?

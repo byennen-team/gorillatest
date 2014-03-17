@@ -4,7 +4,7 @@
       %a#show-shortcut{href: "javascript:void(0);"}
         = gravatar_image_tag(current_user, 32)
         %span
-          = current_user.name
+          = current_user.try(:name)
   %nav
     %ul
       %li.active

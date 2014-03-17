@@ -8,11 +8,18 @@ class InvitationMailer < ActionMailer::Base
     mail to: @user.email, subject: "You're invited to try out AutoTest.io"
   end
 
-  def send_project_invitation(user_id, inviter_id, project_id)
+  def send_project_invitation_existing_user(user_id, inviter_id, project_id)
     @user = find_user(user_id)
-    @inviting_user = @user.encrypted_password.blank? ? @user.invited_by : find_user(inviter_id)
+    @inviting_user = find_user(inviter_id)
     @project = Project.find(project_id)
-    mail to: @user.email, subject: "You've been invited to collaborate on project - #{@project.name}"
+    mail to: @user.email, subject: "[Autotest] You’ve been added to a project"
+  end
+
+  def send_project_invitation_new_user(user_id, inviter_id, project_id)
+    @user = find_user(user_id)
+    @inviting_user = @user.invited_by
+    @project = Project.find(project_id)
+    mail to: @user.email, subject: "You’re invited to join the team at Autotest"
   end
 
   private
