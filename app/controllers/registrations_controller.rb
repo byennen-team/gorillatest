@@ -13,45 +13,6 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  def upgrade
-    @plan = Plan.find(params[:plan_id])
-    if request.post?
-      begin
-        Rails.logger.debug("credit card is #{current_user.credit_card.inspect}")
-        unless current_user.credit_card
-          credit_card = current_user.create_credit_card({stripe_token: params[:stripe_token]})
-        end
-        if current_user.subscribe_to(@plan)
-          respond_to do |format|
-            format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
-            format.js { render text: "success"}
-          end
-        end
-      rescue Exception => e
-        # Rails.logger.debug(e.backtrace)
-        Rails.logger.debug(e.inspect)
-
-        flash[:alert] = "Your card could not be processed"
-        respond_to do |format|
-          format.js { render text: "Your card could not be processed", status: 402}
-          format.html {}
-        end
-      end
-    else
-
-    end
-  end
-
-  def downgrade
-    @plan = Plan.find(params[:plan_id])
-    if current_user.can_downgrade?(@plan) && current_user.subscribe_to(@plan)
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
-      end
-    else
-    end
-  end
-
   def cancel_user
     stripe_customer = current_user.create_or_retrieve_stripe_customer
     stripe_customer.subscriptions.retrieve(current_user.stripe_subscription_token).delete()

@@ -121,8 +121,7 @@ describe User do
   end
 
   describe "testing allowance" do
-    let(:free_plan) { create(:plan, stripe_id: "free") }
-    let(:user) { create(:user, plan: free_plan) }
+    let(:user) { create(:user, plan: plan) }
 
     context "with available minutes" do
       let!(:testing_allowance) { create(:testing_allowance, timeable: user) }
@@ -136,7 +135,7 @@ describe User do
       end
 
       it "#available_minutes" do
-        expect(user.available_minutes).to eq (free_plan.minutes_available - user.used_minutes)
+        expect(user.available_minutes).to eq (plan.minutes_available - user.used_minutes)
       end
     end
 

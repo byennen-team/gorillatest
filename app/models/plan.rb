@@ -25,6 +25,7 @@ class Plan
   #Integrate into Deploy Process
 
   validates :name, :price, :seconds_available, presence: true
+  validates :stripe_id, uniqueness: true
 
   has_many :users
 

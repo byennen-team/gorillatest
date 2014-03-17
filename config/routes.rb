@@ -17,6 +17,13 @@ Autotest::Application.routes.draw do
   end
 
   resources :scenarios
+  resources :plans do
+    member do
+      get :upgrade
+      post :upgrade
+      post :downgrade
+    end
+  end
 
   #application
   devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations
@@ -25,9 +32,6 @@ Autotest::Application.routes.draw do
     get '/get-started' => 'registrations#new', as: 'get_started'
     get '/my-info' => 'registrations#edit', as: 'my_info'
     get '/change-plan' => 'registrations#change_plan', as: 'change_plan'
-    post "/upgrade/:plan_id" => 'registrations#upgrade', as: 'upgrade'
-    get '/upgrade/:plan_id' => "registrations#upgrade", as: "get_upgrade"
-    get '/downgrade/:plan_id' => "registrations#downgrade", as: "get_downgrade"
     post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 
