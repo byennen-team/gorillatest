@@ -24,7 +24,7 @@ describe PlansController do
 
       let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
       let!(:user)                 { create(:user) }
-      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+      let(:user_credit_card)      { user.credit_cards.create({stripe_token: stripe_card_token}) }
 
       before do
         user.update_attribute(:confirmed_at, Time.now-1.day)
@@ -51,7 +51,7 @@ describe PlansController do
 
       let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
       let!(:user)                 { create(:user) }
-      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+      let(:user_credit_card)      { user.credit_cards.create({stripe_token: stripe_card_token}) }
 
       before do
         stripe_customer = user.create_or_retrieve_stripe_customer
