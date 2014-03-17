@@ -9,7 +9,11 @@ module PlanCustomer
       after_create :subscribe_to_plan
 
       belongs_to :plan
-      has_one :credit_card
+      has_many :credit_cards do
+        def default
+          where(default: true).first
+        end
+      end
 
       delegate :seconds_available, to: :plan
       delegate :minutes_available, to: :plan

@@ -24,7 +24,7 @@ describe CreditCard do
                                                                 exp_year: (Time.now+1.year).year,
                                                                 name: "Donald Duck",
                                                                 type: "Visa") }
-    let(:credit_card) { user.create_credit_card({stripe_token: stripe_card_token}) }
+    let!(:credit_card) { user.credit_cards.create({stripe_token: stripe_card_token}) }
     let(:stripe_plan_id) { plan.stripe_id}
 
     it "should store the payment info for the last 4" do
@@ -41,6 +41,14 @@ describe CreditCard do
 
     it "should store the payment info for the cc name" do
       expect(credit_card.name).to eq("Donald Duck")
+    end
+
+    it "should be the default payment card" do
+      expect(credit_card.default).to be_true
+    end
+
+    it "should be the stripe default" do
+      expect(user.reload.create_or_retrieve_stripe_customer.default_card).to eq(credit_card.stripe_id)
     end
 
   end

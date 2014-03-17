@@ -10,12 +10,28 @@ class CreditCard
   field :cc_type, type: String
   field :exp_month, type: String
   field :exp_year, type: String
+  field :default, type: Boolean
 
   belongs_to :user
 
   validates :stripe_id, :name, :last4, :cc_type, presence: true
 
   before_validation :update_data_from_stripe, on: :create
+  after_create :set_default
+
+   def stripe_card
+    stripe_customer = user.create_or_retrieve_stripe_customer
+    credit_card = stripe_customer.cards.retrieve(stripe_id)
+  end
+
+  def set_default
+    user.credit_cards.each { |cc| cc.update_attribute(:default, false) }
+    self.default = true
+    customer = user.create_or_retrieve_stripe_customer
+    customer.default_card = self.stripe_id
+    customer.save
+    self.save!
+  end
 
   private
 
@@ -31,10 +47,5 @@ class CreditCard
     self.exp_year = card.exp_year
     self.stripe_token = nil
    end
-
-   def stripe_card
-    stripe_customer = user.create_or_retrieve_stripe_customer
-    credit_card = stripe_customer.cards.retrieve(stripe_id)
-  end
 
 end

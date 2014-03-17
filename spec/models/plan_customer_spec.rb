@@ -46,7 +46,7 @@ describe PlanCustomer do
     context 'with valid and chargeable card' do
       let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
       let!(:user)                 { create(:user) }
-      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+      let(:user_credit_card)      { user.credit_cards.create({stripe_token: stripe_card_token}) }
 
       before do
         # Update the stripe customer card default mocking doesn't set default card
@@ -69,7 +69,7 @@ describe PlanCustomer do
 
       let!(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
       let!(:user)                 { create(:user) }
-      let(:user_credit_card)      { user.create_credit_card({stripe_token: stripe_card_token}) }
+      let(:user_credit_card)      { user.credit_cards.create({stripe_token: stripe_card_token}) }
 
       before do
         # StripeMock.prepare_card_error(:card_declined)
