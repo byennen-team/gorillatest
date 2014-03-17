@@ -105,6 +105,11 @@ class ProjectsController < ApplicationController
       end
       status = 400
     end
+
+    if status == 200
+      UserMailer.script_verification(current_user.email, @project.id.to_s).deliver
+    end
+
     respond_to do |format|
       format.js {render json: {message: flash[:notice]}.to_json, status: status}
       format.html {redirect_to :back}

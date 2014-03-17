@@ -31,6 +31,7 @@ module PlanCustomer
   end
 
   def subscribe_to(plan)
+    old_plan_id = self.plan.id
     customer = create_or_retrieve_stripe_customer
     #binding.pry
     unless stripe_subscription_token.nil?
@@ -45,6 +46,7 @@ module PlanCustomer
       subscription = customer.subscriptions.create(plan: plan.stripe_id)
     end
     update_attribute(:stripe_subscription_token, subscription.id)
+    UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s)
   end
 
   def stripe_subscription

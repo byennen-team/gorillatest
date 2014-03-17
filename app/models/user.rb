@@ -75,7 +75,7 @@ class User
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
-  after_create :create_demo_project
+  after_create :create_demo_project, :drip_email
   after_invitation_accepted :assign_default_plan
 
   def send_invitation(inviter_id)
@@ -202,5 +202,9 @@ class User
         end
       end
     end
+  end
+
+  def drip_email
+    UserMailer.delay_until(7.days.from_now).drip_email(self.id.to_s)
   end
 end
