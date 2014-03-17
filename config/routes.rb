@@ -32,6 +32,7 @@ Autotest::Application.routes.draw do
     get '/get-started' => 'registrations#new', as: 'get_started'
     get '/my-info' => 'registrations#edit', as: 'my_info'
     get '/change-plan' => 'registrations#change_plan', as: 'change_plan'
+    get '/manage-billing' => 'registrations#manage_billing', as: 'billing'
     post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 

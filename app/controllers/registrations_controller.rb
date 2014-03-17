@@ -24,9 +24,9 @@ class RegistrationsController < Devise::RegistrationsController
     redirect_to "/"
   end
 
-  def change_plan
+  def change_plan; end
 
-  end
+  def manage_billing; end
 
   protected
 
@@ -36,7 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def get_layout
-    return 'session' unless %w(edit upgrade change_plan).include?(params[:action])
+    return 'session' unless %w(edit upgrade change_plan manage_billing).include?(params[:action])
     return 'application'
   end
 
