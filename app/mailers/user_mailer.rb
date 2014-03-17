@@ -63,6 +63,6 @@ class UserMailer < ActionMailer::Base
 
   def drip_email(user_id)
     @user = User.find(user_id)
-    mail to: @user.email, subject: "Your Autotest Experience?"
+    mail to: @user.email, from: "mike@autotest.io", subject: "Your Autotest Experience?"
   end
 end
