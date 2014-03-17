@@ -48,8 +48,8 @@ describe User do
     end
 
     it "sends project invitation" do
-      InvitationMailer.expects(:send_project_invitation).with(invited_user.id, user.id, project.id).returns(mailer)
-      invited_user.send_project_invitation(user.id, project.id)
+      InvitationMailer.expects(:send_project_invitation_new_user).with(invited_user.id, user.id, project.id).returns(mailer)
+      invited_user.send_project_invitation_new_user(user.id, project.id)
     end
   end
 
