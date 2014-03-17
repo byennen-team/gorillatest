@@ -97,7 +97,7 @@
               - unless plan == current_user.plan
                 - if plan.id > current_user.plan.id
                   .panel-footer.text-align-center
-                    - if current_user.credit_card
+                    - if current_user.credit_cards.default
                       = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-primary btn-block'
                     - else
                       = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), class: 'btn btn-primary btn-block'
