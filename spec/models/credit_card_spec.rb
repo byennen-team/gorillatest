@@ -53,4 +53,30 @@ describe CreditCard do
 
   end
 
+  describe 'deleting a credit card' do
+
+    let!(:plan) { create(:plan, stripe_id: "free") }
+    let!(:user) { create(:user) }
+    let(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242",
+                                                                exp_month: Time.now.month,
+                                                                exp_year: (Time.now+1.year).year,
+                                                                name: "Donald Duck",
+                                                                type: "Visa") }
+    let!(:credit_card) { user.credit_cards.create({stripe_token: stripe_card_token}) }
+    let(:stripe_plan_id) { plan.stripe_id}
+
+    context 'with one card' do
+
+       it "should raise an error on destroy" do
+        expect { credit_card.destroy }.to raise_error(DefaultCreditCardUndeletable)
+       end
+
+    end
+
+    context 'with multiple cards' do
+    end
+
+
+  end
+
 end

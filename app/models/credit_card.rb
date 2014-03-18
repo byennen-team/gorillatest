@@ -1,3 +1,5 @@
+class DefaultCreditCardUndeletable < Exception; end
+
 class CreditCard
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -17,6 +19,7 @@ class CreditCard
   validates :stripe_id, :name, :last4, :cc_type, presence: true
 
   before_validation :update_data_from_stripe, on: :create
+  before_destroy :ensure_card_not_default, prepend: true
   after_create :set_default
 
    def stripe_card
@@ -47,5 +50,11 @@ class CreditCard
     self.exp_year = card.exp_year
     self.stripe_token = nil
    end
+
+   def ensure_card_not_default
+     if self.default?
+      raise DefaultCreditCardUndeletable
+    end
+  end
 
 end
