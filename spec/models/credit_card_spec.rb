@@ -53,6 +53,25 @@ describe CreditCard do
 
   end
 
+  describe 'adding  a second card' do
+    let!(:plan) { create(:plan, stripe_id: "free") }
+    let!(:user) { create(:user) }
+    let(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242",
+                                                                exp_month: Time.now.month,
+                                                                exp_year: (Time.now+1.year).year,
+                                                                name: "Donald Duck",
+                                                                type: "Visa") }
+    let!(:credit_card1) { user.credit_cards.create({stripe_token: stripe_card_token}) }
+    let!(:credit_card2) { user.credit_cards.create({stripe_token: stripe_card_token}) }
+    let(:stripe_plan_id) { plan.stripe_id}
+
+    specify { expect(credit_card2.default).to be_true }
+    specify { expect(credit_card1.default).to_not be_true }
+    specify { expect(user.create_or_retrieve_stripe_customer.default_card).to eq credit_card2.stripe_id }
+
+  end
+
+
   describe 'deleting a credit card' do
 
     let!(:plan) { create(:plan, stripe_id: "free") }
