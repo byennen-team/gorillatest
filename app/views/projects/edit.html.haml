@@ -46,6 +46,10 @@
             - if @project.owner?(current_user) && !@project.owner?(user) && current_user != user
               .pull-right
                 = link_to "Make Owner", project_add_owner_path(@project, user.id), method: :put
+            - if @project.owner?(current_user) && @project.owner?(user) && current_user != user
+              .pull-right
+                = link_to "Revoke Ownership", project_remove_owner_path(@project, user.id), method: :put
+
       #notifications.tab-pane
         %br
         =simple_form_for @notification, url: update_notifications_project_path(@project), method: :post do |f|
