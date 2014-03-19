@@ -5,7 +5,7 @@ module PlanCustomer
       field :stripe_customer_token, type: String
       field :stripe_subscription_token, type: String
 
-      after_create :assign_default_plan
+      before_create :assign_default_plan
       after_create :subscribe_to_plan
 
       belongs_to :plan
@@ -33,23 +33,22 @@ module PlanCustomer
     customer
   end
 
-  def subscribe_to(plan)
-    old_plan_id = self.plan.id
+  def subscribe_to(new_plan)
+    old_plan_id = self.plan ? self.plan.id : nil
     customer = create_or_retrieve_stripe_customer
-    #binding.pry
     unless stripe_subscription_token.nil?
-      Rails.logger.debug("upating customer subscdription")
       subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
-      subscription.plan = plan.stripe_id
+      subscription.plan = new_plan.stripe_id
       if subscription.save
-        update_attribute(:plan_id, plan.id)
+        update_attribute(:plan_id, new_plan.id)
       end
     else
-      Rails.logger.debug("creating a new subscription")
-      subscription = customer.subscriptions.create(plan: plan.stripe_id)
+      subscription = customer.subscriptions.create(plan: new_plan.stripe_id)
     end
     update_attribute(:stripe_subscription_token, subscription.id)
-    UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s)
+    unless old_plan_id.nil?
+      UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s)
+    end
   end
 
   def stripe_subscription
@@ -76,8 +75,8 @@ module PlanCustomer
 
   def assign_default_plan
     self.plan = Plan.where(name:"Free").first
-    self.invitation_limit = self.plan.num_users - 1
-    self.save
+    Rails.logger.debug("plan is #{self.plan.inspect}")
+    #self.save
   end
 
   # Make sure they have a stripe customer and free plan

@@ -76,7 +76,6 @@ class User
   # after_create :send_welcome_email
   before_validation :set_random_password
   after_create :create_demo_project, :drip_email
-  after_invitation_accepted :assign_default_plan
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver

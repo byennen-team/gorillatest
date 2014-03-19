@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  let!(:plan) { create(:plan, stripe_id: "free") }
+  let!(:plan) { create(:plan, stripe_id: "free", name: "Free") }
   let(:user) {create(:user)}
   let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
                                            interval: 'month',
@@ -162,5 +162,16 @@ describe User do
         expect(user.available_minutes).to eq 0
       end
     end
+  end
+
+  describe '#create_demo_project' do
+
+    let!(:demo_project) { create(:project, name: "Demo Project", url: "http://test.io") }
+    let!(:user) { create(:user) }
+
+    subject { user.projects.first }
+
+    specify { expect(subject.name).to eq(demo_project.name) }
+
   end
 end
