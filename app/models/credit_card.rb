@@ -19,8 +19,10 @@ class CreditCard
   validates :stripe_id, :name, :last4, :cc_type, presence: true
 
   before_validation :update_data_from_stripe, on: :create
-  before_destroy :ensure_card_not_default, prepend: true
   after_create :set_default
+
+  before_destroy :ensure_card_not_default, prepend: true
+  before_destroy :remove_from_stripe
 
    def stripe_card
     stripe_customer = user.create_or_retrieve_stripe_customer
@@ -39,7 +41,6 @@ class CreditCard
   private
 
   def update_data_from_stripe
-    Rails.logger.debug("creating card for #{stripe_token}")
     stripe_customer = user.create_or_retrieve_stripe_customer
     card = stripe_customer.cards.create({card: self.stripe_token})
     self.stripe_id = card.id
@@ -56,5 +57,11 @@ class CreditCard
       raise DefaultCreditCardUndeletable
     end
   end
+
+  def remove_from_stripe
+    customer = user.create_or_retrieve_stripe_customer
+    customer.cards.retrieve(self.stripe_id).delete()
+  end
+
 
 end

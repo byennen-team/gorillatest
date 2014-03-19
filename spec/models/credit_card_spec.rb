@@ -67,13 +67,28 @@ describe CreditCard do
     let!(:credit_card) { user.credit_cards.create({stripe_token: stripe_card_token}) }
     let(:stripe_plan_id) { plan.stripe_id}
 
+
     context 'with one card' do
 
       specify { expect { credit_card.destroy }.to raise_error(DefaultCreditCardUndeletable) }
 
+
     end
 
     context 'with multiple cards' do
+
+      let!(:user) { create(:user) }
+      let!(:credit_card) { user.credit_cards.create({stripe_token: stripe_card_token}) }
+      let!(:credit_card2) { user.credit_cards.create(stripe_token: stripe_card_token) }
+      let(:stripe_user)   { user.reload.create_or_retrieve_stripe_customer }
+      let!(:stripe_card_id) { credit_card.stripe_id }
+
+      before do
+        credit_card.destroy
+      end
+
+      specify { expect { user.create_or_retrieve_stripe_customer.cards.retrieve(stripe_card_id) }.to raise_error(Stripe::InvalidRequestError) }
+
     end
 
 
