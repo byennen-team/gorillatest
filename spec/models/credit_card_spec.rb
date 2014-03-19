@@ -27,29 +27,12 @@ describe CreditCard do
     let!(:credit_card) { user.credit_cards.create({stripe_token: stripe_card_token}) }
     let(:stripe_plan_id) { plan.stripe_id}
 
-    it "should store the payment info for the last 4" do
-      expect(credit_card.last4).to eq("4242")
-    end
-
-    it "should store the payment infor for the stripe id" do
-      expect(credit_card.stripe_id).to_not be_nil
-    end
-
-    it "should store the payment info for the cc type" do
-      expect(credit_card.cc_type).to eq("Visa")
-    end
-
-    it "should store the payment info for the cc name" do
-      expect(credit_card.name).to eq("Donald Duck")
-    end
-
-    it "should be the default payment card" do
-      expect(credit_card.default).to be_true
-    end
-
-    it "should be the stripe default" do
-      expect(user.reload.create_or_retrieve_stripe_customer.default_card).to eq(credit_card.stripe_id)
-    end
+    specify { expect(credit_card.last4).to eq("4242") }
+    specify { expect(credit_card.stripe_id).to_not be_nil }
+    specify { expect(credit_card.cc_type).to eq("Visa") }
+    specify { expect(credit_card.name).to eq("Donald Duck") }
+    specify { expect(credit_card.default).to be_true }
+    specify { expect(user.reload.create_or_retrieve_stripe_customer.default_card).to eq(credit_card.stripe_id) }
 
   end
 
@@ -86,9 +69,7 @@ describe CreditCard do
 
     context 'with one card' do
 
-       it "should raise an error on destroy" do
-        expect { credit_card.destroy }.to raise_error(DefaultCreditCardUndeletable)
-       end
+      specify { expect { credit_card.destroy }.to raise_error(DefaultCreditCardUndeletable) }
 
     end
 
