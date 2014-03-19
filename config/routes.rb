@@ -24,7 +24,7 @@ Autotest::Application.routes.draw do
       post :downgrade
     end
   end
-  resources :credit_cards, only: [:create, :destroy]
+  resources :credit_cards, only: [:index, :create, :destroy]
 
   #application
   devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations

@@ -20,13 +20,27 @@ describe CreditCardsController do
     sign_in user
   end
 
+  describe '#index' do
+
+    let!(:credit_card1)      { user.credit_cards.create(stripe_token: stripe_card_token) }
+    let!(:credit_card2)      { user.credit_cards.create(stripe_token: stripe_card_token) }
+
+    before do
+      get :index
+    end
+
+    specify { expect(assigns(:default_credit_card)).to eq(credit_card2) }
+    specify { expect(assigns(:credit_cards)).to eq([credit_card1]) }
+
+  end
+
   describe '#create' do
 
     before do
       post :create, stripe_token: stripe_card_token
     end
 
-    it { should redirect_to billing_path }
+    it { should redirect_to credit_cards_path }
 
     subject { assigns(:credit_card) }
 
@@ -49,7 +63,7 @@ describe CreditCardsController do
         post :destroy, id: credit_card.id
       end
 
-      it { should redirect_to billing_path }
+      it { should redirect_to credit_cards_path }
       it { should set_the_flash.to("Credit Card Could not be deleted") }
 
     end
@@ -63,7 +77,7 @@ describe CreditCardsController do
         post :destroy, id: credit_card1.id
       end
 
-       it { should redirect_to billing_path }
+       it { should redirect_to credit_cards_path }
        it { should set_the_flash.to("Credit Card was deleted") }
 
     end

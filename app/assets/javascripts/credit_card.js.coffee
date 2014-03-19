@@ -39,13 +39,15 @@ credit_card =
       console.log("Calling AJAX")
       $.ajax(
         url: url
-        type: 'POST'
+        type: 'POST',
+        dataType: "json",
         data: {stripe_token: stripe_token}
-        success: ->
-          console.log("Calling successes")
-          console.log("We have liftoff")
-          window.location.href = "/users/edit#change-plan"
+        success: (data) ->
+          console.log(data)
+          if data.url
+            window.location.href = data.url
+          else
+            window.location.href = "/users/edit#change-plan"
         error: ->
-          console.log("Calling error")
           alert("Your card could not be charged")
       )

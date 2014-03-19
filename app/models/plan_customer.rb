@@ -13,6 +13,9 @@ module PlanCustomer
         def default
           where(default: true).first
         end
+        def non_default
+          where(default: false).to_a
+        end
       end
 
       delegate :seconds_available, to: :plan
