@@ -6,16 +6,17 @@ class PlansController < ApplicationController
   def upgrade
     if request.post?
       begin
-        unless current_user.credit_card
-          credit_card = current_user.create_credit_card({stripe_token: params[:stripe_token]})
+        unless current_user.credit_cards.default
+          credit_card = current_user.credit_cards.create({stripe_token: params[:stripe_token]})
         end
         if current_user.subscribe_to(@plan)
           respond_to do |format|
             format.html { redirect_to change_plan_path }
-            format.js { render text: "success"}
+            format.json { render json: {url: "#{change_plan_path}"}.as_json }
           end
         end
       rescue Exception => e
+        Rails.logger.debug("Exceptions is #{e.inspect}")
         flash[:alert] = "Your card could not be processed"
         respond_to do |format|
           format.js { render text: "Your card could not be processed", status: 402}

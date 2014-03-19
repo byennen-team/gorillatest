@@ -36,14 +36,12 @@ credit_card =
       # $('#new_credit_card').get(0).submit()
       stripe_token = response.id
       url = $("form#new_credit_card").attr("action");
-      console.log("Calling AJAX")
       $.ajax(
         url: url
         type: 'POST',
         dataType: "json",
         data: {stripe_token: stripe_token}
         success: (data) ->
-          console.log(data)
           if data.url
             window.location.href = data.url
           else
