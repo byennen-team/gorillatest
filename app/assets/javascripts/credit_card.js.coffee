@@ -31,9 +31,6 @@ credit_card =
       $('#new_credit_card input[type=submit]').val("Save Credit Card")
       $('#new_credit_card input[type=submit]').attr('disabled', false)
     else
-      #$('#stripe_token').val(response.id)
-      #debugger
-      # $('#new_credit_card').get(0).submit()
       stripe_token = response.id
       url = $("form#new_credit_card").attr("action");
       $.ajax(
