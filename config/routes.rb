@@ -51,6 +51,7 @@ Autotest::Application.routes.draw do
     post 'remove_user/:user_id', to: 'projects#remove_user', on: :member, as: :remove_user
     get 'verify_script', to: 'projects#verify_script', as: :verify_script, via: :get
     post 'update_notifications', to: "projects#update_notifications", on: :member, as: :update_notifications
+    put 'add_owner/:user_id', to: 'projects#add_owner', as: :add_owner
     post :run, on: :member
     resources :test_runs, controller: :project_test_runs, only: [:index, :show]
     resources :features do

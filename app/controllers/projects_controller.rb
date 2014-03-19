@@ -45,6 +45,18 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def add_owner
+    new_owner = User.find(params[:user_id])
+    if new_owner.can_create_project?
+      pu = ProjectUser.find_by(project_id: @project.id, user_id: new_owner.id)
+      pu.update_attribute(:rights, "owner")
+      flash[:notice] = "Successfully added #{new_owner.name} as owner"
+    else
+      flash[:alert] = "#{new_owner.name} has reached their plan limit and cannot be added as an owner"
+    end
+    redirect_to edit_project_path(@project, anchor: "users")
+  end
+
   def destroy
     if @project.destroy
       respond_to do |format|
@@ -146,4 +158,5 @@ class ProjectsController < ApplicationController
   def notification_params
     params.require(:notification).permit(:subdomain, :room_name, :token, :service)
   end
+
 end
