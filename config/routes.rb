@@ -97,7 +97,12 @@ Autotest::Application.routes.draw do
         end
       end
     end
+
+    namespace :dashing do
+      match '/total_tests_run' => "dashboard#total_tests_run", via: :get
+    end
   end
+
   resources :beta_invitations
   post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 
