@@ -5,6 +5,6 @@
       #{credit_card.cc_type} ending in #{credit_card.last4}
     %p Expires on: #{credit_card.exp_month} / #{credit_card.exp_year}
     - unless credit_card.default?
-      = link_to "Make Default", "#"
+      = link_to "Make Default", default_credit_card_path(credit_card), method: :post
       |
       = link_to "Delete", credit_card_path(credit_card), method: :delete, confirm: "Are you sure?"

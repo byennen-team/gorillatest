@@ -30,6 +30,14 @@ class CreditCardsController < ApplicationController
     end
   end
 
+  def default
+    if @credit_card.set_default
+      respond_to do |format|
+        format.html { redirect_to credit_cards_path, notice: "Credit Card default has been updated" }
+      end
+    end
+  end
+
   private
 
   def find_or_new_credit_card

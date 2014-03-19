@@ -1,3 +1,4 @@
+
 require 'spec_helper'
 
 describe CreditCardsController do
@@ -84,5 +85,19 @@ describe CreditCardsController do
 
   end
 
+  describe '#default' do
+
+    let!(:credit_card1) { user.credit_cards.create(stripe_token: stripe_card_token) }
+    let!(:credit_card2) { user.credit_cards.create(stripe_token: stripe_card_token) }
+
+    before do
+      post :default, id: credit_card1.id
+    end
+
+    specify { expect(assigns(:credit_card)).to eq(credit_card1) }
+    specify { expect(assigns(:credit_card).default).to be_true }
+    specify { expect(credit_card2.reload.default).to_not be_true }
+
+  end
 
 end
