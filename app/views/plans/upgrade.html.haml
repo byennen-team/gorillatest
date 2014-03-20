@@ -7,7 +7,7 @@
   .container
     %h3 Upgrade Your Plan
     %p You are upgrading to #{@plan.name} ($#{@plan.price}) from #{current_user.plan.name}
-    = form_for CreditCard.new, url: upgrade_path(params[:plan_id]), html: {role: "form"} do |f|
+    = form_for CreditCard.new, url: upgrade_plan_path(@plan), html: {role: "form"} do |f|
       / #stripe_error{style: "color: red;"}
       /   %noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
       #stripe_error

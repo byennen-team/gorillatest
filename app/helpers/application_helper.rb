@@ -77,8 +77,10 @@ module ApplicationHelper
   end
 
   def gravatar_image_tag(user, size=16)
-    html = image_tag(user.gravatar_url(size))
-    html.html_safe
+    if user
+      html = image_tag(user.gravatar_url(size))
+      html.html_safe
+    end
   end
 
   def play_button(testable)

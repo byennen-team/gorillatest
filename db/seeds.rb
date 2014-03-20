@@ -29,3 +29,44 @@ Plan.find_or_create_by(name: "Team", seconds_available: 50400, num_projects:  50
 
 puts "Create Coupon Code"
 Coupon.find_or_create_by(code: "BETAUNLIMITED", to_plan: Plan.where(name: "Starter").first)
+
+
+# DEMO PROJECT
+if Project.where(name: "Demo Project").length == 0
+  puts "Creating Demo Project"
+
+  project = Project.new(name: "Demo Project")
+  project.url = "#{ENV['API_URL']}/test/form?project_id=#{project.id.to_s}"
+  project.save!
+
+  feature = project.features.create(name: "Filling out demo form")
+  scenario = feature.scenarios.create(name: "User should be able to fill out demo form", start_url: project.url,
+                                      window_x: 1024, window_y: 768)
+  scenario.steps.create(event_type: "get", locator_type: "", locator_value: "", text: scenario.start_url)
+
+  scenario.steps.create(event_type: "setElementText", locator_type: "id",
+                        locator_value: "name", text: "Demo User")
+
+  scenario.steps.create(event_type: "setElementText", locator_type: "id",
+                        locator_value: "email", text: "demouser@email.com")
+
+  scenario.steps.create(event_type: "setElementText", locator_type: "id",
+                        locator_value: "password", text: "password")
+
+  scenario.steps.create(event_type: "setElementText", locator_type: "id",
+                        locator_value: "password_confirmation", text: "password")
+
+  scenario.steps.create(event_type: "setElementText", locator_type: "id",
+                        locator_value: "company", text: "Demo Company")
+
+  scenario.steps.create(event_type: "submitElement", locator_type: "name",
+                        locator_value: "commit", text: "")
+
+  scenario.steps.create(event_type: "waitForCurrentUrl", locator_type: nil,
+                        locator_value: nil, text: "#{ENV['API_URL']}/test/thankyou?project_id=#{project.id.to_s}")
+
+  scenario.steps.create(event_type: "verifyText", locator_type: "",
+                        locator_value: "",
+                        text: "\n        Thank you Demo User  for submitting our test form. Click here to go back to the form!\n      ")
+end
+

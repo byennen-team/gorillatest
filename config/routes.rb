@@ -17,6 +17,18 @@ Autotest::Application.routes.draw do
   end
 
   resources :scenarios
+  resources :plans do
+    member do
+      get :upgrade
+      post :upgrade
+      post :downgrade
+    end
+  end
+  resources :credit_cards, only: [:index, :create, :destroy] do
+    member do
+      post :default
+    end
+  end
 
   #application
   devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations
@@ -29,6 +41,7 @@ Autotest::Application.routes.draw do
     post "/upgrade/:plan_id" => 'registrations#upgrade', as: 'upgrade'
     get '/upgrade/:plan_id' => "registrations#upgrade", as: "get_upgrade"
     get '/downgrade/:plan_id' => "registrations#downgrade", as: "get_downgrade"
+    get '/manage-billing' => 'registrations#manage_billing', as: 'billing'
     post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 
@@ -88,7 +101,13 @@ Autotest::Application.routes.draw do
         end
       end
     end
+
+    namespace :dashing do
+      match '/total_tests_run' => "dashboard#total_tests_run", via: :get
+      match '/total_minutes' => "dashboard#total_minutes", via: :get
+    end
   end
+
   resources :beta_invitations
   post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 

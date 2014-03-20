@@ -1,0 +1,8 @@
+%p
+  #{@user.name},
+%p
+  You have been invited to join #{@project.name} on Autotest. To get started, click the link below:
+%p
+  = link_to 'Go to Project', project_url(@project)
+%p
+  After visiting the link above, you will have access to the shared projects dashboard.

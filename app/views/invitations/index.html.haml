@@ -1,9 +1,9 @@
--unless current_user.has_invitations?
-  %p You are out of invitations. Click #{link_to "here", edit_user_registration_path(anchor: "change-plan")} to upgrade your plan to invite more users.
+/ -unless current_user.has_invitations?
+/   %p You are out of invitations. Click #{link_to "here", edit_user_registration_path(anchor: "change-plan")} to upgrade your plan to invite more users.
 
-%p You have used #{current_user.invitations_sent_count} of your #{current_user.plan.num_users-1} available invitations.
+/ %p You have used #{current_user.invitations_sent_count} of your #{current_user.plan.num_users-1} available invitations.
 
 = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form'} do |f|
   %h1 Invite A User
   = f.input :email
-  = f.submit "Invite User", class: "btn btn-primary", disabled: !current_user.has_invitations?
+  = f.submit "Invite User", class: "btn btn-primary"

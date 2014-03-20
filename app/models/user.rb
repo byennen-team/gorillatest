@@ -75,14 +75,18 @@ class User
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
-  after_invitation_accepted :assign_default_plan
+  after_create :create_demo_project, :drip_email
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
   end
 
-  def send_project_invitation(inviter_id, project_id)
-    InvitationMailer.send_project_invitation(self.id, inviter_id, project_id).deliver
+  def send_project_invitation_new_user(inviter_id, project_id)
+    InvitationMailer.send_project_invitation_new_user(self.id, inviter_id, project_id).deliver
+  end
+
+  def send_project_invitation_existing_user(inviter_id, project_id)
+    InvitationMailer.send_project_invitation_existing_user(self.id, inviter_id, project_id).deliver
   end
 
   def has_invitations?
@@ -181,5 +185,29 @@ class User
       self.password = password
       self.password_confirmation = password
     end
+  end
+
+  def create_demo_project
+    demo = Project.where(name: "Demo Project", user_id: nil).first
+    if demo
+      clone_project = demo.clone
+      clone_project.user_id = self.id
+      ProjectUser.create(project_id: clone_project.id, user_id: self.id)
+      clone_project.save
+      clone_project.update_attribute(:script_verified, true)
+
+      demo.features.each do |feature|
+        clone_feature = clone_project.features.create(name:feature.name)
+        feature.scenarios.each do |scenario|
+          clone_scenario = scenario.clone
+          clone_scenario.feature_id = clone_feature.id
+          clone_scenario.save
+        end
+      end
+    end
+  end
+
+  def drip_email
+    UserMailer.delay_until(7.days.from_now).drip_email(self.id.to_s)
   end
 end

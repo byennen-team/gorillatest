@@ -13,34 +13,6 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  def upgrade
-    @plan = Plan.find(params[:plan_id])
-    Rails.logger.debug("Plan is #{@plan.inspect}")
-    if request.post?
-      Rails.logger.debug("current user credit card is #{current_user.credit_card.inspect}")
-      unless current_user.credit_card
-        credit_card = current_user.create_credit_card({stripe_token: params[:stripe_token]})
-      end
-      current_user.subscribe_to(@plan)
-      if current_user.subscribe_to(@plan)
-        respond_to do |format|
-          format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
-        end
-      end
-    else
-
-    end
-  end
-
-  def downgrade
-    @plan = Plan.find(params[:plan_id])
-    if current_user.can_downgrade?(@plan) && current_user.subscribe_to(@plan)
-      respond_to do |format|
-        format.html { redirect_to edit_user_registration_path(anchor: "change-plan") }
-      end
-    end
-  end
-
   def cancel_user
     stripe_customer = current_user.create_or_retrieve_stripe_customer
     stripe_customer.subscriptions.retrieve(current_user.stripe_subscription_token).delete()
@@ -52,9 +24,9 @@ class RegistrationsController < Devise::RegistrationsController
     redirect_to "/"
   end
 
-  def change_plan
+  def change_plan; end
 
-  end
+  def manage_billing; end
 
   protected
 
@@ -64,7 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def get_layout
-    return 'session' unless %w(edit upgrade change_plan).include?(params[:action])
+    return 'session' unless %w(edit upgrade change_plan manage_billing).include?(params[:action])
     return 'application'
   end
 

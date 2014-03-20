@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  let!(:plan) { create(:plan, stripe_id: "free") }
+  let!(:plan) { create(:plan, stripe_id: "free", name: "Free") }
   let(:user) {create(:user)}
   let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
                                            interval: 'month',
@@ -10,13 +10,8 @@ describe User do
                                            currency: 'usd',
                                            id: 'free')}
 
-  it "#name returns user's full name" do
-    user.name.should eq user.first_name + " " + user.last_name
-  end
-
-  it "has default free plan assigned" do
-    expect(user.plan).to_not be_nil
-  end
+  specify { expect(user.name).to eq(user.first_name + " " + user.last_name) }
+  specify { expect(user.plan).to_not be_nil }
 
   it "#gravatar_url returns correct gravatar image url" do
     hash = Digest::MD5.hexdigest(user.email.downcase)
@@ -24,18 +19,31 @@ describe User do
   end
 
   context "projects" do
+
     let(:project) { create(:project) }
     let(:user) { create(:user) }
     let!(:project_user) { create(:project_user, user: user, project: project, rights: "owner")}
 
-    it "#projects returns projects that user belongs to" do
-      expect(user.projects).to eq [project]
-    end
+    specify { expect(user.projects).to eq [project] }
+    specify { expect(user.owned_projects).to eq [project] }
 
-    it "#owned_projects returns projects where user is owner" do
-      expect(user.owned_projects).to eq [project]
-    end
   end
+
+  describe "credit cards" do
+
+    let(:stripe_card_token)    { StripeMock.generate_card_token(last4: "4242",
+                                                                exp_month: Time.now.month,
+                                                                exp_year: (Time.now+1.year).year,
+                                                                name: "Donald Duck",
+                                                                type: "Visa") }
+    let!(:credit_card1) { user.credit_cards.create(stripe_token: stripe_card_token) }
+    let!(:credit_card2) { user.credit_cards.create(stripe_token: stripe_card_token) }
+
+    specify { expect(user.credit_cards.default).to eq(credit_card2) }
+    specify { expect(user.credit_cards.non_default).to eq([credit_card1]) }
+
+  end
+
 
   context "invitations" do
     let(:invited_user) { create(:user) }
@@ -48,8 +56,8 @@ describe User do
     end
 
     it "sends project invitation" do
-      InvitationMailer.expects(:send_project_invitation).with(invited_user.id, user.id, project.id).returns(mailer)
-      invited_user.send_project_invitation(user.id, project.id)
+      InvitationMailer.expects(:send_project_invitation_new_user).with(invited_user.id, user.id, project.id).returns(mailer)
+      invited_user.send_project_invitation_new_user(user.id, project.id)
     end
   end
 
@@ -121,8 +129,7 @@ describe User do
   end
 
   describe "testing allowance" do
-    let(:free_plan) { create(:plan, stripe_id: "free") }
-    let(:user) { create(:user, plan: free_plan) }
+    let(:user) { create(:user, plan: plan) }
 
     context "with available minutes" do
       let!(:testing_allowance) { create(:testing_allowance, timeable: user) }
@@ -136,7 +143,7 @@ describe User do
       end
 
       it "#available_minutes" do
-        expect(user.available_minutes).to eq (free_plan.minutes_available - user.used_minutes)
+        expect(user.available_minutes).to eq (plan.minutes_available - user.used_minutes)
       end
     end
 
@@ -155,5 +162,16 @@ describe User do
         expect(user.available_minutes).to eq 0
       end
     end
+  end
+
+  describe '#create_demo_project' do
+
+    let!(:demo_project) { create(:project, name: "Demo Project", url: "http://test.io") }
+    let!(:user) { create(:user) }
+
+    subject { user.projects.first }
+
+    specify { expect(subject.name).to eq(demo_project.name) }
+
   end
 end

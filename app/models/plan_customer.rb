@@ -5,11 +5,18 @@ module PlanCustomer
       field :stripe_customer_token, type: String
       field :stripe_subscription_token, type: String
 
-      after_create :assign_default_plan
+      before_create :assign_default_plan
       after_create :subscribe_to_plan
 
       belongs_to :plan
-      has_one :credit_card
+      has_many :credit_cards do
+        def default
+          where(default: true).first
+        end
+        def non_default
+          where(default: false).to_a
+        end
+      end
 
       delegate :seconds_available, to: :plan
       delegate :minutes_available, to: :plan
@@ -26,17 +33,22 @@ module PlanCustomer
     customer
   end
 
-  def subscribe_to(plan)
+  def subscribe_to(new_plan)
+    old_plan_id = self.plan ? self.plan.id : nil
     customer = create_or_retrieve_stripe_customer
-    if !stripe_subscription_token.nil?
+    unless stripe_subscription_token.nil?
       subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
-      subscription.plan = plan.stripe_id
-      self.plan_id = plan.id
-      subscription.save && self.save
+      subscription.plan = new_plan.stripe_id
+      if subscription.save
+        update_attribute(:plan_id, new_plan.id)
+      end
     else
-      subscription = customer.subscriptions.create(plan: plan.stripe_id)
+      subscription = customer.subscriptions.create(plan: new_plan.stripe_id)
     end
     update_attribute(:stripe_subscription_token, subscription.id)
+    unless old_plan_id.nil?
+      UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s)
+    end
   end
 
   def stripe_subscription
@@ -63,8 +75,8 @@ module PlanCustomer
 
   def assign_default_plan
     self.plan = Plan.where(name:"Free").first
-    self.invitation_limit = self.plan.num_users - 1
-    self.save
+    Rails.logger.debug("plan is #{self.plan.inspect}")
+    #self.save
   end
 
   # Make sure they have a stripe customer and free plan

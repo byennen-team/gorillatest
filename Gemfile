@@ -84,6 +84,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'fuubar'
   gem 'mocha'
-  gem 'stripe-ruby-mock'
+  gem 'stripe-ruby-mock', git: "https://github.com/jimiray/stripe-ruby-mock.git"
   gem 'rubocop'
 end

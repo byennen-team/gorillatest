@@ -8,6 +8,6 @@ FactoryGirl.define do
     sequence(:email) {|n| "email#{n}@bigastronaut.com"}
     password "password"
     password_confirmation "password"
-    plan
+    # plan
   end
 end

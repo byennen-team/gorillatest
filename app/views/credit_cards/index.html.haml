@@ -1,0 +1,32 @@
+- content_for :head do
+  = javascript_include_tag "https://js.stripe.com/v2/", 'credit_card'
+  :javascript
+    Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}")
+
+.page-content.blocky
+  .container
+    = render partial: 'credit_card', locals: {credit_card: @default_credit_card}
+    = render partial: 'credit_card', collection: @credit_cards
+
+
+    %h3{style: "margin-bottom: 0px;"} Add New Card
+    %p Adding a new card will make it the new card active.
+    = form_for CreditCard.new, html: {role: "form"} do |f|
+      / #stripe_error{style: "color: red;"}
+      /   %noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
+      #stripe_error
+      .form-group
+        = label_tag :name, "Name", class: "control-label"
+        = text_field_tag :name, current_user.name, class: "form-control"
+        = label_tag :card_number, "Credit Card #", class: "control-label"
+        = text_field_tag :card_number, nil, name: nil, class: "form-control"
+        = label_tag :card_code, "Security Code", class: "control-label"
+        = text_field_tag :card_code, nil, name: nil, placeholder: " CVV", class: "form-control"
+        .cvv_icon.pull-right{style: "background-size: 46px; background-repeat: no-repeat; height: 30px; width: 55px; margin-right: 168px;"}
+        = hidden_field_tag :stripe_token
+      .form-group
+        = label_tag :card_month, "Expiration", class: "control-label"
+        = select_month nil, {add_month_numbers: false}, {name: nil, id: "card_month" }
+        = select_year nil, {start_year: Date.current.year, end_year: Date.current.year+15}, {name: nil, id: "card_year" }
+      .form-group
+        = f.submit "Save Credit Card", class: "btn btn-primary"
