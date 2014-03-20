@@ -5,29 +5,13 @@
         = gravatar_image_tag(current_user, 32)
         %span
           = current_user.name
+
   %nav
     %ul
-      %li.active
-        = link_to dashboard_path do
-          %i.fa.fa-lg.fa-fw.fa-home
-          %span.menu-item-parent Dashboard
-
-      %li
-        = link_to projects_path do
-          %i.fa.fa-lg.fa-fw.fa-desktop
-          %span.menu-item-parent Projects
-
-      %li
-        = link_to invitations_path do
-          %i.fa.fa-lg.fa-fw.fa-group
-          %span.menu-item-parent Invite Users
-
-      %li
-        = link_to "javascript:;" do
-          %i.fa.fa-lg.fa-fw.fa-bullhorn
-          %span.menu-item-parent Teams
-          .menu-item-parent.label.label-danger Coming Soon
-
+      %li= nav_link "Dashboard", dashboard_path, "fa-home"
+      %li= nav_link "Projects", projects_path, "fa-desktop"
+      %li= nav_link "Invite Users", invitations_path, "fa-group"
+      -#%li= nav_link "Teams", "javascript:;", "fa-bullhorn"
       %li
         %a{href: "javascript:;"}
           %i.fa.fa-lg.fa-fw.fa-cog
@@ -36,10 +20,8 @@
           %li= link_to 'My Info', my_info_path
           %li= link_to 'Change Your Plan', change_plan_path
 
-      %li
-        = link_to destroy_user_session_path, method: :delete do
-          %i.fa.fa-lg.fa-fw.fa-sign-out
-          %span.menu-item-parent Logout
+      %li= nav_link "Logout", destroy_user_session_path, "fa-sign-out"
+
 
   %span.minifyme
     %i.fa.fa-arrow-circle-left.hit

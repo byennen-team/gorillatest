@@ -1,0 +1,7 @@
+.row
+  .col-sm-6
+    %p If you have a coupon code enter it below.
+    .well
+      = simple_form_for redeem_coupon_path, :html => { :method => :post, class: 'smart-form' } do |f|
+        = f.input :coupon_code, class: 'coupon-input form-control'
+        = f.submit "Submit", class: "btn btn-primary button"

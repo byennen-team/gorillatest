@@ -37,7 +37,8 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :readonly
 
-    b.use :label_input
+    b.use :label
+    b.use :input, wrap_with: { tag: 'label', class: 'input'}
     b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
     b.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
   end

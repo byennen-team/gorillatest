@@ -9,4 +9,5 @@
  *= require application/layout
  *= require application/styles
  *= require application/dashboard
+ *= require application/sessions
 */

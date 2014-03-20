@@ -1,15 +1,32 @@
-%div.tab-content
-  #home.tab-pane.active
-    %h2 Edit User
-    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-      = devise_error_messages!
+.row
+  .col-xs-12.col-sm-7.col-md-7.col-lg-4
+    %h1.page-title.txt-color-blueDark
+      %i.fa.fa-edit.fa-fw
+      My Info
 
-      = f.input :email
-      = f.input :first_name
-      = f.input :last_name
-      = f.input :phone
-      = f.input :location
-      = f.input :password
-      = f.input :password_confirmation
-      = f.input :current_password
-      = f.submit "Update", class: "btn btn-success"
+%section#widget-grid
+  .row
+    %article.col-sm-12.col-md-12.col-lg-12
+      #wid-id-0.jarviswidget{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+        %header
+          %span.widget-icon
+            %i.fa.fa-edit
+          %h2 Basics
+        %div
+          .jarviswidget-editbox
+          .widget-body.no-padding
+            = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'smart-form' }) do |f|
+              = devise_error_messages!
+              = f.input :email
+              = f.input :first_name
+              = f.input :last_name
+              = f.input :phone
+              = f.input :location
+              = f.input :password
+              = f.input :password_confirmation
+              = f.input :current_password
+              %footer
+                = f.submit "Update", class: "btn btn-primary"
+                %button.btn.btn-default{onclick: "window.history.back();", type: "button"}
+                  Back
+

@@ -1,10 +1,12 @@
 module ApplicationHelper
   #add active class to links
-  def nav_link(link_text, link_path)
+  def nav_link(link_text, link_path, italic_class)
     class_name = current_page?(link_path) ? 'active' : ''
 
     content_tag(:li, :class => class_name) do
-      link_to link_text, link_path
+      link_to link_path do
+        html = content_tag(:i, "", class: "fa fa-lg fa-fw #{italic_class}") + content_tag(:span, link_text, class: "menu-item-parent")
+      end
     end
   end
 

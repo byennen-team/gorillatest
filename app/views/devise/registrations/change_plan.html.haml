@@ -1,5 +1,15 @@
+.row
+  .col-xs-12.col-sm-7.col-md-7.col-lg-4
+    %h1.page-title.txt-color-blueDark
+      %i.fa.fa-edit.fa-fw
+      Chnage Your Plan
+
 #change-plan.tab-pane
+  %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning.
   = render 'shared/plan_options'
+
+#coupon-code
+  = render 'devise/registrations/coupon_code'
 
 / Hide delete my account for now
 -##cancel-account.tab-pane

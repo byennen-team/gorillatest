@@ -1,39 +1,64 @@
-/ Page content
-.page-content.blocky
-  .container
-    = render 'shared/application/side_menu'
-    .mainy
-      / Page title
-      .page-title
-        %h2
-          %i.icon-desktop.color
-          Dashboard
-        %hr/
-      / Page title
-      .row
-        .col-md-12
-          %h2
-            Add text explaining
-            %strong AutoTest.io MVP.
-            Maybe a message about we're here to raise
-            %strong 500k
-          - if current_user.projects.size == 0
-            %p
-              You don't current have any projects, would you like to
-              %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+.row
+  .col-xs-12.col-sm-7.col-md-7.col-lg-4
+    %h1.page-title.txt-color-blueDark
+      %i.fa.fa-fw.fa-home
+      Dashboard
+
+  .col-xs-12.col-sm-5.col-md-5.col-lg-8
+    / sparks
+    %ul#sparks
+      %li.sparks-info
+        %h5
+          Minutes
+          %span.txt-color-blue
+            = current_user.available_minutes
+            Remaining
+      %li.sparks-info
+        %h5
+          Builds
+          %span.txt-color-purple 45 Remaining
+      %li.sparks-info
+        %h5
+          Plan
+          %span= link_to current_user.plan.name, my_info_path
+
+.row
+  .col-sm-12
+    .well
+      %button.close{"data-dismiss" => "alert"}
+        ×
+      %h1.semi-bold Welcome text here.
+      %p
+        Welcome to autotest.
+      = link_to 'Get Started!', '#', class: 'btn btn-primary'
 
 
-
-#add-project.modal.fade
-  .modal-dialog
-    .modal-content
-      = simple_form_for Project.new do |f|
-        .modal-header
-          %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
-          %h4.modal-title Add Project
-        .modal-body
-          = f.input :name
-          = f.input :url
-        .modal-footer
-          %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
-          = f.submit "Add Project", class: "btn btn-primary"
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .well.well-sm
+      .smart-timeline
+        %ul.smart-timeline-list
+          //Passing Example
+          %li
+            .smart-timeline-icon.passing
+              %i.fa.fa-fw.fa-check
+            .smart-timeline-time
+              %small just now
+            .smart-timeline-content
+              %p
+                %a.txt-color-greenDark{href: "javascript:void(0);"}
+                  %strong Project Name
+              %p
+                Test Details
+          //Failing Example
+          %li
+            .smart-timeline-icon.failing
+              %i.fa.fa-fw.fa-exclamation
+            .smart-timeline-time
+              %small Mar 18, 2014
+            .smart-timeline-content
+              %p
+                %a.txt-color-red{href: "javascript:void(0);"}
+                  %strong Project Name
+              %p
+                Test Details

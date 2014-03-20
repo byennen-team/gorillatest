@@ -31,6 +31,7 @@
       / end footer
     / END AJAX-DROPDOWN
   / projects dropdown
+
   #project-context
     %span.label Projects:
     %span#project-selector.popover-trigger-element.dropdown-toggle{"data-toggle" => "dropdown"}
@@ -53,14 +54,8 @@
   / end projects dropdown
   / pulled right: nav area
   .pull-right
-    / collapse menu button
-    #hide-menu.btn-header.pull-right
-      %span
-        %a{href: "javascript:void(0);", title: "Collapse Menu"}
-          %i.fa.fa-reorder
-    / end collapse menu
     / logout button
     #logout.btn-header.transparent.pull-right
       %span
-        %a{href: "login.html", title: "Logout"}
+        = link_to logout_path do
           %i.fa.fa-sign-out
