@@ -21,6 +21,35 @@ describe User do
     expect(user.gravatar_url(16)).to eq "https://www.gravatar.com/avatar/#{hash}?s=16"
   end
 
+  describe "validations" do
+    context "email" do
+      let!(:user) { create(:user) }
+      let(:same_email_user) { build(:user, email: user.email)}
+      let(:user_without_email) { build(:user, email: nil)}
+
+      it "uniqueness" do
+        expect(same_email_user).to_not be_valid
+      end
+
+      it "is required field" do
+        expect(user_without_email).to_not be_valid
+      end
+    end
+
+    context "email validation scope" do
+      let!(:user) { create(:user) }
+      let(:same_email_user) { build(:user, email: user.email)}
+
+      before do
+        user.destroy
+      end
+
+      it "does not scope deleted users" do
+        expect(same_email_user).to be_valid
+      end
+    end
+  end
+
   context "projects" do
 
     let(:project) { create(:project) }

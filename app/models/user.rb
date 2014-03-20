@@ -74,6 +74,7 @@ class User
 
   validates :first_name, :last_name, :email, :password, :password_confirmation, presence: { message: "can't be blank"}
 
+  validates :email, presence: true, uniqueness: { conditions: -> { where(deleted_at: nil) } }
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
@@ -221,5 +222,11 @@ class User
 
   def drip_email
     UserMailer.delay_until(7.days.from_now).drip_email(self.id.to_s)
+  end
+
+  def email_changed?
+    # set to false so it bypasses devise validation to scope email uniqueness on non deleted users
+    # devise uniquness validation was including deleted users when checking uniquness
+    false
   end
 end
