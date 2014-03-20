@@ -71,6 +71,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    airbrake (3.1.16)
+      builder
+      multi_json
     arel (4.0.2)
     ast (1.1.0)
     atomic (1.1.16)
@@ -459,6 +462,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  airbrake
   better_errors (~> 0.2.0)
   binding_of_caller
   bootstrap-sass

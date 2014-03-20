@@ -53,6 +53,7 @@ gem 'selenium-webdriver'
 
 gem 'httparty'
 
+gem 'airbrake'
 # money
 gem 'money-rails', git: 'https://github.com/RubyMoney/money-rails.git', ref: 'c0bf5ef27b55938933c189a5324a810028ff3303'
 
