@@ -1,9 +1,10 @@
 STAGING_USERNAME: 'autotest'
 STAGING_PASSWORD: 'autotest2014'
 development:
-  API_URL: "http://autotest.dev/"
+  API_URL: "http://localhost:3000"
   SELENIUM_HOST: "localhost"
   SELENIUM_PORT: "4444"
+  BROWSER_TEST_PLATFORM: 'mac'
   PUSHER_URL: "http://963dba5416414fb92c8f:6b004db0659f6eb150d9@api.pusherapp.com/apps/64224"
   PUSHER_APP_ID: '64224'
   PUSHER_KEY: '963dba5416414fb92c8f'
@@ -11,6 +12,12 @@ development:
   AWS_ACCESS_KEY: 'AKIAIT3LCONX3AGX3CVQ'
   AWS_SECRET_KEY: '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'
   S3_BUCKET: 'autotestio-development'
+  STRIPE_SECRET_KEY: "sk_test_k8C10pXoIuEER4VtXFFYuQXU"
+  STRIPE_PUBLISHABLE_KEY: "sk_test_k8C10pXoIuEER4VtXFFYuQXU"
+  GITHUB_CLIENT_ID: c60d1924fc4c68cda8d4
+  GITHUB_CLIENT_SECRET: a8811bc15f061eb9ac3aa0685137383df789d8be
+  GOOGLE_CLIENT_ID: 655783378977-38nn742ue2287r0p95j6k2r4a0n42332.apps.googleusercontent.com
+  GOOGLE_CLIENT_SECRET: e7ouj6kTo55iLwcuUh4MF-JU
 staging:
   API_URL: "http://staging.autotest.io/"
   SELENIUM_HOST: "ec2-54-200-175-37.us-west-2.compute.amazonaws.com"

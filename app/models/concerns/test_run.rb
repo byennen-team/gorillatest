@@ -21,11 +21,11 @@ module TestRun
     return if status == "running"
     if status == "fail"
       project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
-        UserMailer.delay.notify_failed_test(member_id, self.class.to_s.underscore, self.id)
+        UserMailer.delay.notify_test_result(member_id, self.class.to_s.underscore, self.id)
       end
     elsif status == "pass" && project.email_notification == "success"
       project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
-        UserMailer.delay.notify_successful_test(member_id, self.class.to_s.underscore, self.id)
+        UserMailer.delay.notify_test_result(member_id, self.class.to_s.underscore, self.id)
       end
     end
     channel_name = browser_tests.first.channel_name

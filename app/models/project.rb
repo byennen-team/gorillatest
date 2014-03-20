@@ -5,6 +5,7 @@ class Project
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   include Mongoid::Slug
 
   field :name, type: String
@@ -13,6 +14,8 @@ class Project
   field :api_key, type: String
   field :script_verified, type: Boolean, default: false
   field :email_notification, type: String, default: "success"
+  field :basic_auth_username, type: String
+  field :basic_auth_password, type: String
 
   slug :name
 
@@ -21,12 +24,12 @@ class Project
   alias :creator :user
 
   has_many :features
-  has_many :project_users
-  has_many :test_runs, class_name: 'ProjectTestRun'
+  has_many :project_users, dependent: :destroy
+  has_many :test_runs, class_name: 'ProjectTestRun', dependent: :destroy
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: {scope: :user}
 
-  validates :url, url: true
+  validates :url, presence: true, url: true
 
   before_create :add_auth_key
 
@@ -49,6 +52,10 @@ class Project
     else
       return "#{base_url}:#{port}"
     end
+  end
+
+  def has_invitations_left?
+    creator.plan.num_users > users.count
   end
 
   def users

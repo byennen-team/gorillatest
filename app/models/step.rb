@@ -2,12 +2,27 @@ class Step
   include Mongoid::Document
   include Mongoid::Timestamps
 
- field :event_type, type: String
- field :locator_type, type: String
- field :locator_value, type: String
- field :text, type: String
+  field :event_type, type: String
+  field :locator_type, type: String
+  field :locator_value, type: String
+  field :text, type: String
 
   embedded_in :scenario
+
+  # override for http auth
+  def text
+    if self.event_type == "get"
+      project = scenario.project
+      if !project.basic_auth_username.blank?
+        url_match = self[:text].match(/(https?:\/\/)(.+)/)
+        return "#{url_match[1]}#{project.basic_auth_username}:#{project.basic_auth_password}@#{url_match[2]}"
+      else
+        return self[:text]
+      end
+    else
+      return self[:text]
+    end
+  end
 
   def to_selenium
     case event_type
@@ -43,13 +58,13 @@ class Step
     when "submitElement"
       return "Submit Form #{locator_value}"
     when "waitForCurrentUrl"
-      return "Waiting for URL to load - #{text}"
+      return "Waiting for URL to load - #{self[:text]}"
     when "verifyText"
       return "Verifying text presence - #{text}"
     when "verifyElementPresent"
       return "Verify element presence - #{Rack::Utils.escape_html(text)}"
     when "get"
-      return "Get URL - #{text}"
+      return "Get URL - #{self[:text]}"
     when "assertConfirmation"
       return "Assert confirmation dialog with message - #{text}"
     when "chooseCancelOnNextConfirmation"

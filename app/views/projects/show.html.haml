@@ -1,44 +1,42 @@
 -content_for :head do
   =javascript_include_tag "stepStatus"
 
-.page-content.blocky
-  %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
-  .container
-    /= render 'shared/application/side_menu'
-    /.mainy
-    / Page title
-    - if @project.owner?(current_user)
-      .pull-right
-        = link_to raw("#{glyph('cog')} Edit Settings"), edit_project_path(@project), class: "btn btn-success"
-        %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
-          %span.glyphicon.glyphicon-remove
-          Remove Project
+%span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
+/= render 'shared/application/side_menu'
+/.mainy
+/ Page title
+- if @project.owner?(current_user)
+  .pull-right
+    = link_to raw("#{glyph('cog')} Edit Settings"), edit_project_path(@project), class: "btn btn-success"
+    %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
+      %span.glyphicon.glyphicon-remove
+      Remove Project
 
-    %ol.breadcrumb
-      %li
-        = link_to "Projects", projects_path
-      %li.active
-        = link_to @project.name
-    .row
-      .col-md-12
-        / Project widget
-        .awidget
-          .awidget-head
-            .pull-right
-              %a{data: {toggle: "modal", target: "#add-feature"}} Add Feature
-              |
-              %a{onclick: "alert('Not Yet Implemented');"} Play All Features
-            %h3 Features
-          .awidget-body
-            - if @project.features.size == 0
-              %p
-                You haven't added any features to this project, would you like to
-                %a{href: new_project_path, data: {toggle: "modal", target: "#add-feature"}} create one
-            - else
-              %ul.project
-                = render partial: 'features/feature', collection: @project.features
-              .clearfix
-          / Project widget
+%ol.breadcrumb
+  %li
+    = link_to "Projects", projects_path
+  %li.active
+    = link_to @project.name
+.row
+  .col-md-12
+    / Project widget
+    .awidget
+      .awidget-head
+        .pull-right
+          %a{data: {toggle: "modal", target: "#add-feature"}} Add Feature
+          |
+          %a{onclick: "alert('Not Yet Implemented');"} Play All Features
+        %h3 Features
+      .awidget-body
+        - if @project.features.size == 0
+          %p
+            You haven't added any features to this project, would you like to
+            %a{href: new_project_path, data: {toggle: "modal", target: "#add-feature"}} create one
+        - else
+          %ul.project
+            = render partial: 'features/feature', collection: @project.features
+          .clearfix
+      / Project widget
 
 = render partial: 'features/new_modal', locals: {project: @project}
 = render 'embed_script_modal', project: @project, show_buttons: false

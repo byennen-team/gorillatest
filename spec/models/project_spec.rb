@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe Project do
 
+  let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
+                                           interval: 'month',
+                                           name: 'Free',
+                                           currency: 'usd',
+                                           id: 'free')}
+
+  let!(:stripe_plan_paid) { Stripe::Plan.create(amount: 10,
+                                           interval: 'month',
+                                           name: 'Paid',
+                                           currency: 'usd',
+                                           id: 'paid')}
+
   describe 'relations' do
 
     it { should have_many(:project_users) }
@@ -69,6 +81,7 @@ describe Project do
 
     describe 'owners' do
 
+      let!(:plan)    { create(:plan, stripe_id: "free") }
       let(:user)    { create(:user) }
       let(:project) { create(:project) }
       let!(:project_user) { create(:project_user, project: project, user: user, rights: 'owner') }
@@ -87,6 +100,28 @@ describe Project do
         expect(subject.owner?(user)).to be_true
       end
 
+    end
+
+    describe "invites" do
+      let!(:paid_plan) { create(:plan, stripe_id: "free", num_users: 2)}
+      let(:user)    { create(:user) }
+      let(:project) { create(:project, user: user) }
+      let!(:project_user) { create(:project_user, project: project, user: user, rights: 'owner') }
+
+      context "can be sent out" do
+        it "can be sent out if num of users on project isn't more than project creator plan num_users" do
+          expect(project.has_invitations_left?).to be_true
+        end
+      end
+
+      context "limit reached" do
+        let(:another_user) { create(:user) }
+        let!(:another_project_user) { create(:project_user, project: project, user: another_user, rights: 'member')}
+
+        it "cannot send out invites if project users count reaches creator's plan limit" do
+          expect(project.has_invitations_left?).to be_false
+        end
+      end
     end
 
   end

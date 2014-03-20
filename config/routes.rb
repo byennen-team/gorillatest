@@ -17,17 +17,34 @@ Autotest::Application.routes.draw do
   end
 
   resources :scenarios
+  resources :plans do
+    member do
+      get :upgrade
+      post :upgrade
+      post :downgrade
+    end
+  end
+  resources :credit_cards, only: [:index, :create, :destroy] do
+    member do
+      post :default
+    end
+  end
 
   #application
   devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations
   devise_scope :user do
     get "/login" => "sessions#new"
     get '/get-started' => 'registrations#new', as: 'get_started'
+    get '/my-info' => 'registrations#edit', as: 'my_info'
+    get '/change-plan' => 'registrations#change_plan', as: 'change_plan'
+    get '/manage-billing' => 'registrations#manage_billing', as: 'billing'
+    post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 
-  # get 'dashboard', to: "dashboard#index.html.haml"
+  get 'dashboard', to: "dashboard#index.html.haml"
 
   as :user do
+    get 'invitations', to: 'invitations#index', as: 'invitations'
     get 'invitation', to: "invitations#new", as: :new_invitation
     post 'invitation', to: "invitations#create"
     get 'invitation/accept', to: "invitations#edit", as: :accept_invitation
@@ -80,7 +97,13 @@ Autotest::Application.routes.draw do
         end
       end
     end
+
+    namespace :dashing do
+      match '/total_tests_run' => "dashboard#total_tests_run", via: :get
+      match '/total_minutes' => "dashboard#total_minutes", via: :get
+    end
   end
+
   resources :beta_invitations
   post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 

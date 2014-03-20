@@ -60,6 +60,11 @@
           /   PhantomJS
       %div.clearfix
       %div.buttons{style: "padding: 5px; text-align: right;"}
+        %span.hide.concurrency-warning
+          Your plan only allows
+          %span.concurrency-limit
+            #{@concurrency_limit}
+          concurrent browsers for a test run
         = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
   -#%p.p-meta
   -#  / Due date & % Completed

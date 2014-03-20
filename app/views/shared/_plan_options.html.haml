@@ -1,0 +1,109 @@
+.row
+  .col-sm-12
+    .well.well-light
+      .row
+        .col-sm-12
+          %h1 Change Your Plan
+          %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
+
+      #coupon_code.row
+        .col-xs-12.col-sm-6.col-md-3
+          = simple_form_for redeem_coupon_path, :html => { :method => :post } do |f|
+            = f.input :coupon_code, class: 'coupon-input form-control'
+            = f.submit :submit, class: 'btn btn-success'
+
+      .row
+        - Plan.all.each do |plan|
+          .col-xs-12.col-sm-6.col-md-3
+            .panel.pricing-big{class: "#{plan.plan_style}"}
+              = image_tag('layout/ribbon.png', class: 'ribbon') if plan.popular == true
+              .panel-heading
+                %h3.panel-title
+                  = plan.name
+                  - if plan == current_user.plan
+                    (Current)
+              .panel-body.no-padding.text-align-center
+                .the-price
+                  %h1
+                    - if plan.price == "0.00"
+                      %strong FREE
+                    - else
+                      %strong
+                        = plan.price.symbol
+                        = plan.price
+                      %span.subscript / mo
+                .price-features
+                  %ul.list-unstyled.text-left
+                    %li
+                      %i.fa.fa-check.text-success
+                      %strong= plan.hours_available
+                      Hour(s) Testing Time
+                    %li
+                      %i.fa.fa-check.text-success
+                      %strong= plan.num_projects
+                      Active Projects
+                    %li
+                      %i.fa.fa-check.text-success
+                      %strong= plan.concurrent_browsers
+                      Concurrent Browsers
+                    %li
+                      %i.fa.fa-check.text-success
+                      %strong= plan.num_users
+                      users
+                    %li
+                      %i.fa.fa-check.text-success
+                      All time
+                      %strong updates
+                    %li
+                      %i.fa.fa-check.text-success
+                      Element-level testing
+                    %li
+                      %i.fa.fa-check.text-success
+                      Real-time virtual browers
+                    %li
+                      %i.fa.fa-check.text-success
+                      Screenshots of test results
+                    %li
+                      %i.fa.fa-check.text-success
+                      Debugging tools
+                    %li
+                      %i.fa.fa-check.text-success
+                      Step by step reporting of page events
+                    %li
+                      - if plan.developer_mode == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Developer Mode
+                    %li
+                      - if plan.import_selenium_scripts == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Import Selenium Scripts
+                    %li
+                      - if plan.test_scheduling == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Test Scheduling
+                    %li
+                      - if plan.deploy_process == true
+                        %i.fa.fa-check.text-success
+                      - else
+                        %i.fa.fa-times.text-danger
+                      Integrate into Deploy Process
+
+              - unless plan == current_user.plan
+                - if plan.id > current_user.plan.id
+                  .panel-footer.text-align-center
+                    - if current_user.credit_cards.default
+                      = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-primary btn-block'
+                    - else
+                      = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), class: 'btn btn-primary btn-block'
+                - else
+                  .panel-footer.text-align-center
+                    - if current_user.can_downgrade?(plan)
+                      = link_to "Downgrade", downgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-primary btn-block'
+                    - else
+                      = link_to "Downgrade", downgrade_plan_path(plan.id.to_s), class: 'btn btn-primary btn-block', disabled: 'disabled'

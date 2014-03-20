@@ -1,0 +1,11 @@
+#change-plan.tab-pane
+  = render 'shared/plan_options'
+
+/ Hide delete my account for now
+-##cancel-account.tab-pane
+-#  %h2 Unhappy?
+-#  %p{style: 'font-size: 1.4em'}
+-#    We're sorry to see you go.  If there is anything we can help you with please
+-#    %a{href: "#"} contact us.
+-#  %br
+-#  = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-success"

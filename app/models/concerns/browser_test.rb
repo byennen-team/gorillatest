@@ -41,7 +41,7 @@ module BrowserTest
   def driver
     selenium_url = "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub"
     #selenium_url = "http://127.0.0.1:4444/wd/hub"
-    platform = ENV['BROWSER_TEST_PLATFORM'] if ENV['BROWSER_TEST_PLATFORM']
+    # platform = ENV['BROWSER_TEST_PLATFORM'] if ENV['BROWSER_TEST_PLATFORM']
     case browser
     when 'firefox'
       cap = Selenium::WebDriver::Remote::Capabilities.firefox
@@ -96,7 +96,11 @@ module BrowserTest
             element.send(step.to_selenium, step.to_args)
           else
             if !element.displayed?
-              driver.execute_script("arguments[0].click()", element)
+              if current_step.event_type == "setElementSelected"
+                driver.execute_script("arguments[0].value = arguments[1]", element, current_step.text)
+              else
+                driver.execute_script("arguments[0].click()", element)
+              end
             else
               element.send(step.to_selenium)
             end
@@ -160,9 +164,15 @@ module BrowserTest
   end
 
   def starting_url_success?(url)
-    uri = URI(url)
-    response = Net::HTTP.get_response(uri)
-    response.code == "200" ? true : false
+    response = nil
+    if !test_run.project.basic_auth_username.blank?
+      auth = {username: test_run.project.basic_auth_username, password: test_run.project.basic_auth_password}
+      response = HTTParty.get(url, basic_auth: auth)
+    else
+      uri = URI(url)
+      response = Net::HTTP.get_response(uri)
+    end
+    response.code.to_s == "200" ? true : false
   end
 
   def send_to_pusher(event="step_pass", message=nil)

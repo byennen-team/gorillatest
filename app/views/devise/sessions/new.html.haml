@@ -1,5 +1,5 @@
 - content_for :head do
-  = javascript_include_tag 'plugins/jquery.easing.min', 'sessions'
+  = javascript_include_tag 'sessions', 'forms/login'
 
 / Page content
 .page-content.blocky
@@ -13,7 +13,7 @@
             .page-title
               %h2 Autotest
               %br
-            = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
+            = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {class: 'form-vertical', id: 'login-form' }) do |f|
               = f.error_notification
               = devise_error_messages!
               = f.input :email, placeholder: 'Email Address', label: false

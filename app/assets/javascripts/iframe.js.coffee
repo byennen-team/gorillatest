@@ -55,6 +55,7 @@ addEventListener "message", (e)->
     when "stepAdded"
       $("#step-count").text("#{data.message.stepCount} steps")
     when "featureAdded"
+      autoTestGuiController.disableTooltip()
       feature = data.message
       $("select#features").append "<option value=#{feature.featureId}>#{feature.featureName}</option>"
       $("select#features").val(feature.featureId)

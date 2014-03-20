@@ -1,55 +1,14 @@
-.page-content.blocky
-  .container
-    = render 'sidebar'
-    %div.tab-content
-      #home.tab-pane.active
-        %h2 Edit User
-        = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-          = devise_error_messages!
-
-          = f.input :email
-          = f.input :first_name
-          = f.input :last_name
-          = f.input :phone
-          = f.input :location
-          = f.input :password
-          = f.input :password_confirmation
-          = f.input :current_password
-          = f.submit "Update", class: "btn btn-success"
-      #change-plan.tab-pane
-        %h2 Change My Plan
-        - if current_user.plan.unlimited?
-          You have unlimited testing minutes.
-        - else
-          %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing allowance remaning. Please contact us at #{mail_to "support@autotest.io", "AutoTest Support", subject: "Requesting more testing minutes"} to request more minutes.
-
-        %h3 Upgrade your plan
-        .row
-          .col-md-12
-            %p Free
-            %p
-              Unlimited $1
-              %a{href: "#billing-modal", data: {toggle: "modal"}} Upgrade Now
-        = form_tag redeem_coupon_path, method: :post do
-          %p
-            Please enter your coupon code: #{text_field_tag :coupon_code, nil, class: "coupon-input form-control"}
-            #{submit_tag "Redeem Coupon", class: 'btn btn-success'}
-      #cancel-account.tab-pane
-        %h2 Unhappy?
-        %p{style: 'font-size: 1.4em'}
-          We're sorry to see you go.  If there is anything we can help you with please
-          %a{href: "#"} contact us.
-        %br
-        = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-success"
-
-#billing-modal.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
-        %h4.modal-title Billing Info
-      .modal-body
-        %p Billing Form Goes Here
-      .modal-footer
-        %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
-        %button.btn.btn-success{data: {dismiss: "modal"}, aria: {hidden: true}} Save
+%div.tab-content
+  #home.tab-pane.active
+    %h2 Edit User
+    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+      = devise_error_messages!
+      = f.input :email
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :phone
+      = f.input :location
+      = f.input :password
+      = f.input :password_confirmation
+      = f.input :current_password
+      = f.submit "Update", class: "btn btn-success"

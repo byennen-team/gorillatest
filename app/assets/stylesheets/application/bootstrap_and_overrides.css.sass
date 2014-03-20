@@ -1,6 +1,5 @@
 @import "bootstrap"
 @import "bootstrap/theme"
-@import url(https://fonts.googleapis.com/css?family=Monda)
 
 $red: #c13737
 $green: #419641
@@ -9,108 +8,6 @@ $darkGrey: #4f4f4f
 $lightGrey: #ccc
 $lightGreyLink: #aaa
 $orange: #f0ad4e
-
-a:hover
-  color: $green !important
-  border-bottom: 1px dotted $green !important
-
-.header .logo h1 a
-  font-family: 'Monda', sans-serif !important
-  text-transform: lowercase
-
-
-a.navbar-brand
-  color: #fff
-  &:hover
-    color: #fff !important
-
-a.btn
-  color: #fff !important
-  &:hover
-    color: #fff !important
-
-.navbar-inverse
-  background-color: $darkGrey !important
-  background-image: none !important
-  border-bottom: 0px
-.navbar
-  padding-right: 0px
-  background-color: $darkGrey !important
-  border-top: 6px solid $green !important
-  height: 55px !important
-  border-bottom: 0px
-  .container
-    width: 98%
-  a.navbar-brand
-    font-size: 1.8em !important
-    font-family: 'Monda', sans-serif !important
-    text-transform: lowercase
-    font-weight: bold
-    color: #fff
-  .dropdown
-    a#user-dropdown
-      height: 100%
-      color: #fff
-      text-decoration: none !important
-      font-size: 1.2em
-      width: 280px
-      display: inline-block
-      text-align: right
-      &:hover
-        text-decoration: none !important
-        border-bottom: 0px !important
-        font-size: 1.2em
-        color: #fff !important
-    ul.dropdown-menu
-      top: 36px
-      width: 280px
-      background-color: $darkGrey !important
-      padding: 0px
-      border: 0px !important
-      -webkit-border-bottom-right-radius: 4px
-      -webkit-border-bottom-left-radius: 4px
-      -moz-border-radius-bottomright: 4px
-      -moz-border-radius-bottomleft: 4px
-      border-bottom-right-radius: 4px
-      border-bottom-left-radius: 4px
-      li
-        padding: 0px
-        a
-          color: #fff
-          padding: 10px
-          display: inline-box
-          &:hover
-            color: #fff !important
-            background-color: #959595
-            background-image: none
-.nav-pills
-  li
-    a:hover
-      background-color: $green !important
-      border: 0px !important
-      color: #fff !important
-    &.active
-      a
-        background-color: $green !important
-        color: #fff
-
-.breadcrumb > li + li::before
-  color: $black !important
-
-ol.breadcrumb
-  padding: 0px
-  height: 40px
-  background: none
-  li
-    font-size: 1.2em
-    font-weight: bold
-    color: $black
-    a
-      color: $black
-    &.active
-      font-size: 1.5em
-      a
-        color: $green
 
 .test_run
   height: 75px
@@ -167,3 +64,11 @@ ol.breadcrumb
 
 .beta-invite-table
   margin-top: 36px
+
+.concurrency-warning
+  margin-right: 12px
+
+#stripe_error
+  font-weight: bold
+  color: $red
+  font-size: 18px

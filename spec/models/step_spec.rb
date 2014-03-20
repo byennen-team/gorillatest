@@ -88,4 +88,38 @@ describe Step do
 
     end
   end
+
+  describe "http basic auth on project" do
+    let!(:project) { create(:project, basic_auth_username: "username", basic_auth_password: "password")}
+    let!(:feature) { create(:feature, project: project)}
+    let!(:scenario) { feature.scenarios.create(name: "Testing", window_x: 720, window_y: 1030)}
+
+    context "get URL" do
+      let(:get_step) { scenario.steps.create(event_type: "get", text: "http://www.factor75.com")}
+
+      it "auth gets added" do
+        expect(get_step.text).to eq "http://username:password@www.factor75.com"
+      end
+    end
+
+    context "non url related steps" do
+      let(:click_step) { scenario.steps.create(event_type: "clickElement", text: "shopping cart")}
+
+      it "returns raw step text" do
+        expect(click_step.text).to eq "shopping cart"
+      end
+    end
+
+    context "url related step with no auth" do
+      let(:no_auth_step) {scenario.steps.create(event_type: "waitForCurrentUrl", text: "http://www.factor75.com/about")}
+
+      before do
+        project.update_attributes(basic_auth_password: nil, basic_auth_username: nil)
+      end
+
+      it "returns original url" do
+        expect(no_auth_step.text).to eq "http://www.factor75.com/about"
+      end
+    end
+  end
 end

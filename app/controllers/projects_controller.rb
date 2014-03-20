@@ -2,6 +2,8 @@ class ProjectsController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :find_project, except: [:index, :new, :create]
+  before_filter :get_concurrency_limit, only: [:index, :show]
+  before_filter :ensure_num_projects_limit, only: [:create]
 
   def index
     @projects = current_user.projects
@@ -103,6 +105,11 @@ class ProjectsController < ApplicationController
       end
       status = 400
     end
+
+    if status == 200
+      UserMailer.script_verification(current_user.email, @project.id.to_s).deliver
+    end
+
     respond_to do |format|
       format.js {render json: {message: flash[:notice]}.to_json, status: status}
       format.html {redirect_to :back}
@@ -126,8 +133,14 @@ class ProjectsController < ApplicationController
 
   private
 
+  def ensure_num_projects_limit
+    if current_user.owned_projects.count >= current_user.plan.num_projects
+      redirect_to :back, notice: "You have reached the max number of projects you can create. Upgrade your plan to get more projects."
+    end
+  end
+
   def project_params
-    params.require(:project).permit(:name, :url)
+    params.require(:project).permit(:name, :url, :basic_auth_username, :basic_auth_password)
   end
 
   def notification_params

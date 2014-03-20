@@ -18,7 +18,7 @@ en:
       unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "[Autotest] Please verify your email"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:
@@ -50,6 +50,8 @@ en:
     invitations:
       edit:
         submit_button: "Finish Signing Up"
+    projects:
+      max_number_reached: "You have reached the maximum number of projects you can create. Upgrade your plan if you want to add more projects"
   errors:
     messages:
       already_confirmed: "was already confirmed, please try signing in"

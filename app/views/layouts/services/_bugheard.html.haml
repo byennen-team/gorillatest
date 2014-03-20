@@ -1,0 +1,20 @@
+-if Rails.env.staging?
+  :javascript
+    var BugHerdConfig = {"feedback":{"tab_position":"bottom-right"}};
+    (function (d, t) {
+      var bh = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      bh.type = 'text/javascript';
+      bh.src = '//www.bugherd.com/sidebarv2.js?apikey=i7nmkdkvqqewgejzjlrhuq';
+      s.parentNode.insertBefore(bh, s);
+      })(document, 'script');
+  %script#inspectletjs{type: "text/javascript"}
+    window.__insp = window.__insp || [];
+    __insp.push(['wid', 1322164257]);
+    (function() {
+    function __ldinsp(){var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); }
+    if (window.attachEvent){
+    window.attachEvent('onload', __ldinsp);
+    }else{
+    window.addEventListener('load', __ldinsp, false);
+    }
+    })();

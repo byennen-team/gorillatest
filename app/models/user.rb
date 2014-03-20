@@ -2,13 +2,18 @@ require 'digest/md5'
 
 class User
   include Mongoid::Document
-  rolify
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
+
+  include PlanCustomer
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable,
          :omniauthable, :confirmable, :registerable, omniauth_providers: [:google_oauth2, :github]
+  rolify
+
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -61,34 +66,38 @@ class User
   field :first_name, type: String
   field :last_name, type: String
 
-  # has_many :projects
+  has_many :created_projects, class_name: "Project"
   has_many :project_users
   has_many :coupon_users
 
   has_many :testing_allowances, as: :timeable
 
-  has_one :credit_card
-
-  validates :first_name, :last_name, :company_name, presence: { message: "can't be blank"}
-
-  belongs_to :plan
-
-  delegate :seconds_available, to: :plan
-  delegate :minutes_available, to: :plan
+  validates :first_name, :last_name, :email, :password, :password_confirmation, presence: { message: "can't be blank"}
 
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
-  after_create :assign_default_plan
+  after_create :create_demo_project, :drip_email
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
   end
 
-  def send_project_invitation(inviter_id, project_id)
-    InvitationMailer.send_project_invitation(self.id, inviter_id, project_id).deliver
+  def send_project_invitation_new_user(inviter_id, project_id)
+    InvitationMailer.send_project_invitation_new_user(self.id, inviter_id, project_id).deliver
   end
 
+  def send_project_invitation_existing_user(inviter_id, project_id)
+    InvitationMailer.send_project_invitation_existing_user(self.id, inviter_id, project_id).deliver
+  end
+
+  def has_invitations?
+    invitation_limit > 0
+  end
+
+  def invitations_sent_count
+    User.where(invited_by_id: id).count
+  end
 
   def gravatar_url(size)
     "https://www.gravatar.com/avatar/#{gravatar_hash}?s=#{size}"
@@ -177,11 +186,6 @@ class User
 
   private
 
-  def assign_default_plan
-    self.plan = Plan.where(name:"Free").first
-    self.save
-  end
-
   def gravatar_hash
     email_address = self.email.downcase
     hash = Digest::MD5.hexdigest(email_address)
@@ -193,5 +197,29 @@ class User
       self.password = password
       self.password_confirmation = password
     end
+  end
+
+  def create_demo_project
+    demo = Project.where(name: "Demo Project", user_id: nil).first
+    if demo
+      clone_project = demo.clone
+      clone_project.user_id = self.id
+      ProjectUser.create(project_id: clone_project.id, user_id: self.id)
+      clone_project.save
+      clone_project.update_attribute(:script_verified, true)
+
+      demo.features.each do |feature|
+        clone_feature = clone_project.features.create(name:feature.name)
+        feature.scenarios.each do |scenario|
+          clone_scenario = scenario.clone
+          clone_scenario.feature_id = clone_feature.id
+          clone_scenario.save
+        end
+      end
+    end
+  end
+
+  def drip_email
+    UserMailer.delay_until(7.days.from_now).drip_email(self.id.to_s)
   end
 end
