@@ -6,7 +6,7 @@
 //= require autotest/event
 //= require autotest/locator_builder
 //= require autotest/locator
-//= require gui_controller
+//= require autotest/gui_controller
 //= require underscore
 //= require_self
 
