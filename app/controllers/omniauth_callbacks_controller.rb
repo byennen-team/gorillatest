@@ -10,7 +10,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if !user.invitation_token.blank?
         redirect_to accept_invitation_url(invitation_token: session[:invitation_token])
       else
-        redirect_to new_user_registration_url(user)
+        redirect_to new_user_registration_url
       end
     end
   end
@@ -27,7 +27,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if user.invited_by_id
         redirect_to accept_invitation_url(invitation_token: session[:invitation_token])
       else
-        redirect_to new_user_registration_url(user)
+        binding.pry
+        redirect_to new_user_registration_url
       end
     end
   end
