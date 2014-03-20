@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe User do
 
+  it { should belong_to(:plan) }
+  it { should have_many(:credit_cards) }
+
   let!(:plan) { create(:plan, stripe_id: "free", name: "Free") }
   let(:user) {create(:user)}
   let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
@@ -162,6 +165,7 @@ describe User do
         expect(user.available_minutes).to eq 0
       end
     end
+
   end
 
   describe '#create_demo_project' do

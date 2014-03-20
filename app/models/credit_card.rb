@@ -18,6 +18,7 @@ class CreditCard
 
   validates :stripe_id, :name, :last4, :cc_type, presence: true
 
+
   before_validation :update_data_from_stripe, on: :create
   after_create :set_default
 
@@ -62,6 +63,5 @@ class CreditCard
     customer = user.create_or_retrieve_stripe_customer
     customer.cards.retrieve(self.stripe_id).delete()
   end
-
 
 end
