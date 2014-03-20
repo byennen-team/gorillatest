@@ -232,17 +232,17 @@ AutoTestGuiController = {
     $(".recording-bar").addClass("recording")
     $("#step-count-text").show()
 
-  showScenarioModal: (event) ->
-    options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
-    window.parent.renderModal("scenarioModalTemplate", '', options, ->
-      $("input#scenario_name").bind "blur", ->
-        if $(this).val().length > 0
-          $("button#start-recording").removeAttr("disabled")
-        else
-          $("button#start-recording").attr("disabled", "disabled")
-      return
-    )
-    return
+  # showScenarioModal: (event) ->
+  #   options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
+  #   window.parent.renderModal("scenarioModalTemplate", '', options, ->
+  #     $("input#scenario_name").bind "blur", ->
+  #       if $(this).val().length > 0
+  #         $("button#start-recording").removeAttr("disabled")
+  #       else
+  #         $("button#start-recording").attr("disabled", "disabled")
+  #     return
+  #   )
+  #   return
 
   bindBodyClick: (event) ->
     event.preventDefault()

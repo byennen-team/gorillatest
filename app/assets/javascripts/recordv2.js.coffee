@@ -7,6 +7,7 @@
 //= require autotest/locator_builder
 //= require autotest/locator
 //= require autotest/gui_controller
+//= require autotest/post_message_handler
 //= require underscore
 //= require_self
 
@@ -130,21 +131,22 @@ $(document).ready () ->
 
   window.addEventListener "message", (e)->
     data = e.data
-    switch data.messageType
-      when "setFeature"
-        autoTestRecorder.setCurrentFeature(data.featureId)
-      when "recordClick"
-        autoTestGuiController.showScenarioModal()
-      when "addFeature"
-        autoTestGuiController.showFeatureModal()
-      when "viewSteps"
-        autoTestGuiController.viewSteps()
-      when "stopRecording"
-        autoTestRecorder.stop()
-      when "selectElement"
-        autoTestGuiController.startElementHighlight()
-      when "stopSelectElement"
-        autoTestGuiController.stopElementHighlight()
+    AutoTestPostMessageHandler.perform(data.messageType, data.featureId)
+    # switch data.messageType
+    #   when "setFeature"
+    #     autoTestRecorder.setCurrentFeature(data.featureId)
+    #   when "recordClick"
+    #     autoTestGuiController.showScenarioModal()
+    #   when "addFeature"
+    #     autoTestGuiController.showFeatureModal()
+    #   when "viewSteps"
+    #     autoTestGuiController.viewSteps()
+    #   when "stopRecording"
+    #     autoTestRecorder.stop()
+    #   when "selectElement"
+    #     autoTestGuiController.startElementHighlight()
+    #   when "stopSelectElement"
+    #     autoTestGuiController.stopElementHighlight()
 
   postMessageToIframe = (message)->
     console.log("posting")

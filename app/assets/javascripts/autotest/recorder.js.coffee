@@ -67,6 +67,7 @@ class @AutoTestRecorder
     window.location.href = window.location.href
 
   setCurrentFeature: (featureId) ->
+    console.log("Setting current feature")
     @currentFeature = AutoTestFeature.find(@projectId, featureId)
     @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
 
