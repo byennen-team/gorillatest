@@ -100,6 +100,7 @@ Autotest::Application.routes.draw do
 
     namespace :dashing do
       match '/total_tests_run' => "dashboard#total_tests_run", via: :get
+      match '/total_minutes' => "dashboard#total_minutes", via: :get
     end
   end
 
