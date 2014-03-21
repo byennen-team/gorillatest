@@ -47,6 +47,8 @@ class User
   field :provider, type: String
   field :uid, type: String
 
+  field :stripe_customer_token, type: String
+
   index( {invitation_token: 1}, {background: true} )
   index( {invitation_by_id: 1}, {background: true} )
   # index( {confirmation_token: 1}, {background: true} ) # TODO: errors out when running rake db:mongoid:key => "value", create_indexes
@@ -72,6 +74,7 @@ class User
 
   validates :first_name, :last_name, :email, :password, :password_confirmation, presence: { message: "can't be blank"}
 
+  validates :email, presence: true, uniqueness: { conditions: -> { where(deleted_at: nil) } }
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
@@ -172,6 +175,16 @@ class User
     testing_allowances.current_month
   end
 
+  def create_or_retrieve_stripe_customer
+    unless stripe_customer_token.nil?
+      customer = Stripe::Customer.retrieve(stripe_customer_token)
+    else
+      customer = Stripe::Customer.create(description: "#{first_name} #{last_name}", email: email)
+      update_attribute(:stripe_customer_token, customer.id)
+    end
+    customer
+  end
+
   private
 
   def gravatar_hash
@@ -209,5 +222,11 @@ class User
 
   def drip_email
     UserMailer.delay_until(7.days.from_now).drip_email(self.id.to_s)
+  end
+
+  def email_changed?
+    # set to false so it bypasses devise validation to scope email uniqueness on non deleted users
+    # devise uniquness validation was including deleted users when checking uniquness
+    false
   end
 end

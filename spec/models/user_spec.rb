@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe User do
 
+  it { should belong_to(:plan) }
+  it { should have_many(:credit_cards) }
+
   let!(:plan) { create(:plan, stripe_id: "free", name: "Free") }
   let(:user) {create(:user)}
   let!(:stripe_plan) { Stripe::Plan.create(amount: 0,
@@ -16,6 +19,35 @@ describe User do
   it "#gravatar_url returns correct gravatar image url" do
     hash = Digest::MD5.hexdigest(user.email.downcase)
     expect(user.gravatar_url(16)).to eq "https://www.gravatar.com/avatar/#{hash}?s=16"
+  end
+
+  describe "validations" do
+    context "email" do
+      let!(:user) { create(:user) }
+      let(:same_email_user) { build(:user, email: user.email)}
+      let(:user_without_email) { build(:user, email: nil)}
+
+      it "uniqueness" do
+        expect(same_email_user).to_not be_valid
+      end
+
+      it "is required field" do
+        expect(user_without_email).to_not be_valid
+      end
+    end
+
+    context "email validation scope" do
+      let!(:user) { create(:user) }
+      let(:same_email_user) { build(:user, email: user.email)}
+
+      before do
+        user.destroy
+      end
+
+      it "does not scope deleted users" do
+        expect(same_email_user).to be_valid
+      end
+    end
   end
 
   context "projects" do
@@ -162,6 +194,7 @@ describe User do
         expect(user.available_minutes).to eq 0
       end
     end
+
   end
 
   describe '#create_demo_project' do

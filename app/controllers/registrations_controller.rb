@@ -1,10 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
   layout :get_layout
 
-  #def new
-  #  # super
-  #  #redirect_to root_path, flash: {notice: "If you want to try out AutoTest, please request a beta invite below."}
-  #end
+  def new
+    flash[:notice] = "Please fill in the rest of the form to finish signing up." if session["devise.user_attributes"]
+    super
+  end
 
   def edit
     if request.parameters.try(:[], "plan") == "maxed" && !current_user.can_create_project?

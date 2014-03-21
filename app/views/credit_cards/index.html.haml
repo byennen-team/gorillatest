@@ -5,7 +5,8 @@
 
 .page-content.blocky
   .container
-    = render partial: 'credit_card', locals: {credit_card: @default_credit_card}
+    - unless @default_credit_card.nil?
+      = render partial: 'credit_card', locals: {credit_card: @default_credit_card}
     = render partial: 'credit_card', collection: @credit_cards
 
 
