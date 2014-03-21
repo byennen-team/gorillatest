@@ -9,6 +9,7 @@
 //= require autotest/locator_builder
 //= require autotest/locator
 //= require autotest/gui_controller
+//= require autotest/iframe_message_handler
 
 scripts = document.getElementsByTagName("script")
 i = 0
@@ -27,39 +28,7 @@ while i < l
 
 addEventListener "message", (e)->
   data = e.data
-  switch data.messageType
-    when "recording"
-      if data.recording == true
-        autoTestGuiController.recording(data.message)
-        $("#step-count").hover ->
-          $(this).css("cursor", "auto")
-        $("#step-count").click ->
-          postParentMessage({messageType: "viewSteps"})
-
-        $("#stop-recording").click ->
-          autoTestGuiController.stopRecording()
-          postParentMessage({messageType: "stopRecording"})
-
-        $("#start-text-highlight").click ->
-          $("button#start-text-highlight").hide()
-          $("button#stop-record-text-highlight").show()
-
-          postParentMessage({messageType: "selectElement"})
-
-          $("#stop-record-text-highlight").click ->
-            $("button#stop-record-text-highlight").hide()
-            $("button#start-text-highlight").show()
-            postParentMessage({messageType: "stopSelectElement"})
-    when "startRecording"
-      autoTestGuiController.recording(data.message)
-    when "stepAdded"
-      $("#step-count").text("#{data.message.stepCount} steps")
-    when "featureAdded"
-      autoTestGuiController.disableTooltip()
-      feature = data.message
-      $("select#features").append "<option value=#{feature.featureId}>#{feature.featureName}</option>"
-      $("select#features").val(feature.featureId)
-      $("button#record").removeAttr("disabled")
+  IframeMessageHandler.perform(data.messageType, data)
 
 $(document).ready ($)->
   window.postParentMessage = (message)->
