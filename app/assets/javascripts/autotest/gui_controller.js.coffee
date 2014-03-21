@@ -1,64 +1,6 @@
 window.autoTestTemplates = {}
 
-window.renderModal = (templateName, options) ->
-  parent = "body"
-  options = options or {}
-  options.width = options.width or "auto"
-  $content = $(autoTestTemplates["autotest/templates/#{templateName}"]())
-  if $("##{options.wrapperId}").length == 1
-    $wrapper = $("##{options.wrapperId}")
-    $("##{options.wrapperId}").html($content)
-  else
-    $wrapper = $("<div class='autotest-modal' id='#{options.wrapperId}'></div>")
-    $content.appendTo($wrapper)
-
-  $this = $wrapper.appendTo(parent)
-  $this.removeClass("hide")
-
-  $this.bPopup
-    onOpen: ()->
-      input = $this.find("input")
-      if $this.find("button#create-feature").length == 1
-        button = $this.find("button#create-feature")
-      else
-        button = $this.find("button#start-recording")
-      $(input).keypress (e)->
-        e.stopPropagation()
-        if e.which == 13 && $(button).attr("disabled") != "disabled"
-          $(button).trigger("click")
-    onClose: ()->
-      input = $this.find("input")
-      $(input).unbind("blur")
-      $(input).unbind("keypress")
-
-  $(".autotest-modal-close, .autotest-modal-close-x").click ->
-    $(this).closest(".autotest-modal").bPopup().close()
-
-  autoTestGuiController.verifyInputNamePresent(options.wrapperId)
-
-  $("#start-recording").click ->
-    window.autoTestGuiController.startRecording()
-  return
-
-$(document).ready ->
-
-  $("button#stop-record-text-highlight").click (e) ->
-    e.preventDefault()
-    $(this).hide()
-    $("#highlight-helper").hide()
-    $("button#start-text-highlight").show()
-    $("#highlighted-text").text('')
-    $('body').unbind('mouseup')
-    $("*").css('cursor', 'auto')
-    # window.autoTestRecorder.recordHighlight($("#highlighted-text").text())
-    $("body *").unbind("mousedown", AutoTestGuiController.bindBodyClick)
-    $("body *").unbind("mouseenter").unbind("mouseleave")
-    $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
-    $("a").bind("click", AutoTestEvent.bindClick)
-
 AutoTestGuiController = {
-  iframeScopeFind: (element)->
-    $("iframe").contents().find(element)
 
   removeStepsList: ->
     $("#autotest-view-steps").slideUp()
@@ -83,25 +25,18 @@ AutoTestGuiController = {
     else
       $("#autotest-view-steps").slideDown()
 
-  loadFeatures: ->
-    options = new Array
-    $.each window.autoTestRecorder.features, (k, v) ->
-      options.push "<option value='#{v.id}'>#{v.name}</option>"
-    @iframeScopeFind("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
-    @iframeScopeFind("select#features").bind "change", ->
-      window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
-    return
-
   showFeatureModal: ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'feature-modal'}
-    window.renderModal("add_feature_modal", options)
+    renderModal("add_feature_modal", options)
     AutoTestGuiController.createFeature()
 
+  # Let's come back to this.  We should move the AJAX call to the
+  # feature.js.coffee
   createFeature: ->
     $("button#create-feature").click (e) ->
       e.preventDefault()
       e.stopPropagation()
-      project_id = location.search.split('project_id=')[1]
+      # project_id = location.search.split('project_id=')[1]
       data = { feature: {name: $("#feature_name").val()} }
 
       $.ajax "#{window.apiUrl}/api/v1/features",
@@ -124,8 +59,8 @@ AutoTestGuiController = {
             $("#feature-modal-errors").append("<li class='text-danger'>#{message}</li>")
 
   startRecording: ->
-    recorder = window.autoTestRecorder
     event.preventDefault()
+    recorder = window.autoTestRecorder
     scenario = recorder.addScenario($("input#scenario_name").val())
     if scenario.status == "success"
       recorder.record()
@@ -138,40 +73,6 @@ AutoTestGuiController = {
       $("#scenario-modal-errors").html('')
       $.each scenario.errors, (i, message) ->
         $("#scenario-modal-errors").append("<li class='text-danger'>#{message}</li>")
-    # unbind select element buttons
-    # $("button#start-text-highlight").unbind("click", AutoTestEvent.bindClick)
-
-  stopRecording: ->
-    $(".recording-bar").removeClass("recording")
-    $("select#features").removeAttr("disabled").show()
-    # $("button#add-feature").show()
-    $("#current-scenario").hide().html('')
-    if $("#features").find(":selected").val()
-      $("button#record").removeAttr("disabled")
-      AutoTestGuiController.disableTooltip()
-    else
-      $("button#record").attr("disabled", "disabled")
-      AutoTestGuiController.enableTooltip()
-
-    $("#step-count-text").hide()
-    $("#step-count").text('')
-    $("#step-count").hide()
-    $("#stop-recording").hide()
-    $("#start-text-highlight").hide()
-    $("#stop-record-text-highlight").hide()
-    $("button#add-feature").show()
-    $("#record").show()
-
-  unbindAutoTestBar: ->
-    $("iframe").unbind("mouseenter").unbind("mouseleave")
-    # $("div.recording-bar").unbind("mouseenter").unbind("mouseleave")
-    # $("div.recording-bar *").unbind("mouseenter").unbind("mouseleave")
-    # $("div.recording-bar").unbind('click', autoTestGuiController.bindBodyClick)
-    # $("div.recording-bar *").unbind('click', autoTestGuiController.bindBodyClick)
-    # $("div.recording-bar *").click (e) ->
-    #   e.stopPropagation()
-
-    return
 
   hoverOutline: (event) ->
     event.stopPropagation
@@ -184,17 +85,9 @@ AutoTestGuiController = {
     return
 
   startElementHighlight: (e)->
-    # e.preventDefault()
-    # e.stopPropagation()
-    #unbind stop recording element selection button
-    # $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindClick)
-
     $("body *").hover(autoTestGuiController.hoverOutline)
     $("html").unbind("mouseenter").unbind("mouseleave")
     $("*").css('cursor', 'crosshair')
-
-    # Recording bar cursor not changing
-    # $("#recording-bar *").css("cursor", "auto")
 
     # Unbind links and prevent default
     $("a").unbind("click", AutoTestEvent.bindClick)
@@ -208,13 +101,11 @@ AutoTestGuiController = {
     $("body *").bind('mousedown', autoTestGuiController.bindBodyClick)
 
     # Unbind recording bar
+    $("iframe").unbind("mouseenter").unbind("mouseleave")
 
   stopElementHighlight: (e) ->
-    # e.preventDefault()
-
     $('body').unbind('mouseup')
     $("*").css('cursor', 'auto')
-
     $("body *").unbind("mousedown", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
@@ -222,7 +113,7 @@ AutoTestGuiController = {
 
   showElementModal: (event, element) ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'select-element-modal'}
-    window.renderModal("select_element_modal", options)
+    renderModal("select_element_modal", options)
     $("#select-element-modal *").css('cursor', 'auto')
     $("#select-element-modal *").css("outline", "none")
     $("#select-element-modal *").unbind("mouseenter").unbind("mouseleave")
@@ -261,31 +152,6 @@ AutoTestGuiController = {
       $element.removeAttr("style")
     return $element
 
-  recording: (message) ->
-    $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
-    $("#current-scenario").show()
-    $("button#record").hide()
-    $("button#stop-recording").show()
-    $("#start-text-highlight").show()
-    $("select#features").attr("disabled", "disabled")
-    $("select#features").hide()
-    $("button#add-feature").hide()
-    $("#step-count").show()
-    $(".recording-bar").addClass("recording")
-    $("#step-count-text").show()
-
-  # showScenarioModal: (event) ->
-  #   options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
-  #   window.parent.renderModal("scenarioModalTemplate", '', options, ->
-  #     $("input#scenario_name").bind "blur", ->
-  #       if $(this).val().length > 0
-  #         $("button#start-recording").removeAttr("disabled")
-  #       else
-  #         $("button#start-recording").attr("disabled", "disabled")
-  #     return
-  #   )
-  #   return
-
   bindBodyClick: (event) ->
     event.preventDefault()
     event.stopPropagation()
@@ -296,19 +162,62 @@ AutoTestGuiController = {
     event.preventDefault
     return false
 
-  enableRecordButton: ->
-    if $("select#features").val().length > 0
-      $("button#record").removeAttr("disabled")
-      AutoTestGuiController.disableTooltip()
+  renderModal: (templateName, options) ->
+    parent = "body"
+    options = options or {}
+    options.width = options.width or "auto"
+    $content = $(autoTestTemplates["autotest/templates/#{templateName}"]())
+    if $("##{options.wrapperId}").length == 1
+      $wrapper = $("##{options.wrapperId}")
+      $("##{options.wrapperId}").html($content)
     else
-      $("#record").attr("disabled", "disabled")
-      AutoTestGuiController.enableTooltip()
+      $wrapper = $("<div class='autotest-modal' id='#{options.wrapperId}'></div>")
+      $content.appendTo($wrapper)
 
-  enableTooltip: () ->
-    $("#record-button-wrapper").tooltip("enable")
+    $this = $wrapper.appendTo(parent)
+    $this.removeClass("hide")
 
-  disableTooltip: () ->
-    $("#record-button-wrapper").tooltip("disable")
+    $this.bPopup
+      onOpen: ()->
+        input = $this.find("input")
+        if $this.find("button#create-feature").length == 1
+          button = $this.find("button#create-feature")
+        else
+          button = $this.find("button#start-recording")
+        $(input).keypress (e)->
+          e.stopPropagation()
+          if e.which == 13 && $(button).attr("disabled") != "disabled"
+            $(button).trigger("click")
+      onClose: ()->
+        input = $this.find("input")
+        $(input).unbind("blur")
+        $(input).unbind("keypress")
+
+    $(".autotest-modal-close, .autotest-modal-close-x").click ->
+      $(this).closest(".autotest-modal").bPopup().close()
+
+    autoTestGuiController.verifyInputNamePresent(options.wrapperId)
+
+    $("#start-recording").click ->
+      window.autoTestGuiController.startRecording()
+    return
+
 }
+
+$(document).ready ->
+
+  $("button#stop-record-text-highlight").click (e) ->
+    e.preventDefault()
+    $(this).hide()
+    $("#highlight-helper").hide()
+    $("button#start-text-highlight").show()
+    $("#highlighted-text").text('')
+    $('body').unbind('mouseup')
+    $("*").css('cursor', 'auto')
+    # window.autoTestRecorder.recordHighlight($("#highlighted-text").text())
+    $("body *").unbind("mousedown", AutoTestGuiController.bindBodyClick)
+    $("body *").unbind("mouseenter").unbind("mouseleave")
+    $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
+    $("a").bind("click", AutoTestEvent.bindClick)
 
 window.autoTestGuiController = AutoTestGuiController

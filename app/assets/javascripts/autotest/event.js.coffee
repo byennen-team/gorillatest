@@ -1,7 +1,5 @@
 class @AutoTestEvent
 
-  #@scenario = window.autoTestRecorder.currentScenario
-
   constructor: () ->
     @scenario = window.autoTestRecorder
     @elementType = ""
