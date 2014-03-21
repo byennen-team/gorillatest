@@ -30,7 +30,7 @@ AutoTestPostMessageHandler.add("recordClick", (featureId) ->
 AutoTestPostMessageHandler.add("addFeature", (featureId) ->
   options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'feature-modal'}
   window.renderModal("addFeatureModalTemplate", '', options)
-  AutoTestGuiController.createFeature()
+  autoTestGuiController.createFeature()
 )
 
 AutoTestPostMessageHandler.add("viewSteps", ->
