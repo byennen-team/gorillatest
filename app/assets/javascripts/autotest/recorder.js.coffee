@@ -52,7 +52,7 @@ class @AutoTestRecorder
     # $(".recording-bar").unbind("DOMNodeInserted", AutoTestEvent.bindDomNodeInsert)
     # $(".recording-bar button").unbind("click", AutoTestEvent.bindClick)
 
-    autoTestGuiController.recording(this)
+    # autoTestGuiController.recording(this)
     return
 
   stop: ->

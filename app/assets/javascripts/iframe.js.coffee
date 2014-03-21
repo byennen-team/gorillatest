@@ -31,10 +31,3 @@ addEventListener "message", (e)->
   data = e.data
   IframeMessageHandler.perform(data.messageType, data)
 
-window.postParentMessage = (message)->
-parent.postMessage(message, document.referrer)
-
-window.autoTestRecorder = new AutoTestRecorder window.projectId
-window.autoTestApiUrl = window.apiUrl
-window.autoTestAuthToken = window.authToken
-

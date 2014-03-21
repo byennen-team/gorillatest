@@ -12,14 +12,14 @@ class @IframeMessageHandler
 
 IframeMessageHandler.add("recording", (data) ->
   if data.recording == true
-    autoTestGuiController.recording(data.message)
+    IframeController.recording(data.message)
     $("#step-count").hover ->
       $(this).css("cursor", "auto")
     $("#step-count").click ->
       postParentMessage({messageType: "viewSteps"})
 
     $("#stop-recording").click ->
-      autoTestGuiController.stopRecording()
+      IframeController.stopRecording()
       postParentMessage({messageType: "stopRecording"})
 
     $("#start-text-highlight").click ->
@@ -35,7 +35,7 @@ IframeMessageHandler.add("recording", (data) ->
 )
 
 IframeMessageHandler.add("startRecording", (data) ->
-      autoTestGuiController.recording(data.message)
+      IframeController.recording(data.message)
 )
 
 IframeMessageHandler.add("stepAdded", (data) ->
@@ -43,7 +43,7 @@ IframeMessageHandler.add("stepAdded", (data) ->
 )
 
 IframeMessageHandler.add("featureAdded", (data) ->
-      autoTestGuiController.disableTooltip()
+      IframeController.disableTooltip()
       feature = data.message
       $("select#features").append "<option value=#{feature.featureId}>#{feature.featureName}</option>"
       $("select#features").val(feature.featureId)
