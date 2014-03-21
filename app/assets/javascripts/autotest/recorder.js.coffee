@@ -63,6 +63,7 @@ class @AutoTestRecorder
     # Unbind all events
     autoTestGuiController.removeStepsList()
     AutoTestEvent.unbind()
+    # This is a temporary hack to reload the page and kill all the bindings. - jkr
     window.location.href = window.location.href
 
   setCurrentFeature: (featureId) ->
