@@ -40,10 +40,6 @@ $(document).ready () ->
   $("body").prepend(iframeHtml)
   $("body").append(stepsHtml)
 
-  overlay = document.createElement("DIV")
-  overlay.id = "autotest-overlay"
-  document.body.insertBefore(overlay, document.body.firstChild)
-
   window.autoTestRecorder = new AutoTestRecorder window.projectId
   window.autoTestApiUrl = window.apiUrl
   window.autoTestAuthToken = window.authToken
