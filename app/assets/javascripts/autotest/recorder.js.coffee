@@ -14,7 +14,6 @@ class @AutoTestRecorder
     @features = AutoTestFeature.findAll(@projectId)
     _this = this
     if @isRecording == true
-      console.log("You are presently recording a scenario")
       # load the current scenario
       scenarioId = @sessionStorage.getItem("autoTestRecorder.currentScenario")
       featureId = @sessionStorage.getItem("autoTestRecorder.currentFeature")
