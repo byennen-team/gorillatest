@@ -30,13 +30,11 @@ while i < l
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
-
   styleSheetUrl = window.apiUrl + "/assets/application/recorder.css"
   $('head').append("<link rel='stylesheet' type='text/css' href='"+ styleSheetUrl + "'>");
 
   iframeHtml = autoTestTemplates["autotest/templates/iframe"]()
   stepsHtml = autoTestTemplates["autotest/templates/steps_list"]()
-
   $("body").prepend(iframeHtml)
   $("body").append(stepsHtml)
 
