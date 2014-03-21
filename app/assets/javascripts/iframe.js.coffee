@@ -45,8 +45,6 @@ $(document).ready ($)->
   $.each autoTestFeatures, (k, v) ->
     options.push "<option value='#{v.id}'>#{v.name}</option>"
   $("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
-  # $("select#features").bind "change", ->
-  #   window.autoTestRecorder.setCurrentFeature($(this).val()) if $(this).val().length > 0
 
   $("select#features").on "change", ->
     console.log("Sending Message")
@@ -59,11 +57,6 @@ $(document).ready ($)->
 
   $("#record").click ->
     postParentMessage({messageType: "recordClick"})
-
-    # console.log(window.autoTestGuiController);
-    # autoTestGuiController.loadFeatures()
-    # $("#add-feature").click(function(e){})
-    # autoTestGuiController.enableTooltip()
 
     $("#step-count").click ->
       postParentMessage({messageType: "viewSteps"})
@@ -82,13 +75,3 @@ $(document).ready ($)->
         $("button#stop-record-text-highlight").hide()
         $("button#start-text-highlight").show()
         postParentMessage({messageType: "stopSelectElement"})
-
-
-
-    # if(autoTestRecorder.isRecording === true){
-    #   autoTestGuiController.recording(autoTestRecorder);
-    #   $("#step-count").text(autoTestRecorder.currentScenario.autoTestSteps.length + " steps")
-    # }
-    # $("#stop-recording").click(function(){autoTestGuiController.stopRecording()})
-    # $("#start-text-highlight").click(function(e){autoTestGuiController.startElementHighlight(e)})
-    # $("#stop-record-text-highlight").click(function(e){autoTestGuiController.stopElementHighlight(e)})

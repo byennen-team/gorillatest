@@ -1,3 +1,5 @@
+window.autoTestTemplates = {}
+
 $(document).ready ->
 
   $("button#stop-record-text-highlight").click (e) ->
@@ -52,7 +54,7 @@ AutoTestGuiController = {
 
   showFeatureModal: ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'feature-modal'}
-    window.renderModal("addFeatureModalTemplate", '', options)
+    window.renderModal("add_feature_modal", options)
     AutoTestGuiController.createFeature()
 
   createFeature: ->
@@ -180,7 +182,7 @@ AutoTestGuiController = {
 
   showElementModal: (event, element) ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'select-element-modal'}
-    window.renderModal("selectElementModalTemplate", '', options)
+    window.renderModal("select_element_modal", options)
     $("#select-element-modal *").css('cursor', 'auto')
     $("#select-element-modal *").css("outline", "none")
     $("#select-element-modal *").unbind("mouseenter").unbind("mouseleave")
