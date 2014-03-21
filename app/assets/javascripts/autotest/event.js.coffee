@@ -1,5 +1,7 @@
 class @AutoTestEvent
 
+  #@scenario = window.autoTestRecorder.currentScenario
+
   constructor: () ->
     @scenario = window.autoTestRecorder
     @elementType = ""
@@ -15,8 +17,6 @@ class @AutoTestEvent
       ), true)
 
   @bind: () ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
     stepLocator = {}
     $("a").bind("click", AutoTestEvent.bindClick)
     $("button").bind("click", AutoTestEvent.bindClick)
@@ -38,8 +38,6 @@ class @AutoTestEvent
     return
 
   @createInputBinding: (elementName, elementType) ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
     stepLocator = {}
     if elementType == ""
       element = $("#{elementName}")
@@ -47,63 +45,34 @@ class @AutoTestEvent
       element = $("#{elementName}[type=#{elementType}]")
     return element
 
-    element.bind("focus", AutoTestEvent.bindBlur)
-    element.on("blur", AutoTestEvent.bindInput)
-
   @bindClick: (event) ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
-    stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
-    # {type: "id", value: $(this).attr("id")}
-    scenario.addStep("clickElement", stepLocator, $(this).attr("href"))
-    # scenario.addStep("waitForCurrentUrl", {type: "", value: ""}, $(this).attr("href"))
-    # if $(event.currentTarget).attr("href").substring(0,1) != "#"
-    #   window.location.href = event.currentTarget.href
+    AutoTestEvent.addStep(event, "clickElement", $(this).attr("href"))
 
   @bindFocus: (event) ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
     stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
 
   @bindBlur: (event) ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
-    stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
     if $(this).val().length > 0
-      scenario.addStep("setElementText", stepLocator, $(this).val())
+      AutoTestEvent.addStep(event, "setElementText", $(this).val())
 
   @bindSelect: (event) ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
-    stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
-    # {type: "id", value: $(this).attr("id")}
-    scenario.addStep("setElementSelected", stepLocator, $(this).val())
+    AutoTestEvent.addStep(event, "setElementSelected", $(this).val())
 
   @bindClick: (event) ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
-    stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
-    # {type: "name", value: $(this).attr("id") }
-    scenario.addStep("clickElement", stepLocator, $(this).val())
+    AutoTestEvent.addStep(event, "clickElement", $(this).val())
 
   @bindSubmit: (event) ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
-    stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
-    # {type: "id", value: $(this).attr("id")}
-    scenario.addStep("submitElement", stepLocator, "")
+    AutoTestEvent.addStep(event, "submitElement", null)
 
   @bindConfirmation: ->
-    recorder = window.autoTestRecorder
-    scenario = recorder.currentScenario
     window.originalConfirm = window.confirm
     window.confirm = (message) ->
       result = window.originalConfirm(message)
-      scenario.addStep("assertConfirmation", {}, message)
+      AutoTestEvent.addStep(null, "assertConfirmation", message)
       if (!result)
-        scenario.addStep("chooseCancelOnNextConfirmation", {}, "Cancel")
+        AutoTestEvent.addStep(null, "chooseCancelOnNextConfirmation", "Cancel")
       else
-        scenario.addStep("chooseAcceptOnNextConfirmation", {}, "OK")
+        AutoTestEvent.addStep(null, "chooseAcceptOnNextConfirmation", "OK")
       return result
     return
 
@@ -112,7 +81,7 @@ class @AutoTestEvent
     window.alert = (alert) ->
       window.originalAlert(alert)
       # Add step here:
-      scenario.addStep("assertAlert", {}, alert)
+      @scenario.addStep("assertAlert", {}, alert)
       return
     return
 
@@ -141,7 +110,6 @@ class @AutoTestEvent
     $("#step-count").unbind("click", AutoTestEvent.bindClick)
 
   @unbindElementModal: ->
-    console.log("Unbinding element modal")
     $("#select-element-modal").unbind("mouseenter")
     $("#select-element-modal").unbind("mouseleave")
     $("#select-element-modal a").unbind("click", AutoTestEvent.bindClick)
@@ -152,8 +120,16 @@ class @AutoTestEvent
     return
 
   @unbindScenarioModal: ->
-    console.log("unbinding scenario modal")
     $("#autotest-modal button").unbind("click", AutoTestEvent.bindClick)
+
+  @addStep: (event, type, value) ->
+    scenario = window.autoTestRecorder.currentScenario
+    confirmationTypes = ["assertConfirmation", "chooseCancelOnNextConfirmation", "chooseAcceptOnNextConfirmation"]
+    if $.inArray(type, confirmationTypes) == -1
+      stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
+    else
+      stepLocator = {}
+    scenario.addStep(type, stepLocator, value)
 
 
 
