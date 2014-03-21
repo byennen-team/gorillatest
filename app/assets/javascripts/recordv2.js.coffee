@@ -132,21 +132,6 @@ $(document).ready () ->
   window.addEventListener "message", (e)->
     data = e.data
     AutoTestPostMessageHandler.perform(data.messageType, data.featureId)
-    # switch data.messageType
-    #   when "setFeature"
-    #     autoTestRecorder.setCurrentFeature(data.featureId)
-    #   when "recordClick"
-    #     autoTestGuiController.showScenarioModal()
-    #   when "addFeature"
-    #     autoTestGuiController.showFeatureModal()
-    #   when "viewSteps"
-    #     autoTestGuiController.viewSteps()
-    #   when "stopRecording"
-    #     autoTestRecorder.stop()
-    #   when "selectElement"
-    #     autoTestGuiController.startElementHighlight()
-    #   when "stopSelectElement"
-    #     autoTestGuiController.stopElementHighlight()
 
   postMessageToIframe = (message)->
     console.log("posting")
@@ -200,20 +185,9 @@ $(document).ready () ->
 
     $(".autotest-modal-close, .autotest-modal-close-x").click ->
       $(this).closest(".autotest-modal").bPopup().close()
-    # $this.css
-    #   "max-width": options.width
-    #   height: options.height
-    #   margin: options.margin
-    #   "overflow-y": options["overflow-y"]
 
     autoTestGuiController.verifyInputNamePresent(options.wrapperId)
 
     $("#start-recording").click ->
       window.autoTestGuiController.startRecording()
     return
-    # $("input#scenario_name").on "keyup", ->
-    #   console.log("KYEUP")
-    #   if $(this).val().length > 0
-    #     $("button#start-recording").removeAttr("disabled")
-    #   else
-    #     $("button#start-recording").attr("disabled", "disabled")
