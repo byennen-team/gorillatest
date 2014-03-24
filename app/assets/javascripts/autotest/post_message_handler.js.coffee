@@ -11,7 +11,8 @@ class @AutoTestPostMessageHandler
 
 
 AutoTestPostMessageHandler.add("setFeature", (featureId) ->
-  autoTestRecorder.setCurrentFeature(featureId)
+  Autotest.features.fetch()
+  Autotest.currentFeature = Autotest.features.findWhere({id: featureId})
 )
 
 AutoTestPostMessageHandler.add("recordClick", (featureId) ->
@@ -28,16 +29,8 @@ AutoTestPostMessageHandler.add("recordClick", (featureId) ->
 )
 
 AutoTestPostMessageHandler.add("addFeature", (featureId) ->
-  options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'feature-modal'}
-  autoTestGuiController.renderModal("add_feature_modal", options, ->
-    $("input#feature_name").bind "blur", ->
-      if $(this).val().length > 0
-        $("button#create-feature").removeAttr("disabled")
-      else
-        $("button#create-feature").attr("disabled", "disabled")
-      return
-    )
-  autoTestGuiController.createFeature()
+  Autotest.featureIndex.showCreateModal()
+  new Autotest.Views.FeaturesModal({el: $(".autotest-modal-content")})
 )
 
 AutoTestPostMessageHandler.add("viewSteps", ->

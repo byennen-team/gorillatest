@@ -1,18 +1,18 @@
 class @IframeController
 
-  @enableRecordButton: ->
-    if $("select#features").val().length > 0
-      $("button#record").removeAttr("disabled")
-      IframeController.disableTooltip()
-    else
-      $("#record").attr("disabled", "disabled")
-      IframeController.enableTooltip()
+  # @enableRecordButton: ->
+  #   if $("select#features").val().length > 0
+  #     $("button#record").removeAttr("disabled")
+  #     IframeController.disableTooltip()
+  #   else
+  #     $("#record").attr("disabled", "disabled")
+  #     IframeController.enableTooltip()
 
-  @enableTooltip: () ->
-    $("#record-button-wrapper").tooltip("enable")
+  # @enableTooltip: () ->
+  #   $("#record-button-wrapper").tooltip("enable")
 
-  @disableTooltip: () ->
-    $("#record-button-wrapper").tooltip("disable")
+  # @disableTooltip: () ->
+  #   $("#record-button-wrapper").tooltip("disable")
 
   @recording: (message) ->
     $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
@@ -51,12 +51,6 @@ class @IframeController
 $(document).ready ($)->
   window.postParentMessage = (message)->
     parent.postMessage(message, document.referrer)
-
-  # window.autoTestRecorder = new AutoTestRecorder window.projectId
-  # window.autoTestApiUrl = window.apiUrl
-  # window.autoTestAuthToken = window.authToken
-
-  IframeController.enableTooltip()
 
   $("#add-feature").click ->
     postParentMessage({messageType: "addFeature"})
