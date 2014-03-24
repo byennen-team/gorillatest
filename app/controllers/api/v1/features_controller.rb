@@ -2,18 +2,18 @@ class Api::V1::FeaturesController < Api::V1::BaseController
 
 	def index
     @features = current_project.features
-    render json: @features
+    render json: @features, root: false
 	end
 
 	def show
     @feature = current_project.features.find(params[:id])
-    render json: @feature
+    render json: @feature, root: false
   end
 
   def create
     @feature = current_project.features.build(feature_params)
     if @feature.save
-      render json: @feature
+      render json: @feature, root: false
     else
       render json: {errors: @feature.errors.to_a}.to_json, status: 400
     end

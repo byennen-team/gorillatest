@@ -11,7 +11,9 @@ class @AutoTestRecorder
     @features = new Array
 
   start: ->
-    @features = AutoTestFeature.findAll(@projectId)
+    # # @features = AutoTestFeature.findAll(@projectId)
+    # @features = new Autotest.Collections.Features
+    # @features.fetch()
     _this = this
     if @isRecording == true
       # load the current scenario
@@ -68,7 +70,7 @@ class @AutoTestRecorder
 
   setCurrentFeature: (featureId) ->
     console.log("Setting current feature")
-    @currentFeature = AutoTestFeature.find(@projectId, featureId)
+    @currentFeature = Autotest.autoTestFeatures.findWhere({id: featureId})
     @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
 
   addScenario: (name) ->

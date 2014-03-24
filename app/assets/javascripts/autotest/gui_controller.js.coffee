@@ -1,4 +1,4 @@
-window.autoTestTemplates = {}
+# window.JST = {}
 
 AutoTestGuiController = {
 
@@ -37,26 +37,24 @@ AutoTestGuiController = {
       e.preventDefault()
       e.stopPropagation()
       # project_id = location.search.split('project_id=')[1]
-      data = { feature: {name: $("#feature_name").val()} }
-
-      $.ajax "#{window.apiUrl}/api/v1/features",
-        type: "POST"
-        data: data
-        async: false
-        beforeSend: (xhr, settings) ->
-          xhr.setRequestHeader('Authorization', "Token token=\"#{window.authToken}\"")
-        success: (data) ->
+      # data = { feature: {name: $("#feature_name").val()} }
+      # feature = new Autotest.Collections.Feature
+      Autotest.autoTestFeatures.create({name: $("#feature_name").val()},
+        success: (model, response, options) ->
+          console.log("we hvae succeeeded")
           $("#feature-modal").bPopup().close()
           $("#feature_name").val('')
-          feature = data.feature
-          window.postMessageToIframe({messageType: "featureAdded", message: {featureName: feature.name, featureId: feature.id}})
-          window.autoTestRecorder.setCurrentFeature(feature.id)
-        error:  (jqXHR, textStatus, errorThrown) ->
+          # feature = data.feature
+          window.postMessageToIframe({messageType: "featureAdded", message: {featureName: model.attributes.name, featureId: model.attributes.id}})
+          window.autoTestRecorder.setCurrentFeature(model.attributes.id)
+        error:  (model, response, options) ->
           if $("#feature-modal-errors").length == 0
             $("#feature-modal .autotest-modal-body").append("<ul id='feature-modal-errors'></ul>")
           $("#feature-modal-errors").html('')
-          $.each jqXHR.responseJSON.errors, (i, message) ->
+          debugger
+          $.each response.responseJSON.errors, (i, message) ->
             $("#feature-modal-errors").append("<li class='text-danger'>#{message}</li>")
+      )
 
   startRecording: ->
     event.preventDefault()
@@ -166,7 +164,7 @@ AutoTestGuiController = {
     parent = "body"
     options = options or {}
     options.width = options.width or "auto"
-    $content = $(autoTestTemplates["autotest/templates/#{templateName}"]())
+    $content = $(JST["autotest/templates/#{templateName}"]())
     if $("##{options.wrapperId}").length == 1
       $wrapper = $("##{options.wrapperId}")
       $("##{options.wrapperId}").html($content)

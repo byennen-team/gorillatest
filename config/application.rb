@@ -32,6 +32,5 @@ module Autotest
 
     # Heroku setting for assets
     config.assets.initialize_on_precompile = false
-    config.underscore_templates.variable = "autoTestTemplates"
   end
 end
