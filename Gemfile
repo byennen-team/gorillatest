@@ -12,7 +12,6 @@ gem 'bourbon'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
-gem 'underscore-template-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'haml-rails'
@@ -55,6 +54,11 @@ gem 'selenium-webdriver'
 gem 'httparty'
 
 gem 'airbrake'
+
+
+gem 'backbone-on-rails'
+gem 'eco'
+
 # money
 gem 'money-rails', git: 'https://github.com/RubyMoney/money-rails.git', ref: 'c0bf5ef27b55938933c189a5324a810028ff3303'
 

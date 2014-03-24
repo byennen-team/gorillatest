@@ -43,9 +43,6 @@ IframeMessageHandler.add("stepAdded", (data) ->
 )
 
 IframeMessageHandler.add("featureAdded", (data) ->
-      IframeController.disableTooltip()
-      feature = data.message
-      $("select#features").append "<option value=#{feature.featureId}>#{feature.featureName}</option>"
-      $("select#features").val(feature.featureId)
-      $("button#record").removeAttr("disabled")
+      Autotest.autoTestFeatures.selected = data.message.featureId
+      Autotest.autoTestFeatures.fetch()
 )

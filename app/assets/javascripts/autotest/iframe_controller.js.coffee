@@ -1,18 +1,5 @@
 class @IframeController
 
-  @loadFeatures: ->
-    autoTestFeatures = AutoTestFeature.findAll(window.projectId)
-    options = new Array
-    $.each autoTestFeatures, (k, v) ->
-      options.push "<option value='#{v.id}'>#{v.name}</option>"
-    $("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
-
-    $("select#features").on "change", ->
-      console.log("Sending Message")
-      featureId = $(this).val()
-      parent.postMessage({messageType: "setFeature", featureId: featureId}, document.referrer)
-      IframeController.enableRecordButton()
-
   @enableRecordButton: ->
     if $("select#features").val().length > 0
       $("button#record").removeAttr("disabled")
@@ -65,12 +52,11 @@ $(document).ready ($)->
   window.postParentMessage = (message)->
     parent.postMessage(message, document.referrer)
 
-  window.autoTestRecorder = new AutoTestRecorder window.projectId
-  window.autoTestApiUrl = window.apiUrl
-  window.autoTestAuthToken = window.authToken
+  # window.autoTestRecorder = new AutoTestRecorder window.projectId
+  # window.autoTestApiUrl = window.apiUrl
+  # window.autoTestAuthToken = window.authToken
 
   IframeController.enableTooltip()
-  IframeController.loadFeatures()
 
   $("#add-feature").click ->
     postParentMessage({messageType: "addFeature"})
