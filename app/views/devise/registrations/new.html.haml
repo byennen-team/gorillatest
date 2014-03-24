@@ -21,8 +21,6 @@
       .row
         .col-md-8
           = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {class: 'form-vertical', id: 'registration-form' }) do |f|
-            = f.error_notification
-            = devise_error_messages!
             = f.hidden_field :provider, value: session["devise.user_attributes"].try(:[], "provider")
             = f.hidden_field :uid, value: session["devise.user_attributes"].try(:[], "uid")
             #form-content
