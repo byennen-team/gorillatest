@@ -31,8 +31,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
-    projects_path
-    #company_path(current_user.company)
+    dashboard_path
   end
 
   def get_layout

@@ -1,26 +1,6 @@
 .row
-  .col-xs-12.col-sm-7.col-md-7.col-lg-4
-    %h1.page-title.txt-color-blueDark
-      %i.fa.fa-fw.fa-home
-      Dashboard
-
-  .col-xs-12.col-sm-5.col-md-5.col-lg-8
-    / sparks
-    %ul#sparks
-      %li.sparks-info
-        %h5
-          Minutes
-          %span.txt-color-blue
-            = current_user.available_minutes
-            Remaining
-      %li.sparks-info
-        %h5
-          Builds
-          %span.txt-color-purple 45 Remaining
-      %li.sparks-info
-        %h5
-          Plan
-          %span= link_to current_user.plan.name, my_info_path
+  = pape_title('Dashboard', 'fa-home')
+  = render 'shared/user_metrics'
 
 .row
   .col-sm-12
