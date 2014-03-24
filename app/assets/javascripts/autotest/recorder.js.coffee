@@ -21,7 +21,7 @@ class @AutoTestRecorder
       featureId = @sessionStorage.getItem("autoTestRecorder.currentFeature")
       options = new Array
       if featureId != null
-        @currentFeature = AutoTestFeature.find(@projectId, featureId)
+        Autotest.currentFeature = Autotest.features.findWhere({id: featureId})
         # Figure out where to move this!!!
         $("select#features").val(featureId)
       if scenarioId != null
@@ -68,10 +68,10 @@ class @AutoTestRecorder
     # This is a temporary hack to reload the page and kill all the bindings. - jkr
     window.location.href = window.location.href
 
-  setCurrentFeature: (featureId) ->
-    console.log("Setting current feature")
-    @currentFeature = Autotest.autoTestFeatures.findWhere({id: featureId})
-    @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
+  # setCurrentFeature: (featureId) ->
+    # console.log("Setting current feature")
+    # @currentFeature = Autotest.autoTestFeatures.findWhere({id: featureId})
+    # @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
 
   addScenario: (name) ->
     newScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href, $(window).width(), $(window).height())

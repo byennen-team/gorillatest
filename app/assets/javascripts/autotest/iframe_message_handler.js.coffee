@@ -43,6 +43,6 @@ IframeMessageHandler.add("stepAdded", (data) ->
 )
 
 IframeMessageHandler.add("featureAdded", (data) ->
-      Autotest.autoTestFeatures.selected = data.message.featureId
-      Autotest.autoTestFeatures.fetch()
+      Autotest.features.selected = data.message.featureId
+      Autotest.features.fetch()
 )

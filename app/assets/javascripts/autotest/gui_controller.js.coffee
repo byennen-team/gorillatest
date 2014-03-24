@@ -30,32 +30,6 @@ AutoTestGuiController = {
     renderModal("add_feature_modal", options)
     AutoTestGuiController.createFeature()
 
-  # Let's come back to this.  We should move the AJAX call to the
-  # feature.js.coffee
-  createFeature: ->
-    $("button#create-feature").click (e) ->
-      e.preventDefault()
-      e.stopPropagation()
-      # project_id = location.search.split('project_id=')[1]
-      # data = { feature: {name: $("#feature_name").val()} }
-      # feature = new Autotest.Collections.Feature
-      Autotest.autoTestFeatures.create({name: $("#feature_name").val()},
-        success: (model, response, options) ->
-          console.log("we hvae succeeeded")
-          $("#feature-modal").bPopup().close()
-          $("#feature_name").val('')
-          # feature = data.feature
-          window.postMessageToIframe({messageType: "featureAdded", message: {featureName: model.attributes.name, featureId: model.attributes.id}})
-          window.autoTestRecorder.setCurrentFeature(model.attributes.id)
-        error:  (model, response, options) ->
-          if $("#feature-modal-errors").length == 0
-            $("#feature-modal .autotest-modal-body").append("<ul id='feature-modal-errors'></ul>")
-          $("#feature-modal-errors").html('')
-          debugger
-          $.each response.responseJSON.errors, (i, message) ->
-            $("#feature-modal-errors").append("<li class='text-danger'>#{message}</li>")
-      )
-
   startRecording: ->
     event.preventDefault()
     recorder = window.autoTestRecorder

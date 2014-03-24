@@ -4,6 +4,7 @@ window.Autotest =
   Collections: {}
   Views: {}
   Routers: {}
+  currentFeature: null
   initialize: ->
     scripts = document.getElementsByTagName("script")
     i = 0
@@ -23,6 +24,6 @@ window.Autotest =
 Autotest.initialize()
 
 $(document).ready ->
-  Autotest.autoTestFeatures = new Autotest.Collections.Features
-  Autotest.autoTestFeatureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.autoTestFeatures})
-  Autotest.autoTestFeatures.fetch()
+  Autotest.features = new Autotest.Collections.Features
+  Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
+  Autotest.features.fetch()
