@@ -1,6 +1,10 @@
 -content_for :head do
   =javascript_include_tag "stepStatus"
 
+.row
+  = pape_title('Projects', 'fa-desktop')
+  = render 'shared/user_metrics'
+
 .pull-right
   - if current_user.can_create_project?
     %button.btn.btn-success{data: {toggle: "modal", target: "#add-project"}}

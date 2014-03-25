@@ -96,8 +96,7 @@ module ApplicationHelper
   def pape_title(title, icon)
     content_tag(:div, class: 'col-xs-12 col-sm-7 col-md-7 col-lg-4') do
       content_tag(:h1, class: 'page-title txt-color-blueDark') do
-        content_tag(:i, class: "fa fa-fw #{icon}")
-        title
+        content_tag(:i, "", class: "fa fa-fw #{icon}") + title
       end
     end
   end

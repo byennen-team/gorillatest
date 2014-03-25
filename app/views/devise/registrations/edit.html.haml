@@ -1,8 +1,6 @@
 .row
-  .col-xs-12.col-sm-7.col-md-7.col-lg-4
-    %h1.page-title.txt-color-blueDark
-      %i.fa.fa-edit.fa-fw
-      My Info
+  = pape_title('My Info', 'fa-user')
+  = render 'shared/user_metrics'
 
 %section#widget-grid
   .row
@@ -15,7 +13,7 @@
         %div
           .jarviswidget-editbox
           .widget-body.no-padding
-            = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+            = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'smart-form' }) do |f|
               = devise_error_messages!
               = f.input :email
               = f.input :first_name

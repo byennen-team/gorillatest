@@ -3,6 +3,11 @@
   :javascript
     Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}")
 
+.row
+  = pape_title('Manage Billing', 'fa-credit-card')
+  = render 'shared/user_metrics'
+
+
 .page-content.blocky
   .container
     - unless @default_credit_card.nil?
@@ -10,7 +15,6 @@
     = render partial: 'credit_card', collection: @credit_cards
 
 
-    %h3{style: "margin-bottom: 0px;"} Add New Card
     %p Adding a new card will make it the new card active.
     = form_for CreditCard.new, html: {role: "form"} do |f|
       / #stripe_error{style: "color: red;"}
