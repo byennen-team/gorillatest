@@ -12,6 +12,7 @@
 //= require autotest/gui_controller
 //= require ./autotest/recorder
 //= require ./autotest/post_message_handler
+//= require ./autotest/event
 //= require_self
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
@@ -32,10 +33,10 @@ $(document).ready () ->
     AutoTestPostMessageHandler.perform(data.messageType, data.featureId)
 
   postMessageToIframe = (message)->
-    console.log("posting")
+    console.log(message)
     iframe = document.getElementById("autotest-iframe").contentWindow
     iframe.postMessage(message, Autotest.apiUrl)
 
   window.postMessageToIframe = postMessageToIframe
 
-  autoTestRecorder.start()
+  # autoTestRecorder.start()

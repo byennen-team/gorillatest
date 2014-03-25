@@ -7,12 +7,12 @@ class Api::V1::StepsController < Api::V1::BaseController
 
   def index
     @steps = @scenario.steps
-    render json: @steps
+    render json: @steps, root: false
   end
 
 	def create
     if @step = @scenario.steps.create(step_params)
-      render json: @step
+      render json: @step, root: false
     end
 	end
 

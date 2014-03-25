@@ -12,7 +12,9 @@ class @AutoTestPostMessageHandler
 
 AutoTestPostMessageHandler.add("setFeature", (featureId) ->
   Autotest.features.fetch()
-  Autotest.currentFeature = Autotest.features.findWhere({id: featureId})
+  feature = Autotest.features.findWhere({id: featureId})
+  feature.setCurrentFeature()
+  Autotest.currentFeature = feature
 )
 
 AutoTestPostMessageHandler.add("recordClick", (featureId) ->

@@ -10,6 +10,7 @@ class @IframeMessageHandler
      @handlerMap[event].call(null, data)
 
 IframeMessageHandler.add("recording", (data) ->
+  console.log("recording called")
   if data.recording == true
     IframeController.recording(data.message)
     $("#step-count").hover ->
@@ -34,7 +35,6 @@ IframeMessageHandler.add("recording", (data) ->
 )
 
 IframeMessageHandler.add("startRecording", (data) ->
-  console.log(data)
   scenarioIndex = new Autotest.Views.ScenariosIndex
   scenarioIndex.startRecording(data.message)
 )

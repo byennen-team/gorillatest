@@ -41,6 +41,7 @@ class Autotest.Views.FeaturesIndex extends Backbone.View
       $("button#record").removeAttr("disabled")
       this.disableToolTip()
       currentFeature = Autotest.features.findWhere({id: $("select#features").val()})
+      console.log(currentFeature)
       currentFeature.setCurrentFeature()
       # window.sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
     else
