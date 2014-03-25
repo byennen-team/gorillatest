@@ -100,4 +100,18 @@ module ApplicationHelper
       end
     end
   end
+
+  def form_title(title, icon)
+    content_tag(:section, id: 'widget-grid') do
+      content_tag(:div, class: 'row') do
+        content_tag(:article, class: 'col-sm-12.col-md-12.col-lg-12') do
+          content_tag(:header) do
+            content_tag(:span, class: 'widget-icon') do
+              content_tag(:i, "", class: "fa #{icon}") + content_tag(:h2, title)
+            end
+          end
+        end
+      end
+    end
+  end
 end
