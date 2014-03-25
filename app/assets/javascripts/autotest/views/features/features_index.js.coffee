@@ -21,7 +21,7 @@ class Autotest.Views.FeaturesIndex extends Backbone.View
     $.each Autotest.features.models, (k, v) ->
       options.push "<option value='#{v.attributes.id}'>#{v.attributes.name}</option>"
     $("select#features").html("<option value=''>Select a Feature...</option>" + options.join(''))
-    _this = _this
+    _this = this
     $("select#features").on "change", ->
       featureId = $(this).val()
       parent.postMessage({messageType: "setFeature", featureId: featureId}, document.referrer)
@@ -34,6 +34,7 @@ class Autotest.Views.FeaturesIndex extends Backbone.View
     else
       this.enableToolTip()
       this.enableRecordButton()
+    return
 
   enableRecordButton: ->
     if $("select#features").val() && $("select#features").val().length > 0

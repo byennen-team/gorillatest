@@ -6,9 +6,8 @@ class @IframeMessageHandler
     return
 
   @perform: (event, data) ->
-    console.log("Calling Event Handler -> #{event}")
-    console.log(data)
-    @handlerMap[event].call(null, data)
+    if event != undefined
+     @handlerMap[event].call(null, data)
 
 IframeMessageHandler.add("recording", (data) ->
   if data.recording == true
@@ -35,7 +34,9 @@ IframeMessageHandler.add("recording", (data) ->
 )
 
 IframeMessageHandler.add("startRecording", (data) ->
-      IframeController.recording(data.message)
+  console.log(data)
+  scenarioIndex = new Autotest.Views.ScenariosIndex
+  scenarioIndex.startRecording(data.message)
 )
 
 IframeMessageHandler.add("stepAdded", (data) ->

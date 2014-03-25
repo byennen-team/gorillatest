@@ -25,27 +25,6 @@ AutoTestGuiController = {
     else
       $("#autotest-view-steps").slideDown()
 
-  showFeatureModal: ->
-    options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'feature-modal'}
-    renderModal("add_feature_modal", options)
-    AutoTestGuiController.createFeature()
-
-  startRecording: ->
-    event.preventDefault()
-    recorder = window.autoTestRecorder
-    scenario = recorder.addScenario($("input#scenario_name").val())
-    if scenario.status == "success"
-      recorder.record()
-      $("#scenario-modal").bPopup().close()
-      recorder.currentScenario.addStep("get", {type: '', value: ''}, window.location.href)
-      window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: autoTestRecorder.currentScenario.name, featureName: autoTestRecorder.currentFeature.name}})
-    else
-      if $("#scenario-modal-errors").length == 0
-        $("#scenario-modal .autotest-modal-body").append("<ul id='scenario-modal-errors'></ul>")
-      $("#scenario-modal-errors").html('')
-      $.each scenario.errors, (i, message) ->
-        $("#scenario-modal-errors").append("<li class='text-danger'>#{message}</li>")
-
   hoverOutline: (event) ->
     event.stopPropagation
     $("*").removeClass("autotest-highlight")
@@ -170,8 +149,8 @@ AutoTestGuiController = {
 
     autoTestGuiController.verifyInputNamePresent(options.wrapperId)
 
-    $("#start-recording").click ->
-      window.autoTestGuiController.startRecording()
+    # $("#start-recording").click ->
+    #   window.autoTestGuiController.startRecording()
     return
 
 }

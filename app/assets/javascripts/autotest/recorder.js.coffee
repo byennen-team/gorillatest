@@ -25,16 +25,16 @@ class @AutoTestRecorder
         # Figure out where to move this!!!
         $("select#features").val(featureId)
       if scenarioId != null
-        @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
+        scenarios = Autotest.Collections.Scenarios(Autotest.currentFeature)
+        Autotest.currentScenario = scenarios.findWhere({id: scenarioId})
+        # @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
       # Record step of redirected to -> current window location href
       $("iframe").load ->
-        window.postMessageToIframe({messageType: "recording", recording: _this.isRecording, message: {scenarioName: _this.currentScenario.name, featureName: _this.currentFeature.name}})
-        step = _this.currentScenario.addStep("waitForCurrentUrl", {}, window.location.href)
-      # This isn't actually starting recording
-      console.log("Restarting Recording")
-      $.each(@currentScenario.autoTestSteps, (i, autoTestStep) ->
+        window.postMessageToIframe({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name'), featureName: Autotest.currentFeature.get('name')}})
+        step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
+      $.each(Autotest.currentScenario.steps(), (i, step) ->
         console.log(i)
-        $("ul#autotest-steps").append("<li step-number=#{i}>#{autoTestStep.to_s}</li>")
+        $("ul#autotest-steps").append("<li step-number=#{i}>#{step.get('to_s')}</li>")
       )
 
       this.record()
@@ -51,10 +51,6 @@ class @AutoTestRecorder
     console.log("Binding DOM events")
     AutoTestEvent.bind()
     AutoTestEvent.bindDomNodeInsert()
-    # $(".recording-bar").unbind("DOMNodeInserted", AutoTestEvent.bindDomNodeInsert)
-    # $(".recording-bar button").unbind("click", AutoTestEvent.bindClick)
-
-    # autoTestGuiController.recording(this)
     return
 
   stop: ->
@@ -62,23 +58,13 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
     @sessionStorage.removeItem("autoTestRecorder.currentFeature")
     @sessionStorage.removeItem("autoTestRecorder.currentScenario")
+    Autotest.currentFeature = null
+    Autotest.currentScenario = null
     # Unbind all events
     autoTestGuiController.removeStepsList()
     AutoTestEvent.unbind()
     # This is a temporary hack to reload the page and kill all the bindings. - jkr
     window.location.href = window.location.href
-
-  # setCurrentFeature: (featureId) ->
-    # console.log("Setting current feature")
-    # @currentFeature = Autotest.autoTestFeatures.findWhere({id: featureId})
-    # @sessionStorage.setItem("autoTestRecorder.currentFeature", featureId)
-
-  addScenario: (name) ->
-    newScenario = AutoTestScenario.create(@projectId, @currentFeature.id, name, window.location.href, $(window).width(), $(window).height())
-    if newScenario.status == "success"
-      @currentScenario = newScenario.scenario
-      @sessionStorage.setItem("autoTestRecorder.currentScenario", @currentScenario.id)
-    return newScenario
 
   recordHighlight: (text)->
     scenario = this.currentScenario
