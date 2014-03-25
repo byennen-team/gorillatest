@@ -6,8 +6,8 @@ class @AutoTestPostMessageHandler
     return
 
   @perform: (event, featureId) ->
-    console.log("Calling Event Handler -> #{event}")
-    @handlerMap[event].call(null, featureId)
+    if event != undefined
+      @handlerMap[event].call(null, featureId)
 
 
 AutoTestPostMessageHandler.add("setFeature", (featureId) ->
@@ -16,16 +16,10 @@ AutoTestPostMessageHandler.add("setFeature", (featureId) ->
 )
 
 AutoTestPostMessageHandler.add("recordClick", (featureId) ->
-  options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
-  autoTestGuiController.renderModal("scenario_modal", options, ->
-    $("input#scenario_name").bind "blur", ->
-      if $(this).val().length > 0
-        $("button#start-recording").removeAttr("disabled")
-      else
-        $("button#start-recording").attr("disabled", "disabled")
-      return
-    )
-  return
+  console.log("Showing scenario modal")
+  scenarioIndex = new Autotest.Views.ScenariosIndex
+  scenarioIndex.showCreateModal()
+  new Autotest.Views.ScenariosModal({el: $(".autotest-modal-content")})
 )
 
 AutoTestPostMessageHandler.add("addFeature", (featureId) ->

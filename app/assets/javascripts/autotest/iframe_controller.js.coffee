@@ -56,6 +56,7 @@ $(document).ready ($)->
     postParentMessage({messageType: "addFeature"})
 
   $("#record").click ->
+    console.log("record button clicked")
     postParentMessage({messageType: "recordClick"})
 
     $("#step-count").click ->

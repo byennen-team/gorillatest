@@ -121,7 +121,7 @@ class @AutoTestEvent
     $("#autotest-modal button").unbind("click", AutoTestEvent.bindClick)
 
   @addStep: (event, type, value) ->
-    scenario = window.autoTestRecorder.currentScenario
+    scenario = Autotest.currentScenario
     confirmationTypes = ["assertConfirmation", "chooseCancelOnNextConfirmation", "chooseAcceptOnNextConfirmation"]
     if $.inArray(type, confirmationTypes) == -1
       stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()

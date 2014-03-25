@@ -5,6 +5,7 @@ window.Autotest =
   Views: {}
   Routers: {}
   currentFeature: null
+  currentScenario: null
   initialize: ->
     scripts = document.getElementsByTagName("script")
     i = 0
@@ -27,3 +28,4 @@ $(document).ready ->
   Autotest.features = new Autotest.Collections.Features
   Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
   Autotest.features.fetch()
+
