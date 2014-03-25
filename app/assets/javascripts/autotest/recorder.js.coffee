@@ -15,29 +15,33 @@ class @AutoTestRecorder
     # @features = new Autotest.Collections.Features
     # @features.fetch()
     _this = this
+    console.log("is recording is #{@isRecording}")
     if @isRecording == true
       # load the current scenario
       scenarioId = @sessionStorage.getItem("autoTestRecorder.currentScenario")
       featureId = @sessionStorage.getItem("autoTestRecorder.currentFeature")
       options = new Array
       if featureId != null
-        Autotest.currentFeature = Autotest.features.findWhere({id: featureId})
+        feature = Autotest.features.findWhere({id: featureId})
+        feature.setCurrentFeature()
         # Figure out where to move this!!!
         $("select#features").val(featureId)
       if scenarioId != null
-        scenarios = Autotest.Collections.Scenarios(Autotest.currentFeature)
-        Autotest.currentScenario = scenarios.findWhere({id: scenarioId})
-        # @currentScenario = AutoTestScenario.find(@projectId, @currentFeature.id, scenarioId)
-      # Record step of redirected to -> current window location href
-      $("iframe").load ->
-        window.postMessageToIframe({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name'), featureName: Autotest.currentFeature.get('name')}})
-        step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
-      $.each(Autotest.currentScenario.steps(), (i, step) ->
-        console.log(i)
-        $("ul#autotest-steps").append("<li step-number=#{i}>#{step.get('to_s')}</li>")
-      )
-
-      this.record()
+        _this = this
+        scenario = new Autotest.Models.Scenario(feature, scenarioId)
+        scenario.fetch(
+          success: (model, response, options) ->
+            Autotest.currentScenario = model
+            $.each(Autotest.currentScenario.steps(), (i, step) ->
+              $("ul#autotest-steps").append("<li step-number=#{i}>#{step.get('to_s')}</li>")
+            )
+            $("iframe").load ->
+              console.log("iframe loaded")
+              window.postMessageToIframe({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name'), featureName: Autotest.currentFeature.get('name')}})
+              step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
+            _this.record()
+            return
+        )
     else
       # Figure out where to move this
       $("button#stop-recording").hide()

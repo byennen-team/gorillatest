@@ -9,11 +9,10 @@ class Autotest.Views.ScenariosModal extends Backbone.View
   createScenario: (e) ->
     console.log("Saving the scenario")
     scenarios = new Autotest.Collections.Scenarios(Autotest.currentFeature)
-    debugger
     scenarios.create({name: $("input#scenario_name").val(),start_url: window.location.href, window_x: $(window).width(), window_y: $(window).height()},
       success: (model, response, options) ->
         model.setCurrentScenario()
-        recorder.record()
+        window.autoTestRecorder.record()
         $("#scenario-modal").bPopup().close()
         model.addStep({event_type: "get", locator_type: '', locator_value: '', text: window.location.href})
         window.postMessageToIframe({messageType: "startRecording", message: {scenarioName: model.get('name'), featureName: Autotest.currentFeature.get('name')}})

@@ -6,18 +6,18 @@ class Api::V1::ScenariosController < Api::V1::BaseController
 
   def index
     @scenarios = @feature.scenarios
-    respond_with @scenarios
+    render json: @scenarios, root: false
   end
 
   def show
     @scenario = @feature.scenarios.find(params[:id])
-    render json: @scenario
+    render json: @scenario, root: false
   end
 
   def create
     @scenario = @feature.scenarios.new(scenario_params)
     if @scenario.save
-      render json: @scenario
+      render json: @scenario, root: false
     else
       render json: {errors: @scenario.errors.to_a}.to_json, status: 400
     end
@@ -27,7 +27,7 @@ class Api::V1::ScenariosController < Api::V1::BaseController
     @scenario = @feature.scenario.find(params[:id])
     @scenario.attributes = scenario_attributes
     if @scenario.save
-      render json: @scenario
+      render json: @scenario, root: false
     end
   end
 

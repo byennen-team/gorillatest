@@ -1,7 +1,7 @@
 class Autotest.Models.Step extends Backbone.Model
 
 
-  scenarion: ->
+  scenario: ->
     Autotest.currentScenario
 
   feature: ->
