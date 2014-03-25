@@ -2,12 +2,18 @@
   = pape_title('Invite Users', 'fa-group')
   = render 'shared/user_metrics'
 
-= simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form'} do |f|
-  %h1 Invite A User
-  = f.input :email
-  = f.submit "Invite User", class: "btn btn-primary"
-
-/ -unless current_user.has_invitations?
-/   %p You are out of invitations. Click #{link_to "here", edit_user_registration_path(anchor: "change-plan")} to upgrade your plan to invite more users.
-
-/ %p You have used #{current_user.invitations_sent_count} of your #{current_user.plan.num_users-1} available invitations.
+%section#widget-grid
+  .row
+    %article.col-sm-12.col-md-12.col-lg-12
+      #wid-id-0.jarviswidget{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+        %header
+          %span.widget-icon
+            %i.fa.fa-edit
+          %h2 Invite users and earn minutes!
+        %div
+          .jarviswidget-editbox
+          .widget-body.no-padding
+            = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form smart-form'} do |f|
+              = f.input :email
+              %footer
+                = f.submit "Invite User", class: "btn btn-primary button"
