@@ -11,7 +11,6 @@
 //= require_tree ./autotest/views
 //= require_tree ./autotest/routers
 //= require ./autotest/messages/iframe
-//= require ./autotest/iframe_controller
 //= require ./autotest/event
 //= require ./autotest/gui_controller
 
