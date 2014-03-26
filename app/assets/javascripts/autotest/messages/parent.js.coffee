@@ -14,8 +14,6 @@ class Autotest.Messages.Parent
     iframe = document.getElementById("autotest-iframe").contentWindow
     iframe.postMessage(message, Autotest.apiUrl)
 
-
-
 Autotest.Messages.Parent.add("setFeature", (featureId) ->
   Autotest.features.fetch()
   feature = Autotest.features.findWhere({id: featureId})
@@ -45,9 +43,9 @@ Autotest.Messages.Parent.add("stopRecording", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("selectElement", (featureId) ->
- AutotestGuiController.startElementHighlight()
+ autoTestGuiController.startElementHighlight()
 )
 
 Autotest.Messages.Parent.add("stopSelectElement", (featureId) ->
-  AutotestGuiController.stopElementHighlight()
+  autoTestGuiController.stopElementHighlight()
 )
