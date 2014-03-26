@@ -11,7 +11,7 @@
 //= require_tree ./autotest/routers
 //= require autotest/gui_controller
 //= require ./autotest/recorder
-//= require ./autotest/post_message_handler
+//= require ./autotest/messages/parent
 //= require ./autotest/event
 //= require_self
 
@@ -29,8 +29,7 @@ $(document).ready () ->
   window.autoTestRecorder = new AutoTestRecorder window.projectId
 
   window.addEventListener "message", (e)->
-    data = e.data
-    AutoTestPostMessageHandler.perform(data.messageType, data.featureId)
+    Autotest.Messages.Parent.perform(e.data.messageType, e.data.featureId)
 
   postMessageToIframe = (message)->
     console.log(message)

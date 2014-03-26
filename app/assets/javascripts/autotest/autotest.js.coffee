@@ -4,6 +4,7 @@ window.Autotest =
   Collections: {}
   Views: {}
   Routers: {}
+  Messages: {}
   currentFeature: null
   currentScenario: null
   parent: null
@@ -35,6 +36,10 @@ $(document).ready ->
   Autotest.features.fetch()
   # Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
   if Autotest.parent == "iframe"
+    Autotest.features = new Autotest.Collections.Features
+    Autotest.features.fetch()
+    Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
+    iframeIndexView = new Autotest.Views.IframeIndex({el: ".recording-bar"})
   else
     Autotest.features = new Autotest.Collections.Features
     Autotest.features.fetch(

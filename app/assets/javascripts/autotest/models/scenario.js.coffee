@@ -1,12 +1,13 @@
 class Autotest.Models.Scenario extends Backbone.Model
 
   url: ->
-    return "#{this.feature.url()}/scenarios/#{this.id}"
+    return "#{this.feature().url()}/scenarios/#{this.id}"
 
   initialize: (feature, scenarioId) ->
-    console.log(feature.url())
+    # console.log(feature)
+    # console.log(feature.url())
+    # this.feature = feature
     this.id = scenarioId
-    this.feature = feature
 
   setCurrentScenario: ->
     console.log(this)

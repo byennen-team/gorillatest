@@ -8,6 +8,7 @@ class Autotest.Views.ScenariosModal extends Backbone.View
 
   createScenario: (e) ->
     console.log("Saving the scenario")
+    console.log(Autotest.currentFeature.url())
     scenarios = new Autotest.Collections.Scenarios(Autotest.currentFeature)
     scenarios.create({name: $("input#scenario_name").val(),start_url: window.location.href, window_x: $(window).width(), window_y: $(window).height()},
       success: (model, response, options) ->

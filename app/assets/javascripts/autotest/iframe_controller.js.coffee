@@ -14,65 +14,65 @@ class @IframeController
   # @disableTooltip: () ->
   #   $("#record-button-wrapper").tooltip("disable")
 
-  @recording: (message) ->
-    $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
-    $("#current-scenario").show()
-    $("button#record").hide()
-    $("button#stop-recording").show()
-    $("#start-text-highlight").show()
-    $("select#features").attr("disabled", "disabled")
-    $("select#features").hide()
-    $("button#add-feature").hide()
-    $("#step-count").show()
-    $(".recording-bar").addClass("recording")
-    $("#step-count-text").show()
+  # @recording: (message) ->
+  #   $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
+  #   $("#current-scenario").show()
+  #   $("button#record").hide()
+  #   $("button#stop-recording").show()
+  #   $("#start-text-highlight").show()
+  #   $("select#features").attr("disabled", "disabled")
+  #   $("select#features").hide()
+  #   $("button#add-feature").hide()
+  #   $("#step-count").show()
+  #   $(".recording-bar").addClass("recording")
+  #   $("#step-count-text").show()
 
-  @stopRecording: ->
-    $(".recording-bar").removeClass("recording")
-    $("select#features").removeAttr("disabled").show()
-    # $("button#add-feature").show()
-    $("#current-scenario").hide().html('')
-    if $("#features").find(":selected").val()
-      $("button#record").removeAttr("disabled")
-      AutoTestGuiController.disableTooltip()
-    else
-      $("button#record").attr("disabled", "disabled")
-      IframeController.enableTooltip()
+  # @stopRecording: ->
+  #   $(".recording-bar").removeClass("recording")
+  #   $("select#features").removeAttr("disabled").show()
+  #   # $("button#add-feature").show()
+  #   $("#current-scenario").hide().html('')
+  #   if $("#features").find(":selected").val()
+  #     $("button#record").removeAttr("disabled")
+  #     AutoTestGuiController.disableTooltip()
+  #   else
+  #     $("button#record").attr("disabled", "disabled")
+  #     IframeController.enableTooltip()
 
-    $("#step-count-text").hide()
-    $("#step-count").text('')
-    $("#step-count").hide()
-    $("#stop-recording").hide()
-    $("#start-text-highlight").hide()
-    $("#stop-record-text-highlight").hide()
-    $("button#add-feature").show()
-    $("#record").show()
+  #   $("#step-count-text").hide()
+  #   $("#step-count").text('')
+  #   $("#step-count").hide()
+  #   $("#stop-recording").hide()
+  #   $("#start-text-highlight").hide()
+  #   $("#stop-record-text-highlight").hide()
+  #   $("button#add-feature").show()
+  #   $("#record").show()
 
-$(document).ready ($)->
-  window.postParentMessage = (message)->
-    parent.postMessage(message, document.referrer)
+# $(document).ready ($)->
+#   window.postParentMessage = (message)->
+#     parent.postMessage(message, document.referrer)
 
-  $("#add-feature").click ->
-    postParentMessage({messageType: "addFeature"})
+#   $("#add-feature").click ->
+#     postParentMessage({messageType: "addFeature"})
 
-  $("#record").click ->
-    console.log("record button clicked")
-    postParentMessage({messageType: "recordClick"})
+#   $("#record").click ->
+#     console.log("record button clicked")
+#     postParentMessage({messageType: "recordClick"})
 
-    $("#step-count").click ->
-      postParentMessage({messageType: "viewSteps"})
+#     $("#step-count").click ->
+#       postParentMessage({messageType: "viewSteps"})
 
-    $("#stop-recording").click ->
-      IframeController.stopRecording()
-      postParentMessage({messageType: "stopRecording"})
+#     $("#stop-recording").click ->
+#       IframeController.stopRecording()
+#       postParentMessage({messageType: "stopRecording"})
 
-    $("#start-text-highlight").click ->
-      $("button#start-text-highlight").hide()
-      $("button#stop-record-text-highlight").show()
+#     $("#start-text-highlight").click ->
+#       $("button#start-text-highlight").hide()
+#       $("button#stop-record-text-highlight").show()
 
-      postParentMessage({messageType: "selectElement"})
+#       postParentMessage({messageType: "selectElement"})
 
-      $("#stop-record-text-highlight").click ->
-        $("button#stop-record-text-highlight").hide()
-        $("button#start-text-highlight").show()
-        postParentMessage({messageType: "stopSelectElement"})
+#       $("#stop-record-text-highlight").click ->
+#         $("button#stop-record-text-highlight").hide()
+#         $("button#start-text-highlight").show()
+#         postParentMessage({messageType: "stopSelectElement"})

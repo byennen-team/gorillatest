@@ -35,15 +35,15 @@ IframeMessageHandler.add("recording", (data) ->
 )
 
 IframeMessageHandler.add("startRecording", (data) ->
-  scenarioIndex = new Autotest.Views.ScenariosIndex
-  scenarioIndex.startRecording(data.message)
+  iframeIndex = new Autotest.Views.IframeIndex
+  iframeIndex.startRecording(data.message)
 )
 
 IframeMessageHandler.add("stepAdded", (data) ->
-      $("#step-count").text("#{data.message.stepCount} steps")
+  $("#step-count").text("#{data.message.stepCount} steps")
 )
 
 IframeMessageHandler.add("featureAdded", (data) ->
-      Autotest.features.selected = data.message.featureId
-      Autotest.features.fetch()
+  Autotest.features.selected = data.message.featureId
+  Autotest.features.fetch()
 )

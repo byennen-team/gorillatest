@@ -1,5 +1,3 @@
-# window.JST = {}
-
 AutoTestGuiController = {
 
   removeStepsList: ->
@@ -18,12 +16,6 @@ AutoTestGuiController = {
           $("#create-feature").attr("disabled", "disabled")
         else
           $("#start-recording").attr("disabled", "disabled")
-
-  viewSteps: ->
-    if $("#autotest-view-steps").is(':visible')
-      $("#autotest-view-steps").slideUp()
-    else
-      $("#autotest-view-steps").slideDown()
 
   hoverOutline: (event) ->
     event.stopPropagation
@@ -148,9 +140,6 @@ AutoTestGuiController = {
       $(this).closest(".autotest-modal").bPopup().close()
 
     autoTestGuiController.verifyInputNamePresent(options.wrapperId)
-
-    # $("#start-recording").click ->
-    #   window.autoTestGuiController.startRecording()
     return
 
 }

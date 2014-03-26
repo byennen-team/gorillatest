@@ -37,7 +37,7 @@ class @AutoTestRecorder
             )
             $("iframe").load ->
               console.log("iframe loaded")
-              window.postMessageToIframe({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name'), featureName: Autotest.currentFeature.get('name')}})
+              Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name'), featureName: Autotest.currentFeature.get('name')}})
               step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
             _this.record()
             return
