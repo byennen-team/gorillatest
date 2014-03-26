@@ -31,11 +31,11 @@ $(document).ready () ->
   window.addEventListener "message", (e)->
     Autotest.Messages.Parent.perform(e.data.messageType, e.data.featureId)
 
-  postMessageToIframe = (message)->
-    console.log(message)
-    iframe = document.getElementById("autotest-iframe").contentWindow
-    iframe.postMessage(message, Autotest.apiUrl)
+  # postMessageToIframe = (message)->
+  #   console.log(message)
+  #   iframe = document.getElementById("autotest-iframe").contentWindow
+  #   iframe.postMessage(message, Autotest.apiUrl)
 
-  window.postMessageToIframe = postMessageToIframe
+  # window.postMessageToIframe = postMessageToIframe
 
   # autoTestRecorder.start()

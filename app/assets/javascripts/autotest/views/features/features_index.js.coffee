@@ -24,7 +24,7 @@ class Autotest.Views.FeaturesIndex extends Backbone.View
     _this = this
     $("select#features").on "change", ->
       featureId = $(this).val()
-      parent.postMessage({messageType: "setFeature", featureId: featureId}, document.referrer)
+      Autotest.Messages.Iframe.post({messageType: "setFeature", featureId: featureId}, document.referrer)
       _this.enableRecordButton()
     if this.collection.selected
       $("select#features").val(this.collection.selected)

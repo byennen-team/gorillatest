@@ -59,29 +59,8 @@ class Autotest.Views.IframeIndex extends Backbone.View
     if data.recording == true
       console.log("calling start recording")
       this.startRecording(data.message)
-      # IframeController.recording(data.message)
-      # $("#step-count").hover ->
-      #   $(this).css("cursor", "auto")
-      # $("#step-count").click ->
-      #   postParentMessage({messageType: "viewSteps"})
-
-      # $("#stop-recording").click ->
-      #   this.stopRecording()
-      #   postParentMessage({messageType: "stopRecording"})
-
-      # $("#start-text-highlight").click ->
-      #   $("button#start-text-highlight").hide()
-      #   $("button#stop-record-text-highlight").show()
-
-      #   postParentMessage({messageType: "selectElement"})
-
-      #   $("#stop-record-text-highlight").click ->
-      #     $("button#stop-record-text-highlight").hide()
-      #     $("button#start-text-highlight").show()
-      #     postParentMessage({messageType: "stopSelectElement"})
 
   startRecording: (message) ->
-    console.log("starting recording")
     $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
     $("#current-scenario").show()
     $("button#record").hide()

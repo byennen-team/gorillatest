@@ -21,7 +21,7 @@ class Autotest.Models.Scenario extends Backbone.Model
     console.log("adding step #{stepAttributes}")
     steps.create(stepAttributes,
       success: (model, response, options) ->
-        window.postMessageToIframe({messageType: "stepAdded", message: {stepCount: _this.steps().length} })
+        Autotest.Messages.Parent.post({messageType: "stepAdded", message: {stepCount: _this.steps().length} })
         # stepNumber = (@autoTestSteps.length).toString()
         # $("#autotest-view-steps ul").append("<li step-number=#{stepNumber}>#{autoTestStep.to_s}</li>")
       error: ->
