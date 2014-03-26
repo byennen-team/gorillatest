@@ -34,7 +34,7 @@ Autotest.initialize()
 $(document).ready ->
   Autotest.features = new Autotest.Collections.Features
   Autotest.features.fetch()
-  # Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
+  Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
   if Autotest.parent == "iframe"
     Autotest.features = new Autotest.Collections.Features
     Autotest.features.fetch()
@@ -48,7 +48,7 @@ $(document).ready ->
       error: ->
         alert("Could not start recorder")
     )
-    Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
+    # Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
 
 
 
