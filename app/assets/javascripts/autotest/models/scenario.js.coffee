@@ -8,8 +8,9 @@ class Autotest.Models.Scenario extends Backbone.Model
 
   setCurrentScenario: ->
     console.log(this)
+    console.log("Id is #{this.get("id")}")
     Autotest.currentScenario = this
-    window.sessionStorage.setItem("autoTestRecorder.currentScenario", this.id)
+    window.sessionStorage.setItem("autoTestRecorder.currentScenario", this.get("id"))
 
   feature: ->
     Autotest.currentFeature
