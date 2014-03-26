@@ -1,12 +1,12 @@
 class Autotest.Messages.Parent
 
   @handlerMap = {}
+
   @add: (event, f) ->
     @handlerMap[event] = f
     return
 
   @perform: (event, featureId) ->
-    console.log("event is #{event}")
     if event != undefined
       @handlerMap[event].call(null, featureId)
 
@@ -35,7 +35,8 @@ Autotest.Messages.Parent.add("addFeature", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("viewSteps", ->
-  stepIndex = new Autotest.Views.Steps
+  console.log("Showing step list")
+  stepIndex = new Autotest.Views.StepIndex
   stepIndex.view()
 )
 

@@ -12,6 +12,8 @@
 //= require_tree ./autotest/routers
 //= require ./autotest/messages/iframe
 //= require ./autotest/iframe_controller
+//= require ./autotest/event
+//= require ./autotest/gui_controller
 
 addEventListener "message", (e)->
   data = e.data

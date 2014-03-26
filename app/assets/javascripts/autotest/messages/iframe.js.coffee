@@ -11,7 +11,6 @@ class Autotest.Messages.Iframe
      @handlerMap[event].call(null, data)
 
   @post: (message) ->
-    console.log("Posting message to parent")
     parent.postMessage(message, document.referrer)
 
 Autotest.Messages.Iframe.add("recording", (data) ->

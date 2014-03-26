@@ -19,7 +19,7 @@ class Autotest.Views.ScenariosModal extends Backbone.View
         window.autoTestRecorder.record()
         $("#scenario-modal").bPopup().close()
         model.addStep({event_type: "get", locator_type: '', locator_value: '', text: window.location.href})
-        Autoetst.Messages.parent.post({messageType: "startRecording", message: {scenarioName: model.get('name'), featureName: Autotest.currentFeature.get('name')}})
+        Autotest.Messages.Parent.post({messageType: "startRecording", message: {scenarioName: model.get('name'), featureName: Autotest.currentFeature.get('name')}})
       error: (model, response, options) ->
         $("#start-recording").attr("disabled", false)
         if $("#scenario-modal-errors").length == 0

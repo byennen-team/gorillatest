@@ -1,4 +1,4 @@
-class Autotest.Views.Steps extends Backbone.View
+class Autotest.Views.StepIndex extends Backbone.View
 
   # el: $("ul#autotest-steps")
 

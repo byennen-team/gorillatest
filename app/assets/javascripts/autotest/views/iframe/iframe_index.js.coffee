@@ -10,13 +10,13 @@ class Autotest.Views.IframeIndex extends Backbone.View
   }
 
   addFeature: ->
-    console.log("Add Feature clicked")
     Autotest.Messages.Iframe.post({messageType: "addFeature"})
 
   record: ->
     Autotest.Messages.Iframe.post({messageType: "recordClick"})
 
   showStepCount: ->
+    console.log("posting view step count")
     Autotest.Messages.Iframe.post({messageType: "viewSteps"})
 
   stopRecording: ->
