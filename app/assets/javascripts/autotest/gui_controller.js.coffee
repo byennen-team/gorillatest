@@ -56,7 +56,7 @@ AutoTestGuiController = {
 
   showElementModal: (event, element) ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'select-element-modal'}
-    renderModal("select_element_modal", options)
+    AutoTestGuiController.renderModal("select_element_modal", options)
     $("#select-element-modal *").css('cursor', 'auto')
     $("#select-element-modal *").css("outline", "none")
     $("#select-element-modal *").unbind("mouseenter").unbind("mouseleave")
@@ -81,7 +81,7 @@ AutoTestGuiController = {
       e.stopPropagation()
       checked = $("input[name=record_text]:checked")
       type = if checked.attr("id") is "record_text_text" then "verifyText" else "verifyElementPresent"
-      autoTestRecorder.currentScenario.addStep(type, {type: '', value: ''}, checked.val())
+      Autotest.currentScenario.addStep({event_type: type, locator_type: '', locator_value: '', text: checked.val()})
       $("#select-element-modal").bPopup().close()
     return false
 

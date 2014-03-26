@@ -18,6 +18,7 @@ class Autotest.Views.ScenariosModal extends Backbone.View
         model.steps()
         window.autoTestRecorder.record()
         $("#scenario-modal").bPopup().close()
+        stepIndex = new Autotest.Views.StepIndex({collection: model.steps()})
         model.addStep({event_type: "get", locator_type: '', locator_value: '', text: window.location.href})
         Autotest.Messages.Parent.post({messageType: "startRecording", message: {scenarioName: model.get('name'), featureName: Autotest.currentFeature.get('name')}})
       error: (model, response, options) ->

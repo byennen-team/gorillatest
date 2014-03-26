@@ -7,6 +7,7 @@ window.Autotest =
   Messages: {}
   currentFeature: null
   currentScenario: null
+  currentSteps: null
   parent: null
   initialize: ->
     scripts = document.getElementsByTagName("script")

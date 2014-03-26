@@ -7,8 +7,6 @@ class Autotest.Models.Scenario extends Backbone.Model
     this.instanceUrl = options.url || null
 
   setCurrentScenario: ->
-    console.log(this)
-    console.log("Id is #{this.get("id")}")
     Autotest.currentScenario = this
     window.sessionStorage.setItem("autoTestRecorder.currentScenario", this.get("id"))
 
@@ -16,7 +14,6 @@ class Autotest.Models.Scenario extends Backbone.Model
     Autotest.currentFeature
 
   addStep: (stepAttributes) ->
-    debugger
     steps = Autotest.currentSteps
     _this = this
     console.log("adding step #{stepAttributes}")
@@ -30,17 +27,15 @@ class Autotest.Models.Scenario extends Backbone.Model
     )
 
   steps: ->
-    returnSteps = []
-    if Autotest.currentSteps != null
+    if Autotest.currentSteps == null
       currentSteps = new Autotest.Collections.Steps(this)
-      Autotest.currentSteps = currentSteps
+      currentSteps.fetch(
+        async: false
+        success: (c, r, o) ->
+          Autotest.currentSteps = currentSteps
+        error: ->
+          console.log("Could not retrieve steps")
+      )
     else
       currentSteps = Autotest.currentSteps
-    currentSteps.fetch(
-      async: false
-      success: (c, r, o) ->
-        # returnSteps = c.models
-      error: ->
-        console.log("Could not retrieve steps")
-    )
     return currentSteps

@@ -125,9 +125,10 @@ class @AutoTestEvent
     confirmationTypes = ["assertConfirmation", "chooseCancelOnNextConfirmation", "chooseAcceptOnNextConfirmation"]
     if $.inArray(type, confirmationTypes) == -1
       stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
+      scenario.addStep({event_type: type, locator_type: stepLocator.type, locator_value: stepLocator.value, text: value})
     else
       stepLocator = {}
-    scenario.addStep(type, stepLocator, value)
+      scenario.addStep({event_type: type, locator_type: "", locator_value: "", text: value})
 
 
 

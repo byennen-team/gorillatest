@@ -12,6 +12,8 @@
 //= require autotest/gui_controller
 //= require ./autotest/recorder
 //= require ./autotest/messages/parent
+//= require ./autotest/locator_builder
+//= require ./autotest/locator
 //= require ./autotest/event
 //= require_self
 
