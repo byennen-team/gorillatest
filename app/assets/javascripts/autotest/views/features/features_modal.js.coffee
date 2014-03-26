@@ -15,7 +15,7 @@ class Autotest.Views.FeaturesModal extends Backbone.View
         $("button#create-feature").attr("disabled", false)
         $("#feature-modal").bPopup().close()
         $("#feature_name").val('')
-        window.postMessageToIframe({messageType: "featureAdded", message: {featureName: model.attributes.name, featureId: model.attributes.id}})
+        Autotest.Messages.Parent.post({messageType: "featureAdded", message: {featureName: model.attributes.name, featureId: model.attributes.id}})
         model.setCurrentFeature()
       error:  (model, response, options) ->
         $("button#create-feature").attr("disabled", false)

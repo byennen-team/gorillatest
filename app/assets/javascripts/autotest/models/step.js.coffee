@@ -6,5 +6,3 @@ class Autotest.Models.Step extends Backbone.Model
 
   feature: ->
     Autotest.currentFeature
-
-  to_s: ->
