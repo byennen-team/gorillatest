@@ -42,8 +42,8 @@ class @AutoTestRecorder
     @isRecording = true
     @sessionStorage.setItem("autoTestRecorder.isRecording", @isRecording)
     console.log("Binding DOM events")
-    AutoTestEvent.bind()
-    AutoTestEvent.bindDomNodeInsert()
+    Autotest.Event.bind()
+    Autotest.Event.bindDomNodeInsert()
     return
 
   stop: ->
@@ -56,7 +56,7 @@ class @AutoTestRecorder
     Autotest.currentSteps = null
     # Unbind all events
     autoTestGuiController.removeStepsList()
-    AutoTestEvent.unbind()
+    Autotest.Event.unbind()
     # This is a temporary hack to reload the page and kill all the bindings. - jkr
     window.location.href = window.location.href
 

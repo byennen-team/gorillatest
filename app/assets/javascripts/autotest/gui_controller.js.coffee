@@ -33,7 +33,7 @@ AutoTestGuiController = {
     $("*").css('cursor', 'crosshair')
 
     # Unbind links and prevent default
-    $("a").unbind("click", AutoTestEvent.bindClick)
+    $("a").unbind("click", Autotest.Event.bindClick)
     $("a, button, input[type='submit'], select").bind("click", autoTestGuiController.preventClicks)
 
     # Unbind hover for body and modal backdrop
@@ -52,7 +52,7 @@ AutoTestGuiController = {
     $("body *").unbind("mousedown", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
-    $("a").bind("click", AutoTestEvent.bindClick)
+    $("a").bind("click", Autotest.Event.bindClick)
 
   showElementModal: (event, element) ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'select-element-modal'}
@@ -158,6 +158,6 @@ $(document).ready ->
     $("body *").unbind("mousedown", AutoTestGuiController.bindBodyClick)
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
-    $("a").bind("click", AutoTestEvent.bindClick)
+    $("a").bind("click", Autotest.Event.bindClick)
 
 window.autoTestGuiController = AutoTestGuiController
