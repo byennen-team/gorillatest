@@ -6,3 +6,12 @@ class Autotest.Models.Step extends Backbone.Model
 
   feature: ->
     Autotest.currentFeature
+
+  element: ->
+    switch locator_type
+      when "id"
+        return $("##{locator_value}")
+      when "name"
+        return $("input[name='#{locator_value}'")
+      when "xpath"
+        return $.xpath(locator_value)
