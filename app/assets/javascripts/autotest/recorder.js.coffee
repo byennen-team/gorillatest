@@ -28,13 +28,15 @@ class @AutoTestRecorder
         $("select#features").val(featureId)
       if scenarioId != null
         _this = this
-        scenario = new Autotest.Models.Scenario(feature, scenarioId)
+        scenario = new Autotest.Models.Scenario({id: scenarioId, url: "#{Autotest.currentFeature.url()}/scenarios/#{scenarioId}"})
+        scenario.setCurrentScenario()
+        stepsView = new Autotest.Views.Steps({collection: Autotest.currentScenario.steps()})
         scenario.fetch(
           success: (model, response, options) ->
-            Autotest.currentScenario = model
-            $.each(Autotest.currentScenario.steps(), (i, step) ->
-              $("ul#autotest-steps").append("<li step-number=#{i}>#{step.get('to_s')}</li>")
-            )
+            # Autotest.currentScenario = model
+            # $.each(Autotest.currentScenario.steps(), (i, step) ->
+            #   $("ul#autotest-steps").append("<li step-number=#{i}>#{step.get('to_s')}</li>")
+            # )
             $("iframe").load ->
               console.log("iframe loaded")
               Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name'), featureName: Autotest.currentFeature.get('name')}})

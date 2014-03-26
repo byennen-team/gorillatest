@@ -1,13 +1,10 @@
 class Autotest.Models.Scenario extends Backbone.Model
 
   url: ->
-    return "#{this.feature().url()}/scenarios/#{this.id}"
+    return this.instanceUrl
 
-  initialize: (feature, scenarioId) ->
-    # console.log(feature)
-    # console.log(feature.url())
-    # this.feature = feature
-    this.id = scenarioId
+  initialize: (options) ->
+    this.instanceUrl = options.url || null
 
   setCurrentScenario: ->
     console.log(this)
@@ -18,8 +15,10 @@ class Autotest.Models.Scenario extends Backbone.Model
     Autotest.currentFeature
 
   addStep: (stepAttributes) ->
-    steps = new Autotest.Collections.Steps(this)
+    debugger
+    steps = Autotest.currentSteps
     _this = this
+    console.log("adding step #{stepAttributes}")
     steps.create(stepAttributes,
       success: (model, response, options) ->
         window.postMessageToIframe({messageType: "stepAdded", message: {stepCount: _this.steps().length} })
@@ -31,12 +30,16 @@ class Autotest.Models.Scenario extends Backbone.Model
 
   steps: ->
     returnSteps = []
-    currentSteps = new Autotest.Collections.Steps(this)
+    if Autotest.currentSteps != null
+      currentSteps = new Autotest.Collections.Steps(this)
+      Autotest.currentSteps = currentSteps
+    else
+      currentSteps = Autotest.currentSteps
     currentSteps.fetch(
       async: false
       success: (c, r, o) ->
-        returnSteps = c.models
+        # returnSteps = c.models
       error: ->
-        alert("Could not retrieve steps")
+        console.log("Could not retrieve steps")
     )
-    return returnSteps
+    return currentSteps

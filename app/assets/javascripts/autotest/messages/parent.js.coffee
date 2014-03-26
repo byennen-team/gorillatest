@@ -35,7 +35,7 @@ Autotest.Messages.Parent.add("addFeature", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("viewSteps", ->
-  stepIndex = new Autotest.Views.stepIndex
+  stepIndex = new Autotest.Views.Steps
   stepIndex.view()
 )
 
