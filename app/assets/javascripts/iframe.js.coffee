@@ -10,10 +10,10 @@
 //= require_tree ./autotest/collections
 //= require_tree ./autotest/views
 //= require_tree ./autotest/routers
-//= require ./autotest/iframe_message_handler
+//= require ./autotest/messages/iframe
 //= require ./autotest/iframe_controller
 
 addEventListener "message", (e)->
   data = e.data
-  IframeMessageHandler.perform(data.messageType, data)
+  Autotest.Messages.Iframe.perform(data.messageType, data)
 

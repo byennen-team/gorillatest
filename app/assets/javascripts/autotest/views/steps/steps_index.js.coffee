@@ -10,3 +10,10 @@ class Autotest.Views.Steps extends Backbone.View
     stepNumber = length.toString()
     $("#autotest-view-steps ul").append("<li step-number=#{stepNumber}>#{model.get('to_s')}</li>")
 
+  view: ->
+    if $("#autotest-view-steps").is(':visible')
+      $("#autotest-view-steps").slideUp()
+    else
+      $("#autotest-view-steps").slideDown()
+
+  remove: ->
