@@ -1,16 +1,16 @@
-class @AutoTestLocatorBuilder
+class Autotest.LocatorBuilder
 
   constructor: (@element) ->
 
   build: ->
     if $(@element).attr("id") && this.idIsUnique()
-      return new AutoTestLocator "id", $(@element).attr("id")
+      return new Autotest.Locator "id", $(@element).attr("id")
     else if $(@element).attr("name") && this.nameIsUnique()
-      return new AutoTestLocator "name", $(@element).attr("name")
+      return new Autotest.Locator "name", $(@element).attr("name")
     else if $(@element).prop("tagName") == "A" && !$(@element).text().match(/^\s*$/) && this.linkTextisUnique()
-      return  new AutoTestLocator "link", $(@element).text().replace(/^\s+|\s+$/g,'')
+      return  new Autotest.Locator "link", $(@element).text().replace(/^\s+|\s+$/g,'')
     else
-      return new AutoTestLocator "xpath", this.buildXpath()
+      return new Autotest.Locator "xpath", this.buildXpath()
 
   idIsUnique: ->
     $("[id='#{$(@element).attr("id")}']").length == 1

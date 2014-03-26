@@ -1,4 +1,4 @@
-class @AutoTestEvent
+class Autotest.Event
 
   constructor: () ->
     @scenario = window.autoTestRecorder
@@ -8,31 +8,31 @@ class @AutoTestEvent
   @bindDomNodeInsert: () ->
     document.addEventListener('DOMNodeInserted', ( (e)->
       if $
-        AutoTestEvent.unbind()
-        AutoTestEvent.bind()
-        AutoTestEvent.unbindElementModal()
-        AutoTestEvent.unbindScenarioModal()
+        Autotest.Event.unbind()
+        Autotest.Event.bind()
+        Autotest.Event.unbindElementModal()
+        Autotest.Event.unbindScenarioModal()
       ), true)
 
   @bind: () ->
     stepLocator = {}
-    $("a").bind("click", AutoTestEvent.bindClick)
-    $("button").bind("click", AutoTestEvent.bindClick)
+    $("a").bind("click", Autotest.Event.bindClick)
+    $("button").bind("click", Autotest.Event.bindClick)
     # Start recording an input as soon as it's focused.
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
     "range", "search", "tel", "time", "url", "week"]
     for fieldType in fieldTypes
-      elementType = AutoTestEvent.createInputBinding("input", fieldType)
-      elementType.bind("focus", AutoTestEvent.bindFocus)
-      elementType.bind("blur", AutoTestEvent.bindBlur)
-    textArea = AutoTestEvent.createInputBinding("textarea", "")
-    textArea.bind("focus", AutoTestEvent.bindFocus)
-    textArea.bind("blur", AutoTestEvent.bindBlur)
-    $("select").bind("change", AutoTestEvent.bindSelect)
-    $("input[type=radio], input[type=checkbox]").bind("click", AutoTestEvent.bindClick)
-    $("input[type=submit]").bind("click", AutoTestEvent.bindSubmit)
-    AutoTestEvent.bindConfirmation()
-    AutoTestEvent.bindAlert()
+      elementType = Autotest.Event.createInputBinding("input", fieldType)
+      elementType.bind("focus", Autotest.Event.bindFocus)
+      elementType.bind("blur", Autotest.Event.bindBlur)
+    textArea = Autotest.Event.createInputBinding("textarea", "")
+    textArea.bind("focus", Autotest.Event.bindFocus)
+    textArea.bind("blur", Autotest.Event.bindBlur)
+    $("select").bind("change", Autotest.Event.bindSelect)
+    $("input[type=radio], input[type=checkbox]").bind("click", Autotest.Event.bindClick)
+    $("input[type=submit]").bind("click", Autotest.Event.bindSubmit)
+    Autotest.Event.bindConfirmation()
+    Autotest.Event.bindAlert()
     return
 
   @createInputBinding: (elementName, elementType) ->
@@ -44,33 +44,33 @@ class @AutoTestEvent
     return element
 
   @bindClick: (event) ->
-    AutoTestEvent.addStep(event, "clickElement", $(this).attr("href"))
+    Autotest.Event.addStep(event, "clickElement", $(this).attr("href"))
 
   @bindFocus: (event) ->
     stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
 
   @bindBlur: (event) ->
     if $(this).val().length > 0
-      AutoTestEvent.addStep(event, "setElementText", $(this).val())
+      Autotest.Event.addStep(event, "setElementText", $(this).val())
 
   @bindSelect: (event) ->
-    AutoTestEvent.addStep(event, "setElementSelected", $(this).val())
+    Autotest.Event.addStep(event, "setElementSelected", $(this).val())
 
   @bindClick: (event) ->
-    AutoTestEvent.addStep(event, "clickElement", $(this).val())
+    Autotest.Event.addStep(event, "clickElement", $(this).val())
 
   @bindSubmit: (event) ->
-    AutoTestEvent.addStep(event, "submitElement", null)
+    Autotest.Event.addStep(event, "submitElement", null)
 
   @bindConfirmation: ->
     window.originalConfirm = window.confirm
     window.confirm = (message) ->
       result = window.originalConfirm(message)
-      AutoTestEvent.addStep(null, "assertConfirmation", message)
+      Autotest.Event.addStep(null, "assertConfirmation", message)
       if (!result)
-        AutoTestEvent.addStep(null, "chooseCancelOnNextConfirmation", "Cancel")
+        Autotest.Event.addStep(null, "chooseCancelOnNextConfirmation", "Cancel")
       else
-        AutoTestEvent.addStep(null, "chooseAcceptOnNextConfirmation", "OK")
+        Autotest.Event.addStep(null, "chooseAcceptOnNextConfirmation", "OK")
       return result
     return
 
@@ -85,46 +85,46 @@ class @AutoTestEvent
 
   @unbind: () ->
     console.log("UNbinding all elements")
-    $("a").unbind("click", AutoTestEvent.bindClick)
-    $("button").unbind("click", AutoTestEvent.bindClick)
+    $("a").unbind("click", Autotest.Event.bindClick)
+    $("button").unbind("click", Autotest.Event.bindClick)
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
     "range", "search", "tel", "time", "url", "week"]
     for fieldType in fieldTypes
-      elementType = AutoTestEvent.createInputBinding("input", fieldType)
-      elementType.unbind("focus", AutoTestEvent.bindBlur)
-      elementType.unbind("blur", AutoTestEvent.bindInput)
+      elementType = Autotest.Event.createInputBinding("input", fieldType)
+      elementType.unbind("focus", Autotest.Event.bindBlur)
+      elementType.unbind("blur", Autotest.Event.bindInput)
 
-    textArea = AutoTestEvent.createInputBinding("textarea", "")
-    textArea.unbind("focus", AutoTestEvent.bindFocus)
-    textArea.unbind("blur", AutoTestEvent.bindBlur)
-    $("select").unbind("change", AutoTestEvent.bindSelect)
-    $("input[type=radio], input[type=checkbox]").unbind("click", AutoTestEvent.bindClick)
-    $("input[type=submit]").unbind("click", AutoTestEvent.bindSubmit)
+    textArea = Autotest.Event.createInputBinding("textarea", "")
+    textArea.unbind("focus", Autotest.Event.bindFocus)
+    textArea.unbind("blur", Autotest.Event.bindBlur)
+    $("select").unbind("change", Autotest.Event.bindSelect)
+    $("input[type=radio], input[type=checkbox]").unbind("click", Autotest.Event.bindClick)
+    $("input[type=submit]").unbind("click", Autotest.Event.bindSubmit)
     window.confirm = window.originalConfirm
     window.alert = window.originalAlert
     return
 
   @unbindIframe: ->
-    $("#step-count").unbind("click", AutoTestEvent.bindClick)
+    $("#step-count").unbind("click", Autotest.Event.bindClick)
 
   @unbindElementModal: ->
     $("#select-element-modal").unbind("mouseenter")
     $("#select-element-modal").unbind("mouseleave")
-    $("#select-element-modal a").unbind("click", AutoTestEvent.bindClick)
-    $("#select-element-modal button").unbind("click", AutoTestEvent.bindClick)
-    $("#select-element-modal input[type=radio]").unbind("click", AutoTestEvent.bindClick)
-    $("button#start-text-highlight").unbind("click", AutoTestEvent.bindClick)
-    $("button#stop-record-text-highlight").unbind("click", AutoTestEvent.bindClick)
+    $("#select-element-modal a").unbind("click", Autotest.Event.bindClick)
+    $("#select-element-modal button").unbind("click", Autotest.Event.bindClick)
+    $("#select-element-modal input[type=radio]").unbind("click", Autotest.Event.bindClick)
+    $("button#start-text-highlight").unbind("click", Autotest.Event.bindClick)
+    $("button#stop-record-text-highlight").unbind("click", Autotest.Event.bindClick)
     return
 
   @unbindScenarioModal: ->
-    $("#autotest-modal button").unbind("click", AutoTestEvent.bindClick)
+    $("#autotest-modal button").unbind("click", Autotest.Event.bindClick)
 
   @addStep: (event, type, value) ->
     scenario = Autotest.currentScenario
     confirmationTypes = ["assertConfirmation", "chooseCancelOnNextConfirmation", "chooseAcceptOnNextConfirmation"]
     if $.inArray(type, confirmationTypes) == -1
-      stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
+      stepLocator = new Autotest.LocatorBuilder(event.currentTarget).build()
       scenario.addStep({event_type: type, locator_type: stepLocator.type, locator_value: stepLocator.value, text: value})
     else
       stepLocator = {}

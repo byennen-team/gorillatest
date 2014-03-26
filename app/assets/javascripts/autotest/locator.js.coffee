@@ -1,3 +1,3 @@
-class @AutoTestLocator
+class Autotest.Locator
 
   constructor: (@type, @value) ->
