@@ -11,7 +11,10 @@ class Autotest.Messages.Parent
       @handlerMap[event].call(null, featureId)
 
   @post: (message) ->
-    iframe = document.getElementById("autotest-iframe").contentWindow
+    if Autotest.developerMode == true
+      iframe = document.getElementById("autotest-dev-iframe").contentWindow
+    else
+      iframe = document.getElementById("autotest-iframe").contentWindow
     iframe.postMessage(message, Autotest.apiUrl)
 
 Autotest.Messages.Parent.add("setFeature", (featureId) ->
@@ -48,4 +51,21 @@ Autotest.Messages.Parent.add("selectElement", (featureId) ->
 
 Autotest.Messages.Parent.add("stopSelectElement", (featureId) ->
   autoTestGuiController.stopElementHighlight()
+)
+
+Autotest.Messages.Parent.add("stopPlayback", (featureId) ->
+)
+
+Autotest.Messages.Parent.add("startPlayback", (featureId) ->
+  steps = Autotest.currentScenario.steps()
+  steps.play()
+)
+
+Autotest.Messages.Parent.add("pausePlayback", (featureId) ->
+)
+
+Autotest.Messages.Parent.add("forwardPlayback", (featureId) ->
+)
+
+Autotest.Messages.Parent.add("backwardPlayback", (featureId) ->
 )

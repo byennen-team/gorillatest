@@ -11,6 +11,11 @@ class RecorderController < ApplicationController
     render
   end
 
+  def developer
+    response.headers.delete "X-Frame-Options"
+    render
+  end
+
   private
 
   def find_project

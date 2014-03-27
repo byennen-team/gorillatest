@@ -1,6 +1,8 @@
 //= require bPopup.min
 
 //= require underscore
+//= require ./plugins/jquery.xpath
+//= require ./plugins/jquery.purl
 //= require backbone
 //= require backbone_rails_sync
 //= require autotest/autotest
@@ -15,30 +17,10 @@
 //= require ./autotest/locator_builder
 //= require ./autotest/locator
 //= require ./autotest/event
-//= require ./plugins/jquery.xpath
 //= require_self
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
 
-  styleSheetUrl = Autotest.apiUrl + "/assets/application/recorder.css"
-  $('head').append("<link rel='stylesheet' type='text/css' href='"+ styleSheetUrl + "'>");
-
-  iframeHtml = JST["autotest/templates/iframe"]()
-  stepsHtml = JST["autotest/templates/steps_list"]()
-  $("body").prepend(iframeHtml)
-  $("body").append(stepsHtml)
-
-  window.autoTestRecorder = new AutoTestRecorder window.projectId
-
   window.addEventListener "message", (e)->
     Autotest.Messages.Parent.perform(e.data.messageType, e.data.featureId)
-
-  # postMessageToIframe = (message)->
-  #   console.log(message)
-  #   iframe = document.getElementById("autotest-iframe").contentWindow
-  #   iframe.postMessage(message, Autotest.apiUrl)
-
-  # window.postMessageToIframe = postMessageToIframe
-
-  # autoTestRecorder.start()

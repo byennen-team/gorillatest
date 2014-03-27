@@ -1,6 +1,7 @@
 //= require jquery
 //= require bootstrap
 //= require underscore
+//= require ./plugins/jquery.purl.js
 //= require backbone
 //= require backbone_rails_sync
 //= require autotest/gui_controller

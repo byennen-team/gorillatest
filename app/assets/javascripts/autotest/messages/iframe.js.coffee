@@ -32,3 +32,8 @@ Autotest.Messages.Iframe.add("featureAdded", (data) ->
   Autotest.features.selected = data.message.featureId
   Autotest.features.fetch()
 )
+
+Autotest.Messages.Iframe.add("showScenario", (data) ->
+  developerIndex = new Autotest.Views.DeveloperIndex
+  developerIndex.showCurrentScenario(data.featureName, data.scenarioName)
+)
