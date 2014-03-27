@@ -19,7 +19,6 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
     console.log("Playing STep: #{message}")
 
   play: ->
-    console.log("play clicked")
     @showHidePlayButtons()
     @postMessage({messageType: "startPlayback"})
 
@@ -37,8 +36,10 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
   backward: ->
     @postMessage({messageType: "backwardPlayback"})
 
+  stopPlayback: ->
+    @showHidePlayButtons()
+
   showHidePlayButtons: ->
-    console.log("showing play or hiding it")
     if $("#play").is(":visible")
       $("#play").hide()
       $("#pause").show()

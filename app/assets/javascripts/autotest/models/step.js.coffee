@@ -1,6 +1,5 @@
 class Autotest.Models.Step extends Backbone.Model
 
-
   scenario: ->
     Autotest.currentScenario
 
@@ -8,14 +7,13 @@ class Autotest.Models.Step extends Backbone.Model
     Autotest.currentFeature
 
   element: ->
-    switch locator_type
+    switch @get("locator_type")
       when "id"
-        return $("##{locator_value}")
+        return $("##{@get("locator_value")}")
       when "name"
-        return $("input[name='#{locator_value}'")
+        return $("input[name='#{@get("locator_value")}'")
       when "xpath"
-        return $.xpath(locator_value)
+        return $.xpath(@get("locator_value"))
 
   perform: ->
-    console.log(this.get("text"))
-    return false
+    Autotest.Developer.Steps.perform(this)

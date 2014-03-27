@@ -31,6 +31,7 @@ Autotest.Messages.Parent.add("recordClick", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("addFeature", (featureId) ->
+  # featureIndex = new Autotest.Views.FeatureIndex
   Autotest.featureIndex.showCreateModal()
   new Autotest.Views.FeaturesModal({el: $(".autotest-modal-content")})
 )

@@ -33,6 +33,8 @@ class Autotest.Collections.Steps extends Backbone.Collection
 
   stop: ->
     clearInterval(@interval)
+    Autotest.Messages.Parent.post({messageType: "stopPlayback"})
+
 
   pause: ->
 
@@ -47,7 +49,12 @@ class Autotest.Collections.Steps extends Backbone.Collection
         return allDone
 
     @performing = true
-    outcome = @selected.perform()
+    if @selected.get("event_type") == "setElementText" || @selected.get("event_type") == "verifyElementPresent"
+      outcome = @selected.perform()
+    else
+      console.log("skipping step")
+      outcome = true
+
     @performing = false
 
     if outcome  # the step passed

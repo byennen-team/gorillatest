@@ -67,7 +67,7 @@ AutoTestGuiController = {
 
     element_html = AutoTestGuiController.stripStyleClass($(element))
     $("#record-element-html").text($(element_html).clone().wrap("<p>").parent().html())
-    $("#record_text_element_html").val($(element_html).clone().wrap("<p>").parent().html())
+    $("#record_text_element_html").val("element")
     $("#recording-bar *").click (e) ->
       e.stopPropagation()
 
@@ -81,7 +81,12 @@ AutoTestGuiController = {
       e.stopPropagation()
       checked = $("input[name=record_text]:checked")
       type = if checked.attr("id") is "record_text_text" then "verifyText" else "verifyElementPresent"
-      Autotest.currentScenario.addStep({event_type: type, locator_type: '', locator_value: '', text: checked.val()})
+      if checked.val() == "element"
+        locatorBuilder = new Autotest.LocatorBuilder(element)
+        location = locatorBuilder.build()
+        Autotest.currentScenario.addStep({event_type: type, locator_type: location.type, locator_value: location.value, text: $(element).text()})
+      else
+        Autotest.currentScenario.addStep({event_type: type, locator_type: '', locator_value: '', text: checked.val()})
       $("#select-element-modal").bPopup().close()
     return false
 

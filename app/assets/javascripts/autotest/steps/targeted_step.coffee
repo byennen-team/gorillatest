@@ -1,13 +1,6 @@
-hubspot.define "hubspot.integrate.steps.targeted_step", [
-    "hubspot.integrate.utils"
-], (utils) ->
-    class TargetedStep extends Backbone.Model
-        constructor: (@sel) ->
-            super()
+class @Autotest.Steps.TargetedStep
+  constructor: (@step) ->
+    @$target = @step.element()
+    @text = @step.get("text")
 
-        getTarget: (workspace) ->
-            @$target = utils.extractSelector(workspace, @sel)
-            @set 'targetElement', @$target
-            return @$target
-
-
+  announcement: -> @step.to_s

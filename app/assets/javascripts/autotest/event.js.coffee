@@ -47,7 +47,7 @@ class Autotest.Event
     Autotest.Event.addStep(event, "clickElement", $(this).attr("href"))
 
   @bindFocus: (event) ->
-    stepLocator = new AutoTestLocatorBuilder(event.currentTarget).build()
+    stepLocator = new Autotest.LocatorBuilder(event.currentTarget).build()
 
   @bindBlur: (event) ->
     if $(this).val().length > 0
