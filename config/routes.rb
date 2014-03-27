@@ -8,6 +8,7 @@ Autotest::Application.routes.draw do
   end
 
   get "/recorder" => "recorder#index"
+  get "/developer" => "recorder#developer"
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'

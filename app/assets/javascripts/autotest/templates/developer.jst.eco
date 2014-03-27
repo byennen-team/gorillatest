@@ -1,0 +1,5 @@
+<div id='autotest-overlay'></div>
+<div id='iframe-wrapper'>
+  <iframe id='autotest-dev-iframe' src="<%= Autotest.apiUrl %>/developer?project_id=<%= Autotest.projectId %>" />
+</div>
+<div style="height: 55px;"></div>
