@@ -5,6 +5,8 @@ window.Autotest =
   Views: {}
   Routers: {}
   Messages: {}
+  Developer: {}
+  Steps: {}
   currentFeature: null
   currentScenario: null
   currentSteps: null
@@ -45,7 +47,7 @@ Autotest.initialize()
 $(document).ready ->
   # Autotest.features = new Autotest.Collections.Features
   # Autotest.features.fetch()
-  # Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
+  #Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
   if Autotest.parent == "iframe"
     Autotest.features = new Autotest.Collections.Features
     Autotest.features.fetch()
@@ -88,6 +90,8 @@ $(document).ready ->
       Autotest.features.fetch(
         success: ->
           window.autoTestRecorder.start()
+          Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
+
         error: ->
           alert("Could not start recorder")
       )

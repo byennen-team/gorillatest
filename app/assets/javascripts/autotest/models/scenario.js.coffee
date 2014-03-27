@@ -28,6 +28,7 @@ class Autotest.Models.Scenario extends Backbone.Model
 
   steps: ->
     if Autotest.currentSteps == null
+      this.instanceUrl = "#{Autotest.currentFeature.url()}/scenarios/#{this.id}"
       currentSteps = new Autotest.Collections.Steps(this)
       currentSteps.fetch(
         async: false

@@ -1,29 +1,25 @@
-hubspot.define("hubspot.integrate.steps.click", [
-    "hubspot.integrate.utils"
-    "hubspot.integrate.steps.targeted_step"
-], (utils, TargetedStep) ->
-    class ClickStep extends TargetedStep
-        mood: "click"
+class ClickStep
 
-        announcement: ->
-            if _(@sel).isFunction()
-                return "Clicking on: <pre class='function'>#{@sel}</pre>"
-            else
-                return "Clicking on: <pre>$page.find(\"#{@sel}\")</pre>"
+  mood: "click"
 
-        perform: (workspace) ->
-            if @$target.length isnt 1
-                return false
+  announcement: ->
+    if _(@sel).isFunction()
+        return "Clicking on: <pre class='function'>#{@sel}</pre>"
+    else
+        return "Clicking on: <pre>$page.find(\"#{@sel}\")</pre>"
 
-            $page = workspace.getPage()
-            unless $page.find(@$target).length is 1
-                return false  # target is no longer in the DOM
+  perform: (workspace) ->
+    if @$target.length isnt 1
+        return false
 
-            utils.eventFire(workspace, @$target, "mouseenter")
-            utils.eventFire(workspace, @$target, "mouseover")
-            utils.eventFire(workspace, @$target, "click")
-            utils.eventFire(workspace, @$target, "mousedown")
-            utils.eventFire(workspace, @$target, "mouseup")
+    $page = workspace.getPage()
+    unless $page.find(@$target).length is 1
+        return false  # target is no longer in the DOM
 
-            return @$target
-)
+    utils.eventFire(workspace, @$target, "mouseenter")
+    utils.eventFire(workspace, @$target, "mouseover")
+    utils.eventFire(workspace, @$target, "click")
+    utils.eventFire(workspace, @$target, "mousedown")
+    utils.eventFire(workspace, @$target, "mouseup")
+
+    return @$target
