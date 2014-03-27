@@ -15,6 +15,9 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
     $("#current-scenario").html(scenario)
     $("#current-scenario").show()
 
+  showPlayStep: (message) ->
+    console.log("Playing STep: #{message}")
+
   play: ->
     console.log("play clicked")
     @showHidePlayButtons()

@@ -15,3 +15,7 @@ class Autotest.Models.Step extends Backbone.Model
         return $("input[name='#{locator_value}'")
       when "xpath"
         return $.xpath(locator_value)
+
+  perform: ->
+    console.log(this.get("text"))
+    return false
