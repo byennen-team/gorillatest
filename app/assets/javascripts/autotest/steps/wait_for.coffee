@@ -34,5 +34,12 @@ hubspot.define "hubspot.integrate.steps.wait_for", [
                 super
 
 
+Autotest.Steps.add("waitForUrl", ->
+  waitForUrl = new Autotest.Steps.WaitForUrl
+  waitForUrl.perform(@step)
+)
+
+
+
 
 

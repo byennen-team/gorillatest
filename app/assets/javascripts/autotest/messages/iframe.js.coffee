@@ -8,7 +8,7 @@ class Autotest.Messages.Iframe
 
   @perform: (event, data) ->
     if event != undefined
-     @handlerMap[event].call(null, data)
+      @handlerMap[event].call(null, data)
 
   @post: (message) ->
     parent.postMessage(message, document.referrer)
@@ -36,4 +36,9 @@ Autotest.Messages.Iframe.add("featureAdded", (data) ->
 Autotest.Messages.Iframe.add("showScenario", (data) ->
   developerIndex = new Autotest.Views.DeveloperIndex
   developerIndex.showCurrentScenario(data.featureName, data.scenarioName)
+)
+
+Autotest.Messages.Iframe.add("playStep", (data) ->
+  developerIndex = new Autotest.Views.DeveloperIndex
+  developerIndex.showPlayStep(data.message)
 )

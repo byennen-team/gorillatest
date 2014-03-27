@@ -62,10 +62,13 @@ Autotest.Messages.Parent.add("startPlayback", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("pausePlayback", (featureId) ->
+  Autotest.currentSteps.pause()
 )
 
 Autotest.Messages.Parent.add("forwardPlayback", (featureId) ->
+  Autotest.currentSteps.next()
 )
 
 Autotest.Messages.Parent.add("backwardPlayback", (featureId) ->
+  Autoest.currentSteps.previous()
 )
