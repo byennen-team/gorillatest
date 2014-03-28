@@ -10,14 +10,14 @@ class Autotest.Collections.Steps extends Backbone.Collection
     @failedSteps = []
 
   play: ->
-    # $.each(this.models, (i, s) ->
-    #   @currentStep = 0
     window.sessionStorage.setItem("autoTest.developerPlaying", "1")
-    currentStep = window.sessionStorage.getItem("autoTest.developerStep")
-    if currentStep != null
-      @select(@at(@indexOf(currentStep) + 1))
+    window.sessionStorage.setItem("autoTest.developerScenario", Autotest.developerScenarioId)
+    window.sessionStorage.setItem("autoTest.developerFeature", Autotest.developerFeatureId)
+    currentStepIndex = window.sessionStorage.getItem("autoTest.developerStep")
+    if currentStepIndex != null
+      @selected = @at(parseInt(currentStepIndex) + 1)
     else
-      @select(@first()) unless @selected
+      @selected = @first() unless @selected
     @interval = setInterval( =>
       try
         allDone = @performCurrentStep()
@@ -59,7 +59,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
     else
       outcome = true
 
-    window.sessionStorage.setItem("autoTest.developerStep", @at(@indexOf(@selected)))
+    window.sessionStorage.setItem("autoTest.developerStep", @indexOf(@selected))
     @performing = false
 
     if outcome  # the step passed
@@ -73,6 +73,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
     next = @at(@indexOf(@selected) + 1)
 
     if next?
+        window.sessionStorage.setItem("autoTest.developerStep", @indexOf(@selected))
         @select(next)
         return (not allDone)
     else
@@ -83,5 +84,5 @@ class Autotest.Collections.Steps extends Backbone.Collection
     @failedSteps.push(@selected)
 
   select: (@selected) ->
-
+    # @selected = @selected
 
