@@ -185,6 +185,26 @@ class User
     customer
   end
 
+  def create_demo_project
+    demo = Project.where(name: "Demo Project", user_id: nil).first
+    if demo
+      clone_project = demo.clone
+      clone_project.user_id = self.id
+      ProjectUser.create(project_id: clone_project.id, user_id: self.id, rights: "owner")
+      clone_project.save
+      clone_project.update_attribute(:script_verified, true)
+
+      demo.features.each do |feature|
+        clone_feature = clone_project.features.create(name:feature.name)
+        feature.scenarios.each do |scenario|
+          clone_scenario = scenario.clone
+          clone_scenario.feature_id = clone_feature.id
+          clone_scenario.save
+        end
+      end
+    end
+  end
+
   private
 
   def gravatar_hash
@@ -200,25 +220,7 @@ class User
     end
   end
 
-  def create_demo_project
-    demo = Project.where(name: "Demo Project", user_id: nil).first
-    if demo
-      clone_project = demo.clone
-      clone_project.user_id = self.id
-      ProjectUser.create(project_id: clone_project.id, user_id: self.id)
-      clone_project.save
-      clone_project.update_attribute(:script_verified, true)
 
-      demo.features.each do |feature|
-        clone_feature = clone_project.features.create(name:feature.name)
-        feature.scenarios.each do |scenario|
-          clone_scenario = scenario.clone
-          clone_scenario.feature_id = clone_feature.id
-          clone_scenario.save
-        end
-      end
-    end
-  end
 
   def drip_email
     UserMailer.delay_until(7.days.from_now).drip_email(self.id.to_s)
