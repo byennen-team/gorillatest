@@ -22,6 +22,7 @@
 //= require ./autotest/steps/targeted_step
 //= require ./autotest/steps/type
 //= require ./autotest/steps/verify_element
+//= require ./autotest/steps/verify_text
 //= require_self
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr

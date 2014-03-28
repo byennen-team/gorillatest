@@ -10,13 +10,12 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
   }
 
   showCurrentScenario: (featureName, scenarioName) ->
-    console.log("calling show current scenario")
     scenario = "&nbsp;&nbsp;<strong>Developer Mode:</strong> #{featureName} - #{scenarioName}"
     $("#current-scenario").html(scenario)
     $("#current-scenario").show()
 
   showPlayStep: (message) ->
-    console.log("Playing STep: #{message}")
+    console.log("Playing Step: #{message}")
 
   play: ->
     @showHidePlayButtons()
