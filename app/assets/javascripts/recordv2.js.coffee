@@ -20,11 +20,7 @@
 //= require_tree ./autotest/developer
 //= require ./autotest/utils
 //= require ./autotest/steps/targeted_step
-//= require ./autotest/steps/type
-//= require ./autotest/steps/verify_element
-//= require ./autotest/steps/verify_text
-//= require ./autotest/steps/click
-//= require ./autotest/steps/select
+//= require_tree ./autotest/steps
 //= require_self
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
