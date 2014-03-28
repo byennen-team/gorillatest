@@ -12,7 +12,12 @@ class Autotest.Collections.Steps extends Backbone.Collection
   play: ->
     # $.each(this.models, (i, s) ->
     #   @currentStep = 0
-    @select(@first()) unless @selected
+    window.sessionStorage.setItem("autoTest.developerPlaying", "1")
+    currentStep = window.sessionStorage.getItem("autoTest.developerStep")
+    if currentStep != null
+      @select(@at(@indexOf(currentStep) + 1))
+    else
+      @select(@first()) unless @selected
     @interval = setInterval( =>
       try
         allDone = @performCurrentStep()
@@ -52,9 +57,9 @@ class Autotest.Collections.Steps extends Backbone.Collection
     if @selected.get("event_type") != "get"
       outcome = @selected.perform()
     else
-      console.log("skipping step")
       outcome = true
 
+    window.sessionStorage.setItem("autoTest.developerStep", @at(@indexOf(@selected)))
     @performing = false
 
     if outcome  # the step passed

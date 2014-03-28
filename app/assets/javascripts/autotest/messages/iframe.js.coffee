@@ -47,3 +47,8 @@ Autotest.Messages.Iframe.add("stopPlayback", (data) ->
   developerIndex = new Autotest.Views.DeveloperIndex
   developerIndex.stopPlayback()
 )
+
+Autotest.Messages.Iframe.add("resumePlayback", (data) ->
+  developerIndex = new Autotest.Views.DeveloperIndex
+  developerIndex.play()
+)

@@ -73,6 +73,9 @@ $(document).ready ->
               console.log("have scenario")
               developerIndex = new Autotest.Views.DeveloperIndex
               Autotest.Messages.Parent.post({messageType: "showScenario", featureName: Autotest.currentFeature.get("name"), scenarioName: Autotest.currentScenario.get("name")})
+              if window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
+                Autotest.Messages.Parent.post({messageType: "resumePlayback"})
+
             error: ->
               alert("that scenario doesn't exist")
           })
