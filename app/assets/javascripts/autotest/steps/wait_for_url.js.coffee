@@ -11,7 +11,7 @@ class Autotest.Steps.WaitForUrlStep
     else
       return false
 
-Autotest.Developer.Steps.add("waitForUrl", (step) ->
+Autotest.Developer.Steps.add("waitForCurrentUrl", (step) ->
   waitForUrlStep = new Autotest.Steps.WaitForUrlStep(step)
   waitForUrlStep.perform()
 )

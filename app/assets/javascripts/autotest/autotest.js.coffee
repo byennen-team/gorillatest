@@ -12,6 +12,15 @@ window.Autotest =
   currentSteps: null
   parent: null
   developerMode: false
+  hasScenarioandFeature: (params)->
+    if params["scenario_id"] && params["feature_id"]
+      hasIds = true
+    else if window.sessionStorage.getItem("autoTest.developerScenario") && window.sessionStorage.getItem("autoTest.developerFeature")
+      hasIds = true
+    return hasIds
+  setScenarioandFeature: (params)->
+    Autotest.developerScenarioId = params["scenario_id"] || window.sessionStorage.getItem("autoTest.developerScenario")
+    Autotest.developerFeatureId = params["feature_id"] || window.sessionStorage.getItem("autoTest.developerFeature")
   initialize: ->
     scripts = document.getElementsByTagName("script")
     i = 0
@@ -33,11 +42,10 @@ window.Autotest =
         break
       i++
     params = $.url(window.location.href).param()
-    if params["developer"] == "true"
+    if params["developer"] == "true" || window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
       Autotest.developerMode = true
-      if params["scenario_id"] && params["feature_id"]
-        Autotest.developerScenarioId = params["scenario_id"]
-        Autotest.developerFeatureId = params["feature_id"]
+      if @hasScenarioandFeature(params)
+        @setScenarioandFeature(params)
       else
         alert("You must provide a feature id and a scenario id to test.")
 
@@ -72,7 +80,7 @@ $(document).ready ->
               Autotest.currentScenario = model
               console.log("have scenario")
               developerIndex = new Autotest.Views.DeveloperIndex
-              Autotest.Messages.Parent.post({messageType: "showScenario", featureName: Autotest.currentFeature.get("name"), scenarioName: Autotest.currentScenario.get("name")})
+              setTimeout Autotest.Messages.Parent.post({messageType: "showScenario", featureName: Autotest.currentFeature.get("name"), scenarioName: Autotest.currentScenario.get("name")}), 1500
               if window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
                 Autotest.Messages.Parent.post({messageType: "resumePlayback"})
 
