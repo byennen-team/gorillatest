@@ -24,6 +24,7 @@
 //= require ./autotest/steps/verify_element
 //= require ./autotest/steps/verify_text
 //= require ./autotest/steps/click
+//= require ./autotest/steps/select
 //= require_self
 
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
