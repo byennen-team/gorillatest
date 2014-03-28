@@ -16,6 +16,9 @@
     = label_tag("company")
     = text_field_tag("company", nil, class: "form-control")
     %br
+    = label_tag("plan")
+    = select_tag("plan", options_for_select([["Free $0/monthly",1], ["Plus $19.99/monthly", 2]]))
+    %br
     = label_tag("mailing_list")
     = radio_button_tag("mailing_list", "y", false)
     Yes
