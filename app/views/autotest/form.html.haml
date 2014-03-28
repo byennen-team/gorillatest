@@ -16,6 +16,18 @@
     = label_tag("company")
     = text_field_tag("company", nil, class: "form-control")
     %br
+    = label_tag("mailing_list")
+    = radio_button_tag("mailing_list", "y", false)
+    Yes
+    = radio_button_tag("mailing_list", "n", false)
+    No
+    %br
+    = check_box_tag("terms_and_conditions")
+    = label_tag("terms_and_conditions", "I Accept Terms and Conditions")
+    (
+    = link_to("View Terms and Conditions", "#")
+    )
+    %br
     = submit_tag("Save", class: 'btn btn-default')
 .col-md-1
 .col-md-5

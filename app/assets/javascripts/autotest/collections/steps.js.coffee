@@ -49,7 +49,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
         return allDone
 
     @performing = true
-    if @selected.get("event_type") == "setElementText" || @selected.get("event_type") == "verifyElementPresent"
+    if @selected.get("event_type") != "get"
       outcome = @selected.perform()
     else
       console.log("skipping step")
