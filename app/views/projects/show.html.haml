@@ -7,7 +7,7 @@
 / Page title
 - if @project.owner?(current_user)
   .pull-right
-    = link_to raw("#{glyph('cog')} Edit Settings"), edit_project_path(@project), class: "btn btn-success"
+    = link_to raw("#{glyph('cog')} Project Configuration"), edit_project_path(@project), class: "btn btn-success"
     %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
       %span.glyphicon.glyphicon-remove
       Remove Project
