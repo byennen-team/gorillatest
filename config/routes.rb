@@ -43,6 +43,7 @@ Autotest::Application.routes.draw do
     get '/upgrade/:plan_id' => "registrations#upgrade", as: "get_upgrade"
     get '/downgrade/:plan_id' => "registrations#downgrade", as: "get_downgrade"
     get '/manage-billing' => 'registrations#manage_billing', as: 'billing'
+    get '/users/confirm' => "confirmations#show", as: 'confirmation'
     post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 
