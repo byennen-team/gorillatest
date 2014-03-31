@@ -8,6 +8,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
     @selected = null
     @performing = null
     @failedSteps = []
+    @allDone = false
 
   play: ->
     window.sessionStorage.setItem("autoTest.developerPlaying", "1")
@@ -15,30 +16,32 @@ class Autotest.Collections.Steps extends Backbone.Collection
     window.sessionStorage.setItem("autoTest.developerFeature", Autotest.developerFeatureId)
     currentStepIndex = window.sessionStorage.getItem("autoTest.developerStep")
     if currentStepIndex != null
-      @selected = @at(parseInt(currentStepIndex) + 1)
+      @select(@at(parseInt(currentStepIndex) + 1))
     else
-      @selected = @first() unless @selected
+      @select(@first()) unless @selected
+
     @interval = setInterval( =>
       try
         allDone = @performCurrentStep()
         if allDone
-          @select("STEPS DONE")
-          @stop()
           console.log("DONE")
           @trigger 'success'
-        # else
-        # @selected.getTarget?(@workspace)
+          @stop()
       catch error
         @errorMessage = error.message
         @select(@ERROR)
         @stop()
         @trigger 'failure'
+        console.log("ERROR")
         throw error
-    , @speed)
+     , @speed)
 
   stop: ->
     clearInterval(@interval)
+    window.sessionStorage.removeItem("autoTest.developerPlaying")
+    window.sessionStorage.removeItem("autoTest.developerStep")
     Autotest.Messages.Parent.post({messageType: "stopPlayback"})
+    window.location.href = window.location.href
 
 
   pause: ->
@@ -48,11 +51,11 @@ class Autotest.Collections.Steps extends Backbone.Collection
   previous: ->
 
   performCurrentStep: ->
-    Autotest.Messages.Parent.post({messageType: "playStep", message: "Playing: #{@selected.get('to_s')}"})
-    allDone = true
+    allDoneCurrent = true
     unless @selected
-        return allDone
+        return allDoneCurrent
 
+    Autotest.Messages.Parent.post({messageType: "playStep", message: "Playing: #{@selected.get('to_s')}"})
     @performing = true
     if @selected.get("event_type") != "get"
       outcome = @selected.perform()
@@ -75,9 +78,9 @@ class Autotest.Collections.Steps extends Backbone.Collection
     if next?
         window.sessionStorage.setItem("autoTest.developerStep", @indexOf(@selected))
         @select(next)
-        return (not allDone)
+        return (not allDoneCurrent)
     else
-        return allDone
+        return allDoneCurrent
 
   incrementFailures: ->
     console.log("recording failure")
