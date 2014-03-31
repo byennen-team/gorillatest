@@ -15,29 +15,35 @@ class Autotest.Collections.Steps extends Backbone.Collection
     window.sessionStorage.setItem("autoTest.developerScenario", Autotest.developerScenarioId)
     window.sessionStorage.setItem("autoTest.developerFeature", Autotest.developerFeatureId)
     currentStepIndex = window.sessionStorage.getItem("autoTest.developerStep")
+    console.log(@selected)
     if currentStepIndex != null
       @select(@at(parseInt(currentStepIndex) + 1))
     else
       @select(@first()) unless @selected
-
-    @interval = setInterval( =>
+    __this = this
+    Autotest.DeveloperInterval = window.setInterval( ->
       try
-        allDone = @performCurrentStep()
+        console.log(allDone)
+        allDone = __this.performCurrentStep()
         if allDone
           console.log("DONE")
-          @trigger 'success'
-          @stop()
+          __this.trigger 'success'
+          __this.stop()
+          return
       catch error
         @errorMessage = error.message
         @select(@ERROR)
-        @stop()
         @trigger 'failure'
         console.log("ERROR")
+        @stop()
         throw error
      , @speed)
 
   stop: ->
-    clearInterval(@interval)
+    console.log(@selected)
+    window.clearInterval(Autotest.DeveloperInterval)
+    Autotest.DeveloperInterval = null
+    @select(null)
     window.sessionStorage.removeItem("autoTest.developerPlaying")
     window.sessionStorage.removeItem("autoTest.developerStep")
     Autotest.Messages.Parent.post({messageType: "stopPlayback"})
@@ -65,10 +71,10 @@ class Autotest.Collections.Steps extends Backbone.Collection
     window.sessionStorage.setItem("autoTest.developerStep", @indexOf(@selected))
     @performing = false
 
-    if outcome  # the step passed
-        @add(@pendingSteps)
-        @pendingSteps = []
-    else
+    if !outcome  # the step passed
+    #     # @add(@pendingSteps)
+    #     # @pendingSteps = []
+    # else
         @incrementFailures()
         @pendingSteps = []
         # return (not allDone)

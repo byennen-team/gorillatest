@@ -58,6 +58,7 @@ Autotest.Messages.Parent.add("stopPlayback", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("startPlayback", (featureId) ->
+  Autotest.currentSteps = null
   steps = Autotest.currentScenario.steps()
   steps.play()
 )
