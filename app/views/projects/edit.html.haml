@@ -57,10 +57,10 @@
           %h3 Email Notifications
           -if @project.email_notification == "success"
             =radio_button_tag "project[email_notification]", "success", checked: true
-            =label_tag "Send Emails on success and failure"
+            =label_tag "Send emails on test completion"
             %br
             =radio_button_tag "project[email_notification]", "fail"
-            =label_tag "Send Emails only on failure"
+            =label_tag "Send Emails only on test failure"
           -else
             =radio_button_tag "project[email_notification]", "success"
             =label_tag "Send Emails on success and failure"
