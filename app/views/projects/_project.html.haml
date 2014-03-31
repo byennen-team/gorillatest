@@ -6,18 +6,17 @@
       |
       = link_to "Verify Embedded Script", project_verify_script_path(project), class:'verify-script'
     -else
-      -if project.owner?(current_user)
-        |
-        %a{data: {toggle: "modal", target: "#invite-user-#{project.id}"}} Invite A User
-        |
+      /-if project.owner?(current_user)
+      /  |
+      /  %a{data: {toggle: "modal", target: "#invite-user-#{project.id}"}} Invite A User
+      /   |
       / -if Rails.env.development?
       /   =link_to "View Test Page", test_form_path(project_id: project.id), target: "_blank"
       /   |
       / -if project.owner?(current_user)
       /   = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
       /|
-      = link_to record_glyph, project.url, {target: "_blank"}
-      |
+      = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
       = play_button(project)
   %div{id: "test_run-#{project.id}", style: "display: none;"}
     = form_tag run_project_path(project), class:"scenario-run", id: "project_#{project.id}" do

@@ -25,11 +25,11 @@ module ApplicationHelper
   end
 
   def play_glyph(options={})
-    glyph("play", options.merge!({style: "font-size: 1.8em;"}))
+    glyph_button("play", "Play")
   end
 
   def record_glyph(options={})
-    glyph("record", options.merge!({style: "font-size: 1.8em; color: red;"}))
+    glyph_button("record", "Record")
   end
 
   def logout_glyph(options={})
@@ -42,6 +42,12 @@ module ApplicationHelper
     else
       glyph("exclamation-sign", {class: "status status-fail"})
     end
+  end
+
+  def glyph_button(glyph_name, text, options={})
+    html = glyph(glyph_name, options)
+    html += " #{text}"
+    html.html_safe
   end
 
   def glyph(glyph_name, options={})
@@ -86,9 +92,9 @@ module ApplicationHelper
   def play_button(testable)
     project = testable.is_a?(Project) ? testable : testable.project
     if project.creator.has_minutes_available?
-      html = link_to play_glyph, "#", onclick: "$('#test_run-#{testable.id}').slideToggle()"
+      html = link_to play_glyph, "#", onclick: "$('#test_run-#{testable.id}').slideToggle()", class: "btn btn-success btn-xs"
     else
-      html = link_to play_glyph, edit_user_registration_path(anchor: "change-plan")
+      html = link_to play_glyph, edit_user_registration_path(anchor: "change-plan"), class: "btn btn-success btn-xs"
     end
     html.html_safe
   end
