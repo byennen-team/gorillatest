@@ -18,6 +18,4 @@ class Autotest.Models.Step extends Backbone.Model
         return $.xpath(@get("locator_value"))
 
   perform: ->
-    console.log(@get("event_type"))
-    console.log(this)
     Autotest.Developer.Steps.perform(this)
