@@ -6,7 +6,6 @@ class @AutoTestRecorder
     else
       alert("You can't record on this browser")
     @isRecording = @sessionStorage.getItem("autoTestRecorder.isRecording") == "true" ? true : false
-    @currentScenario = null
     @currentFeature = null
     @features = new Array
 
@@ -16,21 +15,17 @@ class @AutoTestRecorder
     if @isRecording == true
       # load the current scenario
       scenarioId = @sessionStorage.getItem("autoTestRecorder.currentScenario")
-      featureId = @sessionStorage.getItem("autoTestRecorder.currentFeature")
       options = new Array
-      if featureId != null
-        feature = Autotest.features.findWhere({id: featureId})
-        feature.setCurrentFeature()
       if scenarioId != null
         _this = this
-        scenario = new Autotest.Models.Scenario({id: scenarioId, url: "#{Autotest.currentFeature.url()}/scenarios/#{scenarioId}"})
+        scenario = new Autotest.Models.Scenario({id: scenarioId})
         scenario.setCurrentScenario()
         stepsView = new Autotest.Views.StepIndex({collection: Autotest.currentScenario.steps()})
         scenario.fetch(
           success: (model, response, options) ->
             $("iframe").load ->
               console.log("iframe loaded")
-              Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name'), featureName: Autotest.currentFeature.get('name')}})
+              Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name')}})
               step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
             _this.record()
             return

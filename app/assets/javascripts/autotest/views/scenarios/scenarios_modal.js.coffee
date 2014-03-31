@@ -7,11 +7,9 @@ class Autotest.Views.ScenariosModal extends Backbone.View
   }
 
   createScenario: (e) ->
-    console.log("Saving the scenario")
-    console.log(Autotest.currentFeature.url())
     $("#start-recording").attr("disabled", true)
-    scenarios = new Autotest.Collections.Scenarios(Autotest.currentFeature)
-    scenarios.create({url: "#{Autotest.currentFeature.url()}/scenarios", name: $("input#scenario_name").val(),start_url: window.location.href, window_x: $(window).width(), window_y: $(window).height()},
+    scenarios = new Autotest.Collections.Scenarios()
+    scenarios.create({name: $("input#scenario_name").val(),start_url: window.location.href, window_x: $(window).width(), window_y: $(window).height()},
       success: (model, response, options) ->
         $("#start-recording").attr("disabled", false)
         model.setCurrentScenario()
@@ -20,7 +18,7 @@ class Autotest.Views.ScenariosModal extends Backbone.View
         $("#scenario-modal").bPopup().close()
         stepIndex = new Autotest.Views.StepIndex({collection: model.steps()})
         model.addStep({event_type: "get", locator_type: '', locator_value: '', text: window.location.href})
-        Autotest.Messages.Parent.post({messageType: "startRecording", message: {scenarioName: model.get('name'), featureName: Autotest.currentFeature.get('name')}})
+        Autotest.Messages.Parent.post({messageType: "startRecording", message: {scenarioName: model.get('name')}})
       error: (model, response, options) ->
         $("#start-recording").attr("disabled", false)
         if $("#scenario-modal-errors").length == 0

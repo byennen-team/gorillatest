@@ -2,20 +2,20 @@ class Api::V1::ScenariosController < Api::V1::BaseController
 
   respond_to :json, :js
 
-  before_filter :find_feature
+  # before_filter :find_feature
 
   def index
-    @scenarios = @feature.scenarios
+    @scenarios = current_project.scenarios
     render json: @scenarios, root: false
   end
 
   def show
-    @scenario = @feature.scenarios.find(params[:id])
+    @scenario = current_project.scenarios.find(params[:id])
     render json: @scenario, root: false
   end
 
   def create
-    @scenario = @feature.scenarios.new(scenario_params)
+    @scenario = current_project.scenarios.new(scenario_params)
     if @scenario.save
       render json: @scenario, root: false
     else
@@ -24,7 +24,7 @@ class Api::V1::ScenariosController < Api::V1::BaseController
   end
 
   def update
-    @scenario = @feature.scenario.find(params[:id])
+    @scenario = current_project.scenario.find(params[:id])
     @scenario.attributes = scenario_attributes
     if @scenario.save
       render json: @scenario, root: false
@@ -34,9 +34,9 @@ class Api::V1::ScenariosController < Api::V1::BaseController
   private
 
   # Need to figure out how features work into scenarios
-  def find_feature
-    @feature = current_project.features.find(params[:feature_id])
-  end
+  # def find_feature
+  #   @feature = current_project.features.find(params[:feature_id])
+  # end
 
   def scenario_params
     params.require(:scenario).permit(:name, :url, :window_x, :window_y, :start_url)

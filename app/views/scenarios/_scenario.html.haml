@@ -1,10 +1,11 @@
-%li{class: "scenario_#{scenario.id}"}
-  = link_to scenario.name, project_feature_scenario_path(@project, @feature, scenario)
+%li{class: "scenario_#{scenario.id}", style: "margin-bottom: 5px;"}
+  %h4
+    = link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
   .pull-right
     = play_button(scenario)
-    = link_to delete_glyph, project_feature_scenario_path(@project, @feature, scenario), data: { confirm: 'Are you sure?' }, method: :delete, title: "Delete Scenario"
+    / = link_to delete_glyph, project_test_path(@project, scenario.slug), data: { confirm: 'Are you sure?' }, method: :delete, title: "Delete Scenario", class: "btn btn-xs btn-danger"
   %div{id: "test_run-#{scenario.id}", style: "display: none;"}
-    = form_tag run_scenario_project_feature_scenario_path(@project, @feature, scenario), class:"scenario-run", id: "scenario_#{scenario.id}" do
+    = form_tag run_scenario_project_test_path(@project, scenario.id), class:"scenario-run", id: "scenario_#{scenario.id}" do
       %div.pull-left{style: "width: 33%"}
         %h4 Windows
         %ul{style: "list-style-type: none;"}

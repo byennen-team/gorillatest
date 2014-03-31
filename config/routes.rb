@@ -65,14 +65,10 @@ Autotest::Application.routes.draw do
     put 'remove_owner/:user_id', to: 'projects#remove_owner', as: :remove_owner
     post :run, on: :member
     resources :test_runs, controller: :project_test_runs, only: [:index, :show]
-    resources :features do
-      post :run, on: :member
-      resources :test_runs, controller: :feature_test_runs, only: [:index, :show]
-      resources :scenarios do
-        post :run, on: :member, as: "run_scenario"
-        resources :steps
-        resources :test_runs, only: [:index, :show]
-      end
+    resources :tests, controller: :scenarios do
+      post :run, on: :member, as: "run_scenario"
+      resources :steps
+      resources :test_runs, only: [:index, :show]
     end
   end
 
@@ -93,17 +89,18 @@ Autotest::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      match '/features' => "features#index", via: :options
-      match '/features/:feature_id' => "features#show", via: :options
-      match '/features' => "features#create", via: :options
-      match '/features/:features_id/scenarios' => "scenarios#create", via: :options
-      match '/features/:feature_id/scenarios/:scenario_id' => "scenarios#show", via: :options
-      match '/features/:features_id/scenarios/:scenario_id/steps' => "steps#create", via: :options
-      resources :features do
+      # match '/features' => "features#index", via: :options
+      # match '/features/:feature_id' => "features#show", via: :options
+      match '/scenarios' => "scenarios#create", via: :options
+      match '/scenarios/:scenario_id' => "scenarios#show", via: :options
+      match '/scenarios/:scenario_id/steps' => "steps#create", via: :options
+      # match '/features/:feature_id/scenarios/:scenario_id' => "scenarios#show", via: :options
+      # match '/features/:features_id/scenarios/:scenario_id/steps' => "steps#create", via: :options
+      # resources :features do
         resources :scenarios do
           resources :steps
         end
-      end
+      # end
     end
 
     namespace :dashing do

@@ -44,12 +44,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_feature
-    @feature = @project.features.find(params[:feature_id] || params[:id])
-  end
+  # def find_feature
+  #   @feature = @project.features.find(params[:feature_id] || params[:id])
+  # end
 
   def find_scenario
-    @scenario = @feature.scenarios.find(params[:scenario_id] || params[:id])
+    @scenario = @project.scenarios.find(params[:test_id] || params[:id])
   end
 
   def get_concurrency_limit

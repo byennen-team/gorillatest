@@ -1,17 +1,10 @@
 class Autotest.Models.Scenario extends Backbone.Model
 
-  url: ->
-    return this.instanceUrl
-
-  initialize: (options) ->
-    this.instanceUrl = options.url || null
+  urlRoot : "#{Autotest.apiUrl}/api/v1/scenarios"
 
   setCurrentScenario: ->
     Autotest.currentScenario = this
     window.sessionStorage.setItem("autoTestRecorder.currentScenario", this.get("id"))
-
-  feature: ->
-    Autotest.currentFeature
 
   addStep: (stepAttributes) ->
     steps = Autotest.currentSteps
@@ -28,7 +21,7 @@ class Autotest.Models.Scenario extends Backbone.Model
 
   steps: ->
     if Autotest.currentSteps == null
-      this.instanceUrl = "#{Autotest.currentFeature.url()}/scenarios/#{this.id}"
+      this.instanceUrl = "/scenarios/#{this.id}"
       currentSteps = new Autotest.Collections.Steps(this)
       currentSteps.fetch(
         async: false

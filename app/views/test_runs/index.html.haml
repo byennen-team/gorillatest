@@ -1,0 +1,27 @@
+.page-content.blocky
+  .container
+    .pull-right
+      %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
+        %span.glyphicon.glyphicon-remove
+        Remove Scenario
+    %ol.breadcrumb
+      %li
+        = link_to "Projects", projects_path
+      %li
+        = link_to @project.name, project_path(@project)
+      %li.active
+        = link_to @scenario.name, project_test_test_runs_path(@project, @scenario.slug)
+
+    %br
+    %br
+    - @scenario.test_runs.reverse.each do |test_run|
+      - if test_run.status != nil
+        .test_run{class: test_run.status}
+          = render partial: 'test_run', locals: {test_run: test_run}
+      - else
+        .test_run
+          = render partial: 'test_run', locals: {test_run: test_run}
+        %br{style: "clear: both;"}
+
+
+

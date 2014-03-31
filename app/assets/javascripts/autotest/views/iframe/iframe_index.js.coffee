@@ -1,7 +1,7 @@
 class Autotest.Views.IframeIndex extends Backbone.View
 
   events: {
-    "click #add-feature": "addFeature"
+    # "click #add-feature": "addFeature"
     "click #record": "record"
     "click #step-count": "showStepCount"
     "click #stop-recording": "stopRecording"
@@ -9,8 +9,8 @@ class Autotest.Views.IframeIndex extends Backbone.View
     "click #stop-record-text-highlight": "stopTextHighlight"
   }
 
-  addFeature: ->
-    Autotest.Messages.Iframe.post({messageType: "addFeature"})
+  # addFeature: ->
+  #   Autotest.Messages.Iframe.post({messageType: "addFeature"})
 
   record: ->
     Autotest.Messages.Iframe.post({messageType: "recordClick"})
@@ -61,7 +61,7 @@ class Autotest.Views.IframeIndex extends Backbone.View
       this.startRecording(data.message)
 
   startRecording: (message) ->
-    $("#current-scenario").text("Currently recording #{message.featureName} - #{message.scenarioName}")
+    $("#current-scenario").text("> Recording Test - #{message.scenarioName}")
     $("#current-scenario").show()
     $("button#record").hide()
     $("button#stop-recording").show()

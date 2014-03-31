@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def delete_glyph(options={})
-    glyph("remove", options.merge!({style: "font-size: 1.8em; color: red"}))
+    glyph_button("remove", "Delete")
 
   end
 

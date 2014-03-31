@@ -57,9 +57,9 @@ $(document).ready ->
   # Autotest.features.fetch()
   #Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
   if Autotest.parent == "iframe"
-    Autotest.features = new Autotest.Collections.Features
-    Autotest.features.fetch()
-    Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
+    # Autotest.features = new Autotest.Collections.Features
+    # Autotest.features.fetch()
+    # Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
     iframeIndexView = new Autotest.Views.IframeIndex({el: ".recording-bar"})
   else
     styleSheetUrl = Autotest.apiUrl + "/assets/application/recorder.css"
@@ -98,12 +98,10 @@ $(document).ready ->
       $("body").prepend(iframeHtml)
       $("body").append(stepsHtml)
       window.autoTestRecorder = new AutoTestRecorder window.projectId
-      Autotest.features = new Autotest.Collections.Features
-      Autotest.features.fetch(
+      Autotest.scenario = new Autotest.Models.Scenario({id: window.sessionStorage.getItem("autoTestRecorder.currentScenario")})
+      Autotest.scenario.fetch(
         success: ->
           window.autoTestRecorder.start()
-          Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
-
         error: ->
           alert("Could not start recorder")
       )

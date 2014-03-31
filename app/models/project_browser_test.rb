@@ -10,11 +10,8 @@ class ProjectBrowserTest
     #sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
     status = []
     set_ran_at_time
-    test_run.project.features.each do |feature|
-      send_to_pusher('play_feature', {feature_id: feature.id.to_s, feature_name: feature.name})
-      feature_line_item = save_history(feature, "Feature: #{feature.name}", nil)
-      feature.scenarios.each do |scenario|
-        line_item = save_history(scenario, "Running #{scenario.name}", nil, feature_line_item)
+    test_run.project.scenarios.each do |scenario|
+        line_item = save_history(scenario, "Running Test: #{scenario.name}", nil, nil)
         status << run(scenario, line_item)
       end
     end

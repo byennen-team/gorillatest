@@ -1,6 +1,5 @@
 class Api::V1::StepsController < Api::V1::BaseController
 
-  before_filter :find_feature
   before_filter :find_scenario
 
   respond_to :json
@@ -18,12 +17,9 @@ class Api::V1::StepsController < Api::V1::BaseController
 
 	private
 
-  def find_feature
-    @feature = current_project.features.find(params[:feature_id])
-  end
 
 	def find_scenario
-    @scenario = @feature.scenarios.find(params[:scenario_id])
+    @scenario = current_project.scenarios.find(params[:scenario_id])
   end
 
   def step_params

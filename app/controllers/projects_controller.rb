@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @features = @project.features
+    @scenarios = @project.scenarios
   end
 
   def new; @project = Project.new; end

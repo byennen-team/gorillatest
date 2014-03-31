@@ -23,7 +23,7 @@ class Project
 
   alias :creator :user
 
-  has_many :features
+  has_many :scenarios
   has_many :project_users, dependent: :destroy
   has_many :test_runs, class_name: 'ProjectTestRun', dependent: :destroy
 

@@ -6,16 +6,6 @@
       |
       = link_to "Verify Embedded Script", project_verify_script_path(project), class:'verify-script'
     -else
-      /-if project.owner?(current_user)
-      /  |
-      /  %a{data: {toggle: "modal", target: "#invite-user-#{project.id}"}} Invite A User
-      /   |
-      / -if Rails.env.development?
-      /   =link_to "View Test Page", test_form_path(project_id: project.id), target: "_blank"
-      /   |
-      / -if project.owner?(current_user)
-      /   = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
-      /|
       = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
       = play_button(project)
   %div{id: "test_run-#{project.id}", style: "display: none;"}
@@ -82,18 +72,6 @@
           concurrent browsers for a test run
         = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
 
-  #add-feature.modal.fade
-    .modal-dialog
-      .modal-content
-        = simple_form_for [project, project.features.new] do |f|
-          .modal-header
-            %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
-            %h4.modal-title Add Feature to #{project.name}
-          .modal-body
-            = f.input :name
-          .modal-footer
-            %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
-            = f.submit "Add Feature", class: "btn btn-primary"
 
   = render "embed_script_modal", project: project, show_buttons: true
   .modal.fade{id: "invite-user-#{project.id}"}
