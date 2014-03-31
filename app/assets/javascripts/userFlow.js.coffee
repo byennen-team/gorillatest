@@ -20,7 +20,7 @@ $ ->
     button.hide()
     gif.show()
     $.ajax $(this).attr("href"),
-      type: 'get'
+      type: 'post'
       cache: false
       complete: (jqXHR, textStatus) ->
         if jqXHR.status == 200
@@ -28,7 +28,7 @@ $ ->
           $(button).show()
           $(button).text("Verified!")
           setTimeout (->
-            window.location.href = window.location.origin + $(button).attr('href')
+            window.location.href = $(button).attr('project_link')
             return
           ), 500
         else

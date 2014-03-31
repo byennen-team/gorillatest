@@ -1,5 +1,4 @@
-require 'uri'
-require 'open-uri'
+require 'nokogiri'
 
 class Project
 
@@ -97,7 +96,14 @@ class Project
     # Need to add a rescue, open will throw an exception if it can't open the URL
 
     begin
-      document = Nokogiri::HTML(open(self.url, "Accept" => "text/html"))
+      if !self.basic_auth_username.blank?
+        auth = {username: self.basic_auth_username, password: self.basic_auth_password}
+        response = HTTParty.get(url, basic_auth: auth)
+      else
+        response = HTTParty.get(url)
+      end
+
+      document = Nokogiri::HTML(response.body)
       document.search("script").detect do |script|
         if script.attributes["src"] && script.attributes["src"].value.include?(autotest_script_source)
           return project_script_valid?(script)

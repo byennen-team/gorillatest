@@ -107,8 +107,10 @@ class ProjectsController < ApplicationController
   #  After verifying inclusion just update the attribute.
   def verify_script
     status = nil
+    attr_changed = false
     begin
       if @project.script_present?
+        attr_changed = true if @project.script_verified == false
         @project.update_attribute(:script_verified, true)
         flash[:notice] = "Script has been successfully verified"
         status = 200
@@ -125,7 +127,7 @@ class ProjectsController < ApplicationController
       status = 400
     end
 
-    if status == 200
+    if status == 200 && attr_changed
       UserMailer.script_verification(current_user.email, @project.id.to_s).deliver
     end
 
