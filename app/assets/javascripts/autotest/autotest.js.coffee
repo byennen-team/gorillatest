@@ -12,15 +12,14 @@ window.Autotest =
   currentSteps: null
   parent: null
   developerMode: false
-  hasScenarioandFeature: (params)->
-    if params["scenario_id"] && params["feature_id"]
+  hasScenario: (params)->
+    if params["scenario_id"]
       hasIds = true
-    else if window.sessionStorage.getItem("autoTest.developerScenario") && window.sessionStorage.getItem("autoTest.developerFeature")
+    else if window.sessionStorage.getItem("autoTest.developerScenario")
       hasIds = true
     return hasIds
-  setScenarioandFeature: (params)->
+  setScenario: (params)->
     Autotest.developerScenarioId = params["scenario_id"] || window.sessionStorage.getItem("autoTest.developerScenario")
-    Autotest.developerFeatureId = params["feature_id"] || window.sessionStorage.getItem("autoTest.developerFeature")
   initialize: ->
     scripts = document.getElementsByTagName("script")
     i = 0
@@ -44,22 +43,16 @@ window.Autotest =
     params = $.url(window.location.href).param()
     if params["developer"] == "true" || window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
       Autotest.developerMode = true
-      if @hasScenarioandFeature(params)
-        @setScenarioandFeature(params)
+      if @hasScenario(params)
+        @setScenario(params)
       else
-        alert("You must provide a feature id and a scenario id to test.")
+        alert("You must provide a scenario id to test.")
 
 
 Autotest.initialize()
 
 $(document).ready ->
-  # Autotest.features = new Autotest.Collections.Features
-  # Autotest.features.fetch()
-  #Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
   if Autotest.parent == "iframe"
-    # Autotest.features = new Autotest.Collections.Features
-    # Autotest.features.fetch()
-    # Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
     iframeIndexView = new Autotest.Views.IframeIndex({el: ".recording-bar"})
   else
     styleSheetUrl = Autotest.apiUrl + "/assets/application/recorder.css"
@@ -68,30 +61,21 @@ $(document).ready ->
     if Autotest.developerMode == true
       devIframeHtml = JST["autotest/templates/developer"]
       window.autoTestDeveloper = true
-     # window.autoTestPlayback = new AutotestPlayback window.projectId, window.scenarioId
       $("body").prepend(devIframeHtml)
-      feature = new Autotest.Models.Feature({id: Autotest.developerFeatureId})
-      feature.fetch({
-        success: (model, response, options) ->
-          Autotest.currentFeature = model
-          scenario = new Autotest.Models.Scenario({id: Autotest.developerScenarioId, url: "#{model.url()}/scenarios/#{Autotest.developerScenarioId}"})
-          scenario.fetch({
-            success: (model, response, options) ->
-              Autotest.currentScenario = model
-              console.log("have scenario")
-              developerIndex = new Autotest.Views.DeveloperIndex
-              $("iframe").load ->
-                Autotest.Messages.Parent.post({messageType: "showScenario", featureName: Autotest.currentFeature.get("name"), scenarioName: Autotest.currentScenario.get("name")})
-              if window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
-                Autotest.Messages.Parent.post({messageType: "resumePlayback"})
+        scenario = new Autotest.Models.Scenario({id: Autotest.developerScenarioId})
+        scenario.fetch({
+          success: (model, response, options) ->
+            Autotest.currentScenario = model
+            console.log("have scenario")
+            developerIndex = new Autotest.Views.DeveloperIndex
+            $("iframe").load ->
+              Autotest.Messages.Parent.post({messageType: "showScenario", featureName: Autotest.currentFeature.get("name"), scenarioName: Autotest.currentScenario.get("name")})
+            if window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
+              Autotest.Messages.Parent.post({messageType: "resumePlayback"})
 
-            error: ->
-              alert("that scenario doesn't exist")
-          })
-        error: ->
-          alert("that feature doesn't exist")
-      })
-
+          error: ->
+            alert("that scenario doesn't exist")
+        })
     else
       iframeHtml = JST["autotest/templates/iframe"]()
       stepsHtml = JST["autotest/templates/steps_list"]()
@@ -105,7 +89,6 @@ $(document).ready ->
         error: ->
           alert("Could not start recorder")
       )
-      # Autotest.featureIndex = new Autotest.Views.FeaturesIndex({collection: Autotest.features})
 
 
 
