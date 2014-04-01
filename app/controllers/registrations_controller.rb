@@ -34,6 +34,10 @@ class RegistrationsController < Devise::RegistrationsController
     dashboard_path
   end
 
+  def after_update_path_for(resource)
+    my_info_path
+  end
+
   def get_layout
     return 'session' unless %w(edit upgrade change_plan manage_billing).include?(params[:action])
     return 'application'

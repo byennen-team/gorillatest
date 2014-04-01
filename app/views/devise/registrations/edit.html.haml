@@ -19,6 +19,14 @@
               = f.input :first_name
               = f.input :last_name
               = f.input :phone
+              = f.input :company_name
+              = f.input :role, collection: ["Developer", "QA Manager", "Product Manager", "Other"], prompt: "Please select your role"
+              - if current_user.role == "Other"
+                #role_other
+                  = f.input :role_other, label: "Other"
+              - else
+                #role_other{style: "display: none;"}
+                  = f.input :role_other, label: "Other"
               = f.input :location
               = f.input :password
               = f.input :password_confirmation

@@ -7,16 +7,16 @@
 
 .pull-right
   - if current_user.can_create_project?
-    %button.btn.btn-success{data: {toggle: "modal", target: "#add-project"}}
+    %button.btn.btn-success#add-project-button{data: {toggle: "modal", target: "#add-project"}}
       %span.glyphicon.glyphicon-plus
       Add Project
   -else
-    %a.btn.btn-success{href: edit_user_registration_path(current_user, plan:"maxed", anchor: "change-plan")}
+    %a.btn.btn-success#add-project-button{href: edit_user_registration_path(current_user, plan:"maxed", anchor: "change-plan")}
       %span.glyphicon.glyphicon-plus
       Add Project
-%ol.breadcrumb
-  %li.active
-    = link_to "Projects", projects_path
+/ %ol.breadcrumb
+/   %li.active
+/      = link_to "Projects", projects_path
 .row
   .col-md-12
     / Project widget

@@ -1,12 +1,15 @@
-%li
+%li{style: "margin-bottom: 5px;"}
   = link_to project.name, project_path(project)
-  .pull-right
-    %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}, class:'view-embed-code'} View Embed Code
-    -if !project.script_verified? # || project.features.empty?
-      |
-      = link_to "Verify Embedded Script", project_verify_script_path(project), class:'verify-script'
-    = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
-    = play_button(project)
+    - if project.owner?(current_user)
+      = link_to raw("#{glyph('cog')} Settings"), edit_project_path(project), class: "btn btn-primary btn-xs"
+    - if project.script_verified?
+      = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
+      = play_button(project)
+    - else
+      %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}, class:'view-embed-code btn btn-primary btn-xs'}
+        %span.glyphicon.glyphicon-eye-open
+        View Embed Code
+      = link_to glyph_button("ok", "Verify Embedded Script"), project_verify_script_path(project), class:'verify-script btn btn-primary btn-xs'
   %div{id: "test_run-#{project.id}", style: "display: none;"}
     = form_tag run_project_path(project), class:"scenario-run", id: "project_#{project.id}" do
       %div.pull-left{style: "width: 33%"}
@@ -89,3 +92,4 @@
             -unless project.has_invitations_left?
               %p You are out of invitations. Click #{link_to "here", edit_user_registration_path(anchor: "change-plan")} to upgrade your plan to invite more users.
 
+  .clearfix

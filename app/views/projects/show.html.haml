@@ -5,10 +5,6 @@
 /= render 'shared/application/side_menu'
 /.mainy
 / Page title
-- if @project.owner?(current_user)
-  .pull-right
-    = link_to raw("#{glyph('cog')} Project Configuration"), edit_project_path(@project), class: "btn btn-success"
-
 %ol.breadcrumb
   %li
     = link_to "Projects", projects_path

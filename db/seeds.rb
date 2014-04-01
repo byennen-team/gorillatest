@@ -37,6 +37,7 @@ if Project.where(name: "Demo Project").length == 0
 
   project = Project.new(name: "My Sample Project")
   project.url = "#{ENV['API_URL']}/test/form?project_id=#{project.id.to_s}"
+  project.demo_project = true
   project.save!
   scenario = project.scenarios.create(name: "User should be able to fill out demo form", start_url: project.url,
                                       window_x: 1024, window_y: 768)
