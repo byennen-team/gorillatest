@@ -38,9 +38,7 @@ if Project.where(name: "Demo Project").length == 0
   project = Project.new(name: "Demo Project")
   project.url = "#{ENV['API_URL']}/test/form?project_id=#{project.id.to_s}"
   project.save!
-
-  feature = project.features.create(name: "Filling out demo form")
-  scenario = feature.scenarios.create(name: "User should be able to fill out demo form", start_url: project.url,
+  scenario = project.scenarios.create(name: "User should be able to fill out demo form", start_url: project.url,
                                       window_x: 1024, window_y: 768)
   scenario.steps.create(event_type: "get", locator_type: "", locator_value: "", text: scenario.start_url)
 
