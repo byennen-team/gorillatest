@@ -20,31 +20,27 @@ class ScenarioTestRun
 
   def run
     update_attribute(:ran_at, Time.now)
-    scenario.feature.project.post_notifications(start_notification_message)
+    scenario.project.post_notifications(start_notification_message)
     browser_tests.each do |browser_test|
       TestWorker.perform_async("run_test", "Scenario", self.id.to_s, browser_test.id.to_s)
     end
   end
 
   def project
-    feature.project
-  end
-
-  def feature
-    scenario.feature
+    scenario.project
   end
 
   def start_notification_message
     notification = "Test Run started for "
-    notification += "#{self.project.name} - #{self.feature.name} - #{self.scenario.name} - #{number}:"
-    url = project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV["API_URL"])
+    notification += "#{self.project.name} - #{self.scenario.name} - #{number}:"
+    url = project_test_test_run_url(project, scenario.slug, self, host: ENV["API_URL"])
     notification += " "
     notification += url
   end
 
   def complete_notification_message
-    notification = "Test Run #{status}ed for #{self.project.name} - #{self.feature.name} - #{self.scenario.name} - #{number}:"
-    url = project_feature_scenario_test_run_url(project, feature, scenario, self, host: ENV['API_URL'])
+    notification = "Test Run #{status}ed for #{self.project.name} - #{self.scenario.name} - #{number}:"
+    url = project_test_test_run_url(project, scenario.slug, self, host: ENV['API_URL'])
     notification += " "
     notification += url
   end

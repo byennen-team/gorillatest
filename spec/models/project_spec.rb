@@ -17,7 +17,7 @@ describe Project do
   describe 'relations' do
 
     it { should have_many(:project_users) }
-    it { should have_many(:features) }
+    it { should have_many(:scenarios) }
     it { should belong_to(:user) }
     it { should have_many(:test_runs) }
     it { should validate_uniqueness_of(:name) }

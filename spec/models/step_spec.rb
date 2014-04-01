@@ -91,8 +91,7 @@ describe Step do
 
   describe "http basic auth on project" do
     let!(:project) { create(:project, basic_auth_username: "username", basic_auth_password: "password")}
-    let!(:feature) { create(:feature, project: project)}
-    let!(:scenario) { feature.scenarios.create(name: "Testing", window_x: 720, window_y: 1030)}
+    let!(:scenario) { project.scenarios.create(name: "Testing", window_x: 720, window_y: 1030)}
 
     context "get URL" do
       let(:get_step) { scenario.steps.create(event_type: "get", text: "http://www.factor75.com")}

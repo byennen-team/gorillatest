@@ -194,13 +194,10 @@ class User
       clone_project.save
       clone_project.update_attribute(:script_verified, true)
 
-      demo.features.each do |feature|
-        clone_feature = clone_project.features.create(name:feature.name)
-        feature.scenarios.each do |scenario|
-          clone_scenario = scenario.clone
-          clone_scenario.feature_id = clone_feature.id
-          clone_scenario.save
-        end
+      demo.scenarios.each do |scenario|
+        clone_scenario = scenario.clone
+        clone_scenario.feature_id = clone_feature.id
+        clone_scenario.save
       end
     end
   end

@@ -11,9 +11,8 @@ class ProjectBrowserTest
     status = []
     set_ran_at_time
     test_run.project.scenarios.each do |scenario|
-        line_item = save_history(scenario, "Running Test: #{scenario.name}", nil, nil)
-        status << run(scenario, line_item)
-      end
+      line_item = save_history(scenario, "Running Test: #{scenario.name}", nil, nil)
+      status << run(scenario, line_item)
     end
     if status.include?(false)
       self.update_attribute(:status, "fail")
