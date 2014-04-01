@@ -73,3 +73,8 @@
           =f.input :room_name
           =f.input :service, as: :hidden, value: "campfire"
           =f.submit "Save Notification Settings", class: "btn btn-success"
+
+      #delete.tab-pane
+        %p Deleting this project will result in deleting all tests and test runs for it.  If you would like to continue, please click the "Delete Project" button below.
+        %p.text-right
+          = link_to raw("#{glyph('remove')} Delete Project"), project_path, class: "btn btn-danger", method: :delete, confirm: "Are you sure?"
