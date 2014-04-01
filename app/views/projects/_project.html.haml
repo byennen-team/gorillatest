@@ -1,5 +1,6 @@
 %li{style: "margin-bottom: 5px;"}
   = link_to project.name, project_path(project)
+  .pull-right
     - if project.owner?(current_user)
       = link_to raw("#{glyph('cog')} Settings"), edit_project_path(project), class: "btn btn-primary btn-xs"
     - if project.script_verified?
