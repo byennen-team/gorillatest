@@ -14,6 +14,10 @@
     = render 'layouts/services/pusher'
     = stylesheet_link_tag    "application/application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    / external services
+    = render 'layouts/services/pusher'
+    = render 'layouts/services/user_voice'
+    = render 'layouts/services/bugherd'
     = yield(:head)
 
   %body.smart-style-1.fixed-header.fixed-ribbon.fixed-navigation
@@ -25,10 +29,6 @@
         .row
           .col-lg-12
             = yield
-
-    / external services
-    = render 'layouts/services/user_voice'
-    = render 'layouts/services/bugheard'
 
 = render 'shared/modals/invitations'
 
