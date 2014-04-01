@@ -5,12 +5,8 @@
     -if !project.script_verified? # || project.features.empty?
       |
       = link_to "Verify Embedded Script", project_verify_script_path(project), class:'verify-script'
-      |
-      -if project.owner?(current_user)
-        = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
-    -else
-      = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
-      = play_button(project)
+    = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
+    = play_button(project)
   %div{id: "test_run-#{project.id}", style: "display: none;"}
     = form_tag run_project_path(project), class:"scenario-run", id: "project_#{project.id}" do
       %div.pull-left{style: "width: 33%"}
