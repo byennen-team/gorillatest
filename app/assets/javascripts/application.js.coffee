@@ -6,6 +6,7 @@
 //= require plugins/jquery.validate.min
 //= require plugins/jquery.easing.min
 //= require layout
+//= require project
 
 $(document).ready( ->
   target = window.location.hash

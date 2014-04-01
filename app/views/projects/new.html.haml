@@ -1,0 +1,37 @@
+.row
+  = pape_title('Projects', 'fa-desktop')
+  = render 'shared/user_metrics'
+
+%section#widget-grid
+  .row
+    %article.col-sm-12.col-md-12.col-lg-12
+      #wid-id-0.jarviswidget{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+        %header
+          %span.widget-icon
+            %i.fa.fa-edit
+          %h2 Create Project
+        %div
+          .jarviswidget-editbox
+          .widget-body.no-padding
+            = simple_form_for(@project, :url => projects_path, :html => { :method => :post, class: 'smart-form' }) do |f|
+              - if @project.errors.any?
+                #error_explanation
+                  %h2
+                    = "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+                  %ul
+                    - @project.errors.full_messages.each do |msg|
+                      %li= msg
+              =f.input :name
+              =f.input :url
+              %br
+              = link_to "Show Advanced Settings", "#", id: "show_project_advanced_settings"
+              = link_to "Hide Advanced Settings", "#", id: "hide_project_advanced_settings", style: "display: none;"
+              #advanced_settings{style: "display: none;"}
+                %br
+                %p Does your project have HTTP basic access authentication? If so enter the credentials below:
+                = f.input :basic_auth_username
+                = f.input :basic_auth_password
+              %footer
+                = f.submit "Create Project", class: "btn btn-primary"
+                %button.btn.btn-default{onclick: "window.history.back();", type: "button"}
+                  Back

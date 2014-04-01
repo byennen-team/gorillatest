@@ -13,7 +13,9 @@ class ProjectsController < ApplicationController
     @scenarios = @project.scenarios
   end
 
-  def new; @project = Project.new; end
+  def new
+    @project = Project.new
+  end
 
   def create
     @project = Project.new(project_params)
@@ -24,7 +26,9 @@ class ProjectsController < ApplicationController
         format.html { redirect_to project_path(@project) }#, notice: "Project successfully created! Please embed the AutoTest script code to your website and verify it to continue"
       end
     else
-      Rails.logger.debug(@project.inspect)
+      respond_to do |format|
+        format.html { render :new, alert: "Project could not be created." }
+      end
     end
   end
 
