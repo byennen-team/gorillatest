@@ -17,8 +17,17 @@
         = simple_form_for @project do |f|
           = f.input :name
           = f.input :url
-          = f.input :basic_auth_username
-          = f.input :basic_auth_password
+          %br
+          = link_to "Show Advanced Settings", "#", id: "show_project_advanced_settings"
+          = link_to "Hide Advanced Settings", "#", id: "hide_project_advanced_settings", style: "display: none;"
+          #advanced_settings{style: "display: none;"}
+            %br
+            %p Does your project have HTTP basic access authentication? If so enter the credentials below:
+            = f.input :basic_auth_username
+            = f.input :basic_auth_password
+          %br
+          %br
+          .clearfix
           = f.submit "Save Project", class: "btn btn-success"
       #users.tab-pane
         %br
