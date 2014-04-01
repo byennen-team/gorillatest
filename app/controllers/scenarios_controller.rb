@@ -49,7 +49,7 @@ class ScenariosController < ApplicationController
       end
       TestWorker.perform_async("queue_tests", "Scenario", test_run.id.to_s)
       respond_to do |format|
-        format.html { redirect_to project_feature_scenario_test_run_path(@project, @feature, @scenario, test_run) }
+        format.html { redirect_to project_test_test_run_path(@project, @scenario.slug, test_run) }
         format.json { }
       end
     end

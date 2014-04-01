@@ -1,5 +1,5 @@
 -content_for :head do
-  =javascript_include_tag "stepStatus"
+  =javascript_include_tag "step_status"
 
 %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
 /= render 'shared/application/side_menu'
