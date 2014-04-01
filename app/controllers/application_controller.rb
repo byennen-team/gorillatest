@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :company_name, :phone, :first_name, :last_name, :location, :uid, :provider)}
-    devise_parameter_sanitizer.for(:accept_invitation) {|u| u.permit(:email, :password, :password_confirmation, :company_name, :phone, :invitation_token, :first_name, :last_name, :location, :uid, :provider)}
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :company_name, :phone, :first_name, :last_name, :location, :uid, :provider, :role, :role_other)}
+    devise_parameter_sanitizer.for(:accept_invitation) {|u| u.permit(:email, :password, :password_confirmation, :company_name, :phone, :invitation_token, :first_name, :last_name, :location, :uid, :provider, :role, :role_other)}
+    devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:email, :password, :password_confirmation, :current_password, :company_name, :phone, :invitation_token, :first_name, :last_name, :location, :uid, :provider, :role, :role_other)}
   end
 
   def after_sign_in_path_for(resource)

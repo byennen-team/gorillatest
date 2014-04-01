@@ -68,6 +68,7 @@ class User
   field :first_name, type: String
   field :last_name, type: String
   field :role, type: String
+  field :role_other, type: String
 
   has_many :created_projects, class_name: "Project"
   has_many :project_users

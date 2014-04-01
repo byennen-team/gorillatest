@@ -37,6 +37,11 @@
                     = f.input :email
                 .col-md-6
                   = f.input :company_name, label: 'Company Name'
+              .row
+                .col-md-6
+                  = f.input :role, collection: ["Developer", "QA Manager", "Product Manager", "Other"], prompt: "Please select your role"
+                #role_other.col-md-6{style: "display: none;"}
+                  = f.input :role_other, label: "Other"
               - unless session["devise.user_attributes"]
                 .row
                   .col-md-6
