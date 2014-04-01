@@ -1,5 +1,7 @@
 require 'digest/md5'
 
+class NoDemoProjectExcpetion < Exception; end
+
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -186,20 +188,26 @@ class User
   end
 
   def create_demo_project
-    demo = Project.where(name: "Demo Project", user_id: nil).first
-    if demo
-      clone_project = demo.clone
-      clone_project.user_id = self.id
-      ProjectUser.create(project_id: clone_project.id, user_id: self.id, rights: "owner")
-      clone_project.save
-      clone_project.update_attribute(:script_verified, true)
+    begin
+      unless demo = Project.where(name: "My Sample Project", user_id: nil).first
+        raise NoDemoProjectException
+      else
+        clone_project = demo.clone
+        clone_project.user_id = self.id
+        ProjectUser.create(project_id: clone_project.id, user_id: self.id, rights: "owner")
+        clone_project.save!
+        clone_project.update_attribute(:script_verified, true)
 
-      demo.scenarios.each do |scenario|
-        clone_scenario = scenario.clone
-        clone_scenario.project_id = clone_project.id
-        clone_scenario.save
+        demo.scenarios.each do |scenario|
+          clone_scenario = scenario.clone
+          clone_scenario.project_id = clone_project.id
+          clone_scenario.save!
+        end
       end
+    rescue Exception => e
+      puts e
     end
+
   end
 
   private
