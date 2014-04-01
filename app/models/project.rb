@@ -58,6 +58,10 @@ class Project
     creator.plan.num_users > users.count
   end
 
+  def num_invitations_remaining
+    creator.plan.num_users - users.count
+  end
+
   def users
     users = User.in(id: project_users.map(&:user_id)).all
     return users.to_a
