@@ -8,8 +8,9 @@
       = link_to glyph_button("ok", "Verify Embedded Script"), project_verify_script_path(project), class:'verify-script btn btn-primary btn-xs'
     - if project.owner?(current_user)
       = link_to raw("#{glyph('cog')} Settings"), edit_project_path(project), class: "btn btn-primary btn-xs"
-    = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
-    = play_button(project)
+    - if project.script_verified?
+      = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
+      = play_button(project)
   %div{id: "test_run-#{project.id}", style: "display: none;"}
     = form_tag run_project_path(project), class:"scenario-run", id: "project_#{project.id}" do
       %div.pull-left{style: "width: 33%"}
