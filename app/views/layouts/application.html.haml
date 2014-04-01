@@ -12,12 +12,10 @@
     /[if lt IE 9]
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     = render 'layouts/services/pusher'
-    = stylesheet_link_tag    "application/application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    / external services
-    = render 'layouts/services/pusher'
     = render 'layouts/services/user_voice'
     = render 'layouts/services/bugherd'
+    = stylesheet_link_tag    "application/application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
     = yield(:head)
 
   %body.smart-style-1.fixed-header.fixed-ribbon.fixed-navigation
