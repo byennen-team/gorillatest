@@ -83,7 +83,7 @@ $(document).ready(function() {
     $('nav ul').jarvismenu({
       accordion : true,
       speed : $.menu_speed,
-      closedSign : '<em class="fa fa-expand-o"></em>',
+      closedSign : '<em class="fa fa-rotate-180 fa-expand-o"></em>',
       openedSign : '<em class="fa fa-collapse-o"></em>'
     });
   } else {
