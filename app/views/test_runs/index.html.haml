@@ -1,7 +1,10 @@
 .page-content.blocky
   .container
     .pull-right
-      = link_to glyph_button("remove", "Delete Test"), project_test_path(@project, @scenario.slug), method: :delete, class: "btn btn-danger", confirm: "Are you sure?"
+      - if @project.owner?(current_user)
+        = link_to glyph_button("remove", "Delete Test"), project_test_path(@project, @scenario.slug), method: :delete, class: "btn btn-danger", confirm: "Are you sure?"
+      - else
+        = link_to glyph_button("remove", "Delete Test"), '#', onclick: "alert('Only the project owner has permission to delete tests');", class: "btn btn-danger"
     %ol.breadcrumb
       %li
         = link_to "Projects", projects_path
