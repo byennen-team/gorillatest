@@ -115,7 +115,7 @@ class ProjectsController < ApplicationController
         flash[:notice] = "Script has been successfully verified"
         status = 200
       else
-        flash[:notice] = "Could not find script."
+        flash[:alert] = "Could not verify the script at #{@project.url}."
         status = 400
       end
     rescue => e
