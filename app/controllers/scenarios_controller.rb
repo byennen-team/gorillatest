@@ -35,7 +35,7 @@ class ScenariosController < ApplicationController
   def destroy
     if @scenario.destroy
       respond_to do |format|
-        format.html { redirect_to project_feature_path(@project, @feature) }
+        format.html { redirect_to project_path(@project) }
       end
     end
   end
