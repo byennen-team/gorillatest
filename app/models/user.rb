@@ -196,7 +196,7 @@ class User
 
       demo.scenarios.each do |scenario|
         clone_scenario = scenario.clone
-        clone_scenario.feature_id = clone_feature.id
+        clone_scenario.project_id = clone_project.id
         clone_scenario.save
       end
     end
