@@ -11,7 +11,9 @@
       %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}, class:'view-embed-code btn btn-primary btn-xs'}
         %span.glyphicon.glyphicon-eye-open
         View Embed Code
-      = link_to glyph_button("ok", "Verify Embedded Script"), project_verify_script_path(project), class:'verify-script btn btn-primary btn-xs', method: :post
+      = link_to glyph_button("ok", "Verify Embedded Script"), project_verify_script_path(project), class:'verify-script btn btn-primary btn-xs'
+      - if project.owner?(current_user) && !project.script_verified?
+        = link_to delete_glyph, project_path(project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs"
   %div{id: "test_run-#{project.id}", style: "display: none;"}
     = form_tag run_project_path(project), class:"scenario-run", id: "project_#{project.id}" do
       %div.pull-left{style: "width: 33%"}
