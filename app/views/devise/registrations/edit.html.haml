@@ -28,9 +28,9 @@
                 #role_other{style: "display: none;"}
                   = f.input :role_other, label: "Other"
               = f.input :location
-              = f.input :password
-              = f.input :password_confirmation
               = f.input :current_password
+              = f.input :password, label: "New Password"
+              = f.input :password_confirmation, label: "Confirm New Password"
               %footer
                 = f.submit "Update", class: "btn btn-primary"
                 %button.btn.btn-default{onclick: "window.history.back();", type: "button"}
