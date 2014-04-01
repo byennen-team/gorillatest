@@ -23,7 +23,7 @@ class Scenario
   validates :window_x, :window_y, presence: true
 
   def current_status
-    if test_runs
+    if test_runs.present?
       test_runs.last.status
     else
       return "unran"
