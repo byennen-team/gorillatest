@@ -8,9 +8,7 @@
 - if @project.owner?(current_user)
   .pull-right
     = link_to raw("#{glyph('cog')} Project Configuration"), edit_project_path(@project), class: "btn btn-success"
-    %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
-      %span.glyphicon.glyphicon-remove
-      Delete Project
+    = link_to raw("#{glyph('remove')} Delete Project"), project_path, class: "btn btn-danger", method: :delete, confirm: "Are you sure?"
 
 %ol.breadcrumb
   %li
@@ -31,7 +29,6 @@
         - else
           %ul.project{style: "list-style-type: none;"}
             = render partial: 'scenarios/scenario', collection: @scenarios
-          }
           .clearfix
       / Project widget
 
