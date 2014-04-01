@@ -31,7 +31,7 @@ module TestRun
     channel_name = browser_tests.first.channel_name
     pusher_return = Pusher.trigger([channel_name], "test_run_complete", {status: status})
     update_attribute(:completed_at, Time.now)
-    deduct_seconds_used
+    deduct_seconds_used unless project.demo_project?
     send_complete_notification
   end
 
