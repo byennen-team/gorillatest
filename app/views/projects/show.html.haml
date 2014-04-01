@@ -26,8 +26,8 @@
       .awidget-body
         - if @project.scenarios.size == 0
           %p
-            You haven't added any features to this project, would you like to
-            %a{href: new_project_path, data: {toggle: "modal", target: "#add-feature"}} create one
+            You haven't added any tests to this project, would you like to
+            %a{href: @project.url, target: "_blank"} record one
         - else
           %ul.project{style: "list-style-type: none;"}
             = render partial: 'scenarios/scenario', collection: @scenarios
