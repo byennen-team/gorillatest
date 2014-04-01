@@ -1,9 +1,7 @@
 .page-content.blocky
   .container
     .pull-right
-      %button.btn.btn-danger{onclick: "alert('Feature not implemented')"}
-        %span.glyphicon.glyphicon-remove
-        Remove Scenario
+      = link_to glyph_button("remove", "Delete Test"), project_test_path(@project, @scenario.slug), method: :delete, class: "btn btn-danger", confirm: "Are you sure?"
     %ol.breadcrumb
       %li
         = link_to "Projects", projects_path
