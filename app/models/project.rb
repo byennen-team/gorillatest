@@ -15,6 +15,7 @@ class Project
   field :email_notification, type: String, default: "success"
   field :basic_auth_username, type: String
   field :basic_auth_password, type: String
+  field :demo_project, type: Boolean, default: false
 
   slug :name
 

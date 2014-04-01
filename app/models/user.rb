@@ -119,7 +119,7 @@ class User
   end
 
   def owned_projects
-    pu_owners = project_users.select { |pu| pu.user if pu.rights == 'owner' }
+    pu_owners = project_users.select { |pu| pu.user if pu.rights == 'owner' && !pu.project.demo_project? }
     pu_owners.map(&:project)
   end
 
@@ -194,6 +194,7 @@ class User
       else
         clone_project = demo.clone
         clone_project.user_id = self.id
+        clone_project.demo_project = true
         ProjectUser.create(project_id: clone_project.id, user_id: self.id, rights: "owner")
         clone_project.save!
         clone_project.update_attribute(:script_verified, true)

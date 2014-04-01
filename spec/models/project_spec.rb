@@ -24,6 +24,16 @@ describe Project do
 
   end
 
+  describe "default value" do
+
+    let(:project) { create(:project)}
+
+    it "demo_project boolean value defaults to false" do
+      expect(project.demo_project).to be_false
+    end
+
+  end
+
   describe "validations" do
 
     it { should validate_presence_of :name }

@@ -1,13 +1,13 @@
 %li
   = link_to project.name, project_path(project)
   .pull-right
-    %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}, class:'view-embed-code'} View Embed Code
-    -if !project.script_verified? # || project.features.empty?
+    -if !project.demo_project? # || project.features.empty?
+      %a{data: {toggle: "modal", target: "#embed-modal-#{project.id}"}, class:'view-embed-code'} View Embed Code
       |
       = link_to "Verify Embedded Script", project_verify_script_path(project), class:'verify-script'
       |
-      -if project.owner?(current_user)
-        = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
+    -if project.owner?(current_user) && !project.script_verified?
+      = link_to "Delete Project", project_path(project), method: :delete, confirm: 'Are you sure?'
     -else
       = link_to record_glyph, project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
       = play_button(project)
