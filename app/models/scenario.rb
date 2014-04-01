@@ -22,4 +22,12 @@ class Scenario
   validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :project}
   validates :window_x, :window_y, presence: true
 
+  def current_status
+    if test_runs
+      test_runs.last.status
+    else
+      return "unran"
+    end
+  end
+
 end

@@ -9,6 +9,18 @@ $lightGrey: #ccc
 $lightGreyLink: #aaa
 $orange: #f0ad4e
 
+.scenario
+  border: 1px solid #ccc
+  border-radius: 10px
+  padding: 10px
+  margin-bottom: 10px
+  &.pass
+    border-left: 10px solid $green
+  &.fail
+    border-left: 10px solid $red
+  &.running
+    border-left: 10px solid $orange
+
 .test_run
   height: 75px
   border: 1px solid #ccc
@@ -19,7 +31,7 @@ $orange: #f0ad4e
     border-left: 10px solid $green
   &.fail
     border-left: 10px solid $red
-  &.running
+  &.unran
     border-left: 10px solid $orange
 
 .view-test_run
