@@ -20,6 +20,7 @@
               = f.input :last_name
               = f.input :phone
               = f.input :company_name
+              = f.input :role, collection: ["Developer", "QA Manager", "Product Manager", "Other"], prompt: "Please select your role"
               = f.input :location
               = f.input :password
               = f.input :password_confirmation
