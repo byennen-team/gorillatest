@@ -3,7 +3,7 @@
 %p
   You have been invited to join the project owned by #{@inviting_user.email} on Autotest. To get started, click the link below:
 %p
-  = link_to 'Accept invitation', accept_invitation_url(invitation_token: @user.invitation_token, at_e: "new_user_invite_#{@inviting_user.email}")
+  = link_to 'Accept invitation', accept_invitation_url(invitation_token: @user.invitation_token, at_e: "new_user_invite_#{CGI.escape(@inviting_user.email)}")
 %p
   Once you have joined the team, you will have access to the shared projects dashboard.
 %p
