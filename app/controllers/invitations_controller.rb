@@ -4,26 +4,30 @@ class InvitationsController < Devise::InvitationsController
   before_filter :ensure_user_can_invite_to_project, only: [:create]
 
   def create
-    project_id = params[:user][:project_id] ? params[:user].delete(:project_id) : nil
-    unless @invited_user = User.where(email: params[:user][:email]).first
-      resource_class.invite!(invite_params, current_inviter) do |u|
-        u.skip_invitation = true
-        @invited_user = u
-      end
-      if project_id && @invited_user.errors.empty?
-        @invited_user.send_project_invitation_new_user(current_user.id, project_id)
-        ProjectUser.create({user_id: @invited_user.id, project_id: project_id, rights: 'member'})
+    emails = params[:user][:email].split(",")
+    project_id = params[:project_id]
+    emails.each do |email|
+      invited_user = User.where(email: email).first
+      if !invited_user
+        resource_class.invite!({email: email}, current_inviter) do |u|
+          invited_user = u
+          invited_user.skip_invitation = true
+          invited_user.skip_confirmation!
+          invited_user.confirm!
+          invited_user.save(validate: false)
+        end
+        ProjectUser.create({user_id: invited_user.id, project_id: project_id, rights: 'member'})
+        invited_user.send_project_invitation_new_user(current_user.id, project_id)
       else
-        @invited_user.send_invitation(current_user.id) if !project_id && @invited_user.errors.empty?
-      end
-    else
-      if project_id && !Project.find(project_id).users.include?(@invited_user)
-        ProjectUser.create({user_id: @invited_user.id, project_id: project_id, rights: 'member'})
-        @invited_user.send_project_invitation_existing_user(current_user.id, project_id)
+        if !Project.find(project_id).users.include?(invited_user)
+          ProjectUser.create({user_id: invited_user.id, project_id: project_id, rights: 'member'})
+          invited_user.send_project_invitation_existing_user(current_user.id, project_id)
+        end
       end
     end
+
     respond_to do |format|
-      format.html { redirect_to request.env["HTTP_REFERER"], notice: "Your invitation to #{@invited_user.email} has been sent."}
+      format.html { redirect_to request.env["HTTP_REFERER"], notice: "Your invitations have been sent."}
     end
   end
 

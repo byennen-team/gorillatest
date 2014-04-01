@@ -1,6 +1,9 @@
+=javascript_include_tag "plugins/jquery.tagsinput.min"
+=javascript_include_tag "invitations"
 .row
   = pape_title('Invite Users', 'fa-group')
   = render 'shared/user_metrics'
+  = render 'layouts/welcome/messages'
 
 %section#widget-grid
   .row
@@ -9,11 +12,13 @@
         %header
           %span.widget-icon
             %i.fa.fa-edit
-          %h2 Invite users and earn minutes!
+          %h2 Invite users to try AutoTest!
         %div
           .jarviswidget-editbox
           .widget-body.no-padding
             = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form smart-form'} do |f|
-              = f.input :email
+              = label_tag "Select a Project to invite users to: "
+              = select_tag "project_id", options_for_select(current_user.projects.map{|p| [p.name, p.id.to_s]})
+              = f.input :email, label: "Email (enter addresses separated by a comma)"
               %footer
-                = f.submit "Invite User", class: "btn btn-primary button"
+                = f.submit "Invite Users", class: "btn btn-primary button"

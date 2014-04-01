@@ -153,7 +153,7 @@ class User
   end
 
   def confirm!
-    self.send_welcome_email
+    self.send_welcome_email unless self.invited_by
     super
   end
 
@@ -226,8 +226,6 @@ class User
       self.password_confirmation = password
     end
   end
-
-
 
   def drip_email
     UserMailer.delay_until(7.days.from_now).drip_email(self.id.to_s)
