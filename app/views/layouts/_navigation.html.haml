@@ -16,7 +16,7 @@
         %a{href: "javascript:;"}
           %i.fa.fa-lg.fa-fw.fa-cog
           %span.menu-item-parent My Account
-        - if params[:controller] == "registrations"
+        - if params[:controller] == "registrations" || params[:controller] == "credit_cards"
           %ul{style: "display: block;"}
             %li= link_to 'My Info', my_info_path
             %li= link_to 'Change Your Plan', change_plan_path
