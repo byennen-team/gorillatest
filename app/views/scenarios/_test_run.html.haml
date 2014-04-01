@@ -1,5 +1,5 @@
 .pull-right.view-test_run{style: "width: 80px; background-color: #ccc; height: 100%; padding-top: 20px; padding-bottom: 20px; padding-left: 25px;"}
-  = link_to glyph("play", {style: "font-size: 1.8em;"}), project_test_test_run_path(@project, @feature, @scenario, test_run)
+  = link_to glyph("play", {style: "font-size: 1.8em;"}), project_test_test_run_path(@project, @scenario, test_run)
 .test_run_details{style: "padding-left: 10px;"}
   %h3{style: "margin-top: 2px;"} Test Run ##{test_run.number}
   %table
