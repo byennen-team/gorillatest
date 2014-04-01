@@ -199,7 +199,7 @@ describe User do
 
   describe '#create_demo_project' do
 
-    let!(:demo_project) { create(:project, name: "Demo Project", url: "http://test.io") }
+    let!(:demo_project) { create(:project, name: "My Sample Project", url: "http://test.io") }
     let!(:user) { create(:user) }
 
     subject { user.projects.first }

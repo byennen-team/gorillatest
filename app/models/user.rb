@@ -1,6 +1,6 @@
 require 'digest/md5'
 
-class NoDemoProjectExcpetion < Exception; end
+class NoDemoProjectException < Exception; end
 
 class User
   include Mongoid::Document
@@ -205,7 +205,6 @@ class User
         end
       end
     rescue Exception => e
-      puts e
     end
 
   end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Scenario do
 
-  it { should validate_uniqueness_of(:name).scoped_to(:feature)}
+  it { should validate_uniqueness_of(:name).scoped_to(:project)}
   it { should validate_presence_of(:name)}
   it { should validate_presence_of(:window_x) }
   it { should validate_presence_of(:window_y) }
