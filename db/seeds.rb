@@ -35,7 +35,7 @@ Coupon.find_or_create_by(code: "BETAUNLIMITED", to_plan: Plan.where(name: "Start
 if Project.where(name: "Demo Project").length == 0
   puts "Creating Demo Project"
 
-  project = Project.new(name: "Demo Project")
+  project = Project.new(name: "My Sample Project")
   project.url = "#{ENV['API_URL']}/test/form?project_id=#{project.id.to_s}"
   project.save!
   scenario = project.scenarios.create(name: "User should be able to fill out demo form", start_url: project.url,
