@@ -7,10 +7,24 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    if request.parameters.try(:[], "plan") == "maxed" && !current_user.can_create_project?
-      flash[:notice] = I18n.t "devise.projects.max_number_reached"
-    end
     super
+  end
+
+  def update
+    @user = User.find(current_user.id)
+    if password_change?
+      success = @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
+    else
+      success = @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update).except(:current_password,:password,:password_confirmation))
+    end
+
+    if success
+      set_flash_message :notice, :updated
+      sign_in @user, bypass: true if password_change?
+      redirect_to my_info_path
+    else
+      render "edit"
+    end
   end
 
   def cancel_user
@@ -47,4 +61,7 @@ class RegistrationsController < Devise::RegistrationsController
     return 'application'
   end
 
+  def password_change?
+    !params[:user][:current_password].blank? && !params[:user][:password].blank?
+  end
 end

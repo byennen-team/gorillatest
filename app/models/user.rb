@@ -76,7 +76,8 @@ class User
 
   has_many :testing_allowances, as: :timeable
 
-  validates :first_name, :last_name, :email, :password, :password_confirmation, presence: { message: "can't be blank"}
+  validates :first_name, :last_name, :email, presence: { message: "can't be blank"}
+  validates :password, :password_confirmation, presence: { message: "can't be blank"}, on: :create
 
   validates :email, presence: true, uniqueness: { conditions: -> { where(deleted_at: nil) } }
   #before_save :strip_phone
