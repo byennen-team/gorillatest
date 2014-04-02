@@ -93,7 +93,7 @@ module ApplicationHelper
     Rails.logger.debug("rendering play button")
     project = testable.is_a?(Project) ? testable : testable.project
     if project.creator.has_minutes_available?
-      html = link_to play_glyph, "#", onclick: "$('#test_run-#{testable.id}').slideToggle();", class: "btn btn-success btn-xs"
+      html = link_to play_glyph, "javascript:void(0)", onclick: "$('#test_run-#{testable.id}').slideToggle();", class: "btn btn-success btn-xs"
     else
       html = link_to play_glyph, edit_user_registration_path(anchor: "change-plan"), class: "btn btn-success btn-xs"
     end
