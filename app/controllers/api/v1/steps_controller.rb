@@ -23,7 +23,7 @@ class Api::V1::StepsController < Api::V1::BaseController
   end
 
   def step_params
-    params.require(:step).permit(:event_type, :locator_type, :locator_value, :text)
+    params.require(:step).permit(:event_type, :locator_type, :locator_value, :text, :other_text)
   end
 
 

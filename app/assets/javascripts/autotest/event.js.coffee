@@ -48,26 +48,27 @@ class Autotest.Event
 
   @bindBlur: (event) ->
     if $(this).val().length > 0
-      Autotest.Event.addStep(event, "setElementText", $(this).val())
+      Autotest.Event.addStep(event, "setElementText", $(this).val(), "")
 
   @bindSelect: (event) ->
-    Autotest.Event.addStep(event, "setElementSelected", $(this).val())
+    console.log($(this).children(":selected").text())
+    Autotest.Event.addStep(event, "setElementSelected", $(this).val(), $(this).children(":selected").text())
 
   @bindClick: (event) ->
-    Autotest.Event.addStep(event, "clickElement", $(this).text())
+    Autotest.Event.addStep(event, "clickElement", $(this).text(), "")
 
   @bindSubmit: (event) ->
-    Autotest.Event.addStep(event, "submitElement", null)
+    Autotest.Event.addStep(event, "submitElement", null, "")
 
   @bindConfirmation: ->
     window.originalConfirm = window.confirm
     window.confirm = (message) ->
       result = window.originalConfirm(message)
-      Autotest.Event.addStep(null, "assertConfirmation", message)
+      Autotest.Event.addStep(null, "assertConfirmation", message, "")
       if (!result)
-        Autotest.Event.addStep(null, "chooseCancelOnNextConfirmation", "Cancel")
+        Autotest.Event.addStep(null, "chooseCancelOnNextConfirmation", "Cancel", "")
       else
-        Autotest.Event.addStep(null, "chooseAcceptOnNextConfirmation", "OK")
+        Autotest.Event.addStep(null, "chooseAcceptOnNextConfirmation", "OK", "")
       return result
     return
 
@@ -76,7 +77,7 @@ class Autotest.Event
     window.alert = (alert) ->
       window.originalAlert(alert)
       # Add step here:
-      @scenario.addStep("assertAlert", {}, alert)
+      @scenario.addStep("assertAlert", {}, alert, "")
       return
     return
 
@@ -117,15 +118,16 @@ class Autotest.Event
   @unbindScenarioModal: ->
     $("#autotest-modal button").unbind("click", Autotest.Event.bindClick)
 
-  @addStep: (event, type, value) ->
+  @addStep: (event, type, value, other_text) ->
     scenario = Autotest.currentScenario
     confirmationTypes = ["assertConfirmation", "chooseCancelOnNextConfirmation", "chooseAcceptOnNextConfirmation"]
+    console.log(other_text)
     if $.inArray(type, confirmationTypes) == -1
       stepLocator = new Autotest.LocatorBuilder(event.currentTarget).build()
-      scenario.addStep({event_type: type, locator_type: stepLocator.type, locator_value: stepLocator.value, text: value})
+      scenario.addStep({event_type: type, locator_type: stepLocator.type, locator_value: stepLocator.value, text: value, other_text: other_text})
     else
       stepLocator = {}
-      scenario.addStep({event_type: type, locator_type: "", locator_value: "", text: value})
+      scenario.addStep({event_type: type, locator_type: "", locator_value: "", text: value, other_text: other_text})
 
 
 

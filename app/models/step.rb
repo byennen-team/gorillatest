@@ -6,6 +6,7 @@ class Step
   field :locator_type, type: String
   field :locator_value, type: String
   field :text, type: String
+  field :other_text, type: String
 
   embedded_in :scenario
 
@@ -52,7 +53,8 @@ class Step
     when "setElementText"
       return "Set input value #{text} for element ##{locator_value}"
     when "setElementSelected"
-        return "Set select element #{locator_value} to value #{text}"
+        text_value = other_text || text
+        return "Set select element #{locator_value} to value #{text_value}"
     when "clickElement"
       return "Click element #{locator_value}"
     when "submitElement"
