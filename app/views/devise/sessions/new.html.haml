@@ -22,6 +22,8 @@
                   = link_to "Forgot password?", new_password_path(resource_name)
                 .col-md-6.pull-right
                   = f.submit 'Sign In', class: 'btn btn-primary btn-block'
+                .col-md-6
+                  = link_to "Don't have an account?", new_user_registration_path
     #auth_options.row
       .col-md-6
         =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
