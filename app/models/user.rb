@@ -73,6 +73,11 @@ class User
   has_many :created_projects, class_name: "Project"
   has_many :project_users
   has_many :coupon_users
+  has_many :messages do
+    def unread
+      where(read: false).to_a
+    end
+  end
 
   has_many :testing_allowances, as: :timeable
 

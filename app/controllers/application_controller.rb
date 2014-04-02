@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   #before_filter :http_basic_authenticate, if: :staging?
   before_filter :update_sanitized_params, if: :devise_controller?
+  before_filter :unread_messages
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :company_name, :phone, :first_name, :last_name, :location, :uid, :provider, :role, :role_other)}
@@ -56,4 +57,9 @@ class ApplicationController < ActionController::Base
   def get_concurrency_limit
     @concurrency_limit = current_user.plan.concurrent_browsers
   end
+
+  def unread_messages
+    @unread_messages = current_user.messages.unread
+  end
+
 end

@@ -30,6 +30,11 @@ Autotest::Application.routes.draw do
       post :default
     end
   end
+  resources :messages do
+    collection do
+      post :mark_read
+    end
+  end
 
   #application
   devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations

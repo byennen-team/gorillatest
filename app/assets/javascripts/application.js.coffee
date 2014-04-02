@@ -7,6 +7,7 @@
 //= require plugins/jquery.easing.min
 //= require layout
 //= require project
+//= require messages
 
 $(document).ready( ->
   target = window.location.hash
