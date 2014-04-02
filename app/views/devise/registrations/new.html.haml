@@ -21,45 +21,25 @@
       .row
         .col-md-8
           = simple_form_for(resource, :as => resource_name, :url => user_registration_path, :html => {class: 'form-vertical', id: 'registration-form' }) do |f|
-            = f.hidden_field :provider, value: session["devise.user_attributes"].try(:[], "provider")
-            = f.hidden_field :uid, value: session["devise.user_attributes"].try(:[], "uid")
             #form-content
               .row
                 .col-md-6
-                  = f.input :first_name, input_html:{value: session["devise.user_attributes"].try(:[], "first_name") }
-                .col-md-6
-                  = f.input :last_name, input_html: {value: session["devise.user_attributes"].try(:[], "last_name") }
+                  = f.input :email
               .row
                 .col-md-6
-                  - if session["devise.user_attributes"]
-                    = f.hidden_field :email, value: session["devise.user_attributes"].try(:[], "email")
-                  - else
-                    = f.input :email
+                  = f.input :password
                 .col-md-6
-                  = f.input :company_name, label: 'Company Name'
-              .row
-                .col-md-6
-                  = f.input :role, collection: ["Developer", "QA Manager", "Product Manager", "Other"], prompt: "Please select your role"
-                #role_other.col-md-6{style: "display: none;"}
-                  = f.input :role_other, label: "Other"
-              - unless session["devise.user_attributes"]
-                .row
-                  .col-md-6
-                    = f.input :password
-                  .col-md-6
-                    = f.input :password_confirmation
-
+                  = f.input :password_confirmation
             #form-options.row
               .col-md-12
                 .pull-right= f.submit 'Create account', class: 'btn btn-primary create-account-btn'
 
         #already-have-account.col-md-4
-          - unless session["devise.user_attributes"]
-            =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
-              %i.fa.fa-google-plus
-              Sign in with Google
-            =link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-default' do
-              %i.fa.fa-github
-              Sign in with Github
+          =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
+            %i.fa.fa-google-plus
+            Sign in with Google
+          =link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-default' do
+            %i.fa.fa-github
+            Sign in with Github
           %p Your AutoTest account can be used to access any AutoTest product or service.
           = link_to 'I already have a AutoTest account', login_path
