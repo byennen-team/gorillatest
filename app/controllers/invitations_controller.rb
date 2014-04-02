@@ -2,6 +2,7 @@ class InvitationsController < Devise::InvitationsController
 
   before_filter :authenticate_user!, except: [:edit, :update]
   before_filter :split_emails, :ensure_user_can_invite_to_project, only: [:create]
+  before_filter :resource_from_invitation_token, only: [:edit, :update]
 
   def create
     project_id = params[:project_id]
@@ -10,10 +11,11 @@ class InvitationsController < Devise::InvitationsController
       if !invited_user
         resource_class.invite!({email: email}, current_inviter) do |u|
           invited_user = u
-          invited_user.skip_invitation = true
-          invited_user.skip_confirmation!
-          invited_user.confirm!
-          invited_user.save(validate: false)
+          u.skip_invitation = true
+          u.skip_confirmation!
+          u.confirm!
+          u.invitation_sent_at = Time.now
+          u.save(validate: false)
         end
         ProjectUser.create({user_id: invited_user.id, project_id: project_id, rights: 'member'})
         invited_user.send_project_invitation_new_user(current_user.id, project_id)
@@ -31,19 +33,28 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def edit
-    session[:invitation_token] ||= params[:invitation_token]
+    session[:invitation_token] ||= @invitation_token
     super
   end
 
   def update
-    update_resource_params = invitation_params
-    super
+    resource.assign_attributes(invitation_params)
+    if resource.save
+      resource.invited_by.messages.create({message: "#{resource.email} has accepted your invitation", url: "javascript:void(0)"})
+      flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
+      set_flash_message :notice, flash_message
+      sign_in(resource_name, resource)
+      respond_with resource, :location => after_accept_path_for(resource)
+    else
+      respond_with_navigational(resource){ render :edit }
+    end
   end
 
   private
 
   def resource_from_invitation_token
-    unless params[:invitation_token] && self.resource = resource_class.where(invitation_token: params[:invitation_token]).first
+    @invitation_token = params[:invitation_token] || params[:user][:invitation_token]
+    unless @invitation_token && self.resource = resource_class.where(invitation_token: @invitation_token).first
       set_flash_message(:alert, :invitation_token_invalid)
       redirect_to after_sign_out_path_for(resource_name)
     end
