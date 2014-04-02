@@ -1,13 +1,15 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def google_oauth2
-    user = User.from_omniauth(request.env["omniauth.auth"], (session[:invitation_token] || nil))
-    if user.save
+    @user = User.from_omniauth(request.env["omniauth.auth"], (session[:invitation_token] || nil) )
+    @user.skip_confirmation!
+    if @user.save
+      @user.confirm! unless @user.sign_in_count > 0
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Google"
-      sign_in_and_redirect user
+      sign_in_and_redirect @user
     else
-      session["devise.user_attributes"] = user.attributes
-      flash.notice = "You are almost Done! Please finish signing up."
-      if !user.invitation_token.blank?
+      flash.notice = "Oops, we encountered a problem. Please try again."
+      if @user.invited_by_id
         redirect_to accept_invitation_url(invitation_token: session[:invitation_token])
       else
         redirect_to new_user_registration_url
@@ -16,18 +18,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def github
-    user = User.from_omniauth(request.env["omniauth.auth"], (session[:invitation_token] || nil) )
+    @user = User.from_omniauth(request.env["omniauth.auth"], (session[:invitation_token] || nil) )
+    @user.skip_confirmation!
 
-    if user.valid?
+    if @user.save
+      @user.confirm! unless @user.sign_in_count > 0
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github"
-      sign_in_and_redirect user, event: :authentication
+      sign_in_and_redirect @user
     else
-      session["devise.user_attributes"] = user.attributes
-      flash[:notice] = "You are almost Done! Please finish signing up."
-      if user.invited_by_id
+      flash.notice = "Oops, we encountered a problem. Please try again."
+      if @user.invited_by_id
         redirect_to accept_invitation_url(invitation_token: session[:invitation_token])
       else
-        binding.pry
         redirect_to new_user_registration_url
       end
     end

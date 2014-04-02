@@ -81,14 +81,14 @@ class User
 
   has_many :testing_allowances, as: :timeable
 
-  validates :first_name, :last_name, :email, presence: { message: "can't be blank"}
+  validates :email, presence: { message: "can't be blank"}
   validates :password, :password_confirmation, presence: { message: "can't be blank"}, on: :create
 
   validates :email, presence: true, uniqueness: { conditions: -> { where(deleted_at: nil) } }
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
-  after_create :create_demo_project, :drip_email
+  after_create :create_demo_project, :drip_email, :finish_profile_reminder_message
 
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
@@ -115,7 +115,7 @@ class User
   end
 
   def name
-    "#{first_name} #{last_name}"
+    (first_name && last_name) ? "#{first_name} #{last_name}" : email
   end
 
   def coupons
@@ -220,13 +220,17 @@ class User
 
   private
 
+  def finish_profile_reminder_message
+    messages.create({message: "Click here to enter additional info and finish your profile", url:  Rails.application.routes.url_helpers.my_info_path})
+  end
+
   def gravatar_hash
     email_address = self.email.downcase
     hash = Digest::MD5.hexdigest(email_address)
   end
 
   def set_random_password
-    if !self.company_name.blank? && !self.uid.blank? && !self.provider.blank? && self.encrypted_password.blank?
+    if !self.uid.blank? && !self.provider.blank? && self.encrypted_password.blank?
       password =  Devise.friendly_token[0,20]
       self.password = password
       self.password_confirmation = password
