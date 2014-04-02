@@ -19,13 +19,11 @@ module TestRun
 
   def complete
     return if status == "running"
-    if status == "fail"
-      project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
-        UserMailer.delay.notify_test_result(member_id, self.class.to_s.underscore, self.id)
-      end
-    elsif status == "pass" && project.email_notification == "success"
-      project.project_users.map(&:user_id).map(&:to_s).each do |member_id|
-        UserMailer.delay.notify_test_result(member_id, self.class.to_s.underscore, self.id)
+    message = create_message_and_url
+    project.project_users.map(&:user).each do |user|
+      user.messages.create(message)
+      if status == "fail" || (status == "pass" && project.email_notification == "success")
+        UserMailer.delay.notify_test_result(user.id.to_s, self.class.to_s.underscore, self.id)
       end
     end
     channel_name = browser_tests.first.channel_name
@@ -57,4 +55,17 @@ module TestRun
     allowance.seconds_used += total_duration
     allowance.save
   end
+
+  def create_message_and_url
+    message = {}
+    if self.kind_of?(ScenarioTestRun)
+     message[:message] = "#{project.name} - #{name} test run #{status}ed"
+     message[:url] = url_for(project_test_test_run_path(project, scenario.slug, self))
+    else
+      message[:message] = "#{name} test run #{status}ed"
+      message[:url] = url_for(project_test_run_path(project, self))
+    end
+    return message
+  end
+
 end

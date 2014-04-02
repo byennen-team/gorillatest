@@ -4,7 +4,7 @@ class Message
 
   field :message, type: String
   field :url, type: String
-  field :read, type: Boolean
+  field :read, type: Boolean, default: false
 
   belongs_to :user
 
