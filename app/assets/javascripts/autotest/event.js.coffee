@@ -43,9 +43,6 @@ class Autotest.Event
       element = $("#{elementName}[type=#{elementType}]")
     return element
 
-  @bindClick: (event) ->
-    Autotest.Event.addStep(event, "clickElement", $(this).attr("href"))
-
   @bindFocus: (event) ->
     stepLocator = new Autotest.LocatorBuilder(event.currentTarget).build()
 
@@ -57,7 +54,7 @@ class Autotest.Event
     Autotest.Event.addStep(event, "setElementSelected", $(this).val())
 
   @bindClick: (event) ->
-    Autotest.Event.addStep(event, "clickElement", $(this).val())
+    Autotest.Event.addStep(event, "clickElement", $(this).text())
 
   @bindSubmit: (event) ->
     Autotest.Event.addStep(event, "submitElement", null)
