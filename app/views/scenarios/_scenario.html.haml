@@ -1,7 +1,7 @@
 %li{class: "scenario #{scenario.current_status} scenario_#{scenario.id}", style: "margin-bottom: 5px;"}
   .pull-right{style: "color: white;"}
     = play_button(scenario)
-    = link_to raw("#{glyph_button('play', "Play Developer Mode")}"), "#", class: "btn btn-success btn-xs"
+    = play_developer_mode_button(scenario)
   %h5{style: "display: inline;"}
     = link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
     - if scenario.test_runs.present?
