@@ -24,7 +24,11 @@ class RegistrationsController < Devise::RegistrationsController
     redirect_to "/"
   end
 
-  def change_plan; end
+  def change_plan
+    if params[:plan] == "maxed"
+      flash.now[:alert] = "You have reached your plan limit. Upgrade your plan to create more projects!"
+    end
+  end
 
   def manage_billing; end
 
