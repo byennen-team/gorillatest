@@ -132,11 +132,8 @@ class User
   end
 
   def self.from_omniauth(auth, invitation_token = nil)
-    user = nil
-    if user = User.where(email: auth.info.email).first
-      user.provider = auth.provider
-      user.uid = auth.uid
-    else
+    user = User.where(provider: auth.provider, uid: auth.uid).first
+    if !user
       if invitation_token
         user = User.find_by(invitation_token: invitation_token)
       else
@@ -149,10 +146,10 @@ class User
 
   def assign_user_info_from_oauth(auth)
     self.attributes = {email: auth.info.email, provider: auth.provider, uid: auth.uid}
-    if auth.info.first_name
+    if auth.info.first_name && auth.info.last_name
       self.first_name = auth.info.first_name
       self.last_name = auth.info.last_name
-    else
+    elsif auth.info.name
       self.first_name = auth.info.name.split(' ').first
       self.last_name = auth.info.name.split(' ').last
     end
