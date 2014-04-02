@@ -20,4 +20,5 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  welcome_title: "Welcome To Gorilla Test"
+  welcome: "From this dashboard, you'll be able to track how well your tests are performing and how many of your plan's minutes you've used. Our favorite part about this page, is that it allows you to visualize the amount of time you've saved on testing, all while maintaining the highest quality standards for your projects"
