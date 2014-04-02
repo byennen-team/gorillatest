@@ -131,7 +131,7 @@ describe User do
     end
 
     context "existing user" do
-      let!(:existing_user) { create(:user, email: unsaved_user.email)}
+      let!(:existing_user) { create(:user, email: unsaved_user.email, uid: auth_data[:uid], provider: auth_data[:provider])}
       let(:authenticated_user) { User.from_omniauth(auth_data) }
 
       it "returns an existing user" do
