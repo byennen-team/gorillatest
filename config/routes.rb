@@ -31,8 +31,11 @@ Autotest::Application.routes.draw do
     end
   end
   resources :messages do
-    collection do
+    member do
       post :mark_read
+    end
+    collection do
+      post :mark_all_read
     end
   end
 

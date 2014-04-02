@@ -1,2 +1,2 @@
 %li
-  %a{href: "#{unread_message.url}"}= unread_message.message
+  = link_to unread_message.message, unread_message.url, data: {message_id: unread_message.id.to_s}
