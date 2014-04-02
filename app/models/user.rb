@@ -203,6 +203,7 @@ class User
         ProjectUser.create(project_id: clone_project.id, user_id: self.id, rights: "owner")
         clone_project.save!
         clone_project.update_attribute(:script_verified, true)
+        clone_project.update_attribute(:url, "#{ENV['API_URL']}/test/form?project_id=#{clone_project.id.to_s}")
 
         demo.scenarios.each do |scenario|
           clone_scenario = scenario.clone
