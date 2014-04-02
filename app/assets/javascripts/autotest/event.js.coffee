@@ -6,13 +6,23 @@ class Autotest.Event
     @scenario = ""
 
   @bindDomNodeInsert: () ->
-    document.addEventListener('DOMNodeInserted', ( (e)->
-      if $
-        Autotest.Event.unbind()
-        Autotest.Event.bind()
-        Autotest.Event.unbindElementModal()
-        Autotest.Event.unbindScenarioModal()
-      ), true)
+    document.addEventListener('DOMNodeInserted', Autotest.Event.eventListner)
+    # ( (e)->
+    #   if $
+    #     Autotest.Event.unbind()
+    #     Autotest.Event.bind()
+    #     Autotest.Event.unbindElementModal()
+    #     Autotest.Event.unbindScenarioModal()
+    #   ), true)
+
+  @unbindDomNodeInsert: () ->
+    document.removeEventListener('DOMNodeInserted', Autotest.Event.eventListner)
+
+  @eventListner: ->
+    Autotest.Event.unbind()
+    Autotest.Event.bind()
+    Autotest.Event.unbindElementModal()
+    Autotest.Event.unbindScenarioModal()
 
   @bind: () ->
     stepLocator = {}

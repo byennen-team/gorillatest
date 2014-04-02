@@ -1,0 +1,12 @@
+<div class="autotest-modal-content">
+  <div class="autotest-modal-header">
+    <button class="stop-recording-close autotest-modal-close-x" style="font-size: 2em;">×</button>
+    <h4>You Have Completed Your Test Recording</h4>
+  </div>
+  <div class="autotest-modal-body">
+    <p>Your test has been recorded.  Click <a href="<%= @url %>" target="_blank">here</a> to see your recording.</p>
+  </div>
+  <div class="autotest-modal-footer">
+    <button class="btn btn-default autotest-modal-close stop-recording-close">Close</button>
+  </div>
+</div>

@@ -25,12 +25,6 @@ class Autotest.Views.IframeIndex extends Backbone.View
     $("select#features").removeAttr("disabled").show()
     # $("button#add-feature").show()
     $("#current-scenario").hide().html('')
-    if $("#features").find(":selected").val()
-      $("button#record").removeAttr("disabled")
-      this.disableToolTip()
-    else
-      $("button#record").attr("disabled", "disabled")
-      this.enableToolTip()
 
     $("#step-count-text").hide()
     $("#step-count").text('')

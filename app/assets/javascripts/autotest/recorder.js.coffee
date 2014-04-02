@@ -46,14 +46,17 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
     @sessionStorage.removeItem("autoTestRecorder.currentFeature")
     @sessionStorage.removeItem("autoTestRecorder.currentScenario")
+    # Autotest.currentFeature = null
+    # Autotest.currentScenario = null
+    # Autotest.currentSteps = null
+    options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'scenario-modal'}
+    autoTestGuiController.removeStepsList()
+    Autotest.Event.unbind()
+    Autotest.Event.unbindDomNodeInsert()
+    autoTestGuiController.renderModal("test_complete_modal", options)
     Autotest.currentFeature = null
     Autotest.currentScenario = null
     Autotest.currentSteps = null
-    # Unbind all events
-    autoTestGuiController.removeStepsList()
-    Autotest.Event.unbind()
-    # This is a temporary hack to reload the page and kill all the bindings. - jkr
-    window.location.href = window.location.href
 
   recordHighlight: (text)->
     scenario = this.currentScenario

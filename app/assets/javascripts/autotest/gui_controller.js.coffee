@@ -114,7 +114,11 @@ AutoTestGuiController = {
     parent = "body"
     options = options or {}
     options.width = options.width or "auto"
-    $content = $(JST["autotest/templates/#{templateName}"]())
+    if templateName == "test_complete_modal"
+      console.log("rendering test complete modal")
+      $content = $(JST["autotest/templates/#{templateName}"](url : "#{Autotest.apiUrl}#{Autotest.currentScenario.get("dashboard_url")}"))
+    else
+      $content = $(JST["autotest/templates/#{templateName}"]())
     if $("##{options.wrapperId}").length == 1
       $wrapper = $("##{options.wrapperId}")
       $("##{options.wrapperId}").html($content)
@@ -143,6 +147,7 @@ AutoTestGuiController = {
 
     $(".autotest-modal-close, .autotest-modal-close-x").click ->
       $(this).closest(".autotest-modal").bPopup().close()
+
 
     autoTestGuiController.verifyInputNamePresent(options.wrapperId)
     return
