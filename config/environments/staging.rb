@@ -14,7 +14,7 @@ Autotest::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'staging.autotest.io' }
+  config.action_mailer.default_url_options = { host: 'staging.gorillatest.com' }
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.

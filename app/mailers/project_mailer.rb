@@ -1,5 +1,5 @@
 class ProjectMailer < ActionMailer::Base
-  default from: "support@autotest.io"
+  default from: "support@gorillatest.com"
 
   def verification(project_id)
     @project = Project.find(project_id)

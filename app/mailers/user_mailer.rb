@@ -1,16 +1,16 @@
 class UserMailer < ActionMailer::Base
-  default from: 'support@autotest.io'
+  default from: 'support@gorillatest.com'
 
   def welcome_email(user)
     @user = user
-    mail to: user.email, subject: "Welcome to AutoTest"
+    mail to: user.email, subject: "Welcome to GorillaTest"
   end
 
   def send_invitation_email(invited_user)
     @invited_user = invited_user
     @inviting_user = @invited_user.invited_by
     @invited_user.update_attribute(:invitation_sent_at, Time.now)
-    mail to: invited_user.email, subject: "You're invited to try out AutoTest.io"
+    mail to: invited_user.email, subject: "You're invited to try out GorillaTest"
   end
 
   def notify_test_result(current_user_id, class_name, test_run_id)
@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     @test_run = find_test_run(class_name, test_run_id)
     @project = @test_run.project
     @link_to_test_run = link_to_test_run(class_name, test_run_id)
-    mail to: @user.email, subject: "[Autotest] Your tests have completed"
+    mail to: @user.email, subject: "[GorillaTest] Your tests have completed"
   end
 
   def find_test_run(class_name, test_run_id)
@@ -51,18 +51,18 @@ class UserMailer < ActionMailer::Base
 
   def script_verification(user_email, project_id)
     @project_id = project_id
-    mail to: user_email, subject: "[Autotest] Your site is now setup!"
+    mail to: user_email, subject: "[GorillaTest] Your site is now setup!"
   end
 
   def plan_change(user_id, old_plan_id, new_plan_id)
     @user = User.find(user_id)
     @old_plan = Plan.find(old_plan_id)
     @new_plan = Plan.find(new_plan_id)
-    mail to: @user.email, subject: "[Autotest] Your account has been updated"
+    mail to: @user.email, subject: "[GorillaTest] Your account has been updated"
   end
 
   def drip_email(user_id)
     @user = User.find(user_id)
-    mail to: @user.email, from: "mike@autotest.io", subject: "Your Autotest Experience?"
+    mail to: @user.email, from: "mike@gorillatest.com", subject: "Your GorillaTest Experience?"
   end
 end

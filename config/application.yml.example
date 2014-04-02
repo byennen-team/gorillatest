@@ -19,7 +19,7 @@ development:
   GOOGLE_CLIENT_ID: 655783378977-38nn742ue2287r0p95j6k2r4a0n42332.apps.googleusercontent.com
   GOOGLE_CLIENT_SECRET: e7ouj6kTo55iLwcuUh4MF-JU
 staging:
-  API_URL: "http://staging.autotest.io/"
+  API_URL: "https://gorillatest-staging.herokuapp.com/"
   SELENIUM_HOST: "ec2-54-200-175-37.us-west-2.compute.amazonaws.com"
   SELENIUM_PORT: "4444"
 test:

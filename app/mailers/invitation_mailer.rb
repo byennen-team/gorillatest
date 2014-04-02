@@ -1,5 +1,5 @@
 class InvitationMailer < ActionMailer::Base
-  default from: "support@autotest.io"
+  default from: "support@gorillatest.com"
 
   def send_invitation(user_id, inviter_id)
     @user = find_user(user_id)
