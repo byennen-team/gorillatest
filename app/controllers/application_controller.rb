@@ -59,7 +59,11 @@ class ApplicationController < ActionController::Base
   end
 
   def unread_messages
-    @unread_messages = current_user.messages.unread
+    if current_user
+      @unread_messages = current_user.messages.unread
+    else
+      @unread_messages = []
+    end
   end
 
 end
