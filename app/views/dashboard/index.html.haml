@@ -2,15 +2,16 @@
   = pape_title('Dashboard', 'fa-home')
   = render 'shared/user_metrics'
 
-.row
-  .col-sm-12
-    .well
-      %button.close{"data-dismiss" => "alert"}
-        ×
-      %h1.semi-bold= t('welcome_title')
-      %p
-        = t('welcome')
-      = link_to 'Get Started!', '#', class: 'btn btn-primary'
+- if current_user.sign_in_count == 1
+  .row
+    .col-sm-12
+      #welcome.well
+        %button.close{"data-dismiss" => "alert"}
+          ×
+        %h1.semi-bold= t('welcome_title')
+        %p
+          = t('welcome')
+        = link_to 'Get Started!', '#', class: 'btn btn-primary'
 
 
 .row

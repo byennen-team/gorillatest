@@ -9,7 +9,7 @@
 //= require project
 //= require messages
 
-$(document).ready( ->
+$ ->
   target = window.location.hash
   if target != ""
     $("a[href='" + target + "']").tab("show")
@@ -21,4 +21,6 @@ $(document).ready( ->
     else
       $("#role_other").hide()
   )
+  $("#welcome button.close").click( ->
+    $("#welcome").slideUp()
 )
