@@ -1,6 +1,9 @@
 -content_for :head do
   =javascript_include_tag "step_status"
 
+- content_for :title do
+  Projects
+
 .row
   = pape_title('Projects', 'fa-desktop')
   = render 'shared/user_metrics'

@@ -1,4 +1,5 @@
-
+- content_for  :title do
+  Project - #{@project.name} - #{@scenario.name} - #{@test_run.number}
 - content_for :head do
   =javascript_include_tag "step_status"
   :javascript
