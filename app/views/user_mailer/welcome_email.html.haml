@@ -1,6 +1,6 @@
-%h1
-  Welcome to AutoTest
 %p
-  Thanks for signing up!
+  =t("emails.welcome.greeting_html")
 %p
-  Click #{link_to "here", projects_url} to get started!
+  =t("emails.welcome.content_html")
+%p
+  Click #{link_to "#{t("emails.welcome.text_for_link")}", projects_url, target: "_blank"} to get started!

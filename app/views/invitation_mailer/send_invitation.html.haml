@@ -2,9 +2,11 @@
   Greetings!
 %p
   #{@inviting_user.email} has invited you to try out gorillatest.com. You can accept it through the link below.
-
 %p
-  = link_to 'Accept invitation', accept_invitation_url(invitation_token: @user.invitation_token)
-
+  = link_to 'Accept invitation', accept_invitation_url(invitation_token: @user.invitation_token), target:"_blank"
 %p
   Your account won't be created until you access the link above and set your password.
+%p
+  Thanks,
+  %br
+  The Gorilla Test Crew

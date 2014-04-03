@@ -1,8 +1,15 @@
-<p>Howdy!</p>
+<p>
+  <%= t("emails.confirm_email.greeting_html") %>
+</p>
 
-<p>Please verify your email address to activate by clicking the link below:</p>
+<p>
+  <%= t("emails.confirm_email.content_html") %>
+</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(confirmation_token: @token, at_e: "email_verify"), target: "_blank" %></p>
+<p>
+  <%= link_to t("emails.confirm_email.text_for_link"), confirmation_url(confirmation_token: @token, at_e: "email_verify"), target: "_blank" %>
+</p>
 
-<p>Thanks,</p>
-<p>The Autotest team</p>
+<p>
+  <%= t("emails.confirm_email.closing_html") %>
+</p>

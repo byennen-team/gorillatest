@@ -22,3 +22,28 @@
 en:
   welcome_title: "Welcome To Gorilla Test"
   welcome: "From this dashboard, you'll be able to track how well your tests are performing and how many of your plan's minutes you've used. Our favorite part about this page, is that it allows you to visualize the amount of time you've saved on testing, all while maintaining the highest quality standards for your projects"
+  emails:
+    confirm_email:
+      greeting_html: "Woo Woo!"
+      content_html: "You just signed up for Gorilla Test, get ready to go #bananas! Before you can start your testing safari please confirm your email address by clicking the link below:"
+      text_for_link: "Confirm my account"
+      closing_html: "Thanks,<br/>The Gorilla Test Crew"
+    welcome:
+      greeting_html: "Welcome to Gorilla Test"
+      content_html: "Thanks for signing up!"
+      text_for_link: "here"
+      closing_html: "Thanks,<br/>The Gorilla Test Crew"
+    drip_email:
+      greeting_html: "Hey there, how's it going with Gorilla Test so far?"
+      content_html: "Let me know if there's anything I can help with or if there are any issues that you're having."
+      closing_html: "Mike<br/>Chief Gorilla Officer/Founder<br/><a href='http://www.gorillatest.com'>GorillaTest.com</a><br/>#bananas"
+    script_verification:
+      greeting_html: "Hey There!"
+      content_html: "Our team of Internet Gorillas has detected that you successfully added our code to your website, we knew you could do it! Welcome to the jungle! Click below to begin testing."
+      text_for_link: "Go to project"
+      closing_html: "Thanks,<br/>The Gorilla Test Crew"
+    notify_test_result:
+      greeting_html: "Whoa!"
+      content_html: "Grab yourself a #banana, because your tests are complete! To see the results, click the link below:"
+      text_for_link: "Test Results"
+      closing_html: "Thanks,<br/>The Gorilla Test Crew"

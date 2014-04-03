@@ -1,8 +1,13 @@
 %p
   #{@user.name},
 %p
-  You have been invited to join #{@project.name} on Autotest. To get started, click the link below:
+  Somebody is looking for you! You have been invited to join #{@project.name} on Gorilla Test. To get started, click the link below:
 %p
-  = link_to 'Go to Project', project_url(@project)
+  = link_to 'Go to Project', project_url(@project), target: "_blank"
 %p
-  After visiting the link above, you will have access to the shared projects dashboard.
+  Welcome to the jungle!
+%p
+  Thanks,
+  %br
+  The Gorilla Test Crew
+

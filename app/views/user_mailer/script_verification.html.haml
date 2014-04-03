@@ -1,11 +1,10 @@
-%p Hey There!
+%p
+  = t("emails.script_verification.greeting_html")
 
-%p Our magical Internet elves have detected that you successfully added our code to your site.
+%p
+  = t("emails.script_verification.content_html")
+%p
+  #{link_to t("emails.script_verification.text_for_link"), project_url(@project_id, at_e: "project_verified"), target: "_blank"}
 
-%p Woo! Let the testing begin. Please click below to be taken to your Projects Page.
-
-%p #{link_to "Go to project", project_url(@project_id, at_e: "project_verified")}
-
-%p Thanks,
-
-%p The Autotest team
+%p
+  = t("emails.script_verification.closing_html")

@@ -1,10 +1,8 @@
 %p
-  Whoa!
+  = t("emails.notify_test_result.greeting_html")
 %p
-  Your tests have completed. To review the results, click the link below:
+  = t("emails.notify_test_result.content_html")
 %p
-  #{link_to "Testing Results", @link_to_test_run}
+  #{link_to t("emails.notify_test_result.text_for_link"), @link_to_test_run, target: "_blank"}
 %p
-  Thanks,
-  %br
-  The Autotest team
+  = t("emails.notify_test_result.closing_html")
