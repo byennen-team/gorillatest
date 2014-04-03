@@ -17,7 +17,7 @@ credit_card =
 
   processCard: ->
     card =
-      name: $("#name").val()
+      name: $("#credit_card_name").val()
       number: $('#card_number').val()
       cvc: $('#card_code').val()
       expMonth: $('#card_month').val()
