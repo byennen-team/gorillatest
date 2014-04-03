@@ -18,7 +18,7 @@ en:
       unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
-        subject: "[Autotest] Please verify your email"
+        subject: "[Gorilla Test] Please verify your email"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:
