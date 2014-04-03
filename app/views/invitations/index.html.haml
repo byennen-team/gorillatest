@@ -17,8 +17,8 @@
           .jarviswidget-editbox
           .widget-body.no-padding
             = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form smart-form'} do |f|
-              = label_tag "Select a Project to invite users to: "
-              = select_tag "project_id", options_for_select(current_user.projects.map{|p| [p.name, p.id.to_s]})
+              = label_tag "Select a Project to invite users to (optional): "
+              = select_tag "project_id", options_for_select([["None", nil]] + (current_user.projects.map{|p| [p.name, p.id.to_s]}))
               = f.input :email, label: "Email (enter addresses separated by a comma)"
               %footer
                 = f.submit "Invite Users", class: "btn btn-primary button"

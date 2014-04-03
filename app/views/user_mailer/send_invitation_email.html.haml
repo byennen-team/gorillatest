@@ -1,7 +1,7 @@
 %p
   Greetings!
 %p
-  #{@inviting_user.email} has invited you to try out gorillatest.com. You can accept it through the link below.
+  #{@inviting_user.name} has invited you to try out Gorilla Test. You can accept it through the link below.
 
 %p
   = link_to 'Accept invitation', accept_invitation_url(invitation_token: @invited_user.invitation_token)

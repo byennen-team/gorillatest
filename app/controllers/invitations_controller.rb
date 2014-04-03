@@ -5,7 +5,7 @@ class InvitationsController < Devise::InvitationsController
   before_filter :resource_from_invitation_token, only: [:edit, :update]
 
   def create
-    project_id = params[:project_id]
+    project_id = params[:project_id].blank? ? nil : params[:project_id]
     @emails.each do |email|
       invited_user = User.where(email: email).first
       if !invited_user
@@ -17,10 +17,14 @@ class InvitationsController < Devise::InvitationsController
           u.invitation_sent_at = Time.now
           u.save(validate: false)
         end
-        ProjectUser.create({user_id: invited_user.id, project_id: project_id, rights: 'member'})
-        invited_user.send_project_invitation_new_user(current_user.id, project_id)
+        if project_id
+          ProjectUser.create({user_id: invited_user.id, project_id: project_id, rights: 'member'})
+          invited_user.send_project_invitation_new_user(current_user.id, project_id)
+        else
+          UserMailer.send_invitation_email(invited_user.id.to_s).deliver
+        end
       else
-        if !Project.find(project_id).users.include?(invited_user)
+        if project_id && !Project.find(project_id).users.include?(invited_user)
           ProjectUser.create({user_id: invited_user.id, project_id: project_id, rights: 'member'})
           invited_user.send_project_invitation_existing_user(current_user.id, project_id)
         end
@@ -67,7 +71,7 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def ensure_user_can_invite_to_project
-    if params[:project_id]
+    if !params[:project_id].blank?
       @project = Project.find(params[:project_id])
       if @project.creator.plan.num_users < @project.users.count + @emails.length
         flash[:notice] = "Invitations were not sent because you only have #{@project.num_invitations_remaining} invites remaining for this project! Upgrade your plan to invite more users."

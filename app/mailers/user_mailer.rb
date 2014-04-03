@@ -6,11 +6,11 @@ class UserMailer < ActionMailer::Base
     mail to: user.email, subject: "Welcome to GorillaTest"
   end
 
-  def send_invitation_email(invited_user)
-    @invited_user = invited_user
+  def send_invitation_email(invited_user_id)
+    @invited_user = User.find(invited_user_id)
     @inviting_user = @invited_user.invited_by
     @invited_user.update_attribute(:invitation_sent_at, Time.now)
-    mail to: invited_user.email, subject: "You're invited to try out GorillaTest"
+    mail to: @invited_user.email, subject: "You're invited to try out Gorilla Test"
   end
 
   def notify_test_result(current_user_id, class_name, test_run_id)
