@@ -23,4 +23,12 @@ $ ->
   )
   $("#welcome button.close").click( ->
     $("#welcome").slideUp()
-)
+  )
+
+  flashCallback = ->
+    $(".alert").fadeOut(800)
+
+  $(".alert").bind 'click', (ev) =>
+    $(".alert").fadeOut(800)
+
+  setTimeout flashCallback, 3000

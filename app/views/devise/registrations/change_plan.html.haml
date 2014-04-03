@@ -1,7 +1,6 @@
 .row
   = pape_title('Change Your Plan', 'fa-edit')
   = render 'shared/user_metrics'
-  = render 'layouts/welcome/messages'
 
 #change-plan.tab-pane
   %p You currently have #{current_user.available_minutes} of your #{current_user.plan.minutes_available} minutes of testing time remaning.
