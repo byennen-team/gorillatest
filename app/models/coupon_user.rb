@@ -12,6 +12,6 @@ class CouponUser
   private
 
   def send_coupon_email
-    UserMailer.send_coupon_email(self.coupon_id, self.user_id)
+    UserMailer.send_coupon_email(self.coupon_id, self.user_id).deliver
   end
 end
