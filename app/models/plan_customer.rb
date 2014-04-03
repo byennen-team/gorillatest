@@ -47,7 +47,7 @@ module PlanCustomer
     end
     update_attribute(:stripe_subscription_token, subscription.id)
     unless old_plan_id.nil?
-      UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s)
+      UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s).deliver
     end
   end
 
