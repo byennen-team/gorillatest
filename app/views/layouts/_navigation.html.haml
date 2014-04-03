@@ -9,7 +9,20 @@
   %nav
     %ul
       %li= nav_link "Dashboard", dashboard_path, "fa-home"
-      %li= nav_link "Projects", projects_path, "fa-desktop"
+      %li
+        = nav_link "Projects", projects_path, "fa-desktop"
+        - if projects_controller?(params[:controller])
+          %ul{style: "display: block;"}
+            - current_user.projects.each do |project|
+              - if current_project?(project)
+                %li.active= link_to project.name, project_path(project)
+              - else
+                %li= link_to project.name, project_path(project)
+        - else
+          %ul{style: "display: none;"}
+            - current_user.projects.each do |project|
+              %li= link_to project.name, project_path(project)
+
       %li= nav_link "Invite Users", invitations_path, "fa-group"
       -#%li= nav_link "Teams", "javascript:;", "fa-bullhorn"
       %li

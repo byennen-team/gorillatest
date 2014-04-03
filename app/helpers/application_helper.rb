@@ -2,7 +2,9 @@ module ApplicationHelper
   #add active class to links
   def nav_link(link_text, link_path, italic_class)
     class_name = current_page?(link_path) ? 'active' : ''
-
+    if link_text == "Projects" && projects_controller?(params[:controller])
+      class_name = 'active'
+    end
     content_tag(:li, :class => class_name) do
       link_to link_path do
         html = content_tag(:i, "", class: "fa fa-lg fa-fw #{italic_class}") + content_tag(:span, link_text, class: "menu-item-parent")
@@ -17,6 +19,14 @@ module ApplicationHelper
   def user_nav_link_text(glyph_name, text)
     html = "#{glyph(glyph_name)}&nbsp;#{text}"
     html.html_safe
+  end
+
+  def projects_controller?(controller)
+    %w(projects scenarios test_runs project_test_runs).include?(controller)
+  end
+
+  def current_project?(project)
+    params[:project_id] == project.slug || params[:id] == project.slug
   end
 
   def delete_glyph(options={})
