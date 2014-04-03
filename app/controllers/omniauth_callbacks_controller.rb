@@ -6,6 +6,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.save
       @user.confirm! unless @user.sign_in_count > 0
       if @user.invited_by_id
+        @user.send_welcome_email
         @user.invited_by.messages.create({message: "#{@user.name} has accepted your invitation", url: "javascript:void(0)"})
       end
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Google"
@@ -27,6 +28,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.save
       @user.confirm! unless @user.sign_in_count > 0
       if @user.invited_by_id
+        @user.send_welcome_email
         @user.invited_by.messages.create({message: "#{@user.name} has accepted your invitation", url: "javascript:void(0)"})
       end
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github"

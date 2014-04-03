@@ -161,9 +161,7 @@ class User
   end
 
   def send_welcome_email
-    if self.invitation_token.blank?
-      UserMailer.welcome_email(self).deliver
-    end
+    UserMailer.welcome_email(self).deliver
   end
 
   def has_minutes_available?

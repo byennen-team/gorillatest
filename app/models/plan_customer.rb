@@ -33,7 +33,7 @@ module PlanCustomer
     customer
   end
 
-  def subscribe_to(new_plan)
+  def subscribe_to(new_plan, upgrade = true)
     old_plan_id = self.plan ? self.plan.id : nil
     customer = create_or_retrieve_stripe_customer
     unless stripe_subscription_token.nil?
@@ -46,7 +46,7 @@ module PlanCustomer
       subscription = customer.subscriptions.create(plan: new_plan.stripe_id)
     end
     update_attribute(:stripe_subscription_token, subscription.id)
-    unless old_plan_id.nil?
+    if !old_plan_id.nil? && upgrade
       UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s).deliver
     end
   end
@@ -81,7 +81,7 @@ module PlanCustomer
 
   # Make sure they have a stripe customer and free plan
   def subscribe_to_plan
-    subscribe_to(plan)
+    subscribe_to(plan, false)
   end
 
 end
