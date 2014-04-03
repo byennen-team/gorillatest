@@ -81,7 +81,7 @@ class ProjectsController < ApplicationController
     @project_user = ProjectUser.where(project_id: @project.id, user_id: @user.id)
     if @project_user.destroy
       respond_to do |format|
-        format.html { redirect_to edit_project_path(@project) }
+        format.html { redirect_to edit_project_path(@project, anchor: "users") }
       end
     end
   end
