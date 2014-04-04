@@ -35,7 +35,7 @@ Autotest.Messages.Iframe.add("featureAdded", (data) ->
 
 Autotest.Messages.Iframe.add("showScenario", (data) ->
   developerIndex = new Autotest.Views.DeveloperIndex
-  developerIndex.showCurrentScenario(data.featureName, data.scenarioName)
+  developerIndex.showCurrentScenario(data.projectName, data.scenarioName)
 )
 
 Autotest.Messages.Iframe.add("playStep", (data) ->
