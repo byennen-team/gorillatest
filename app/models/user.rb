@@ -205,7 +205,13 @@ class User
 
         demo.scenarios.each do |scenario|
           clone_scenario = scenario.clone
+          clone_scenario.steps.each do |step|
+            if step.event_type == "waitForCurrentUrl" || step.event_type == "get"
+              step.update_attribute(:text, step.text.gsub(/(&?\??project_id=)(.+)/, "\\1#{clone_project.id.to_s}"))
+            end
+          end
           clone_scenario.project_id = clone_project.id
+          clone_scenario.start_url = clone_project.url
           clone_scenario.save!
         end
       end
