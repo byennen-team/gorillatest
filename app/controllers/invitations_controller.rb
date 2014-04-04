@@ -4,7 +4,7 @@ class InvitationsController < Devise::InvitationsController
   before_filter :split_emails, :ensure_user_can_invite_to_project, only: [:create]
   before_filter :resource_from_invitation_token, only: [:edit, :update]
 
-  layout 'session'
+  layout :get_layout
 
   def create
     project_id = params[:project_id].blank? ? nil : params[:project_id]
@@ -94,4 +94,10 @@ class InvitationsController < Devise::InvitationsController
   def after_accept_path_for(resource)
     projects_path
   end
+
+  def get_layout
+    return 'session' if params[:action] == 'edit'
+    return 'application'
+  end
+
 end
