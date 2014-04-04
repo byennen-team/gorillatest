@@ -4,6 +4,8 @@ class InvitationsController < Devise::InvitationsController
   before_filter :split_emails, :ensure_user_can_invite_to_project, only: [:create]
   before_filter :resource_from_invitation_token, only: [:edit, :update]
 
+  layout 'session'
+
   def create
     project_id = params[:project_id].blank? ? nil : params[:project_id]
     @emails.each do |email|
