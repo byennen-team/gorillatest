@@ -51,6 +51,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
 
 
   pause: ->
+    window.clearInterval(Autotest.DeveloperInterval)
 
   next: ->
 
