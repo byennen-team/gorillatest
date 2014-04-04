@@ -55,7 +55,7 @@ Autotest::Application.routes.draw do
     post '/cancel' => "registrations#cancel_user", as: "cancel"
   end
 
-  get 'dashboard', to: "dashboard#index.html.haml"
+  get 'dashboard', to: "dashboard#index"
 
   as :user do
     get 'invitations', to: 'invitations#index', as: 'invitations'

@@ -18,34 +18,36 @@
 
 
 .row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .well.well-sm
-      .smart-timeline
-        %ul.smart-timeline-list
-          //Passing Example
-          %li
-            .smart-timeline-icon.passing
-              %i.fa.fa-fw.fa-check
-            .smart-timeline-time
-              %small just now
-            .smart-timeline-content
-              %p
-                %a.txt-color-greenDark{href: "javascript:void(0);"}
-                  %strong Project Name
-              %p
-                Test Details
-          //Failing Example
-          %li
-            .smart-timeline-icon.failing
-              %i.fa.fa-fw.fa-exclamation
-            .smart-timeline-time
-              %small Mar 18, 2014
-            .smart-timeline-content
-              %p
-                %a.txt-color-red{href: "javascript:void(0);"}
-                  %strong Project Name
-              %p
-                Test Details
+  .col-md-12
+    .awidget
+      .awidget-head
+        %h3 Last 5 Tests
+      .awidget-body
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          .well.well-sm
+            .smart-timeline
+              %ul.smart-timeline-list
+                - @last5_test_runs.first(5).each do |test_run|
+                  //Passing Example
+                  %li
+                    .smart-timeline-icon{class: "#{test_run_status(test_run.status)}"}
+                      %i.fa.fa-fw{class: "#{bang_or_check(test_run.status)}"}
+                    .smart-timeline-time
+                      %small
+                        = distance_of_time_in_words_to_now(test_run.ran_at)
+                        ago
+                    .smart-timeline-content
+                      %p
+                        = link_to test_run_name(test_run), test_run_link(test_run), class: test_run_link_class(test_run.status)
+                      %p
+                        = test_run_platforms(test_run)
+                        &nbsp;&nbsp;
+                        %strong Ran At:
+                        = test_run.ran_at.strftime('%m/%d/%Y %l:%M%P')
+                        &nbsp;&nbsp;
+                        %strong Ran By:
+                        = gravatar_image_tag(test_run.user)
+                        = test_run.user.name
 .row
   .col-md-12
     / Project widget
