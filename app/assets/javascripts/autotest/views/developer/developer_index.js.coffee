@@ -26,7 +26,7 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
     @postMessage({messageType: "stopPlayback"})
 
   pause: ->
-    @showHidePlayButtons
+    @showHidePlayButtons()
     @postMessage({messageType: "pausePlayback"})
 
   forward: ->
