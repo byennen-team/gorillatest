@@ -8,6 +8,10 @@ class Message
 
   belongs_to :user
 
+  after_create :send_to_pusher
 
+  def send_to_pusher
+    Pusher.trigger(["messages_#{user_id.to_s}"], 'new_message', MessageSerializer.new(self).as_json(root: false))
+  end
 
 end

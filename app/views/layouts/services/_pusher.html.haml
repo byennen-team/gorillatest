@@ -2,3 +2,4 @@
 %script{type: 'text/javascript'}
   pusher = new Pusher("#{Pusher.key}")
   window.pusher = pusher
+  window.applicationChannels = [window.pusher.subscribe("messages_#{current_user.id.to_s}")]

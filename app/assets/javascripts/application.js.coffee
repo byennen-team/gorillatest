@@ -8,6 +8,7 @@
 //= require layout
 //= require project
 //= require messages
+//= require pusher
 
 $ ->
   target = window.location.hash
@@ -32,3 +33,5 @@ $ ->
     $(".alert").fadeOut(800)
 
   setTimeout flashCallback, 3000
+
+  bindApplicationChannels()

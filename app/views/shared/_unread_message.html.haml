@@ -1,2 +1,2 @@
-%li
+%li{id: "message_#{unread_message.id.to_s}"}
   = link_to unread_message.message, unread_message.url, data: {message_id: unread_message.id.to_s}
