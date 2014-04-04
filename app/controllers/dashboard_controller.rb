@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
 
   def index
     @projects = current_user.projects
+    @concurrency_limit = current_user.plan.concurrent_browsers
     project_ids = current_user.projects.map(&:id)
     @project_last5tests = ProjectTestRun.in({project_id: project_ids}).limit(5).order('ran_at DESC').limit(5).to_a
     scenario_ids = Scenario.in({project_id: project_ids}).map(&:id)
