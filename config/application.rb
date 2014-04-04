@@ -32,5 +32,8 @@ module Autotest
 
     # Heroku setting for assets
     config.assets.initialize_on_precompile = false
+    config.to_prepare do
+      Devise::PasswordsController.layout "session"
+    end
   end
 end
