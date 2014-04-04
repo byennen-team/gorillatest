@@ -77,7 +77,7 @@
             #{@concurrency_limit}
           concurrent browsers for a test run
         = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
-  = render "embed_script_modal", project: project, show_buttons: true
+  = render "/projects/embed_script_modal", project: project, show_buttons: true
   .modal.fade{id: "invite-user-#{project.id}"}
     .modal-dialog
       .modal-content

@@ -37,23 +37,3 @@
           %ul.project
             = render partial: 'project', collection: @projects
           .clearfix
-
-
-#add-project.modal.fade
-  .modal-dialog
-    .modal-content
-      = simple_form_for Project.new do |f|
-        .modal-header
-          -unless current_user.projects.size == 0
-            %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
-          %h4.modal-title Add Project
-        .modal-body
-          = f.input :name
-          = f.input :url
-          %p Does your project have HTTP basic access authentication? If so enter the credentials below:
-          = f.input :basic_auth_username
-          = f.input :basic_auth_password
-        .modal-footer
-          -unless current_user.projects.size == 0
-            %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
-          = f.submit "Add Project", class: "btn btn-primary"
