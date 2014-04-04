@@ -23,4 +23,6 @@ $(document).ready ->
 
     success: (element) ->
       element.text("Ok").addClass("valid").closest(".control-group").removeClass("error").addClass "success"
+      has_error = element.parent(".input").siblings(".has-error")
+      has_error.hide()
       return
