@@ -11,7 +11,7 @@ class Api::V1::ScenariosController < Api::V1::BaseController
 
   def show
     @scenario = current_project.scenarios.find(params[:id])
-    render json: @scenario, root: false
+    render json: @scenario.attributes.merge(projectName: @scenario.project.name), root: false
   end
 
   def create

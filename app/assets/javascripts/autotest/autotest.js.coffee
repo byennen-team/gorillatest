@@ -69,10 +69,9 @@ $(document).ready ->
           console.log("have scenario")
           developerIndex = new Autotest.Views.DeveloperIndex
           $("iframe").load ->
-            Autotest.Messages.Parent.post({messageType: "showScenario", scenarioName: Autotest.currentScenario.get("name")})
+            Autotest.Messages.Parent.post({messageType: "showScenario", projectName: Autotest.currentScenario.get("projectName"), scenarioName: Autotest.currentScenario.get("name")})
           if window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
             Autotest.Messages.Parent.post({messageType: "resumePlayback"})
-
         error: ->
           alert("that scenario doesn't exist")
       })
