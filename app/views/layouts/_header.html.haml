@@ -44,10 +44,10 @@
     / Suggestion: populate this list with fetch and push technique
     %ul.dropdown-menu#messages
       - if @unread_messages.size == 0
-        %li
+        %li#no_unread_messages
           %a{href: "javascript: void(0);"}You have no unread messages
       - else
-        = render partial: '/shared/unread_message', collection: @unread_messages
+        = render partial: '/shared/unread_message', collection: @unread_messages.reverse
       %li.divider
       %li
         %a#clear_messages{href: "javascript:void(0);"}

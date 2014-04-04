@@ -47,6 +47,7 @@ class InvitationsController < Devise::InvitationsController
     resource.assign_attributes(invitation_params)
     if resource.save
       resource.invited_by.messages.create({message: "#{resource.name} has accepted your invitation", url: "javascript:void(0)"})
+      resource.update_attribute(:invitation_accepted_at, Time.now)
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message :notice, flash_message
       sign_in(resource_name, resource)
