@@ -111,7 +111,7 @@ module ApplicationHelper
   end
 
   def pape_title(title, icon)
-    content_tag(:div, class: 'col-xs-12 col-sm-7 col-md-7 col-lg-4') do
+    content_tag(:div, class: 'col-xs-12 col-sm-7 col-md-11 col-lg-8') do
       content_tag(:h1, class: 'page-title txt-color-blueDark') do
         content_tag(:i, "", class: "fa fa-fw #{icon}") + title
       end
@@ -121,7 +121,7 @@ module ApplicationHelper
   def form_title(title, icon)
     content_tag(:section, id: 'widget-grid') do
       content_tag(:div, class: 'row') do
-        content_tag(:article, class: 'col-sm-12.col-md-12.col-lg-12') do
+        content_tag(:article, class: 'col-sm-12.col-md-8.col-lg-20') do
           content_tag(:header) do
             content_tag(:span, class: 'widget-icon') do
               content_tag(:i, "", class: "fa #{icon}") + content_tag(:h2, title)

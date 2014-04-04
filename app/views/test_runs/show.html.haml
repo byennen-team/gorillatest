@@ -11,39 +11,39 @@
     window.sec = #{@test_run.duration}
     window.completed = #{!@test_run.completed_at.nil?}
 
-.page-content.blocky
-  .container
-    %ol.breadcrumb
-      %li
-        = link_to "Projects", projects_path
-      %li
-        = link_to @scenario.project.name, project_path(@project)
-      %li
-        = link_to @scenario.name, project_test_path(@project, @scenario.slug)
-      %li.active
-        = link_to "Test Run ##{@test_run.number}", project_test_test_run_path(@project, @scenario.slug, @test_run)
-    %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
-      %tr
-        %th{style: "width: 100px;"} Started By:
-        %td
-          = gravatar_image_tag(current_user, 16)
-          = @test_run.user.name
-        %th{style: "width: 100px;"} Started On:
-        %td= @test_run.created_at.strftime('%A at %H:%M')
-      %tr
-        %th{style: "width: 100px;"} Status:
-        %td
-          = test_run_status(@test_run)
-        %th{style: "width: 100px;"} Duration:
-        %td= duration_to_hours_minutes_seconds(@test_run.duration)
+.row
+  = pape_title(raw("Projects > #{link_to @project.name, project_path(@project)} > #{link_to(@scenario.name, project_test_test_runs_path(@project, @scenario.slug))}"), 'fa-desktop')
+  = render 'shared/user_metrics'
 
-    %br
-    %br
+.row
+  .col-md-12
+    / Project widget
+    .awidget
+      .awidget-head
+        %h3 Test Run #{@test_run.number}
+      .awidget-body
+        %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
+          %tr
+            %th{style: "width: 100px;"} Started By:
+            %td
+              = gravatar_image_tag(current_user, 16)
+              = @test_run.user.name
+            %th{style: "width: 100px;"} Started On:
+            %td= @test_run.created_at.strftime('%A at %H:%M')
+          %tr
+            %th{style: "width: 100px;"} Status:
+            %td
+              = test_run_status(@test_run)
+            %th{style: "width: 100px;"} Duration:
+            %td= duration_to_hours_minutes_seconds(@test_run.duration)
 
-    - @test_run.browser_tests.each do |test|
-      / - if test.status != nil
-      / .test{class: "#{test.status}"}
-      /   = render partial: 'test_history', locals: {test: test}
-      / - else
-      .test
-        = render partial: 'test', locals: {test: test}
+        %br
+        %br
+
+        - @test_run.browser_tests.each do |test|
+          / - if test.status != nil
+          / .test{class: "#{test.status}"}
+          /   = render partial: 'test_history', locals: {test: test}
+          / - else
+          .test
+            = render partial: 'test', locals: {test: test}

@@ -4,15 +4,12 @@
 - content_for :title do
   Projects - #{@project.name}
 
+.row
+  = pape_title("Projects > #{@project.name}", 'fa-desktop')
+  = render 'shared/user_metrics'
+
 %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
-/= render 'shared/application/side_menu'
-/.mainy
-/ Page title
-%ol.breadcrumb
-  %li
-    = link_to "Projects", projects_path
-  %li.active
-    = link_to @project.name
+
 .row
   .col-md-12
     / Project widget

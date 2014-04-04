@@ -1,30 +1,31 @@
 - content_for :title do
   Project - #{@project.name} - #{@scenario.name}
-.page-content.blocky
-  .container
-    .pull-right
-      - if @project.owner?(current_user)
-        = link_to glyph_button("remove", "Delete Test"), project_test_path(@project, @scenario.slug), method: :delete, class: "btn btn-danger", confirm: "Are you sure?"
-      - else
-        = link_to glyph_button("remove", "Delete Test"), '#', onclick: "alert('Only the project owner has permission to delete tests');", class: "btn btn-danger"
-    %ol.breadcrumb
-      %li
-        = link_to "Projects", projects_path
-      %li
-        = link_to @project.name, project_path(@project)
-      %li.active
-        = link_to @scenario.name, project_test_test_runs_path(@project, @scenario.slug)
 
-    %br
-    %br
-    - @scenario.test_runs.reverse.each do |test_run|
-      - if test_run.status != nil
-        .test_run{class: test_run.status}
-          = render partial: 'test_run', locals: {test_run: test_run}
-      - else
-        .test_run
-          = render partial: 'test_run', locals: {test_run: test_run}
-        %br{style: "clear: both;"}
+.row
+  = pape_title(raw("Projects > #{link_to(@project.name, project_path(@project))} > #{link_to(@scenario.name, project_test_test_runs_path(@project, @scenario.slug))}"), 'fa-desktop')
+  = render 'shared/user_metrics'
+.row
+  .col-md-12
+    / Project widget
+    .awidget
+      .awidget-head
+        .pull-right
+          - if @project.owner?(current_user)
+            = link_to glyph_button("remove", "Delete Test"), project_test_path(@project, @scenario.slug), method: :delete, class: "btn btn-danger", confirm: "Are you sure?"
+          - else
+            = link_to glyph_button("remove", "Delete Test"), '#', onclick: "alert('Only the project owner has permission to delete tests');", class: "btn btn-danger"
+        %h3 Test Runs
+      .awidget-body
+        %br
+        %br
+        - @scenario.test_runs.reverse.each do |test_run|
+          - if test_run.status != nil
+            .test_run{class: test_run.status}
+              = render partial: 'test_run', locals: {test_run: test_run}
+          - else
+            .test_run
+              = render partial: 'test_run', locals: {test_run: test_run}
+            %br{style: "clear: both;"}
 
 
 
