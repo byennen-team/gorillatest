@@ -74,3 +74,8 @@ Autotest.Messages.Parent.add("forwardPlayback", (featureId) ->
 Autotest.Messages.Parent.add("backwardPlayback", (featureId) ->
   Autoest.currentSteps.previous()
 )
+
+Autotest.Messages.Parent.add("resumePlayback", (data) ->
+  steps = Autotest.currentScenario.steps()
+  steps.play()
+)

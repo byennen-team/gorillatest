@@ -5,11 +5,11 @@ class Autotest.Steps.WaitForUrlStep
 
 
   perform: ->
-    # Wait until page is loaded???
     if document.location.href == @url
-      return true
+      result = true
     else
-      return false
+      result = false
+    return result
 
 Autotest.Developer.Steps.add("waitForCurrentUrl", (step) ->
   waitForUrlStep = new Autotest.Steps.WaitForUrlStep(step)
