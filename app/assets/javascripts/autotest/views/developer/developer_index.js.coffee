@@ -27,7 +27,7 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
   stop: (e) ->
     console.log("view stop event")
     e.stopImmediatePropagation()
-    @showHidePlayButtons()
+    # @showHidePlayButtons()
     @postMessage({messageType: "stopPlayback"})
 
   pause: (e) ->

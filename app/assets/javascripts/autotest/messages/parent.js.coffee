@@ -56,6 +56,8 @@ Autotest.Messages.Parent.add("stopSelectElement", (featureId) ->
 
 Autotest.Messages.Parent.add("stopPlayback", (featureId) ->
   Autotest.currentSteps.stop()
+  # developerIndex = new Autotest.Views.DeveloperIndex
+  # developerIndex.showHidePlayButtons()
 )
 
 Autotest.Messages.Parent.add("startPlayback", (featureId) ->
