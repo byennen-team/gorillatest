@@ -50,5 +50,5 @@ Autotest.Messages.Iframe.add("stopPlayback", (data) ->
 
 Autotest.Messages.Iframe.add("resumePlayback", (data) ->
   developerIndex = new Autotest.Views.DeveloperIndex
-  developerIndex.play()
+  $("#play").trigger("click")
 )

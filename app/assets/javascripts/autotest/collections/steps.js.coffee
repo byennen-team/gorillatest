@@ -4,7 +4,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
 
   initialize: (scenario) ->
     this.url = "#{scenario.url()}/steps"
-    @speed = 1000
+    @speed = 2000
     @selected = null
     @performing = null
     @failedSteps = []
@@ -47,11 +47,12 @@ class Autotest.Collections.Steps extends Backbone.Collection
     window.sessionStorage.removeItem("autoTest.developerPlaying")
     window.sessionStorage.removeItem("autoTest.developerStep")
     Autotest.Messages.Parent.post({messageType: "stopPlayback"})
-    window.location.href = window.location.href
+    # window.location.href = window.location.href
 
 
   pause: ->
     window.clearInterval(Autotest.DeveloperInterval)
+    console.log("Steps pause function")
 
   next: ->
 
@@ -60,7 +61,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
   performCurrentStep: ->
     allDoneCurrent = true
     unless @selected
-        return allDoneCurrent
+      return allDoneCurrent
 
     Autotest.Messages.Parent.post({messageType: "playStep", message: "Playing: #{@selected.get('to_s')}"})
     @performing = true
@@ -76,18 +77,18 @@ class Autotest.Collections.Steps extends Backbone.Collection
     #     # @add(@pendingSteps)
     #     # @pendingSteps = []
     # else
-        @incrementFailures()
-        @pendingSteps = []
+      @incrementFailures()
+      @pendingSteps = []
         # return (not allDone)
 
     next = @at(@indexOf(@selected) + 1)
 
     if next?
-        window.sessionStorage.setItem("autoTest.developerStep", @indexOf(@selected))
-        @select(next)
-        return (not allDoneCurrent)
+      window.sessionStorage.setItem("autoTest.developerStep", @indexOf(@selected))
+      @select(next)
+      return (not allDoneCurrent)
     else
-        return allDoneCurrent
+      return allDoneCurrent
 
   incrementFailures: ->
     console.log("recording failure")

@@ -1,5 +1,7 @@
-Pusher.log = (message) ->
-  window.console.log message  if window.console and window.console.log
+try
+  Pusher.log = (message) ->
+    window.console.log message  if window.console and window.console.log
+catch error
 
 channels = []
 window.channels = channels

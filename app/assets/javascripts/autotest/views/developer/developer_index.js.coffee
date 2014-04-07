@@ -1,6 +1,7 @@
 class Autotest.Views.DeveloperIndex extends Backbone.View
 
   el: "#button-bar"
+
   events: {
     "click #play": "play"
     "click #stop": "stop"
@@ -17,15 +18,21 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
   showPlayStep: (message) ->
     console.log("Playing Step: #{message}")
 
-  play: ->
+  play: (e) ->
+    console.log("view play event")
+    e.stopImmediatePropagation()
     @showHidePlayButtons()
     @postMessage({messageType: "startPlayback"})
 
   stop: ->
+    console.log("view stop event")
+    e.stopImmediatePropagation()
     @showHidePlayButtons()
     @postMessage({messageType: "stopPlayback"})
 
-  pause: ->
+  pause: (e) ->
+    console.log("view pause function")
+    e.stopImmediatePropagation()
     @showHidePlayButtons()
     @postMessage({messageType: "pausePlayback"})
 
