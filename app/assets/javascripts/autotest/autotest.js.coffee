@@ -60,7 +60,9 @@ $(document).ready ->
     console.log("Developer mode is #{Autotest.developerMode}")
     if Autotest.developerMode == true
       devIframeHtml = JST["autotest/templates/developer"]
+      devMouseHtml = JST["autotest/templates/developer_mouse"]
       window.autoTestDeveloper = true
+      $("body").prepend(devMouseHtml)
       $("body").prepend(devIframeHtml)
       scenario = new Autotest.Models.Scenario({id: Autotest.developerScenarioId})
       scenario.fetch({

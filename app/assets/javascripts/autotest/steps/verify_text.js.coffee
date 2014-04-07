@@ -9,9 +9,10 @@ class Autotest.Steps.VerifyTextStep extends Autotest.Steps.TargetedStep
     matched = $("body:contains('#{@text}')")
     if matched.length > 0
       # @findAndReplace(@text)
-      return @$target
+      result = true
     else
-      return false
+      result = false
+    return result
 
   # findAndReplace: (searchText, searchNode) ->
 
