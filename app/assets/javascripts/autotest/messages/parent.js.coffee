@@ -55,6 +55,7 @@ Autotest.Messages.Parent.add("stopSelectElement", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("stopPlayback", (featureId) ->
+  Autotest.currentSteps.stop()
 )
 
 Autotest.Messages.Parent.add("startPlayback", (featureId) ->
