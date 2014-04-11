@@ -1,11 +1,7 @@
-%p
-  #{@user.name},
-%p
-  Somebody is looking for you! You have been invited to join #{@project.name} on Gorilla Test. To get started, click the link below:
-%p
-  = link_to 'Go to Project', project_url(@project), target: "_blank"
-%p
-  Welcome to the jungle!
+%h3 #{@user.name},
+%p.lead Somebody is looking for you! You have been invited to join #{@project.name} on Gorilla Test. To get started, click the link below:
+%p.callout= link_to 'Go to Project', project_url(@project), target: "_blank"
+%p Welcome to the jungle!
 %p
   Thanks,
   %br

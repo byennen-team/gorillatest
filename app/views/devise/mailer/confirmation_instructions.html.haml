@@ -1,0 +1,7 @@
+%h3 Woo Woo!
+%p.lead You just signed up for Gorilla Test, get ready to go #bananas! Before you can start your testing safari please confirm your email address by clicking the link below:
+%p.callout= link_to t("emails.confirm_email.text_for_link"), confirmation_url(confirmation_token: @token, at_e: "email_verify"), target: "_blank"
+%p
+  Thanks,
+  %br
+  The Gorilla Test Crew

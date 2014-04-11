@@ -1,10 +1,4 @@
-%p
-  = t("emails.script_verification.greeting_html")
-
-%p
-  = t("emails.script_verification.content_html")
-%p
-  #{link_to t("emails.script_verification.text_for_link"), project_url(@project_id, at_e: "project_verified"), target: "_blank"}
-
-%p
-  = t("emails.script_verification.closing_html")
+%h3= t("emails.script_verification.greeting_html")
+%p.lead= t("emails.script_verification.content_html")
+%p.callout= link_to t("emails.script_verification.text_for_link"), project_url(@project_id, at_e: "project_verified"), target: "_blank"
+%p= t("emails.script_verification.closing_html")

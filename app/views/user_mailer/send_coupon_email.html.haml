@@ -1,5 +1,4 @@
-%p
-  Thank you for requesting more minutes for your account!
-%p
-  This is your coupon code for additional minutes: #{@coupon.code}
-%p
+%h3 Thank you for requesting more minutes for your account!
+%p.lead This is your coupon code for additional minutes:
+%p.callout #{@coupon.code}
+%p= t("emails.script_verification.closing_html")

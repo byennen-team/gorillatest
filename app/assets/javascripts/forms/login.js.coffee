@@ -10,9 +10,5 @@ $(document).ready ->
         required: true
 
     highlight: (element) ->
-      $(element).closest(".control-group").removeClass("success").addClass "error"
-      return
-
-    success: (element) ->
-      element.text("Ok").addClass("valid").closest(".control-group").removeClass("error").addClass "success"
+      $(element).closest(".control-group").addClass "error"
       return

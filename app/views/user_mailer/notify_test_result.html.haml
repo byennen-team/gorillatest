@@ -1,8 +1,4 @@
-%p
-  = t("emails.notify_test_result.greeting_html")
-%p
-  = t("emails.notify_test_result.content_html")
-%p
-  #{link_to t("emails.notify_test_result.text_for_link"), @link_to_test_run, target: "_blank"}
-%p
-  = t("emails.notify_test_result.closing_html")
+%h3= t("emails.notify_test_result.greeting_html")
+%p.lead= t("emails.notify_test_result.content_html")
+%p.callout= link_to t("emails.notify_test_result.text_for_link"), @link_to_test_run, target: "_blank"
+%p= t("emails.notify_test_result.closing_html")
