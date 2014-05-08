@@ -43,9 +43,6 @@
                       %p
                         = test_run_platforms(test_run)
                         &nbsp;&nbsp;
-                        %strong Ran At:
-                        = test_run.ran_at.strftime('%m/%d/%Y %l:%M%P')
-                        &nbsp;&nbsp;
                         %strong Ran By:
                         = gravatar_image_tag(test_run.user)
                         = test_run.user.name

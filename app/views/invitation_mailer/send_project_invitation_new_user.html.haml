@@ -1,11 +1,7 @@
-%p
-  Hi there!
-%p
-  You have been invited to join the project owned by #{@inviting_user.email} on Gorilla Test. To get started, click the link below:
-%p
-  = link_to 'Accept invitation', accept_invitation_url(invitation_token: @user.invitation_token, at_e: "new_user_invite_#{CGI.escape(@inviting_user.email)}", target: "_blank")
-%p
-  Not sure if you knew, but all gorillas are apes, although not all apes are gorillas. #bananas
+%h3 Hi there!
+%p.lead You have been invited to join the project owned by #{@inviting_user.email} on Gorilla Test. To get started, click the link below:
+%p.callout= link_to 'Accept invitation', accept_invitation_url(invitation_token: @user.invitation_token, at_e: "new_user_invite_#{CGI.escape(@inviting_user.email)}", target: "_blank")
+%p Not sure if you knew, but all gorillas are apes, although not all apes are gorillas. #bananas
 %p
   Thanks,
   %br

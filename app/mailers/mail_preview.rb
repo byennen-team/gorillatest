@@ -1,4 +1,5 @@
 class MailPreview < MailView
+
     # Pull data from existing fixtures
   def notify_failed_test
     # @project = Project.last

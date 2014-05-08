@@ -11,9 +11,9 @@
           %td{style: "width: 200px;"}
             = gravatar_image_tag(scenario.test_runs.first.user, 16)
             = scenario.test_runs.first.user.name
-          %th{style: "padding-right: 5px;"} Started On:
+          %th{style: "padding-right: 5px;"} Ran:
           %td{style: "width: 200px;"}
-            = scenario.test_runs.first.created_at.strftime('%A at %H:%M')
+            #{distance_of_time_in_words_to_now(scenario.test_runs.first.created_at)} ago
           %th{style: "padding-right: 5px;"} Duration:
           %td= duration_to_hours_minutes_seconds(scenario.test_runs.first.duration)
   %div{id: "test_run-#{scenario.id}", style: "display: none;"}

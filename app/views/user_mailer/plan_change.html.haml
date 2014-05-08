@@ -1,16 +1,7 @@
-%p
-  #{@user.name},
-%p
-  Your Account test account has successfully been changed from:
-%p
-  #{@old_plan.name.upcase}
-%p
-  to
-%p
-  #{@new_plan.name.upcase}
-%p
-  #bananas are on us (this time)
-%p
-  Thanks,
-%p
-  The Gorilla Test Crew
+%h3 #{@user.name},
+%p.lead Your Account test account has successfully been changed from:
+%p #{@old_plan.name.upcase}
+%p to
+%p #{@new_plan.name.upcase}
+%p.callout #bananas are on us (this time)
+%p= t("emails.script_verification.closing_html")

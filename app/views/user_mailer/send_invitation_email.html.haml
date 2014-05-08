@@ -1,10 +1,5 @@
-%p
-  Greetings!
-%p
-  #{@inviting_user.name} has invited you to try out Gorilla Test. You can accept it through the link below.
-
-%p
-  = link_to 'Accept invitation', accept_invitation_url(invitation_token: @invited_user.invitation_token), target: "_blank"
-
-%p
-  Your account won't be created until you access the link above and set your password.
+%h3 Greetings!
+%p.lead #{@inviting_user.name} has invited you to try out Gorilla Test. You can accept it through the link below.
+%p.callout= link_to 'Accept invitation', accept_invitation_url(invitation_token: @invited_user.invitation_token), target: "_blank"
+%p Your account won't be created until you access the link above and set your password.
+%p= t("emails.script_verification.closing_html")
