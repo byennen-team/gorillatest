@@ -37,6 +37,7 @@ window.channels = channels
       console.log("appending to channel #{channel.name}")
       data.channel_name = channel.name
       $("##{channel.name} .panel-body").append(scenarioTemplate(data))
+      alert("Appended scenario")
       return
     channel.bind "step_pass", (data) ->
       console.log data.message
