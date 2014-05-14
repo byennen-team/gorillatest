@@ -18,8 +18,8 @@
           = f.input :name
           = f.input :url
           %br
-          = link_to "Show Advanced Settings", "#", id: "show_project_advanced_settings"
-          = link_to "Hide Advanced Settings", "#", id: "hide_project_advanced_settings", style: "display: none;"
+          = link_to "Show Advanced Settings", "javascript:void();", id: "show_project_advanced_settings"
+          = link_to "Hide Advanced Settings", "javascript:void()", id: "hide_project_advanced_settings", style: "display: none;"
           #advanced_settings{style: "display: none;"}
             %br
             %p Does your project have HTTP basic access authentication? If so enter the credentials below:
