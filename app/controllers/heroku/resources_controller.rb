@@ -10,8 +10,6 @@ class Heroku::ResourcesController < ApplicationController
       # Schedule project creation through worker
       response = {id: @user.id.to_s}
       render json: response
-    else
-      Rails.logger.debug(@user.errors.inspect)
     end
   end
 
@@ -34,9 +32,7 @@ class Heroku::ResourcesController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      Rails.logger.debug("username is #{username}")
-      Rails.logger.debug("password is #{password}")
-      username == "gorilla_test" &&
+      username == "gorillatest" &&
         password == "d1079df84eb12770c6d068b778024553"
     end
   end
