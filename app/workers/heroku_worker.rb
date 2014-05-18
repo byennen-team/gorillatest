@@ -1,6 +1,6 @@
 class HerokuWorker
 
-  include SIdekiq::Worker
+  include Sidekiq::Worker
 
   def perform(method, *args)
     self.send(method, *args)
@@ -10,3 +10,5 @@ class HerokuWorker
     @user = User.find(user_id)
     @user.create_heroku_project
   end
+
+end
