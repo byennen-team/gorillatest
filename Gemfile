@@ -74,6 +74,7 @@ group :development do
   gem 'pry'
   gem 'pry-rails'
   gem 'letter_opener'
+  gem 'kensa'
 end
 
 group :development, :test do

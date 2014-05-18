@@ -155,6 +155,8 @@ GEM
       devise (>= 3.2.0)
     diff-lcs (1.2.5)
     docile (1.1.3)
+    domain_name (0.5.18)
+      unf (>= 0.0.5, < 1.0.0)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -246,6 +248,11 @@ GEM
     json (1.8.1)
     jwt (0.1.11)
       multi_json (>= 1.5)
+    kensa (1.4.6)
+      launchy (>= 0.3.2)
+      mechanize (~> 2.6.0)
+      rest-client (>= 1.4.0, < 1.7.0)
+      term-ansicolor (~> 1.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     letter_opener (1.2.0)
@@ -261,6 +268,14 @@ GEM
       treetop (~> 1.4.8)
     mail_view (2.0.4)
       tilt
+    mechanize (2.6.0)
+      domain_name (~> 0.5, >= 0.5.1)
+      mime-types (~> 1.17, >= 1.17.2)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.5, >= 2.5.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
     metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (1.25.1)
@@ -286,12 +301,15 @@ GEM
     multi_test (0.1.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    net-http-digest_auth (1.4)
+    net-http-persistent (2.9.4)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    ntlm-http (0.1.1)
     oauth2 (0.9.3)
       faraday (>= 0.8, < 0.10)
       jwt (~> 0.1.8)
@@ -441,6 +459,8 @@ GEM
       json (~> 1.8.1)
       mime-types (~> 1.25)
       rest-client (~> 1.4)
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -456,6 +476,7 @@ GEM
       httparty
       mime-types
       twitter-stream
+    tins (1.3.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -474,6 +495,7 @@ GEM
     unf_ext (0.0.6)
     warden (1.2.3)
       rack (>= 1.0)
+    webrobots (0.1.1)
     websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -511,6 +533,7 @@ DEPENDENCIES
   jasmine
   jbuilder (~> 1.2)
   jquery-rails
+  kensa
   letter_opener
   mail_view
   mocha
