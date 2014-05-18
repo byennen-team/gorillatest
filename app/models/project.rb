@@ -27,6 +27,8 @@ class Project
   has_many :project_users, dependent: :destroy
   has_many :test_runs, class_name: 'ProjectTestRun', dependent: :destroy
 
+  embeds_many :secondary_domains, class_name: 'SecondaryDomain'
+
   validates :name, presence: true, uniqueness: {scope: :user}
 
   validates :url, presence: true, url: true
