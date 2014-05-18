@@ -5,23 +5,16 @@
         = gravatar_image_tag(current_user, 32)
         %span
           = current_user.try(:name)
-
   %nav
     %ul
       %li= nav_link "Dashboard", dashboard_path, "fa-home"
       %li
-        = nav_link "Projects", projects_path, "fa-desktop"
-        - if projects_controller?(params[:controller])
-          %ul{style: "display: block;"}
-            - current_user.projects.each do |project|
-              - if current_project?(project)
-                %li.active= link_to project.name, project_path(project)
-              - else
-                %li= link_to project.name, project_path(project)
-        - else
-          %ul{style: "display: none;"}
-            - current_user.projects.each do |project|
-              %li= link_to project.name, project_path(project)
+        %a{href: "javascript:;"}
+          %i.fa.fa-lg.fa-fw.fa-desktop
+          %span.menu-item-parent Projects
+        %ul
+          - @users_projects.each do |project|
+            %li= link_to project.name, project_path(project)
 
       %li= nav_link "Invite Users", invitations_path, "fa-group"
       -#%li= nav_link "Teams", "javascript:;", "fa-bullhorn"
@@ -30,7 +23,7 @@
           %i.fa.fa-lg.fa-fw.fa-cog
           %span.menu-item-parent My Account
         - if params[:controller] == "registrations" || params[:controller] == "credit_cards"
-          %ul{style: "display: block;"}
+          %ul
             %li= link_to 'My Info', my_info_path
             %li= link_to 'Change Your Plan', change_plan_path
             %li= link_to 'Manage Billing', credit_cards_path
