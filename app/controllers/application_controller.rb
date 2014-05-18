@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def find_all_user_projects
-    @users_projects = current_user.projects.all
+    @users_projects = current_user.projects.all if current_user
   end
 
   def find_project
