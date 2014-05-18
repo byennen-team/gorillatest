@@ -97,6 +97,15 @@ class User
                     password_confirmation: "this is a very long bogus password")
   end
 
+  def create_heroku_project
+    auth = {username: "gorillatest", password: "d1079df84eb12770c6d068b778024553"}
+    response = HTTParty.get("https://api.heroku.com/vendor/apps/#{email}", basic_auth: auth)
+    json = JSON.parse(response.body)
+    binding.pry
+    @project = projects.create!({name: json["name"], url: "http://#{json["domains"].shift}"})
+    json["domains"].each { |d| @project.secondary_domains.create!({domain: d}) }
+  end
+
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
   end
