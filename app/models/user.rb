@@ -1,6 +1,7 @@
 require 'digest/md5'
 
 class NoDemoProjectException < Exception; end
+class HerokuProjectCreationFailed < Exception; end
 
 class User
   include Mongoid::Document
@@ -91,10 +92,35 @@ class User
   after_create :create_demo_project, :drip_email, :finish_profile_reminder_message
 
   def self.new_for_heroku(resources)
-    Rails.logger.debug("resources are #{resources}")
     return User.new(email: resources["heroku_id"],
                     password: "this is a very long bogus password",
                     password_confirmation: "this is a very long bogus password")
+  end
+
+  def create_heroku_project
+    auth = {username: "gorillatest", password: "d1079df84eb12770c6d068b778024553"}
+    url = "https://api.heroku.com/vendor/apps/#{email}"
+    response = HTTParty.get(url, basic_auth: auth)
+    json = JSON.parse(response.body)
+    project = Project.new({name: json["name"], url: "http://#{json["domains"].shift}", user: self})
+    project.user_id = self.id
+    begin
+      if project.save!
+        project_user = ProjectUser.create!({user_id: self.id, project_id: project.id, rights: 'owner'})
+        json["domains"].each { |d| project.secondary_domains.create!({domain: d}) }
+        config_response = HTTParty.put(url, basic_auth: auth, body: {config: {"GORILLATEST_API_KEY" => project.api_key,
+                                                                              "GORILLATEST_PROJECT_ID" => project.id.to_s}}.to_json)
+        if config_response == "ok"
+          return project
+        else
+          raise HerokuProjectCreationFailed
+        end
+      else
+        raise HerokuProjectCreationFailed
+      end
+    rescue Exception => e
+       Rails.logger.debug("What happened here!!!! #{e}")
+    end
   end
 
   def send_invitation(inviter_id)
