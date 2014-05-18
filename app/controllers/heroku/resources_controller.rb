@@ -6,9 +6,8 @@ class Heroku::ResourcesController < ApplicationController
   def create
     @user = User.new_for_heroku(params[:resource])
     if @user.save
-      Rails.logger.debug("\n\n\n\n\n\n\n\nuser is #{@user.id}")
-      # Schedule project creation through worker
       response = {id: @user.id.to_s}
+      HerokuWorker.perform_async("fetch_project", self.id.to_s)
       render json: response
     end
   end
