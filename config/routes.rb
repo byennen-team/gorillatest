@@ -10,6 +10,11 @@ Autotest::Application.routes.draw do
   get "/recorder" => "recorder#index"
   get "/developer" => "recorder#developer"
 
+
+  namespace :heroku do
+    resources :resources
+  end
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 

@@ -90,6 +90,13 @@ class User
   before_validation :set_random_password
   after_create :create_demo_project, :drip_email, :finish_profile_reminder_message
 
+  def self.new_for_heroku(resources)
+    Rails.logger.debug("resources are #{resources}")
+    return User.new(email: resources["heroku_id"],
+                    password: "this is a very long bogus password",
+                    password_confirmation: "this is a very long bogus password")
+  end
+
   def send_invitation(inviter_id)
     InvitationMailer.send_invitation(self.id, inviter_id).deliver
   end
