@@ -6,8 +6,8 @@
     "password": "d1079df84eb12770c6d068b778024553",
     "sso_salt": "9f8d532591dd8e4574664818d6533325",
     "production": {
-      "base_url": "https://gorillatest-prod.herokuapp.com/heroku/resources",
-      "sso_url": "https://gorillatest-prod.herokuapp.com/heroku/sso/login"
+      "base_url": "https://www.gorillatest.com/heroku/resources",
+      "sso_url": "https://www.gorillatest.com/heroku/sso/login"
     },
     "test": {
       "base_url": "http://localhost:3000/heroku/resources",
