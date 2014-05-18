@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   #before_filter :http_basic_authenticate, if: :staging?
   before_filter :update_sanitized_params, if: :devise_controller?
   before_filter :unread_messages
+  before_filter :find_all_user_projects
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :company_name, :phone, :first_name, :last_name, :location, :uid, :provider, :role, :role_other)}
@@ -37,6 +38,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def find_all_user_projects
+    @users_projects = current_user.projects.all
+  end
 
   def find_project
     begin
