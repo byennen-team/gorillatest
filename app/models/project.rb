@@ -21,7 +21,6 @@ class Project
 
   belongs_to :user
 
-
   alias :creator :user
 
   has_many :scenarios
