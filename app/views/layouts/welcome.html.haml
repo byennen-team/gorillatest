@@ -7,10 +7,11 @@
   / <![endif]
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
-    %title= content_for?(:title) ? "Gorilla Test - " + yield(:title) : "Gorilla Test - Gorilla Test Slogan."
+    %title= content_for?(:title) ? "Gorilla Test - " + yield(:title) : "Gorilla Test - Automated Testing that will make you go bananas."
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"}
-    %meta{:content => content_for?(:description) ? yield(:description) : "Gorilla Test Description", :name => "description"}
-    %meta{:content => content_for?(:keywords) ? yield(:keywords) : "Gorilla Test Keywords", :name => "keywords"}
+    %meta{:content => content_for?(:description) ? yield(:description) : "Automated Browser Testing for mulitple OS/browser platforms", :name => "description"}
+    %meta{:content => content_for?(:keywords) ? yield(:keywords) : "Gorilla Test, automated cloud testing,manual cloud testing, acceptances testing, acceptances testing builder, cross browser testing, big astronaut, mobile testing, mobile
+                                                                    app testing, iOS testing, Android testing, gorilla test, gorillatest, javascript testing, mobile testing", :name => "keywords"}
     = favicon_link_tag 'favicon.ico'
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
     = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
