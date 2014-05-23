@@ -1,10 +1,12 @@
 %aside#left-panel
   .login-info
     %span
+      / User image size is adjusted inside CSS, it should stay as it
       %a#show-shortcut{href: "javascript:void(0);"}
         = gravatar_image_tag(current_user, 32)
         %span
           = current_user.try(:name)
+
   %nav
     %ul
       %li= nav_link "Dashboard", dashboard_path, "fa-home"

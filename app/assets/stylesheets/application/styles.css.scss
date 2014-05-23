@@ -410,7 +410,7 @@ body.smart-style-2 {
 .smart-style-2 {
   #header, .inbox-footer, .superbox-show {
     background-image: none;
-    background-color: #2C3742;
+    background: linear-gradient(to bottom, #fff 99%, #cacaca 100%);
   }
   .superbox-list.active:before {
     color: #2C3742;
