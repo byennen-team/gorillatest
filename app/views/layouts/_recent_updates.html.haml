@@ -1,0 +1,21 @@
+#project-context
+  %span.label Projects:
+  %span#project-selector.popover-trigger-element.dropdown-toggle{"data-toggle" => "dropdown"}
+    Recent Updates
+    - if @unread_messages.size == 0
+      %span#unread_message_count.badge.alert-warning{style: "display: none;"}= @unread_messages.size
+    - else
+      %span#unread_message_count.badge.alert-warning= @unread_messages.size
+    %i.fa.fa-angle-down
+  / Suggestion: populate this list with fetch and push technique
+  %ul.dropdown-menu#messages
+    - if @unread_messages.size == 0
+      %li#no_unread_messages
+        %a{href: "javascript: void(0);"}You have no unread messages
+    - else
+      = render partial: '/shared/unread_message', collection: @unread_messages.reverse
+    %li.divider
+    %li
+      %a#clear_messages{href: "javascript:void(0);"}
+        %i.fa.fa-power-off
+        Clear
