@@ -6,7 +6,10 @@ class Autotest.Event
     @scenario = ""
 
   @bindDomNodeInsert: () ->
-    document.addEventListener('DOMNodeInserted', Autotest.Event.eventListner)
+    if document.addEventListener
+      document.addEventListener('DOMNodeInserted', Autotest.Event.eventListner)
+    else
+      $(domnode).get(0).attachEvent("onreadystatechange", Autotest.Event.eventListener);
     # ( (e)->
     #   if $
     #     Autotest.Event.unbind()
