@@ -1,25 +1,22 @@
-$.throttle_delay = 350
 $.menu_speed = 235
 $.navbar_height = 49
-$.root_ = $("body")
-$.left_panel = $("#left-panel")
 
 nav_page_height = ->
   setHeight = $("#main").height()
 
-  #menuHeight = $.left_panel.height();
+  #menuHeight = $("#left-panel").height();
   windowHeight = $(window).height() - $.navbar_height
 
   #set height
   if setHeight > windowHeight # if content height exceedes actual window height and menuHeight
-    $.left_panel.css "min-height", setHeight + "px"
-    $.root_.css "min-height", setHeight + $.navbar_height + "px"
+    $("#left-panel").css "min-height", setHeight + "px"
+    $("body").css "min-height", setHeight + $.navbar_height + "px"
   else
-    $.left_panel.css "min-height", windowHeight + "px"
-    $.root_.css "min-height", windowHeight + "px"
+    $("#left-panel").css "min-height", windowHeight + "px"
+    $("body").css "min-height", windowHeight + "px"
   return
 
-$.fn.extend jarvismenu: (options) ->
+$.fn.extend gorillamenu: (options) ->
   defaults =
     accordion: "true"
     speed: 200
@@ -86,7 +83,7 @@ $(document).ready ->
   $("[rel=tooltip]").tooltip() if $("[rel=tooltip]").length
   nav_page_height()
   unless null
-    $("nav ul").jarvismenu
+    $("nav ul").gorillamenu
       accordion: true
       speed: $.menu_speed
       closedSign: "<em class=\"fa fa-rotate-180 fa-expand-o\"></em>"

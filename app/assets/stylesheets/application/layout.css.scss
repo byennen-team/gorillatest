@@ -18103,7 +18103,7 @@ aside {
   > div {
     display: inline-block;
     vertical-align: middle;
-    height: 49px;
+    height: 60px;
     float: left;
     &.open {
       font-weight: bold;
@@ -18227,7 +18227,7 @@ aside {
 
 #project-context {
   display: inline-block;
-  padding: 7px 13px 0;
+  padding: 19px 13px 0;
   position: relative;
   > {
     span {
@@ -18235,7 +18235,7 @@ aside {
     }
     :first-child {
       display: block;
-      color: #bfbfbf;
+      color: #69737A;
       font-size: 10px;
       font-weight: bold;
       text-transform: uppercase;
@@ -18333,7 +18333,7 @@ aside {
 
 #left-panel {
   position: absolute;
-  top: 49px;
+  top: 62px;
   left: 0px;
   z-index: 1002;
   width: 197px;
@@ -23490,5 +23490,12 @@ img {
 #widget-grid {
   .expiration {
     margin-top: 20px;
+  }
+}
+
+ul#logout {
+  list-style: none;
+  a {
+    color: #69737A;
   }
 }
