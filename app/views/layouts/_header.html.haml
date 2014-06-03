@@ -1,58 +1,10 @@
-/ HEADER
 %header#header
   #logo-group
-    / PLACE YOUR LOGO HERE
     %span#logo
-      = image_tag('layout/gorilla-test-head.png')
-      GorillaTest
-    .ajax-dropdown
-      / the ID links are fetched via AJAX to the ajax container "ajax-notifications"
-      .btn-group.btn-group-justified{"data-toggle" => "buttons"}
-        %label.btn.btn-default
-          %input{id: "ajax/notify/mail.html", name: "activity", type: "radio"}/
-          Msgs (14)
-        %label.btn.btn-default
-          %input{id: "ajax/notify/notifications.html", name: "activity", type: "radio"}/
-          notify (3)
-        %label.btn.btn-default
-          %input{id: "ajax/notify/tasks.html", name: "activity", type: "radio"}/
-          Tasks (4)
-      / notification content
-      .ajax-notifications.custom-scroll
-        .alert.alert-transparent
-          %h4 Click a button to show messages here
-          This blank page message helps protect your privacy, or you can show the first message here automatically.
-        %i.fa.fa-lock.fa-4x.fa-border
-      / end notification content
-      / footer: refresh area
-      %span
-        Last updated on: 12/12/2013 9:43AM
-        %button.btn.btn-xs.btn-default.pull-right{"data-loading-text" => "<i class='fa fa-refresh fa-spin'></i> Loading...", type: "button"}
-          %i.fa.fa-refresh
-      / end footer
-    / END AJAX-DROPDOWN
-  / projects dropdown
+      = image_tag('layout/gorilla-test-head.svg')
+      %h1.hide Gorilla Test
+  = render 'layouts/recent_updates'
 
-  #project-context
-    %span.label Projects:
-    %span#project-selector.popover-trigger-element.dropdown-toggle{"data-toggle" => "dropdown"}
-      Recent Updates
-      - if @unread_messages.size == 0
-        %span#unread_message_count.badge.alert-warning{style: "display: none;"}= @unread_messages.size
-      - else
-        %span#unread_message_count.badge.alert-warning= @unread_messages.size
-      %i.fa.fa-angle-down
-    / Suggestion: populate this list with fetch and push technique
-    %ul.dropdown-menu#messages
-      - if @unread_messages.size == 0
-        %li#no_unread_messages
-          %a{href: "javascript: void(0);"}You have no unread messages
-      - else
-        = render partial: '/shared/unread_message', collection: @unread_messages.reverse
-      %li.divider
-      %li
-        %a#clear_messages{href: "javascript:void(0);"}
-          %i.fa.fa-power-off
-          Clear
-
-  = render partial: "/layouts/welcome/messages"
+  / logout button
+  %ul#logout.btn-header.transparent.pull-right
+    %li= nav_link "Logout", logout_path, "fa-sign-out"

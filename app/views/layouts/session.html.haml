@@ -16,6 +16,6 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = yield(:head)
   %body{:id => "#{controller_name}-#{action_name}"}
-    = render 'layouts/welcome/messages'
+    = render 'layouts/messages'
     = yield
     = analytics_init if Rails.env.production?

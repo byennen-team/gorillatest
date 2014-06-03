@@ -23,11 +23,11 @@
     = render 'layouts/header'
     = render 'layouts/navigation'
     #main{role: "main"}
-      -#= render 'layouts/breadcrumb'
       #content
         .row
-          .col-lg-12
+          .col-sm-12
+            = render 'layouts/messages'
             = yield
 
-= render 'shared/modals/invitations'
+    = render 'layouts/shortcuts'
 

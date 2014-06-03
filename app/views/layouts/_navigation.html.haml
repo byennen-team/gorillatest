@@ -1,10 +1,12 @@
 %aside#left-panel
   .login-info
     %span
+      / User image size is adjusted inside CSS, it should stay as it
       %a#show-shortcut{href: "javascript:void(0);"}
         = gravatar_image_tag(current_user, 32)
         %span
           = current_user.try(:name)
+
   %nav
     %ul
       %li= nav_link "Dashboard", dashboard_path, "fa-home"
@@ -15,25 +17,6 @@
         %ul
           - @users_projects.each do |project|
             %li= link_to project.name, project_path(project)
-
-      %li= nav_link "Invite Users", invitations_path, "fa-group"
-      -#%li= nav_link "Teams", "javascript:;", "fa-bullhorn"
-      %li
-        %a{href: "javascript:;"}
-          %i.fa.fa-lg.fa-fw.fa-cog
-          %span.menu-item-parent My Account
-        - if params[:controller] == "registrations" || params[:controller] == "credit_cards"
-          %ul
-            %li= link_to 'My Info', my_info_path
-            %li= link_to 'Change Your Plan', change_plan_path
-            %li= link_to 'Manage Billing', credit_cards_path
-        - else
-          %ul
-            %li= link_to 'My Info', my_info_path
-            %li= link_to 'Change Your Plan', change_plan_path
-            %li= link_to 'Manage Billing', credit_cards_path
-
-      %li= nav_link "Logout", logout_path, "fa-sign-out"
 
   %span.minifyme
     %i.fa.fa-arrow-circle-left.hit
