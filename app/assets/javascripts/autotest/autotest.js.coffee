@@ -37,7 +37,7 @@ window.Autotest =
         if scripts[i].getAttribute("data-api-url")
           Autotest.apiUrl = scripts[i].getAttribute("data-api-url")
         else
-          Autotest.apiUrl = "http://gorillatest.com"
+          Autotest.apiUrl = "http://www.gorillatest.com"
         break
       i++
     params = $.url(window.location.href).param()
