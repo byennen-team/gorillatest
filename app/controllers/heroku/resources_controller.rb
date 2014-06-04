@@ -6,6 +6,7 @@ class Heroku::ResourcesController < ApplicationController
   def create
     @user = User.new_for_heroku(params[:resource])
     if @user.save
+      Rails.logger.debug("User saved!")
       response = {id: @user.id.to_s}
       HerokuWorker.perform_async("fetch_project", @user.id.to_s)
       render json: response
