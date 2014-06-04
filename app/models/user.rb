@@ -102,24 +102,26 @@ class User
     url = "https://api.heroku.com/vendor/apps/#{email}"
     response = HTTParty.get(url, basic_auth: auth)
     json = JSON.parse(response.body)
-    project = Project.new({name: json["name"], url: "http://#{json["domains"].shift}", user: self})
-    project.user_id = self.id
-    begin
-      if project.save!
-        project_user = ProjectUser.create!({user_id: self.id, project_id: project.id, rights: 'owner'})
-        json["domains"].each { |d| project.secondary_domains.create!({domain: d}) }
-        config_response = HTTParty.put(url, basic_auth: auth, body: {config: {"GORILLATEST_API_KEY" => project.api_key,
-                                                                              "GORILLATEST_PROJECT_ID" => project.id.to_s}}.to_json)
-        if config_response == "ok"
-          return project
+    if json["domains"]
+      project = Project.new({name: json["name"], url: "http://#{json["domains"].shift}", user: self})
+      project.user_id = self.id
+      begin
+        if project.save!
+          project_user = ProjectUser.create!({user_id: self.id, project_id: project.id, rights: 'owner'})
+          json["domains"].each { |d| project.secondary_domains.create!({domain: d}) }
+          config_response = HTTParty.put(url, basic_auth: auth, body: {config: {"GORILLATEST_API_KEY" => project.api_key,
+                                                                                "GORILLATEST_PROJECT_ID" => project.id.to_s}}.to_json)
+          if config_response == "ok"
+            return project
+          else
+            raise HerokuProjectCreationFailed
+          end
         else
           raise HerokuProjectCreationFailed
         end
-      else
-        raise HerokuProjectCreationFailed
+      rescue Exception => e
+         Rails.logger.debug("What happened here!!!! #{e}")
       end
-    rescue Exception => e
-       Rails.logger.debug("What happened here!!!! #{e}")
     end
   end
 
