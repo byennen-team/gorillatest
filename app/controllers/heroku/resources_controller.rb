@@ -9,6 +9,8 @@ class Heroku::ResourcesController < ApplicationController
       response = {id: @user.id.to_s}
       HerokuWorker.perform_async("fetch_project", @user.id.to_s)
       render json: response
+    else
+      Rails.logger.debug("What the hell is giong on?")
     end
   end
 
