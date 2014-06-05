@@ -22,7 +22,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def check_preflight
-    Rails.logger.debug(request.format)
+    Rails.logger.info(request.format)
     if request.method == 'OPTIONS'
       headers['Access-Control-Allow-Origin'] = "*"
       headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
@@ -34,14 +34,15 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def restrict_access
-    Rails.logger.debug("Authenticating via token")
+    Rails.logger.info("Authenticating via token")
     authenticate_or_request_with_http_token do |token, options|
-      Rails.logger.debug("token is #{token}")
+      Rails.logger.info("token is #{token}")
       @current_project = Project.find_by(api_key: token)
     end
   end
 
   def set_access_control_headers
+    Rails.logger.info("Setting headers")
     headers['Access-Control-Allow-Origin'] = current_project.base_url(URI.parse(request.env["HTTP_REFERER"]).scheme)
     headers['Access-Control-Request-Method'] = '*'
     headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'

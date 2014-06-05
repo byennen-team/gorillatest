@@ -92,6 +92,7 @@ class User
   after_create :create_demo_project, :drip_email, :finish_profile_reminder_message
 
   def self.new_for_heroku(resources)
+    Rails.logger.info("Creating a user")
     return User.new(email: resources["heroku_id"],
                     password: "this is a very long bogus password",
                     password_confirmation: "this is a very long bogus password")
