@@ -30,7 +30,6 @@ class Autotest.Event
   @bind: () ->
     stepLocator = {}
     $("a").bind("click", Autotest.Event.bindClick)
-    $("div").bind("click", Autotest.Event.bindClick)
     $("button").bind("click", Autotest.Event.bindClick)
     # Start recording an input as soon as it's focused.
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
