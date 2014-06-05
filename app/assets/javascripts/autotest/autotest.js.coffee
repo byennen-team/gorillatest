@@ -33,7 +33,7 @@ window.Autotest =
 
       if (/iframe/).test(scripts[i].src) || (/recordv2/).test(scripts[i].src)
         Autotest.projectId = scripts[i].getAttribute("data-project-id")
-        Autotest.authToken =  scripts[i].getAttribute("data-auth")
+        Autotest.authToken =  scripts[i].getAttribute("data-api-key")
         if scripts[i].getAttribute("data-api-url")
           Autotest.apiUrl = scripts[i].getAttribute("data-api-url")
         else
