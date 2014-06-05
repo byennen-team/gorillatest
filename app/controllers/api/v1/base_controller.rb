@@ -29,25 +29,23 @@ class Api::V1::BaseController < ApplicationController
       headers['Access-Control-Request-Method'] = '*'
       headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
       headers['Access-Control-Max-Age'] = '1728000'
-      render :text => '', :content_type => 'text/plain' && return
+      render :text => '', :content_type => 'text/plain'
     end
   end
 
   def restrict_access
-    Rails.logger.debug("Authenticating via token")
+    Rails.logger.info("Authenticating via token")
     authenticate_or_request_with_http_token do |token, options|
-      Rails.logger.debug("token is #{token}")
+      Rails.logger.info("token is #{token}")
       @current_project = Project.find_by(api_key: token)
     end
   end
 
   def set_access_control_headers
-    if request.method != "OPTIONS"
-      Rails.logger.info("Setting headers")
-      headers['Access-Control-Allow-Origin'] = current_project.base_url(URI.parse(request.env["HTTP_REFERER"]).scheme)
-      headers['Access-Control-Request-Method'] = '*'
-      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    end
+    Rails.logger.info("Setting headers")
+    headers['Access-Control-Allow-Origin'] = current_project.base_url(URI.parse(request.env["HTTP_REFERER"]).scheme)
+    headers['Access-Control-Request-Method'] = '*'
+    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   end
 
 end
