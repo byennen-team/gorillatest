@@ -1,0 +1,7 @@
+- if session[:heroku_sso]
+  = javascript_include_tag "https://s3.amazonaws.com/assets.heroku.com/boomerang/boomerang.js"
+  :javascript
+    document.addEventListener("DOMContentLoaded", function() {
+      Boomerang.init({app: 'foo', addon: 'bar'});
+    });
+

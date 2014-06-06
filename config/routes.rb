@@ -13,6 +13,7 @@ Autotest::Application.routes.draw do
 
   namespace :heroku do
     resources :resources
+    post '/sso/login' => "sso#create"
   end
 
   require 'sidekiq/web'
