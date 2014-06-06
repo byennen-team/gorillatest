@@ -8,10 +8,10 @@ class Heroku::SsoController < ApplicationController
     session[:heroku_sso] = true
     #session[:current_account_id] = @account.id
     if sign_in(@user)
-      Rails.logger.debug("We should redirect")
+      Rails.logger.info("We should redirect")
       redirect_to dashboard_url
     else
-      Rails.logger.debug("for some reason we are here")
+      Rails.logger.info("for some reason we are here")
       render status: 404, text: "404 Not Found"
     end
   end
@@ -20,6 +20,7 @@ class Heroku::SsoController < ApplicationController
 
   def authenticated
     @user = User.find(params[:id])
+    Rails.logger.info("user is #{@user.inspect}")
   end
 
   def request_valid
@@ -29,7 +30,10 @@ class Heroku::SsoController < ApplicationController
   def token_valid?
    pre_token = params[:id] + ':' + '9f8d532591dd8e4574664818d6533325' + ':' + params[:timestamp]
    token = Digest::SHA1.hexdigest(pre_token).to_s
+   Rails.logger.info("Token is #{token}")
+   Rails.logger.info("Params token is #{params[:token]}")
    token == params[:token]
+
   end
 
   def timestamp_valid?
