@@ -50,6 +50,7 @@ class User
   field :provider, type: String
   field :uid, type: String
 
+  field :heroku_user, type: Boolean
   field :stripe_customer_token, type: String
 
   index( {invitation_token: 1}, {background: true} )
@@ -92,10 +93,12 @@ class User
   after_create :create_demo_project, :drip_email, :finish_profile_reminder_message
 
   def self.new_for_heroku(resources)
-    Rails.logger.info("Creating a user")
     return User.new(email: resources["heroku_id"],
                     password: "this is a very long bogus password",
-                    password_confirmation: "this is a very long bogus password")
+                    password_confirmation: "this is a very long bogus password",
+                    heroku_user: true,
+                    confirmed_at: Time.now)
+
   end
 
   def create_heroku_project
@@ -227,6 +230,7 @@ class User
   end
 
   def create_demo_project
+    return if heroku_user
     begin
       unless demo = Project.where(name: "My Sample Project", user_id: nil).first
         raise NoDemoProjectException
