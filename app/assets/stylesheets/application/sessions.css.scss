@@ -5,10 +5,10 @@ html {
 }
 
 //Login
-body#sessions-new, body#passwords-new {
+body#sessions-new, body#passwords-new, body#passwords-edit {
   @include linear-gradient(to top, slategray, darkgray);
 }
-#sessions-new, #passwords-new, #invitations-edit {
+#sessions-new, #passwords-new, #passwords-edit, #invitations-edit {
   #login-box {
     opacity: 0;
     margin-top: 10%;
