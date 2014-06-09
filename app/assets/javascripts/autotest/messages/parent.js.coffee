@@ -82,3 +82,8 @@ Autotest.Messages.Parent.add("resumePlayback", (data) ->
   steps = Autotest.currentScenario.steps()
   steps.play()
 )
+
+Autotest.Messages.Parent.add("iframeLoadComplete", (data) ->
+  $("iframe#autotest-iframe").trigger("loadComplete")
+)
+

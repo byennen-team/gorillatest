@@ -23,17 +23,9 @@ class @AutoTestRecorder
         stepsView = new Autotest.Views.StepIndex({collection: Autotest.currentScenario.steps()})
         scenario.fetch
           success: (model, response, options) ->
-            postToIframe = ->
-              if $("iframe#autotest-iframe").length == 1
-                $("iframe#autotest-iframe").load ->
-                  console.log("iframe loaded")
-                  Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name')}})
-                  step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
-                _this.record()
-              else
-                setTimeout(postToIframe, 200)
-
-            postToIframe()
+            Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name')}})
+            step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
+            _this.record()
 
   record: ->
     console.log("We are currently recording")

@@ -19,3 +19,4 @@ addEventListener "message", (e)->
   data = e.data
   Autotest.Messages.Iframe.perform(data.messageType, data)
 
+Autotest.Messages.Iframe.post({messageType: "iframeLoadComplete"})

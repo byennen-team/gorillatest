@@ -84,12 +84,13 @@ $(document).ready ->
       $("body").append(stepsHtml)
       window.autoTestRecorder = new AutoTestRecorder window.projectId
       Autotest.scenario = new Autotest.Models.Scenario({id: window.sessionStorage.getItem("autoTestRecorder.currentScenario")})
-      Autotest.scenario.fetch(
-        success: ->
-          window.autoTestRecorder.start()
-        error: ->
-          alert("Could not start recorder")
-      )
+      $("iframe#autotest-iframe").on "loadComplete", ->
+        Autotest.scenario.fetch(
+          success: ->
+            window.autoTestRecorder.start()
+          error: ->
+            alert("Could not start recorder")
+        )
 
 
 
