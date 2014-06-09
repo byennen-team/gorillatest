@@ -1,3 +1,31 @@
-%ul.pull-right.nav.navbar-nav
-  %li
-    = link_to 'Login', login_path
+:css
+  .logo {
+    height: 40px;
+    width: auto;
+  }
+  .navbar {
+    height: 62px;
+  }
+
+.navbar.navbar-default{role: "navigation"}
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+
+      %a.navbar-brand{href: root_path}
+        = image_tag('layout/gorilla-test-head.svg', class: 'logo')
+        Gorilla Test
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li= link_to 'FAQs', '#'
+        %li= link_to 'Pricing', '#'
+        %li= link_to 'API', '#'
+        %li= link_to 'Contact', '#'
+        %li= link_to 'Blog', '#'
+      %ul.nav.navbar-nav.navbar-right
+        %li= link_to 'Sign Up Free', get_started_path
+        %li= link_to 'Login', login_path
