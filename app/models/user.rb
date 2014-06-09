@@ -97,6 +97,7 @@ class User
                     password: "this is a very long bogus password",
                     password_confirmation: "this is a very long bogus password",
                     heroku_user: true,
+                    plan: Plan.find_by(stripe_id: resources[:plan]),
                     confirmed_at: Time.now)
 
   end

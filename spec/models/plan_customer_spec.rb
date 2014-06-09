@@ -94,11 +94,22 @@ describe PlanCustomer do
   describe '#can_downgrade' do
 
     let!(:non_free_plan) { create(:starter_plan) }
-    let!(:user)          { create(:user, plan: non_free_plan) }
+    let!(:stripe_starter_plan) { Stripe::Plan.create(amount: 1200,
+                                                     interval: 'month',
+                                                     name: 'Starter',
+                                                     currency: 'usd',
+                                                     id: 'starter')}
+
+    let!(:stripe_card_token) { StripeMock.generate_card_token(last4: "4242", exp_year: 2016) }
+    let!(:user)              { create(:user) }
+    let!(:user_credit_card)  { user.credit_cards.create({stripe_token: stripe_card_token}) }
+
+
 
     context 'with more projects that free' do
 
       before do
+        user.subscribe_to(non_free_plan)
         (0..3).each do |i|
           project = Project.create!(name: "Project#{i}", url: "http://test#{i}.io", user_id: user.id)
           project_user = ProjectUser.create(user_id: user.id, project_id: project.id, rights: "owner")

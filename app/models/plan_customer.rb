@@ -35,17 +35,21 @@ module PlanCustomer
 
   def subscribe_to(new_plan, upgrade = true)
     old_plan_id = self.plan ? self.plan.id : nil
-    customer = create_or_retrieve_stripe_customer
-    unless stripe_subscription_token.nil?
-      subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
-      subscription.plan = new_plan.stripe_id
-      if subscription.save
-        update_attribute(:plan_id, new_plan.id)
+    unless heroku_user
+      customer = create_or_retrieve_stripe_customer
+      unless stripe_subscription_token.nil?
+        subscription =  customer.subscriptions.retrieve(stripe_subscription_token)
+        subscription.plan = new_plan.stripe_id
+        if subscription.save
+          update_attribute(:plan_id, new_plan.id)
+        end
+      else
+        subscription = customer.subscriptions.create(plan: new_plan.stripe_id)
       end
+      update_attribute(:stripe_subscription_token, subscription.id)
     else
-      subscription = customer.subscriptions.create(plan: new_plan.stripe_id)
+      update_attribute(:plan_id, new_plan.id)
     end
-    update_attribute(:stripe_subscription_token, subscription.id)
     if !old_plan_id.nil? && upgrade
       UserMailer.plan_change(self.id.to_s, old_plan_id.to_s, self.plan_id.to_s).deliver
     end
@@ -74,9 +78,7 @@ module PlanCustomer
   private
 
   def assign_default_plan
-    self.plan = Plan.where(name:"Free").first
-    Rails.logger.debug("plan is #{self.plan.inspect}")
-    #self.save
+    self.plan = Plan.where(name:"Free").first unless plan.present?
   end
 
   # Make sure they have a stripe customer and free plan
