@@ -11,6 +11,11 @@ class Scenario
   field :window_y, type: Integer
   field :start_url, type: String
 
+  # for demoing playback with fake results
+  field :demo, type: Boolean
+  field :fail_browsers, type: String
+  field :fail_step_num, type: Integer
+
   slug :name
 
   belongs_to :project

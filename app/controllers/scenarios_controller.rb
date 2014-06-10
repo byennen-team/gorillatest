@@ -47,9 +47,15 @@ class ScenariosController < ApplicationController
         browser_test = test_run.browser_tests.create!({browser: p.split('_').last,
                                                     platform: p.split('_').first})
       end
-      TestWorker.perform_async("queue_tests", "Scenario", test_run.id.to_s)
+      unless @scenario.demo?
+        TestWorker.perform_async("queue_tests", "Scenario", test_run.id.to_s)
+      end
+
       respond_to do |format|
-        format.html { redirect_to project_test_test_run_path(@project, @scenario.slug, test_run) }
+        format.html do
+          redirect_path_args = @scenario.demo ? {test: "run"} : {}
+          redirect_to project_test_test_run_path(@project, @scenario.slug, test_run, redirect_path_args)
+        end
         format.json { }
       end
     end

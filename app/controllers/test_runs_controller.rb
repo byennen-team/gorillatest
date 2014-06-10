@@ -10,6 +10,13 @@ class TestRunsController < ApplicationController
 
   def show
     @test_run = @scenario.test_runs.find_by(number: params[:id])
+
+    if params[:test] == "run"
+      @test_run.browser_tests.each do |test|
+        puts "*" * 100
+        DemoWorker.perform_async(@test_run.id.to_s, test.id.to_s)
+      end
+    end
   end
 
 
