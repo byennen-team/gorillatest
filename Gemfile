@@ -79,7 +79,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'rspec-sidekiq'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'capybara'
@@ -94,4 +93,8 @@ group :development, :test do
   gem 'mocha'
   gem 'stripe-ruby-mock', git: "https://github.com/jimiray/stripe-ruby-mock.git"
   gem 'rubocop'
+end
+
+group :test do
+  gem 'rspec-sidekiq'
 end
