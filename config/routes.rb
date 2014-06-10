@@ -31,7 +31,7 @@ Autotest::Application.routes.draw do
       post :downgrade
     end
   end
-  resources :credit_cards, only: [:index, :create, :destroy] do
+  resources :credit_cards, only: [:index, :create, :destroy], path: "credit-cards" do
     member do
       post :default
     end
