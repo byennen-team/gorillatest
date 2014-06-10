@@ -119,7 +119,7 @@ class ProjectsController < ApplicationController
         flash[:notice] = "Script has been successfully verified"
         status = 200
       else
-        flash[:alert] = "Could not verify the script at #{@project.url}."
+        flash[:notice] = "Could not verify the script at #{@project.url}."
         status = 400
       end
     rescue => e
@@ -136,7 +136,7 @@ class ProjectsController < ApplicationController
     end
 
     respond_to do |format|
-      format.js {render json: {message: flash[:notice]}.to_json, status: status}
+      format.js {render json: {message: flash[:notice]}, status: status}
       format.html {redirect_to :back}
     end
   end
