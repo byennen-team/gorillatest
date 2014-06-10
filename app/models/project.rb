@@ -124,7 +124,7 @@ class Project
 
   def project_script_valid?(script)
     attrs = []
-    attrs << script.attributes['data-auth'].value
+    attrs << script.attributes['data-api-key'].value
     attrs << script.attributes['data-project-id'].value
     return attrs.sort == [api_key, id.to_s].sort
   end
