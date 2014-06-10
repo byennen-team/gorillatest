@@ -2,6 +2,6 @@
   = javascript_include_tag "https://s3.amazonaws.com/assets.heroku.com/boomerang/boomerang.js"
   :javascript
     document.addEventListener("DOMContentLoaded", function() {
-      Boomerang.init({app: 'foo', addon: 'bar'});
+      Boomerang.init({app: '#{current_user.projects.first.name', addon: 'GorillaTest'});
     });
 
