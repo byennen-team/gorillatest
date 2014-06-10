@@ -7,11 +7,11 @@ $ ->
   # if $(".verify-script").length == 1
   #   $(".view-embed-code").trigger("click")
 
-  if($(".script-status").length > 0 && $(".script-status").attr("script-verified") == "false")
-    $(".embed-modal").modal
-      backdrop: 'static'
-      keyboard: false
-      show: true
+  #if($(".script-status").length > 0 && $(".script-status").attr("script-verified") == "false")
+  #  $(".embed-modal").modal
+  #    backdrop: 'static'
+  #    keyboard: false
+  #    show: true
 
   $(".verify-script-modal-button").on "click", (e)->
     e.preventDefault()
