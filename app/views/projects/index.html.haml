@@ -8,32 +8,17 @@
   = pape_title('Projects', 'fa-desktop')
   = render 'shared/user_metrics'
 
-.pull-right
-  - if current_user.can_create_project?
-    = link_to glyph_button("plus", "Add Project"), new_project_path(), class: "btn btn-success"
-    %br
-    %br
-  -else
-    %a.btn.btn-success#add-project-button{href: change_plan_path(plan:"maxed")}
-      %span.glyphicon.glyphicon-plus
-      Add Project
-/ %ol.breadcrumb
-/   %li.active
-/      = link_to "Projects", projects_path
 .row
-  .col-md-12
-    / Project widget
-    .awidget
-      /.awidget-head
-      / .pull-right
-      /   %a{data: {toggle: "modal", target: "#add-project"}} Add Project
-      / %h3 Projects
-      .awidget-body
-        - if current_user.projects.size == 0
-          %p
-            You don't current have any projects, would you like to
-            %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
-        - else
-          %ul.project
-            = render partial: 'project', collection: @projects
-          .clearfix
+  %article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    %table.table
+      %thead
+      %tbody
+        %tr
+          - if current_user.projects.size == 0
+            %p
+              You don't current have any projects, would you like to
+              %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+          - else
+            %td
+              = render partial: 'project', collection: @projects
+
