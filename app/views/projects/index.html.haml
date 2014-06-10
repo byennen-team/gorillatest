@@ -9,16 +9,10 @@
   = render 'shared/user_metrics'
 
 .row
-  %article.col-xs-12.col-sm-12.col-md-12.col-lg-12
-    %table.table
-      %thead
-      %tbody
-        %tr
-          - if current_user.projects.size == 0
-            %p
-              You don't current have any projects, would you like to
-              %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
-          - else
-            %td
-              = render partial: 'project', collection: @projects
+  .col-sm-12
+    - if current_user.projects.size == 0
+      %p
+        You don't current have any projects, would you like to
+        %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+
 
