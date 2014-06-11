@@ -66,6 +66,6 @@ if Project.where(name: "Demo Project").length == 0
 
   scenario.steps.create(event_type: "verifyText", locator_type: "",
                         locator_value: "",
-                        text: "\n        Thank you Demo User  for submitting our test form. Click here to go back to the form!\n      ")
+                        text: "Thank you Demo User for submitting our test form")
 end
 
