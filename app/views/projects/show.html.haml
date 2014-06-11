@@ -14,7 +14,47 @@
   .col-sm-12
     = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
     = link_to record_glyph, @project.url, {target: "_blank", class: "btn btn-danger btn-xs"} if @project.script_verified?
-    = play_button(@project) if @project.script_verified?
+    = play_button(@project, "Play All Tests") if @project.script_verified?
+    %div{id: "test_run-#{@project.id}", style: "display: none;"}
+      = form_tag run_project_path(@project), class:"scenario-run", id: "project_#{@project.id}" do
+        %div.pull-left{style: "width: 33%"}
+          %h4 Windows
+          %ul{style: "list-style-type: none;"}
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "windows_firefox"
+              = image_tag('icons/firefox.png', alt: "Firefox")
+              Firefox
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "windows_chrome"
+              = image_tag('icons/chrome.png', alt: "Chrome")
+              Chrome
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "windows_ie9"
+              = image_tag('icons/ie.png', alt: "Internet Explorer 9")
+              Internet Explorer 9
+        %div.pull-left{style: "width: 33%"}
+          %h4 Linux
+          %ul{style: "list-style-type: none;"}
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "linux_firefox"
+              = image_tag('icons/firefox.png', alt: "Firefox")
+              Firefox
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "linux_chrome"
+              = image_tag('icons/chrome.png', alt: "Chrome")
+              Chrome
+            / %li{style: "border-top: 0px; padding: 2px;"}
+            /   = check_box_tag "browsers[]", "windows_ie9"
+            /   = image_tag('icons/phantomjs.png', alt: 'PhantomJS')
+            /   PhantomJS
+        %div.clearfix
+        %div.buttons{style: "padding: 5px; text-align: right;"}
+          %span.hide.concurrency-warning
+            Your plan only allows
+            %span.concurrency-limit
+              #{@concurrency_limit}
+            concurrent browsers for a test run
+          = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
     /- unless @project.script_verified?
     /  %a{data: {toggle: "modal", target: "#embed-modal-#{@project.id}"}, class:'view-embed-code btn btn-primary btn-xs'}
     /    %span.glyphicon.glyphicon-eye-open
