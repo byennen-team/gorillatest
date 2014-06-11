@@ -4,7 +4,7 @@
       = link_to glyph_button("remove", "Delete Test"), project_test_path(@project, @scenario.slug), class: "btn btn-danger", method: :delete, confirm: "Are you sure?"
     %ol.breadcrumb
       %li
-        = link_to "Projects", projects_path
+        Projects
       %li
         = link_to @project.name, project_path(@project)
       %li.active

@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
     @project.attributes = project_params
     if @project.save
       respond_to do |format|
-        format.html { redirect_to projects_path }
+        format.html { redirect_to dashboard_path }
       end
     end
   end
@@ -71,7 +71,7 @@ class ProjectsController < ApplicationController
   def destroy
     if @project.destroy
       respond_to do |format|
-        format.html { redirect_to projects_path }
+        format.html { redirect_to dashboard_path }
       end
     end
   end

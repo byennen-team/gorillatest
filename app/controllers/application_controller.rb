@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     begin
       @project = current_user.projects.find(params[:project_id] || params[:id])
     rescue Mongoid::Errors::DocumentNotFound
-      redirect_to projects_path, notice: "You are not authorized to access this project!"
+      redirect_to dashboard_path, notice: "You are not authorized to access this project!"
     end
   end
 
