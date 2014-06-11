@@ -21,8 +21,8 @@
                   %ul
                     - @project.errors.full_messages.each do |msg|
                       %li= msg
-              =f.input :name
-              =f.input :url, placeholder: "http://www.yourwebsite.com (http/https is required)"
+              =f.input :name, label: "Project Name (required)"
+              =f.input :url, placeholder: "http://www.yourwebsite.com (http/https is required)", label: "Project URL (required)"
               %br
               = link_to "Show Advanced Settings", "#", id: "show_project_advanced_settings"
               = link_to "Hide Advanced Settings", "#", id: "hide_project_advanced_settings", style: "display: none;"
