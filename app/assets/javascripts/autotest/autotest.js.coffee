@@ -57,7 +57,6 @@ $(document).ready ->
   else
     styleSheetUrl = Autotest.apiUrl + "/assets/application/recorder.css"
     $('head').append("<link rel='stylesheet' type='text/css' href='"+ styleSheetUrl + "'>");
-    console.log("Developer mode is #{Autotest.developerMode}")
     if Autotest.developerMode == true
       devIframeHtml = JST["autotest/templates/developer"]
       devMouseHtml = JST["autotest/templates/developer_mouse"]
@@ -68,7 +67,6 @@ $(document).ready ->
       scenario.fetch({
         success: (model, response, options) ->
           Autotest.currentScenario = model
-          console.log("have scenario")
           developerIndex = new Autotest.Views.DeveloperIndex
           $("iframe").load ->
             Autotest.Messages.Parent.post({messageType: "showScenario", projectName: Autotest.currentScenario.get("projectName"), scenarioName: Autotest.currentScenario.get("name")})

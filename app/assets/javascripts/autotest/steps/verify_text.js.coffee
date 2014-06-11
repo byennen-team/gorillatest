@@ -26,11 +26,9 @@ class Autotest.Steps.VerifyTextStep extends Autotest.Steps.TargetedStep
   #     currentNode = childNodes[cnLength]
   #     # continue  if currentNode.nodeType isnt 3 or not regex.test(currentNode.data)
   #     if currentNode.nodeType == 1 and (excludes + ",").indexOf(currentNode.nodeName.toLowerCase() + ",") == -1
-  #       console.log("recursing")
   #       @findAndReplace(searchText, currentNode)
   #     continue  if currentNode.nodeType isnt 3 or not regex.test(currentNode.data)
   #     parent = currentNode.parentNode
-  #     console.log(currentNode.data)
   #     #replacmentText = "<span style='background: red;' class='autotest-highlight'>#{@text}</span>"
   #     replacementText = "verified"
   #     $(currentNode).text().replace("Select", replacementText)

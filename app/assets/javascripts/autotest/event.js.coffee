@@ -64,7 +64,6 @@ class Autotest.Event
       Autotest.Event.addStep(event, "setElementText", $(this).val(), "")
 
   @bindSelect: (event) ->
-    console.log($(this).children(":selected").text())
     Autotest.Event.addStep(event, "setElementSelected", $(this).val(), $(this).children(":selected").text())
 
   @bindClick: (event) ->
@@ -95,7 +94,6 @@ class Autotest.Event
     return
 
   @unbind: () ->
-    console.log("UNbinding all elements")
     $("a").unbind("click", Autotest.Event.bindClick)
     $("button").unbind("click", Autotest.Event.bindClick)
     fieldTypes = ["text", "password", "email", "color", "tel", "date", "datetime", "month", "number",
@@ -134,7 +132,6 @@ class Autotest.Event
   @addStep: (event, type, value, other_text) ->
     scenario = Autotest.currentScenario
     confirmationTypes = ["assertConfirmation", "chooseCancelOnNextConfirmation", "chooseAcceptOnNextConfirmation"]
-    console.log(other_text)
     if $.inArray(type, confirmationTypes) == -1
       stepLocator = new Autotest.LocatorBuilder(event.currentTarget).build()
       scenario.addStep({event_type: type, locator_type: stepLocator.type, locator_value: stepLocator.value, text: value, other_text: other_text})

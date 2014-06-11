@@ -15,7 +15,6 @@ class Autotest.Collections.Steps extends Backbone.Collection
     window.sessionStorage.setItem("autoTest.developerScenario", Autotest.developerScenarioId)
     window.sessionStorage.setItem("autoTest.developerFeature", Autotest.developerFeatureId)
     currentStepIndex = window.sessionStorage.getItem("autoTest.developerStep")
-    console.log(@selected)
     if currentStepIndex != null
       @select(@at(parseInt(currentStepIndex) + 1))
     else
@@ -23,10 +22,8 @@ class Autotest.Collections.Steps extends Backbone.Collection
     __this = this
     Autotest.DeveloperInterval = window.setInterval( ->
       try
-        console.log(allDone)
         allDone = __this.performCurrentStep()
         if allDone
-          console.log("DONE")
           __this.trigger 'success'
           __this.stop()
           return
@@ -34,13 +31,11 @@ class Autotest.Collections.Steps extends Backbone.Collection
         @errorMessage = error.message
         @select(@ERROR)
         @trigger 'failure'
-        console.log("ERROR")
         @stop()
         throw error
      , @speed)
 
   stop: ->
-    console.log(@selected)
     window.clearInterval(Autotest.DeveloperInterval)
     Autotest.DeveloperInterval = null
     @select(null)
@@ -52,7 +47,6 @@ class Autotest.Collections.Steps extends Backbone.Collection
 
   pause: ->
     window.clearInterval(Autotest.DeveloperInterval)
-    console.log("Steps pause function")
 
   next: ->
 
@@ -99,7 +93,6 @@ class Autotest.Collections.Steps extends Backbone.Collection
       return allDoneCurrent
 
   incrementFailures: ->
-    console.log("recording failure")
     @failedSteps.push(@selected)
 
   select: (@selected) ->

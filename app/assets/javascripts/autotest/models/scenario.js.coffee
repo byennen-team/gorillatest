@@ -9,14 +9,12 @@ class Autotest.Models.Scenario extends Backbone.Model
   addStep: (stepAttributes) ->
     steps = Autotest.currentSteps
     _this = this
-    console.log("adding step #{stepAttributes}")
     steps.create(stepAttributes,
       success: (model, response, options) ->
         Autotest.Messages.Parent.post({messageType: "stepAdded", message: {stepCount: _this.steps().length} })
         # stepNumber = (@autoTestSteps.length).toString()
         # $("#autotest-view-steps ul").append("<li step-number=#{stepNumber}>#{autoTestStep.to_s}</li>")
       error: ->
-        console.log("step could not be added")
     )
 
   steps: ->
@@ -28,7 +26,6 @@ class Autotest.Models.Scenario extends Backbone.Model
         success: (c, r, o) ->
           Autotest.currentSteps = currentSteps
         error: ->
-          console.log("Could not retrieve steps")
       )
     else
       currentSteps = Autotest.currentSteps

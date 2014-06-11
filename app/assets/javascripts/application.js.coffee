@@ -27,7 +27,6 @@ $ ->
     $("a[href='" + target + "']").tab("show")
 
   $("#user_role").change( ->
-    console.log($(this).val())
     if $(this).val() == "Other"
       $("#role_other").show()
     else

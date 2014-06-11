@@ -47,7 +47,6 @@ class Autotest.LocatorBuilder
       paths.splice(0, 0, tagName + pathIndex)
       element = element.parentNode
 
-    console.log(paths)
     if paths.length
       return "/" + paths.join("/")
     else

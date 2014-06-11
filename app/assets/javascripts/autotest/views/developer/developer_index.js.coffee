@@ -16,22 +16,18 @@ class Autotest.Views.DeveloperIndex extends Backbone.View
     $("#current-scenario").show()
 
   showPlayStep: (message) ->
-    console.log("Playing Step: #{message}")
 
   play: (e) ->
-    console.log("view play event")
     e.stopImmediatePropagation()
     @showHidePlayButtons()
     @postMessage({messageType: "startPlayback"})
 
   stop: (e) ->
-    console.log("view stop event")
     e.stopImmediatePropagation()
     # @showHidePlayButtons()
     @postMessage({messageType: "stopPlayback"})
 
   pause: (e) ->
-    console.log("view pause function")
     e.stopImmediatePropagation()
     @showHidePlayButtons()
     @postMessage({messageType: "pausePlayback"})

@@ -37,7 +37,6 @@ Autotest.Messages.Parent.add("addFeature", (featureId) ->
 )
 
 Autotest.Messages.Parent.add("viewSteps", ->
-  console.log("Showing step list")
   stepIndex = new Autotest.Views.StepIndex
   stepIndex.view()
 )

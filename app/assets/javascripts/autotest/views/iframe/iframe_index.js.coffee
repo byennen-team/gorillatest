@@ -16,7 +16,6 @@ class Autotest.Views.IframeIndex extends Backbone.View
     Autotest.Messages.Iframe.post({messageType: "recordClick"})
 
   showStepCount: ->
-    console.log("posting view step count")
     Autotest.Messages.Iframe.post({messageType: "viewSteps"})
 
   stopRecording: ->
@@ -49,9 +48,7 @@ class Autotest.Views.IframeIndex extends Backbone.View
     $("#step-count").text("#{data.message.stepCount} steps")
 
   recording: (data) ->
-    console.log("Data recording is #{data.recording}")
     if data.recording == true
-      console.log("calling start recording")
       this.startRecording(data.message)
 
   startRecording: (message) ->

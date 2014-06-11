@@ -11,7 +11,6 @@ class @AutoTestRecorder
 
   start: ->
     _this = this
-    console.log("is recording is #{@isRecording}")
     if @isRecording == true
       # load the current scenario
       scenarioId = @sessionStorage.getItem("autoTestRecorder.currentScenario")
@@ -26,7 +25,6 @@ class @AutoTestRecorder
             postToIframe = ->
               if $("iframe#autotest-iframe").length == 1
                 $("iframe#autotest-iframe").load ->
-                  console.log("iframe loaded")
                   Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name')}})
                   step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
                 _this.record()
@@ -36,11 +34,9 @@ class @AutoTestRecorder
             postToIframe()
 
   record: ->
-    console.log("We are currently recording")
     # Collect actions to a JSON structure
     @isRecording = true
     @sessionStorage.setItem("autoTestRecorder.isRecording", @isRecording)
-    console.log("Binding DOM events")
     Autotest.Event.bind()
     Autotest.Event.bindDomNodeInsert()
     return
