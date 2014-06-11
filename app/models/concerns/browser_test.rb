@@ -125,7 +125,19 @@ module BrowserTest
           wait = Selenium::WebDriver::Wait.new(:timeout => 10)
           wait.until { driver.current_url  == step.text }
         elsif step.is_verification?
-          dom_string = driver.execute_script("return document.documentElement.outerHTML")
+          extract_all_text_from_dom = "function getTextContentExceptScript(element) {
+                                        var text= [];
+                                        for (var i= 0, n= element.childNodes.length; i<n; i++) {
+                                            var child= element.childNodes[i];
+                                            if (child.nodeType===1 && child.tagName.toLowerCase()!=='script')
+                                                text.push(getTextContentExceptScript(child));
+                                            else if (child.nodeType===3)
+                                                text.push(child.data);
+                                        }
+                                        return text.join('');
+                                      }; getTextContentExceptScript(document);"
+
+          dom_string = driver.execute_script(extract_all_text_from_dom)
           target = step.event_type == "verifyText" ? ">#{step.to_args[0]}<" : step.to_args[0]
           target = step.event_type == "verifyText" ? "#{step.to_args[0]}" : step.to_args[0]
           search = dom_string.scan(target)
