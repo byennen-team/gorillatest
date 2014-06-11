@@ -6,10 +6,8 @@
     %ol.breadcrumb
       %li
         Projects
-      %li
-        = link_to @project.name, project_path(@project)
       %li.active
-        = link_to "Project Settings"
+        = link_to @project.name, project_path(@project)
     = render 'sidebar'
     %div.tab-content
       #home.tab-pane.active
