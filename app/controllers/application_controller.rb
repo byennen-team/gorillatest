@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || projects_path
+    stored_location_for(resource) || dashboard_path
   end
 
   before_filter :allow_cross_domain_access
