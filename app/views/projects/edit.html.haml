@@ -30,6 +30,15 @@
           .clearfix
           = f.submit "Save Project", class: "btn btn-success"
       #users.tab-pane
+        %p
+          -if @project.has_invitations_left?
+            You can invite #{@project.num_invitations_remaining} more members to this project.
+            %br
+            Click #{link_to "here", invitations_path(project_id: @project.id.to_s)} to invite a member to this project.
+          -else
+            You can't invite any more people to this project.
+        %p
+          #{link_to 'Upgrade your plan', change_plan_path} to add more members to your project!
         %br
         - @project.users.each do |user|
           %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
