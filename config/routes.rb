@@ -71,7 +71,7 @@ Autotest::Application.routes.draw do
     put 'invitation/accept', to: "invitations#update", as: :complete_invitation
   end
 
-  resources :projects, only: [:show, :edit, :new, :destory] do
+  resources :projects do
     post 'remove_user/:user_id', to: 'projects#remove_user', on: :member, as: :remove_user
     post 'verify_script', to: 'projects#verify_script', as: :verify_script
     post 'update_notifications', to: "projects#update_notifications", on: :member, as: :update_notifications
