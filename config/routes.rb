@@ -50,7 +50,7 @@ Autotest::Application.routes.draw do
   devise_scope :user do
     get "/login" => "sessions#new"
     get "/logout" => "sessions#destroy"
-    get '/get-started' => 'registrations#new', as: 'get_started'
+    get '/sign-up-free' => 'registrations#new', as: 'sign_up_free'
     get '/my-info' => 'registrations#edit', as: 'my_info'
     get '/change-your-plan' => 'registrations#change_plan', as: 'change_plan'
     post "/upgrade/:plan_id" => 'registrations#upgrade', as: 'upgrade'
