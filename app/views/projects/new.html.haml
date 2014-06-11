@@ -13,7 +13,7 @@
         %div
           .jarviswidget-editbox
           .widget-body.no-padding
-            = simple_form_for(@project, :url => projects_path, :html => { :method => :post, class: 'smart-form' }) do |f|
+            = simple_form_for(@project, :html => { :method => :post, class: 'smart-form' }) do |f|
               - if @project.errors.any?
                 #error_explanation
                   %h2

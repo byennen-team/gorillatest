@@ -94,3 +94,7 @@ group :development, :test do
   gem 'stripe-ruby-mock', git: "https://github.com/jimiray/stripe-ruby-mock.git"
   gem 'rubocop'
 end
+
+group :test do
+  gem 'rspec-sidekiq'
+end

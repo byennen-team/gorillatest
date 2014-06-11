@@ -11,7 +11,20 @@
 %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
 
 .row
-  .col-md-12
+  .col-sm-12
+    = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
+    = link_to record_glyph, @project.url, {target: "_blank", class: "btn btn-danger btn-xs"} if @project.script_verified?
+    = play_button(@project) if @project.script_verified?
+    - unless @project.script_verified?
+      %a{data: {toggle: "modal", target: "#embed-modal-#{@project.id}"}, class:'view-embed-code btn btn-primary btn-xs'}
+        %span.glyphicon.glyphicon-eye-open
+        View Embed Code
+    = link_to glyph_button("ok", "Verify Embedded Script"), project_verify_script_path(@project), class:'verify-script btn btn-primary btn-xs' unless @project.script_verified?
+    = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" if @project.owner?(current_user) && !@project.script_verified?
+
+
+.row
+  .col-sm-12
     / Project widget
     .awidget
       .awidget-head
@@ -25,6 +38,5 @@
           %ul.project{style: "list-style-type: none;"}
             = render partial: 'scenarios/scenario', collection: @scenarios
           .clearfix
-      / Project widget
 
 = render 'embed_script_modal', project: @project, show_buttons: false

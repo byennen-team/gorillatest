@@ -20,44 +20,37 @@
 
 .row
   .col-md-12
-    .awidget
-      .awidget-head
-        %h3 Last 5 Tests
-      .awidget-body
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          .well.well-sm
-            .smart-timeline
-              %ul.smart-timeline-list
-                - @last5_test_runs.first(5).each do |test_run|
-                  //Passing Example
-                  %li
-                    .smart-timeline-icon{class: "#{test_run_status(test_run.status)}"}
-                      %i.fa.fa-fw{class: "#{bang_or_check(test_run.status)}"}
-                    .smart-timeline-time
-                      %small
-                        = distance_of_time_in_words_to_now(test_run.ran_at)
-                        ago
-                    .smart-timeline-content
-                      %p
-                        = link_to test_run_name(test_run), test_run_link(test_run), class: test_run_link_class(test_run.status)
-                      %p
-                        = test_run_platforms(test_run)
-                        &nbsp;&nbsp;
-                        %strong Ran By:
-                        = gravatar_image_tag(test_run.user)
-                        = test_run.user.name
-.row
-  .col-md-12
-    / Project widget
-    .awidget
-      .awidget-head
-        %h3 Projects
-      .awidget-body
-        - if current_user.projects.size == 0
-          %p
-            You don't current have any projects, would you like to
-            %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
-        - else
-          %ul.project
-            = render partial: '/projects/project', collection: current_user.projects
-          .clearfix
+    - if current_user.projects.size == 0
+      %p
+        You don't current have any projects, would you like to
+        %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
+    - else
+      - if @last5_test_runs.size == 0
+        = link_to "Create your first test", project_path(current_user.projects.first)
+      - else
+        .awidget
+          .awidget-head
+            %h3 Last 5 Tests
+          .awidget-body
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              .well.well-sm
+                .smart-timeline
+                  %ul.smart-timeline-list
+                    - @last5_test_runs.first(5).each do |test_run|
+                      //Passing Example
+                      %li
+                        .smart-timeline-icon{class: "#{test_run_status(test_run.status)}"}
+                          %i.fa.fa-fw{class: "#{bang_or_check(test_run.status)}"}
+                        .smart-timeline-time
+                          %small
+                            = distance_of_time_in_words_to_now(test_run.ran_at)
+                            ago
+                        .smart-timeline-content
+                          %p
+                            = link_to test_run_name(test_run), test_run_link(test_run), class: test_run_link_class(test_run.status)
+                          %p
+                            = test_run_platforms(test_run)
+                            &nbsp;&nbsp;
+                            %strong Ran By:
+                            = gravatar_image_tag(test_run.user)
+                            = test_run.user.name

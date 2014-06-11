@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || projects_path
+    stored_location_for(resource) || dashboard_path
   end
 
   before_filter :allow_cross_domain_access
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     begin
       @project = current_user.projects.find(params[:project_id] || params[:id])
     rescue Mongoid::Errors::DocumentNotFound
-      redirect_to projects_path, notice: "You are not authorized to access this project!"
+      redirect_to dashboard_path, notice: "You are not authorized to access this project!"
     end
   end
 

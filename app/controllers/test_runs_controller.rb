@@ -10,6 +10,13 @@ class TestRunsController < ApplicationController
 
   def show
     @test_run = @scenario.test_runs.find_by(number: params[:id])
+    @test_run.update_attribute(:queued_at, Time.now)
+    if params[:test] == "run"
+      @test_run.browser_tests.each do |test|
+        DemoWorker.perform_async(@test_run.id.to_s, test.id.to_s)
+      end
+      @test_run.update_attribute(:ran_at, Time.now)
+    end
   end
 
 

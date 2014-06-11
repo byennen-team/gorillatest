@@ -31,7 +31,7 @@ Autotest::Application.routes.draw do
       post :downgrade
     end
   end
-  resources :credit_cards, only: [:index, :create, :destroy] do
+  resources :credit_cards, only: [:index, :create, :destroy], path: "credit-cards" do
     member do
       post :default
     end
@@ -71,7 +71,7 @@ Autotest::Application.routes.draw do
     put 'invitation/accept', to: "invitations#update", as: :complete_invitation
   end
 
-  resources :projects do
+  resources :projects, only: [:show, :edit, :new, :destory] do
     post 'remove_user/:user_id', to: 'projects#remove_user', on: :member, as: :remove_user
     post 'verify_script', to: 'projects#verify_script', as: :verify_script
     post 'update_notifications', to: "projects#update_notifications", on: :member, as: :update_notifications
