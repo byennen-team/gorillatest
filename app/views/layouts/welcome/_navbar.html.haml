@@ -21,11 +21,11 @@
         Gorilla Test
     .navbar-collapse.collapse
       %ul.nav.navbar-nav
-        %li= link_to 'FAQs', '#'
-        %li= link_to 'Pricing', '#'
-        %li= link_to 'API', '#'
+        %li= link_to 'FAQs', faqs_path
+        %li= link_to 'Pricing', pricing_path
+        %li= link_to 'Documentation', documentation_path
         %li= link_to 'Contact', '#'
-        %li= link_to 'Blog', '#'
+        -#%li= link_to 'Blog', '#'
       %ul.nav.navbar-nav.navbar-right
-        %li= link_to 'Sign Up Free', sign_up_free_path
+        %li= link_to 'Sign Up Free', sign_up_free_path, class: 'btn btn-danger btn-lg'
         %li= link_to 'Login', login_path

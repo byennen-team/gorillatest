@@ -86,15 +86,6 @@ Autotest::Application.routes.draw do
     end
   end
 
-  #pages
-  get 'privacy', to: 'pages#privacy'
-  get 'terms', to: 'pages#terms'
-
-  #welcome pages
-  get '/tour', to: 'welcome#tour'
-  get 'pricing', to: 'welcome#pricing'
-  #root 'welcome#index.html.haml'
-
   # Test Pages
   get '/test/index', to: "autotest#index"
   get '/test/form', to: "autotest#form", as: "test_form"
@@ -126,6 +117,13 @@ Autotest::Application.routes.draw do
   resources :beta_invitations
   post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 
-  root 'welcome#index'
+  #pages
+  get 'faqs', to: 'pages#faqs'
+  get 'pricing', to: 'pages#pricing'
+  get 'documentation', to: 'pages#documentation'
+  get 'privacy', to: 'pages#privacy'
+  get 'terms', to: 'pages#terms'
+
+  root 'pages#welcome'
 
 end

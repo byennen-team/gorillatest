@@ -1,5 +1,6 @@
 /*
  *= require_self
  *= require welcome/bootstrap_and_overrides
+ *= require plugins/flat-ui
  *= require welcome/layout
  */
