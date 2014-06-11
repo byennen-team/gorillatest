@@ -86,8 +86,9 @@ $(document).ready ->
       Autotest.scenario = new Autotest.Models.Scenario({id: window.sessionStorage.getItem("autoTestRecorder.currentScenario")})
       $("iframe#autotest-iframe").on "loadComplete", ->
         Autotest.scenario.fetch(
-          success: ->
-            window.autoTestRecorder.start()
+          success: (model, response, options)->
+            if response.project_id == Autotest.projectId
+              window.autoTestRecorder.start()
           error: ->
             alert("Could not start recorder")
         )

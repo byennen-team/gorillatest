@@ -1,5 +1,5 @@
 class ScenarioSerializer < ActiveModel::Serializer
-  attributes :id, :project_id, :name, :dashboard_url
+  attributes :id, :project_id, :name, :dashboard_url, :projectName
 
   def id
   	object.id.to_s
@@ -11,6 +11,10 @@ class ScenarioSerializer < ActiveModel::Serializer
 
   def dashboard_url
     url_for(project_test_path(object.project, object.slug))
+  end
+
+  def projectName
+    object.project.name
   end
 
 end
