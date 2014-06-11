@@ -14,7 +14,7 @@
   .col-sm-12
     = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
     = link_to record_glyph, @project.url, {target: "_blank", class: "btn btn-danger btn-xs"} if @project.script_verified?
-    = play_button(project) if @project.script_verified?
+    = play_button(@project) if @project.script_verified?
     - unless @project.script_verified?
       %a{data: {toggle: "modal", target: "#embed-modal-#{@project.id}"}, class:'view-embed-code btn btn-primary btn-xs'}
         %span.glyphicon.glyphicon-eye-open
