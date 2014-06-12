@@ -39,7 +39,7 @@
                     - @last5_test_runs.first(5).each do |test_run|
                       //Passing Example
                       %li
-                        .smart-timeline-icon{class: "#{test_run_status(test_run.status)}"}
+                        .smart-timeline-icon{class: "#{test_run_status_class(test_run.status)}"}
                           %i.fa.fa-fw{class: "#{bang_or_check(test_run.status)}"}
                         .smart-timeline-time
                           %small
