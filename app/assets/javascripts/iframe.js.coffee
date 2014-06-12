@@ -15,8 +15,9 @@
 //= require ./autotest/event
 //= require ./autotest/gui_controller
 
-addEventListener "message", (e)->
-  data = e.data
-  Autotest.Messages.Iframe.perform(data.messageType, data)
+if document.addEventListener
+  addEventListener "message", (e)->
+    data = e.data
+    Autotest.Messages.Iframe.perform(data.messageType, data)
 
 Autotest.Messages.Iframe.post({messageType: "iframeLoadComplete"})

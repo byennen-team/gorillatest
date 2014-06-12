@@ -1,15 +1,33 @@
 module DashboardHelper
 
-  def test_run_status(test_run_status)
-    return  test_run_status == "pass" ? "passing" : "failing"
+  def test_run_status_class(test_run_status)
+    if test_run_status == "pass"
+      return "passing"
+    elsif test_run_status == "fail"
+      return "failing"
+    else
+      return "running"
+    end
   end
 
   def bang_or_check(test_run_status)
-    return test_run_status == "pass" ? "fa-check" : "fa-exclamation"
+    if test_run_status == "pass"
+      return "fa-check"
+    elsif test_run_status == "fail"
+      return "fa-exclamation"
+    else
+      return "fa-ellipsis-h"
+    end
   end
 
   def test_run_link_class(test_run_status)
-    return test_run_status == "pass" ? "txt-color-greenDark" : "txt-color-red"
+    if test_run_status == "pass"
+      return "txt-color-greenDark"
+    elsif test_run_status == "fail"
+      return "txt-color-red"
+    else
+      return "txt-color-yellow"
+    end
   end
 
   def test_run_name(test_run)
