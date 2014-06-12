@@ -5,6 +5,7 @@ class Scenario
   include Mongoid::Document
   include Mongoid::Paranoia
   include Mongoid::Slug
+  include Mongoid::Timestamps
 
   field :name, type: String
   field :window_x, type: Integer
@@ -36,7 +37,7 @@ class Scenario
   end
 
   def all_test_runs
-    (test_runs + project.test_runs).sort_by(&:ran_at).reverse
+    (test_runs + project.test_runs).select{|run| run.created_at > (created_at || steps.first.created_at)}.sort_by(&:ran_at).reverse
   end
 
 end
