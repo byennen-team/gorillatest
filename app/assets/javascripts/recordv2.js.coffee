@@ -26,5 +26,6 @@
 # Need to figure out how to namespace these so they don't pollute global windows vars - jkr
 $(document).ready () ->
 
-  window.addEventListener "message", (e)->
-    Autotest.Messages.Parent.perform(e.data.messageType, e.data.featureId)
+  if window.addEventListener
+    window.addEventListener "message", (e)->
+      Autotest.Messages.Parent.perform(e.data.messageType, e.data.featureId)
