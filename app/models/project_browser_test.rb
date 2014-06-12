@@ -10,9 +10,10 @@ class ProjectBrowserTest
     #sleep 5 # this is to allow for the page refresh to finish so we don't lose Pusher messages.
     status = []
     set_ran_at_time
-    test_run.project.scenarios.each do |scenario|
-      line_item = save_history(scenario, "Running Test: #{scenario.name}", nil, nil)
+    test_run.project.scenarios.each_with_index do |scenario, index|
+      line_item = save_history(scenario, "#{scenario.name}", nil, nil)
       status << run(scenario, line_item)
+      Pusher.trigger([channel_name], "scenario_complete", {platform: platform, browser: browser, num_scenarios_completed: index+1})
     end
     if status.include?(false)
       self.update_attribute(:status, "fail")

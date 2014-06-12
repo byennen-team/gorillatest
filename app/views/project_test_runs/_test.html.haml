@@ -4,8 +4,13 @@
     / %p Starting test...
     - test.test_history.history_line_items.each do |scenario_history_line_item|
       %p{id: "#{test.channel_name}-scenario-#{scenario_history_line_item.testable.id.to_s}"}
-        Test:
+        Scenario:
         = scenario_history_line_item.text
+        (
+        %span.steps-completed
+          #{scenario_history_line_item.children.count}
+        of #{scenario_history_line_item.testable.steps.count} completed
+        )
         %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{scenario_history_line_item.testable.id.to_s}"}
           - scenario_history_line_item.children.each do |step|
             %li

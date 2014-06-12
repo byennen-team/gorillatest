@@ -44,12 +44,15 @@ window.channels = channels
       data.status_icon = iconTemplate(data.status)
       steps_list_id = "#{channel.name}-scenario-steps-#{data.scenario_id}"
       $("##{steps_list_id}").append(statusTemplate(data))
-
+      $("##{data.platform}_#{data.browser}").html(data.steps_completed)
+      $("p##{data.platform}-#{data.browser}-scenario-#{data.scenario_id}").find(".steps-completed").html(data.steps_completed)
       if data.status is "fail"
         $("##{channel.name}").prev().removeClass("panel-success").addClass("panel-fail")
       else
         $("##{channel.name}").prev().addClass("panel-success")
       return
+    channel.bind "scenario_complete", (data)->
+      $("##{data.platform}_#{data.browser}_project_test_run").html(data.num_scenarios_completed)
 
 messageTemplate = _.template("<li id='message_<%= id %>'><a href='<%= url %>' data-message-id='<%= id %>'><%= message %></a></li>")
 
