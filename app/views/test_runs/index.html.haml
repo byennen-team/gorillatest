@@ -19,12 +19,8 @@
         %br
         %br
         - @scenario.test_runs.reverse.each do |test_run|
-          - if test_run.status != nil
-            .test_run{class: test_run.status}
-              = render partial: 'test_run', locals: {test_run: test_run}
-          - else
-            .test_run
-              = render partial: 'test_run', locals: {test_run: test_run}
+          .test_run
+            = render partial: 'test_run', locals: {test_run: test_run}
             %br{style: "clear: both;"}
 
 

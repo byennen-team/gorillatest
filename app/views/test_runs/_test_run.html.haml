@@ -6,7 +6,7 @@
     %tr
       %th{style: "padding-right: 5px;"} Ran By:
       %td{style: "width: 200px;"}
-        = gravatar_image_tag(current_user, 16)
+        = gravatar_image_tag(test_run.user, 16)
         = test_run.user.name
       %th{style: "padding-right: 5px;"} Ran:
       %td{style: "width: 200px;"}
