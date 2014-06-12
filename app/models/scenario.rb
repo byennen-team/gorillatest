@@ -35,4 +35,8 @@ class Scenario
     end
   end
 
+  def all_test_runs
+    (test_runs + project.test_runs).sort_by(&:ran_at).reverse
+  end
+
 end
