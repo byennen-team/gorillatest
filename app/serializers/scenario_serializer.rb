@@ -10,7 +10,7 @@ class ScenarioSerializer < ActiveModel::Serializer
   end
 
   def dashboard_url
-    url_for(project_test_path(object.project, object.slug))
+    project_url(object.project)
   end
 
   def projectName

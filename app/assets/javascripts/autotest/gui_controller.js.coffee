@@ -116,7 +116,7 @@ AutoTestGuiController = {
     options.width = options.width or "auto"
     if templateName == "test_complete_modal"
       console.log("rendering test complete modal")
-      $content = $(JST["autotest/templates/#{templateName}"](url : "#{Autotest.apiUrl}#{Autotest.currentScenario.get("dashboard_url")}"))
+      $content = $(JST["autotest/templates/#{templateName}"](url : "#{Autotest.currentScenario.get("dashboard_url")}"))
     else
       $content = $(JST["autotest/templates/#{templateName}"]())
     if $("##{options.wrapperId}").length == 1
