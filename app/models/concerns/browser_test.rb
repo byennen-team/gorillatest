@@ -190,8 +190,9 @@ module BrowserTest
   def send_to_pusher(event="step_pass", message=nil)
     if event == "step_pass"
       message = current_line_item.as_json(methods: [:to_s])
+      steps_completed = self.is_a?(ScenarioBrowserTest) ? test_history.history_line_items.count : current_line_item.parent.children.count
       message.merge!({scenario_id: current_step.scenario.id.to_s, browser: browser, platform: platform,
-                      steps_completed: test_history.history_line_items.count})
+                      steps_completed: steps_completed})
     else
       message = message.as_json
     end
