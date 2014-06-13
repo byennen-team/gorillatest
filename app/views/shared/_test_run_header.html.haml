@@ -2,6 +2,12 @@
   %h4.panel-title
   =image_tag "icons/#{test.browser}-24.png"
   = "#{test.platform.capitalize} #{test.browser.capitalize}"
+  %span
+    (
+    %span{id: "#{test.platform}_#{test.browser}_project_test_run"}
+      #{test.test_history.history_line_items.count}
+    of #{test.test_run.project.scenarios.count} tests completed
+    )
   .pull-right
     %a{class: 'collapsed see-test-detail', href: "##{@test_run.id}_#{test.platform}_#{test.browser}_channel", data: {toggle: "collapse"}}
       View All

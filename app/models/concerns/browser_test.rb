@@ -67,7 +67,7 @@ module BrowserTest
   def run(scenario, history_line_item=nil)
     driver.manage.delete_all_cookies
     if history_line_item
-      send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self})
+      send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self, num_total_steps: scenario.steps.count})
     end
     begin
       @current_step = scenario.steps.first
@@ -190,7 +190,8 @@ module BrowserTest
   def send_to_pusher(event="step_pass", message=nil)
     if event == "step_pass"
       message = current_line_item.as_json(methods: [:to_s])
-      message.merge!({scenario_id: current_step.scenario.id.to_s})
+      message.merge!({scenario_id: current_step.scenario.id.to_s, browser: browser, platform: platform,
+                      steps_completed: test_history.history_line_items.count})
     else
       message = message.as_json
     end

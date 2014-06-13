@@ -4,18 +4,18 @@
     = play_developer_mode_button(scenario)
   %h5{style: "display: inline;"}
     = link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
-    - if scenario.test_runs.present?
+    - if scenario.all_test_runs.present?
       %table{style: "font-size: 1.0em"}
         %tr
           %th{style: "padding-right: 5px;"} Last Ran By:
           %td{style: "width: 200px;"}
-            = gravatar_image_tag(scenario.test_runs.first.user, 16)
-            = scenario.test_runs.first.user.name
+            = gravatar_image_tag(scenario.all_test_runs.first.user, 16)
+            = scenario.all_test_runs.first.user.name
           %th{style: "padding-right: 5px;"} Ran:
           %td{style: "width: 200px;"}
-            #{distance_of_time_in_words_to_now(scenario.test_runs.first.created_at)} ago
+            #{distance_of_time_in_words_to_now(scenario.all_test_runs.first.created_at)} ago
           %th{style: "padding-right: 5px;"} Duration:
-          %td= duration_to_hours_minutes_seconds(scenario.test_runs.first.duration)
+          %td= duration_to_hours_minutes_seconds(scenario.all_test_runs.first.duration)
   %div{id: "test_run-#{scenario.id}", style: "display: none;"}
     %h4{style: "font-weight: bold; margin-top: 10px;"} Start A New Test Run
     = form_tag run_scenario_project_test_path(@project, scenario.id), class:"scenario-run", id: "scenario_#{scenario.id}" do

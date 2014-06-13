@@ -17,8 +17,9 @@ window.iconTemplate = (status) ->
   else
     return "<span class='glyphicon glyphicon-exclamation-sign status status-fail'></span>&nbsp;"
 window.statusTemplate = _.template("<li><%= status_icon %><%= text %></li>")
-window.scenarioTemplate = _.template("<p id='<%= test.platform %>-<%= test.browser %>-scenario-<%= scenario_id %>'>Scenario: <%= scenario_name %></p>
-                               <ul class='steps-list' id='<%= channel_name %>-scenario-steps-<%= scenario_id %>'></ul>")
+window.scenarioTemplate = _.template("<p id='<%= test.platform %>-<%= test.browser %>-scenario-<%= scenario_id %>'>
+                                      Scenario: <%= scenario_name %> (<span class='steps-completed'>0</span> of <%= num_total_steps %> completed)</p>
+                                     <ul class='steps-list' id='<%= channel_name %>-scenario-steps-<%= scenario_id %>'></ul>")
 window.featureTemplate = _.template("<p id='<%= channel_name %>-feature-<%= feature_id %>'>Feature: <%= feature_name %></p><br /><br />")
 
 $ ->

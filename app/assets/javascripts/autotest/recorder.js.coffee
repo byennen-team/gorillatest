@@ -49,6 +49,7 @@ class @AutoTestRecorder
     autoTestGuiController.removeStepsList()
     Autotest.Event.unbind()
     Autotest.Event.unbindDomNodeInsert()
+    autoTestGuiController.stopElementHighlight()
     autoTestGuiController.renderModal("test_complete_modal", options)
     Autotest.currentFeature = null
     Autotest.currentScenario = null
