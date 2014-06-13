@@ -6,7 +6,7 @@
   <div class="autotest-modal-body">
     <label>Test Name</label>
     <input id="scenario_name" name="scenario[name]" type="text">
-    <p>Once this modal closes AutoTest will automatically start recording your behavior for this test</p>
+    <p>Once this modal closes GorillaTest will automatically start recording your behavior for this test</p>
   </div>
   <div class="autotest-modal-footer">
     <button class="btn btn-default autotest-modal-close">Close</button>
