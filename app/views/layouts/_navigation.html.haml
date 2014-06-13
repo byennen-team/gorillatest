@@ -14,7 +14,7 @@
           = nav_link "Add Project", new_project_path(), "fa-plus"
         - else
           = nav_link "Add Project", change_plan_path(plan:"maxed"), "fa-plus"
-      %li
+      %li.open#nav-project-list-link
         %a{href: "javascript:;"}
           %i.fa.fa-lg.fa-fw.fa-desktop
           %span.menu-item-parent Projects
