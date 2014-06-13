@@ -2,9 +2,9 @@ $(document).ready ->
   $("#login-box").animate
     top:'+=20',
     opacity:'1.0',
-    1000, 'easeInExpo'
+    500, 'easeInExpo'
 
-  $('#auth_options').delay(1000).animate
+  $('#auth_options').delay(500).animate
     opacity:'1.0',
-    1000, 'easeInSine'
+    500, 'easeInSine'
 
