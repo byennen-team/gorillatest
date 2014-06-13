@@ -1,16 +1,3 @@
-:css
-  .logo {
-    height: 40px;
-    width: auto;
-  }
-  .navbar {
-    height: 62px;
-  }
-  .navbar-nav li a {
-    line-height: 33px;
-  }
-
-
 .navbar.navbar-default{role: "navigation"}
   .navbar-inner
     .container-fluid
@@ -32,5 +19,5 @@
           -#%li= link_to 'Contact', '#'
           -#%li= link_to 'Blog', '#'
         %ul.nav.navbar-nav.navbar-right
-          %li= link_to 'Sign Up Free', sign_up_free_path, class: 'btn btn-danger btn-lg'
+          %li= link_to 'Sign Up Free', sign_up_free_path #TODO: Lance #, class: 'btn btn-danger btn-lg'
           %li= link_to 'Login', login_path

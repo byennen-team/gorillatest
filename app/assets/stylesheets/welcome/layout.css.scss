@@ -1,0 +1,30 @@
+.background {
+  background-image: url('../../assets/layout/bg.jpg');
+  background-size: 10px 587px;
+  background-repeat: repeat-x;
+}
+.imac {
+  width: 800px;
+  height: auto;
+}
+.logo {
+  height: 40px;
+  width: auto;
+  padding-right: 18px;
+}
+.navbar {
+  margin-bottom: 0;
+}
+.navbar-nav li a {
+  text-align: center;
+  height: 62px;
+  line-height: 69px;
+  padding: 0 30px;
+}
+.navbar-default .navbar-brand {
+  font-weight: bold;
+}
+.featurette-heading {
+  margin: 40px 0;
+}
+
