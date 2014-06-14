@@ -47,9 +47,5 @@
           = link_to "Create an account", new_user_registration_path
           %i.fa.fa-circle
           = link_to "Trouble logging in?", new_password_path(resource_name)
-          %h1.gorilla-test Gorilla Test
-          %p
-            ©
-            = Time.now.year
-            All Rights Reserved. Gorilla Test ® is a registered trademark of 14 Labs.
-            = link_to 'Privacy and Terms'
+          = render 'layouts/footer'
+
