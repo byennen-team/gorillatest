@@ -3,34 +3,53 @@
 - content_for :title do
   Log In
 
+:css
+  #login-box .logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 40px;
+  }
+  #login-box .options {
+    margin: 60px 0 40px;
+  }
+  .gorilla-test {
+    margin: 80px 0;
+  }
+
 .row
   #login-box.col-md-4.col-md-offset-4
-    .awidget.login-reg
-      .awidget-head
-      .awidget-body
-        / Page title
-        .page-title
-          %h2 Gorilla Test
-        .row
-          .col-sm-12
-            = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {class: 'form-vertical', id: 'login-form' }) do |f|
-              = f.error_notification
-              = devise_error_messages!
-              = f.input :email, placeholder: 'Email Address', label: false
-              = f.input :password, placeholder: 'Password', label: false
-              .row
-                .col-md-6
-                  = link_to "Forgot password?", new_password_path(resource_name)
-                .col-md-6.pull-right
-                  = f.submit 'Sign In', class: 'btn btn-primary btn-block'
-                .col-md-6
-                  = link_to "Don't have an account?", new_user_registration_path
-    #auth_options.row
-      .col-md-6
-        =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
-          %i.fa.fa-google-plus
-          Sign in with Google
-      .col-md-6
-        =link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-default' do
-          %i.fa.fa-github
-          Sign in with Github
+    .login-reg
+      .text-center
+        = image_tag('layout/gorilla-test-head.svg', class: 'logo')
+      .row
+        .col-sm-12
+          = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {class: 'form-vertical', id: 'login-form' }) do |f|
+            = f.error_notification
+            = devise_error_messages!
+            = f.input :email
+            = f.input :password
+            .row
+              .col-md-6
+                = f.submit 'Log In', class: 'btn btn-primary btn-block'
+              .col-md-6
+
+      #auth_options.row
+        .col-md-6
+          =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
+            %i.fa.fa-google-plus
+            Sign in with Google
+        .col-md-6
+          =link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-default' do
+            %i.fa.fa-github
+            Sign in with Github
+      .row
+        .options.col-sm-12.text-center
+          = link_to "Create an account", new_user_registration_path
+          %i.fa.fa-circle
+          = link_to "Trouble logging in?", new_password_path(resource_name)
+          %h1.gorilla-test Gorilla Test
+          %p
+            ©
+            = Time.now.year
+            All Rights Reserved. Gorilla Test ® is a registered trademark of 14 Labs.
+            = link_to 'Privacy and Terms'

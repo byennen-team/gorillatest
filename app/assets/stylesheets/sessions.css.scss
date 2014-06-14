@@ -6,33 +6,22 @@ html {
 
 //Login
 body#sessions-new, body#passwords-new, body#passwords-edit {
-  @include linear-gradient(to top, slategray, darkgray);
+  background: #f9f9f9;
 }
 #sessions-new, #passwords-new, #passwords-edit, #invitations-edit {
   #login-box {
     opacity: 0;
     margin-top: 10%;
   }
-  .awidget {
-    background: whitesmoke;
-    padding: 30px;
-    border-radius: 6px;
-    border-left: 1px solid #eee;
-    border-top: 1px solid #eee;
-    border-bottom: 3px solid #eee;
-    border-right: 3px solid #eee;
-    //  TODO: add box shadow
-    //  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.24) inset;
-    border-color: none;
-  }
 
-  a {
-    color: #676E75;
-    &:hover, &:active {
-      color: #1492D6;
-      text-decoration: none;
-    }
-  }
+
+//  a {
+//    color: #676E75;
+//    &:hover, &:active {
+//      color: #1492D6;
+//      text-decoration: none;
+//    }
+//  }
 
   .btn-default {
     color: #676E75;
