@@ -14,7 +14,7 @@
     = favicon_link_tag 'favicon.ico'
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
     = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
-    = stylesheet_link_tag    "application/recorder", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "recorder", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "iframe", data: {project_id: params[:project_id],
                                               auth: @project.api_key,
                                               api_url: ENV['API_URL'] || '',

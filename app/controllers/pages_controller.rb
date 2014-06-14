@@ -6,4 +6,8 @@ class PagesController < ApplicationController
       redirect_to dashboard_path
     end
   end
+
+  def pricing
+    @plans = Plan.all
+  end
 end

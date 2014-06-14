@@ -13,8 +13,9 @@
     %meta{:content => content_for?(:keywords) ? yield(:keywords) : meta_keywords, :name => "keywords"}
     = favicon_link_tag 'favicon.ico'
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
-    = stylesheet_link_tag    "welcome/application", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    = yield(:head)
     = csrf_meta_tags
   %body
     = render 'layouts/welcome/navbar'
