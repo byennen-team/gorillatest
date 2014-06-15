@@ -7,12 +7,7 @@
   width: 800px;
   height: auto;
 }
-.featurette-heading {
-  margin: 40px 0;
-}
 .demo-video {
-//  height: 403px;
-//  width: 736px;
   z-index: 1;
   position: absolute;
   top: 23px;
@@ -24,4 +19,11 @@
 }
 .footer-logo {
   margin: 80px 0;
+}
+h1.welcome-title {
+  letter-spacing: -.03em;
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: bold;
+  margin: 40px 0;
 }
