@@ -30,4 +30,15 @@ body#sessions-new, body#passwords-new, body#passwords-edit, #registrations-creat
     color: green !important;
     padding: 2px;
   }
+  label {
+    color: #595959;
+    font-weight: 500;
+    display: block;
+    text-align: left;
+    padding-bottom: .4em;
+    max-width: 550px;
+    font-size: 15px;
+    line-height: 18px;
+    padding: .2em 0 .6em 0
+  }
 }
