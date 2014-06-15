@@ -55,7 +55,7 @@ $(document).ready ->
   if Autotest.parent == "iframe"
     iframeIndexView = new Autotest.Views.IframeIndex({el: ".recording-bar"})
   else
-    styleSheetUrl = Autotest.apiUrl + "/assets/application/recorder.css"
+    styleSheetUrl = Autotest.apiUrl + "/assets/recorder.css"
     $('head').append("<link rel='stylesheet' type='text/css' href='"+ styleSheetUrl + "'>");
     console.log("Developer mode is #{Autotest.developerMode}")
     if Autotest.developerMode == true
