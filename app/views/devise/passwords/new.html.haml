@@ -19,17 +19,13 @@
               = devise_error_messages!
               = f.input :email, placeholder: 'Email Address', label: false
               .row
-                .col-md-6.pull-right
-                  = f.submit 'Reset My Password', class: 'btn btn-primary btn-block'
                 .col-md-6
-                  = link_to "Don't have an account?", new_user_registration_path
-                  = link_to "Return to Login", login_path
-    #auth_options.row
-      .col-md-6
-        =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
-          %i.fa.fa-google-plus
-          Sign in with Google
-      .col-md-6
-        =link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-default' do
-          %i.fa.fa-github
-          Sign in with Github
+                  = f.submit 'Reset My Password', class: 'btn btn-info btn-block'
+                .col-md-6
+
+        .row
+          .options.col-sm-12.text-center
+            = link_to "Don't have an account?", new_user_registration_path
+            %i.fa.fa-circle
+            = link_to "Return to Login", login_path
+

@@ -46,7 +46,7 @@ Autotest::Application.routes.draw do
   end
 
   #application
-  devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks}, skip: :invitations
+  devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks, passwords: :passwords}, skip: :invitations
   devise_scope :user do
     get "/login" => "sessions#new"
     get "/logout" => "sessions#destroy"

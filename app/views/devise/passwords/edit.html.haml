@@ -26,12 +26,3 @@
                 .col-md-6
                   = link_to "Don't have an account?", new_user_registration_path
                   = link_to "Return to Login", login_path
-    #auth_options.row
-      .col-md-6
-        =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do
-          %i.fa.fa-google-plus
-          Sign in with Google
-      .col-md-6
-        =link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-default' do
-          %i.fa.fa-github
-          Sign in with Github
