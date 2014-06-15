@@ -17,7 +17,7 @@
     = yield(:head)
     = csrf_meta_tags
   %body{:id => "#{controller_name}-#{action_name}"}
-    - unless params[:controller] == "registrations" || params[:controller] == "sessions"
+    - unless params[:controller] == "registrations" || params[:controller] == "sessions" || params[:controller] == "passwords"
       = render 'layouts/navbar'
     = render 'layouts/messages'
     = yield
