@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe DashboardController do
 
-  #describe "GET 'welcome.html.haml'" do
+  #describe "GET 'pages.html.haml'" do
   #  it "returns http success" do
-  #    get 'welcome.html.haml'
+  #    get 'pages.html.haml'
   #    response.should be_success
   #  end
   #end

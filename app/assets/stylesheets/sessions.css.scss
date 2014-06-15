@@ -12,16 +12,15 @@ body#sessions-new, body#passwords-new, body#passwords-edit {
   #login-box {
     opacity: 0;
     margin-top: 10%;
+    .logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 40px;
+    }
+    .options {
+      margin: 60px 0 40px;
+    }
   }
-
-
-//  a {
-//    color: #676E75;
-//    &:hover, &:active {
-//      color: #1492D6;
-//      text-decoration: none;
-//    }
-//  }
 
   .btn-default {
     color: #676E75;
@@ -99,11 +98,4 @@ body#sessions-new, body#passwords-new, body#passwords-edit {
     color: green !important;
     padding: 2px;
   }
-}
-
-.alert {
-  background: whitesmoke;
-  padding: 10px;
-  border-radius: 6px;
-  margin-top: 20px;
 }

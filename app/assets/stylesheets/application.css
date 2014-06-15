@@ -17,6 +17,6 @@
   *= require left-navbar
   *= require sessions
   *= require forms
-  *= require welcome
+  *= require pages
   *= require buttons
 */

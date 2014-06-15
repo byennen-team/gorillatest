@@ -1,5 +1,5 @@
 class SessionsController < Devise::SessionsController
-  layout 'session'
+  layout 'pages'
 
   protected
 

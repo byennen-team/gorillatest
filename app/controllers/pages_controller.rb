@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  layout 'welcome'
+  layout 'pages'
   def welcome
     @beta_invitation = BetaInvitation.new
     if user_signed_in?
