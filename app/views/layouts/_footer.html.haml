@@ -1,10 +1,5 @@
-:css
-  .gorilla-test {
-    margin: 80px 0;
-  }
-
 %footer.text-center
-  %h1.gorilla-test Gorilla Test
+  = link_to image_tag('layout/footer-logo.jpg', class: 'footer-logo')
   %p
     ©
     = Time.now.year
