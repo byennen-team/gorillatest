@@ -91,8 +91,27 @@ $(document).ready ->
 
   else
     alert "Error - menu anchor does not exist"
+
+  # save left navbar preference
+  setSession = (key, val)->
+    window.sessionStorage.setItem(key, val)
+  getSession = (key)->
+    return window.sessionStorage.getItem(key)
+
+  if getSession("navbarExpanded") == "false"
+    $("body").addClass("minified")
+  else
+    $("body").removeClass("minified")
+
+  setNavbarPreference = ->
+    $("body").toggleClass("minified")
+    if $("body").hasClass("minified")
+      setSession("navbarExpanded", "false")
+    else
+      setSession("navbarExpanded", "true")
+
   $(".minifyme").click (e) ->
-    $("body").toggleClass "minified"
+    setNavbarPreference()
     e.preventDefault()
     return
 
