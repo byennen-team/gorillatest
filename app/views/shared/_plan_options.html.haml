@@ -96,3 +96,6 @@
                         = link_to "Downgrade", downgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-primary btn-block'
                       - else
                         = link_to "Downgrade", downgrade_plan_path(plan.id.to_s), class: 'btn btn-primary btn-block', disabled: 'disabled'
+              - else
+                .panel-footer.text-align-center
+                  = link_to 'Sign Up', sign_up_free_path, class: 'btn btn-info btn-block'
