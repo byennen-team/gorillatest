@@ -20,7 +20,7 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = yield(:head)
 
-  %body.smart-style-2.fixed-header.fixed-ribbon.fixed-navigation
+  %body{:id => "#{controller_name}-#{action_name}", class: 'smart-style-2 fixed-header fixed-ribbon fixed-navigation'}
     = render 'layouts/header'
     = render 'layouts/navigation'
     #main{role: "main"}

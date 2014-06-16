@@ -1,0 +1,71 @@
+.scenario {
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  &.pass {
+    border-left: 10px solid $green;
+  }
+  &.fail {
+    border-left: 10px solid $red;
+  }
+  &.unran {
+    border-left: 10px solid $orange;
+  }
+}
+
+.test_run {
+  height: 75px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  padding: 0px;
+  margin-bottom: 10px;
+  &.pass {
+    border-left: 10px solid $green;
+  }
+  &.fail {
+    border-left: 10px solid $red;
+  }
+  &.unran {
+    border-left: 10px solid $orange;
+  }
+}
+
+.view-test_run {
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 0px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomleft: 0px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 0px;
+  a {
+    color: $lightGreyLink;
+    text-decoration: none;
+    &:hover {
+      border: 0px !important;
+      color: $lightGreyLink !important;
+      text-decoration: none;
+    }
+  }
+}
+
+.test {
+  border: 1px solid $lightGrey;
+  &.pass {
+    border-left: 10px solid $green;
+  }
+  &.fail {
+    border-left: 10px solid $red;
+  }
+}
+
+.screenshot-link {
+  color: $red;
+  &:hover {
+    color: $red !important;
+    border-bottom: 1px dotted $red !important;
+  }
+}
