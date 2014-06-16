@@ -186,6 +186,7 @@ button.btn {
     border: 0;
     padding: 0;
     &:hover {
+      cursor: pointer !important;
       text-decoration: none;
     }
   }

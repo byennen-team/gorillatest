@@ -1,6 +1,6 @@
 <div class="autotest-modal-content" style="cursor: auto; outline: none;">
   <div class="autotest-modal-header" style="cursor: auto; outline: none;">
-    <button class="close autotest-modal-close-x" data-dismiss="modal" style="cursor: auto; outline: none; font-size: 2em;">×</button>
+    <button class="b-close autotest-modal-close-x" data-dismiss="modal" style="cursor: auto; outline: none; font-size: 2em;">×</button>
     <h4 style="cursor: auto; outline: none;">Choose Validation</h4>
   </div>
   <div class="autotest-modal-body" style="cursor: auto; outline: none;">
