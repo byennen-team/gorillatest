@@ -15,7 +15,7 @@
     %br
     %strong Completed On:
     = test.updated_at.strftime('%m/%d/%Y %H:%M')
-%div{id: "#{@test_run.id}_#{test.platform}_#{test.browser}_channel", class: "#{test.status != nil ? "collapse" : ""}"}
+%div{id: "#{@test_run.id}_#{test.platform}_#{test.browser}_channel"}
   .panel-body.terminal
     / %p Starting test...
     %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{@test_run.scenario.id.to_s}"}
