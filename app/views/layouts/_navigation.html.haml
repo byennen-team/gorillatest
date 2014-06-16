@@ -4,7 +4,7 @@
       / User image size is adjusted inside CSS, it should stay as it
       %a#show-shortcut{href: "javascript:void(0);"}
         = gravatar_image_tag(current_user, 32)
-        %span= truncate(current_user.try(:name), :length => 12)
+        %span= truncate(current_user.try(:name), :length => 12, omission: '')
 
   %nav
     %ul
