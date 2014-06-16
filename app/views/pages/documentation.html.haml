@@ -4,6 +4,8 @@
       .col-sm-12
         .pages-margin.well.well-light
           %h1 Documentation
+          %br
+          
           %h2 Getting Started
 
           %p Once you have signed up for a Gorilla Test account, you will be able to add projects or record some sample tests.  To access the projects, click on the "Projects", link in the left sidebar nav.
@@ -37,7 +39,7 @@
 
           %h2 Validating Data
 
-          %p In order to validate data on  your site:
+          %p In order to validate data on your site:
           %ul
             %li Click the "Validate" button
           
@@ -57,8 +59,36 @@
 
           %h2 Inviting Other Users
 
+          %p To invite other users to you project, you must be within the plan limits, and choose the “Invite Users” link after clicking your name.  Here you can invite users to a specific project or to GorillaTest.
+
+          %p To invite users, please enter their email address into the email field separated by a comma.
+          %br
+
 
           %h2 Playback in Developer
 
+          %p Developer mode playback allows for developer without a testing account to watch the test execute in real-time on a desktop browser.  While playing the developer has access to all the tools at his disposal for normal web troubleshooting.
+
+          %p To start playback in developer mode, navigate to a single test, and click the “Playback in Developer Mode” button.  This will launch the test in a separate browser window.
+
+          %p To share the link, you can right click on the “Playback in Developer Mode” button and choose “Copy Link”, you can then paste the link in an email or if needed into the bug tracker you are using.
+          %br 
+
 
           %h2 Heroku Add-On
+
+          %p To use the Heroku beta add-on, install it through the Heroku add-on page, or through the console using:
+
+          %code $ heroku addon:add gorillatest
+
+          %p Once you have completed adding the add-on you can add the Ruby gem to you project by adding the gem to your Gemfile.
+
+          %code gem ‘gorilla_test-rails’, require: ‘gorilla_test’
+
+          %p To install the intializer for your project:
+
+          %code rails g gorilla_test:install
+
+          %p To complete the installation add to the layout of your choice:
+
+          %code gorilla_test_script
