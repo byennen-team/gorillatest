@@ -52,6 +52,7 @@ window.Autotest =
 Autotest.initialize()
 
 $(document).ready ->
+  $("body").css("padding-top", "55px")
   if Autotest.parent == "iframe"
     iframeIndexView = new Autotest.Views.IframeIndex({el: ".recording-bar"})
   else
