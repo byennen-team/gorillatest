@@ -1,6 +1,5 @@
 $(document).ready ->
   $(".imac, .demo-video").animate
-    top:'+=20',
     opacity:'1.0',
     1000, 'easeInExpo'
 
