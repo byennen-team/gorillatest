@@ -42,7 +42,7 @@ class Autotest.LocatorBuilder
       if index != 0
         pathIndex = "[" + (index+1) + "]"
       else
-        pathIndex = ""
+        pathIndex = "[1]"
 
       paths.splice(0, 0, tagName + pathIndex)
       element = element.parentNode
