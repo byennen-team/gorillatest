@@ -1,9 +1,12 @@
+- content_for :head do
+  = javascript_include_tag 'pages'
+
 .background
   .container
     .row
       .col-sm-12.text-center
         %h1.welcome-title Automated QA.
-      .row{style: 'margin-bottom: 40px;'}
+      #imac.row{style: 'margin-bottom: 40px;'}
         .col-sm-8.col-sm-offset-2
           = image_tag('welcome/imac.png', class: 'img-responsive imac')
           = image_tag('welcome/demo.gif', class: 'demo-video img-responsive')

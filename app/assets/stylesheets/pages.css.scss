@@ -3,23 +3,27 @@
   background-size: 10px 587px;
   background-repeat: repeat-x;
 }
+
 .imac {
+  opacity: 0;
   width: 800px;
   height: auto;
+  position: relative;
+  z-index: 2;
 }
+
 .demo-video {
+  opacity: 0;
   z-index: 1;
   position: absolute;
   top: 23px;
   left: 30px;
 }
-.imac {
-  position: relative;
-  z-index: 2;
-}
+
 .footer-logo {
   margin: 80px 0;
 }
+
 h1.welcome-title {
   letter-spacing: -.03em;
   font-size: 40px;
