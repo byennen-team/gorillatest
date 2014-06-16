@@ -62,8 +62,8 @@ $(document).ready ->
       devIframeHtml = JST["autotest/templates/developer"]
       devMouseHtml = JST["autotest/templates/developer_mouse"]
       window.autoTestDeveloper = true
-      $("body").prepend(devMouseHtml)
-      $("body").prepend(devIframeHtml)
+      $("body").append(devMouseHtml)
+      $("body").append(devIframeHtml)
       scenario = new Autotest.Models.Scenario({id: Autotest.developerScenarioId})
       scenario.fetch({
         success: (model, response, options) ->
@@ -80,7 +80,7 @@ $(document).ready ->
     else
       iframeHtml = JST["autotest/templates/iframe"]()
       stepsHtml = JST["autotest/templates/steps_list"]()
-      $("body").prepend(iframeHtml)
+      $("body").append(iframeHtml)
       $("body").append(stepsHtml)
       window.autoTestRecorder = new AutoTestRecorder window.projectId
       Autotest.scenario = new Autotest.Models.Scenario({id: window.sessionStorage.getItem("autoTestRecorder.currentScenario")})
