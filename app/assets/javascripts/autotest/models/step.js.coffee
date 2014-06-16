@@ -16,6 +16,8 @@ class Autotest.Models.Step extends Backbone.Model
         return $("a:contains('#{@get('locator_value')}')")
       when "xpath"
         return $.xpath(@get("locator_value"))
+      else
+        return []
 
   perform: ->
     Autotest.Developer.Steps.perform(this)

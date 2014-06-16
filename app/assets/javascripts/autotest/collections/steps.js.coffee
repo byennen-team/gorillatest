@@ -64,7 +64,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
       return allDoneCurrent
 
 
-    if @selected.element()
+    if @selected.element().length > 0
       offset = @selected.element().offset()
       $("#gorilla-test-mouse-pointer").show().css(
           top: offset.top + (@selected.element().outerHeight() / 2)
@@ -72,6 +72,7 @@ class Autotest.Collections.Steps extends Backbone.Collection
       )
 
     Autotest.Messages.Parent.post({messageType: "playStep", message: "Playing: #{@selected.get('to_s')}"})
+
     @performing = true
     if @selected.get("event_type") != "get"
       outcome = @selected.perform()
