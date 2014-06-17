@@ -61,9 +61,25 @@ $ ->
     </div>
   </li>'
 
+  switchRunTestButton = (el)->
+    button = $(el).closest("form.scenario-run").find("input.run-test")
+    concurrencyLimit = parseInt $(".concurrency-limit").text()
+    numChecked = $(el).closest("form.scenario-run").find("input:checked").length
+
+    if numChecked > concurrencyLimit
+      button.attr("disabled", true)
+      button.siblings(".concurrency-warning").removeClass("hide")
+    else if $(el).closest("form.scenario-run").find("input:checked").length > 0
+      button.siblings(".concurrency-warning").addClass("hide")
+      button.removeAttr("disabled")
+    else
+      button.attr("disabled", true)
+
   projectId = $("#pusher-project-id").attr("project-id")
   channel = window.pusher.subscribe("project-#{projectId}")
   channel.bind "scenario_completed", (data)->
     if $("li.scenario_#{data.scenario_id}").length == 0
       $("ul.project").prepend(testTemplate(data))
+      $("ul.project").find("li").first().find("input[type='checkbox']").on "change", () ->
+        switchRunTestButton(this)
 
