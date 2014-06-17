@@ -15,7 +15,7 @@
           %span.menu-item-parent Projects
         %ul
           - @users_projects.each do |project|
-            - if params[:projects][:name].include?(project.name)
+            - if @project && @project == project
               %li.current-project= link_to project.name, project_path(project)
             - else
               %li= link_to project.name, project_path(project)
