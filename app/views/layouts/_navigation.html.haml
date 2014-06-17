@@ -20,7 +20,11 @@
           %span.menu-item-parent Projects
         %ul
           - @users_projects.each do |project|
-            %li= link_to project.name, project_path(project)
+            - if params[:projects][:name].include?(project.name)
+              %li.current-project= link_to project.name, project_path(project)
+            - else
+              %li= link_to project.name, project_path(project)
+            - end
 
   %span.minifyme
     %i.fa.fa-arrow-circle-left.hit
