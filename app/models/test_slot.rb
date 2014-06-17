@@ -17,7 +17,7 @@ class TestSlot
   end
 
   def self.like_windows?(platform, slot_platform)
-    platform.upcase == "WINDOWS" && ["VISTA"].include?(slot_platform)
+    platform.upcase == "WINDOWS" && (["VISTA"].include?(slot_platform)  || ["WIN8"].include?(slot_platform))
   end
 
   def self.platform_match?(platform, slot_platform)
