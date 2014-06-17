@@ -28,14 +28,14 @@ class ScenarioTestRun
 
   def start_notification_message
     notification = "Test Run started for "
-    notification += "#{self.project.name} - #{self.scenario.name} - #{number}:"
+    notification += "#{self.project.name} - #{self.scenario.name} - #{timestamp}:"
     url = project_test_test_run_url(project, scenario.slug, self, host: ENV["API_URL"])
     notification += " "
     notification += url
   end
 
   def complete_notification_message
-    notification = "Test Run #{status}ed for #{self.project.name} - #{self.scenario.name} - #{number}:"
+    notification = "Test Run #{status}ed for #{self.project.name} - #{self.scenario.name} - #{timestamp}:"
     url = project_test_test_run_url(project, scenario.slug, self, host: ENV['API_URL'])
     notification += " "
     notification += url
