@@ -1,6 +1,6 @@
 module ApplicationHelper
   #add active class to links
-  def nav_link(link_text, link_path, italic_class)
+  def nav_link(link_text, link_path, italic_class=nil)
     class_name = current_page?(link_path) ? 'active' : ''
     if link_text == "Projects" && projects_controller?(params[:controller])
       class_name = 'active'
@@ -35,11 +35,11 @@ module ApplicationHelper
   end
 
   def play_glyph(options={})
-    glyph_button("play", options[:text] || "Play")
+    glyph_button("play", options[:text] || "Run Test")
   end
 
   def record_glyph(options={})
-    glyph_button("record", "Record")
+    glyph_button("record", "Create Test")
   end
 
   def logout_glyph(options={})

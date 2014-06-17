@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
 
   def show
     @scenarios = @project.scenarios.sort_by(&:created_at).reverse
+    @new_project_path = current_user.can_create_project? ? new_project_path : change_plan_path(plan:"maxed")
   end
 
   def new

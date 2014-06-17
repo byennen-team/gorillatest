@@ -9,11 +9,6 @@
   %nav
     %ul
       %li= nav_link "Dashboard", dashboard_path, "fa-home"
-      %li
-        - if current_user.can_create_project?
-          = nav_link "Add Project", new_project_path(), "fa-plus"
-        - else
-          = nav_link "Add Project", change_plan_path(plan:"maxed"), "fa-plus"
       %li.open#nav-project-list-link
         %a{href: "javascript:;"}
           %i.fa.fa-lg.fa-fw.fa-desktop
@@ -24,6 +19,10 @@
               %li.current-project= link_to project.name, project_path(project)
             - else
               %li= link_to project.name, project_path(project)
+          %li
+            = link_to @new_project_path, class: "menu-item-parent" do
+              %em
+                Add Project
 
   %span.minifyme
     %i.fa.fa-arrow-circle-left.hit
