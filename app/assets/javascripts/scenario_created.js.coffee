@@ -51,7 +51,7 @@ $ ->
             <span class="hide concurrency-warning">
               Your plan only allows
               <span class="concurrency-limit">
-                4
+                <%= concurrency_limit %>
               </span>
               concurrent browsers for a test run
             </span>
@@ -63,7 +63,7 @@ $ ->
 
   switchRunTestButton = (el)->
     button = $(el).closest("form.scenario-run").find("input.run-test")
-    concurrencyLimit = parseInt $(".concurrency-limit").text()
+    concurrencyLimit = parseInt $("ul.project").find("li").first().find(".concurrency-limit").text()
     numChecked = $(el).closest("form.scenario-run").find("input:checked").length
 
     if numChecked > concurrencyLimit
