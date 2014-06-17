@@ -2,7 +2,7 @@ $ ->
 
   testTemplate = _.template '<li class="scenario scenario_<%=scenario_id %>" style="margin-bottom: 5px;">
     <div class="pull-right" style="color: white;">
-      <a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$(\'#test_run-<%=scenario_id %>\').slideToggle();"><span class=" glyphicon glyphicon-play"></span> Play</a>
+      <a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$(\'#test_run-<%=scenario_id %>\').slideToggle();"><span class=" glyphicon glyphicon-play"></span>Run Test</a>
       <a class="btn btn-success btn-xs" href="http://localhost:3000/test/thankyou?project_id=5395e9f85068693477020000&amp;developer=true&amp;scenario_id=<%=scenario_id %>" target="_blank"><span class=" glyphicon glyphicon-play"></span> Play Developer Mode</a>
     </div>
     <h5 style="display: inline;">
