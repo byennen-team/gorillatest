@@ -31,6 +31,13 @@ class Api::V1::ScenariosController < Api::V1::BaseController
     end
   end
 
+  def publish
+    @scenario = current_project.scenarios.find(params[:id])
+    Pusher.trigger(["project-#{current_project.id.to_s}"],
+                    "scenario_completed", {scenario_id: @scenario.id.to_s, project_id: current_project.id.to_s, scenario_name: @scenario.name})
+    head :ok, type: "application/json"
+  end
+
   private
 
   # Need to figure out how features work into scenarios

@@ -38,6 +38,11 @@ class @AutoTestRecorder
     return
 
   stop: ->
+    $.ajax
+      url: "#{Autotest.apiUrl}/api/v1/scenarios/#{Autotest.currentScenario.get("id")}/publish"
+      data: {id: Autotest.currentScenario.get("id"), scenario: {completed: true}}
+      method: "POST"
+
     @isRecording = false
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
     @sessionStorage.removeItem("autoTestRecorder.currentFeature")
@@ -54,6 +59,7 @@ class @AutoTestRecorder
     Autotest.currentFeature = null
     Autotest.currentScenario = null
     Autotest.currentSteps = null
+
 
   recordHighlight: (text)->
     scenario = this.currentScenario
