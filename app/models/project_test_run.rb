@@ -7,10 +7,6 @@ class ProjectTestRun
 
   def feature; nil; end
 
-  def to_param
-    number.to_s
-  end
-
   def name
     project.name
   end
@@ -36,16 +32,6 @@ class ProjectTestRun
     url = project_test_run_url(project, self, host: ENV['API_URL'])
     notification += " "
     notification += url
-  end
-
-  private
-
-  def set_number
-    if project.test_runs.include?(self)
-      self.number = project.test_runs.size
-    else
-      self.number = project.test_runs.size + 1
-    end
   end
 
 end

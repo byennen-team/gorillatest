@@ -7,14 +7,19 @@ module TestRun
     include Mongoid::Timestamps
     include TestDuration
 
-    field :number, type: Integer
+    field :number, type: Integer # don't use anymore, but keeping it because not sure about old data
+    field :timestamp, type: String
     field :platforms, type: Array
 
     belongs_to :user
 
     # embeds_many :browser_tests
 
-    before_create :set_number
+    after_create :set_timestamp
+  end
+
+  def set_timestamp
+    update_attribute(:timestamp, created_at.strftime("%b %d, %I:%M %p %Z"))
   end
 
   def complete
