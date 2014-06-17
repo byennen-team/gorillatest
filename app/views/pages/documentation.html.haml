@@ -1,94 +1,93 @@
-.background
-  .container
-    .row
-      .col-sm-12
-        .pages-margin.well.well-light
-          %h1 Documentation
-          %br
-          
-          %h2 Getting Started
+.container
+  .row
+    .col-sm-12
+      .pages-margin.well.well-light
+        %h1 Documentation
+        %br
 
-          %p Once you have signed up for a Gorilla Test account, you will be able to add projects or record some sample tests.  To access the projects, click on the "Projects", link in the left sidebar nav.
-          %br
+        %h2 Getting Started
 
-
-          %h2 Adding A Project
-
-          %p To add your first project, use the Add Project button in the left sidebar.  After clicking this link you’ll be presented with an opportunity to enter your project name, and the URL you’ll be testing.  By clicking the “Show Advanced Settings”, you can also enter a HTTP Basic Authentication Username and Password if needed.
-          %br
+        %p Once you have signed up for a Gorilla Test account, you will be able to add projects or record some sample tests.  To access the projects, click on the "Projects", link in the left sidebar nav.
+        %br
 
 
-          %h2 Recording Your First Test
+        %h2 Adding A Project
 
-          %p To record your first test, navigate to the project you would like to record tests for.  There should be a red record button in the top navigation for the project.  Clicking this button will take you to the website that is designated for that project.
-          %br
-
-
-          %h2 To begin recording on your site:
-
-          %p Click the red "Record" button in the top right corner of the screen.
-          Record actions by completing them in your browser, for example:
-          %ul
-            %li Enter text in a Login form
-            %li Select products to add to a cart in an e-commerce store
-            %li Use web page links to navigate to other pages
-
-          %p Once you are done recording, you can click the "Stop" button located in the upper right hand of the website.
-          %br
+        %p To add your first project, use the Add Project button in the left sidebar.  After clicking this link you’ll be presented with an opportunity to enter your project name, and the URL you’ll be testing.  By clicking the “Show Advanced Settings”, you can also enter a HTTP Basic Authentication Username and Password if needed.
+        %br
 
 
-          %h2 Validating Data
+        %h2 Recording Your First Test
 
-          %p In order to validate data on your site:
-          %ul
-            %li Click the "Validate" button
-          
-          %p As you move around the web page, you'll notice a green highlighting.
-          
-          %p Use the green highlighting to locate the specific element/text validation you would like to record.
-          
-          %p Once you have highlighted the specific text/element click and you'll be presented with a modal window to validate the text or the html elements surrounding the text.<br>
-          %br
+        %p To record your first test, navigate to the project you would like to record tests for.  There should be a red record button in the top navigation for the project.  Clicking this button will take you to the website that is designated for that project.
+        %br
 
 
-          %h2 Playing Back Your Tests
+        %h2 To begin recording on your site:
 
-          %p To playback your recorded tests, navigate to the project you would like to playback.  There are 2 options when playing back a test,  “Play All Tests” for a project, or just playback a single test. Once you’ve clicked play, choose the browsers that you would like to run the tests on and click the “Run Test” button.
-          %br
+        %p Click the red "Record" button in the top right corner of the screen.
+        Record actions by completing them in your browser, for example:
+        %ul
+          %li Enter text in a Login form
+          %li Select products to add to a cart in an e-commerce store
+          %li Use web page links to navigate to other pages
 
-
-          %h2 Inviting Other Users
-
-          %p To invite other users to you project, you must be within the plan limits, and choose the “Invite Users” link after clicking your name.  Here you can invite users to a specific project or to GorillaTest.
-
-          %p To invite users, please enter their email address into the email field separated by a comma.
-          %br
-
-
-          %h2 Playback in Developer
-
-          %p Developer mode playback allows for developer without a testing account to watch the test execute in real-time on a desktop browser.  While playing the developer has access to all the tools at his disposal for normal web troubleshooting.
-
-          %p To start playback in developer mode, navigate to a single test, and click the “Playback in Developer Mode” button.  This will launch the test in a separate browser window.
-
-          %p To share the link, you can right click on the “Playback in Developer Mode” button and choose “Copy Link”, you can then paste the link in an email or if needed into the bug tracker you are using.
-          %br 
+        %p Once you are done recording, you can click the "Stop" button located in the upper right hand of the website.
+        %br
 
 
-          %h2 Heroku Add-On
+        %h2 Validating Data
 
-          %p To use the Heroku beta add-on, install it through the Heroku add-on page, or through the console using:
+        %p In order to validate data on your site:
+        %ul
+          %li Click the "Validate" button
 
-          %code $ heroku addon:add gorillatest
+        %p As you move around the web page, you'll notice a green highlighting.
 
-          %p Once you have completed adding the add-on you can add the Ruby gem to you project by adding the gem to your Gemfile.
+        %p Use the green highlighting to locate the specific element/text validation you would like to record.
 
-          %code gem ‘gorilla_test-rails’, require: ‘gorilla_test’
+        %p Once you have highlighted the specific text/element click and you'll be presented with a modal window to validate the text or the html elements surrounding the text.<br>
+        %br
 
-          %p To install the intializer for your project:
 
-          %code rails g gorilla_test:install
+        %h2 Playing Back Your Tests
 
-          %p To complete the installation add to the layout of your choice:
+        %p To playback your recorded tests, navigate to the project you would like to playback.  There are 2 options when playing back a test,  “Play All Tests” for a project, or just playback a single test. Once you’ve clicked play, choose the browsers that you would like to run the tests on and click the “Run Test” button.
+        %br
 
-          %code gorilla_test_script
+
+        %h2 Inviting Other Users
+
+        %p To invite other users to you project, you must be within the plan limits, and choose the “Invite Users” link after clicking your name.  Here you can invite users to a specific project or to GorillaTest.
+
+        %p To invite users, please enter their email address into the email field separated by a comma.
+        %br
+
+
+        %h2 Playback in Developer
+
+        %p Developer mode playback allows for developer without a testing account to watch the test execute in real-time on a desktop browser.  While playing the developer has access to all the tools at his disposal for normal web troubleshooting.
+
+        %p To start playback in developer mode, navigate to a single test, and click the “Playback in Developer Mode” button.  This will launch the test in a separate browser window.
+
+        %p To share the link, you can right click on the “Playback in Developer Mode” button and choose “Copy Link”, you can then paste the link in an email or if needed into the bug tracker you are using.
+        %br
+
+
+        %h2 Heroku Add-On
+
+        %p To use the Heroku beta add-on, install it through the Heroku add-on page, or through the console using:
+
+        %code $ heroku addon:add gorillatest
+
+        %p Once you have completed adding the add-on you can add the Ruby gem to you project by adding the gem to your Gemfile.
+
+        %code gem ‘gorilla_test-rails’, require: ‘gorilla_test’
+
+        %p To install the intializer for your project:
+
+        %code rails g gorilla_test:install
+
+        %p To complete the installation add to the layout of your choice:
+
+        %code gorilla_test_script

@@ -34,7 +34,8 @@ class Api::V1::ScenariosController < Api::V1::BaseController
   def publish
     @scenario = current_project.scenarios.find(params[:id])
     Pusher.trigger(["project-#{current_project.id.to_s}"],
-                    "scenario_completed", {scenario_id: @scenario.id.to_s, project_id: current_project.id.to_s, scenario_name: @scenario.name})
+                    "scenario_completed", {scenario_id: @scenario.id.to_s, project_id: current_project.id.to_s,
+                                           scenario_name: @scenario.name, concurrency_limit: current_user.plan.concurrent_browsers})
     head :ok, type: "application/json"
   end
 
