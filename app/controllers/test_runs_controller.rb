@@ -6,6 +6,7 @@ class TestRunsController < ApplicationController
 
   def index
     @test_runs = @scenario.test_runs.all
+    get_concurrency_limit
   end
 
   def show
