@@ -99,6 +99,7 @@ Autotest::Application.routes.draw do
       match '/scenarios' => "scenarios#create", via: :options
       match '/scenarios/:scenario_id' => "scenarios#show", via: :options
       match '/scenarios/:scenario_id/steps' => "steps#create", via: :options
+      match '/scenarios/:scenario_id/publish' => "scenarios#publish", via: :options
       match '/scenarios/:scenario_id/publish' => "scenarios#publish", via: :post
       # match '/features/:feature_id/scenarios/:scenario_id' => "scenarios#show", via: :options
       # match '/features/:features_id/scenarios/:scenario_id/steps' => "steps#create", via: :options
