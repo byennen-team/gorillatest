@@ -26,6 +26,8 @@
           -#%li= link_to 'Blog', '#'
         %ul.nav.navbar-nav.pull-right
           - if current_user.present?
+            %li= nav_link 'Invite', new_invitation_path
+            %li= nav_link 'Upgrade', pricing_path
             %li.logout= icon_link "Logout", logout_path, "fa-sign-out"
           - else
             %li= link_to 'Request Invite', 'javascript:;', data: {target: "#myModal", toggle: "modal"} #, class: 'btn btn-danger'
