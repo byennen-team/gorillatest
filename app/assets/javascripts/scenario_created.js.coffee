@@ -29,6 +29,16 @@ $ ->
                 <img alt="Internet Explorer 9" src="/assets/icons/ie.png">
                 Internet Explorer 9
               </li>
+              <li style="border-top: 0px; padding: 2px;">
+                <input id="browsers_" name="browsers[]" type="checkbox" value="windows_ie10">
+                <img alt="Internet Explorer 10" src="/assets/icons/ie.png">
+                Internet Explorer 10
+              </li>
+              <li style="border-top: 0px; padding: 2px;">
+                <input id="browsers_" name="browsers[]" type="checkbox" value="windows_ie11">
+                <img alt="Internet Explorer 11" src="/assets/icons/ie.png">
+                Internet Explorer 11
+              </li>
             </ul>
           </div>
           <div class="pull-left" style="width: 33%">
