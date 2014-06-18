@@ -8,7 +8,7 @@
 
   %nav
     %ul
-      %li= icon_link "Dashboard", dashboard_path, "fa-home"
+      = icon_link "Dashboard", dashboard_path, "fa-home"
       %li.open#nav-project-list-link
         %a{href: "javascript:;"}
           %i.fa.fa-lg.fa-fw.fa-desktop
@@ -24,7 +24,7 @@
               %em
                 Add Project
       - if current_user.present?
-        %li.logout= icon_link "Logout", logout_path, "fa-sign-out"
+        = icon_link "Logout", logout_path, "fa-sign-out"
 
   %span.minifyme
     %i.fa.fa-arrow-circle-left.hit
