@@ -27,15 +27,25 @@ a {
 .navbar {
   margin-bottom: 0;
 }
+.navbar-default {
+  background-color: white;
+}
 .navbar-nav li a {
   text-align: center;
   height: 62px;
   line-height: 69px;
   padding: 0 30px;
-}
-.navbar-default .navbar-brand {
   font-weight: bold;
 }
+.navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
+  background-color: #f9f9f9;
+}
+.navbar-default .navbar-nav li a.active {
+  color: #52bad5;
+  background-color: #f9f9f9;
+  border-bottom: 4px solid;
+}
+
 
 // -----------------------------------------------------
 

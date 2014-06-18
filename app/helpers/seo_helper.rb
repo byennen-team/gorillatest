@@ -1,6 +1,6 @@
 module SeoHelper
   def title
-    "Gorilla Test - Automated Testing that will make you go bananas."
+    "Gorilla Test | Automated QA."
   end
 
   def meta_keywords
