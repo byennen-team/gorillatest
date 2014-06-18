@@ -26,9 +26,6 @@
         Automatically parallelize your tests across multiple machines. With up to
         %strong 16-way parallelization.
     .col-sm-2.col-sm-inset-2
-      %p
-        -#%button.btn.btn-success.btn-lg{"data-target" => "#myModal", "data-toggle" => "modal", style: 'margin: 40px 0 20px;'}
-        -#  Request a Beta Invitation
-        = link_to 'Sign Up Free', sign_up_free_path, class: 'btn btn-danger btn-lg'
-
-= render 'pages/beta_invitation_form'
+      %button.btn.btn-success.btn-lg{id: 'beta-invite-button', data: {target: "#myModal", toggle: "modal"} }
+        Request a Beta Invitation
+        /= link_to 'Sign Up for Free', sign_up_free_path, class: 'btn btn-danger btn-lg'

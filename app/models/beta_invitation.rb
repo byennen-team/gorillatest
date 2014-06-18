@@ -9,16 +9,15 @@ class BetaInvitation
 
   validates_format_of :email, :with => Devise::email_regexp
 
-  #after_create :add_user_to_email_newsletter
+  after_create :add_user_to_email_list
 
   private
 
-  def add_user_to_email_newsletter
-    return if Rails.env.development?
-    NewsletterWorker.perform_async("subscribe", {
+  def add_user_to_email_list
+    return unless Rails.env.production?
+    Gibbon::API.new.lists.subscribe({
       :id => ENV['MAILCHIMP_LIST_ID'],
       :email => {:email => self.email},
-      :merge_vars => {:LIGHTBOX => 'Yes'},
       :double_optin => false,
       :update_existing => true,
       :send_welcome => false

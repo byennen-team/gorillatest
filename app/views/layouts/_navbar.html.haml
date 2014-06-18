@@ -21,6 +21,5 @@
           -#%li= link_to 'Contact', '#'
           -#%li= link_to 'Blog', '#'
         %ul.nav.navbar-nav.navbar-right
-          %li= link_to 'Sign Up Free', sign_up_free_path #, class: 'btn btn-danger btn-lg'
-          %li= nav_link 'Login', login_path
-
+          %li= link_to 'Request Invite', "#", data: {target: "#myModal", toggle: "modal"} #, class: 'btn btn-danger btn-lg'
+          %li= link_to 'Login', login_path
