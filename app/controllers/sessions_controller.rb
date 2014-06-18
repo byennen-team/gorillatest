@@ -12,6 +12,7 @@ class SessionsController < Devise::SessionsController
 
   def remove_heroku_session
     session[:heroku_sso] = false
+  end
 
   def initalize_beta_invite
     @beta_invitation = BetaInvitation.new
