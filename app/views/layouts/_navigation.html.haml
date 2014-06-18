@@ -23,6 +23,8 @@
             = link_to @new_project_path, class: "menu-item-parent" do
               %em
                 Add Project
+      - if current_user.present?
+        %li.logout= icon_link "Logout", logout_path, "fa-sign-out"
 
   %span.minifyme
     %i.fa.fa-arrow-circle-left.hit
