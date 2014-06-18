@@ -20,7 +20,7 @@
             - else
               %li= link_to project.name, project_path(project)
           %li
-            = link_to @new_project_path, class: "menu-item-parent" do
+            = link_to "#{current_user.try(:can_create_project?) ? new_project_path : change_plan_path(plan:"maxed")}", class: "menu-item-parent" do
               %em
                 Add Project
       - if current_user.present?
