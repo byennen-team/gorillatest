@@ -53,6 +53,11 @@ module BrowserTest
       cap.platform = platform.upcase.to_sym
       cap.javascript_enabled = true
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
+    when 'safari'
+      cap = Selenium::WebDriver::Remote::Capabilities.safari
+      cap.platform = platform.upcase.to_sym
+      cap.javascript_enabled = true
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     when 'ie9'
       cap = Selenium::WebDriver::Remote::Capabilities.internet_explorer
       cap.platform = platform.upcase.to_sym
@@ -69,6 +74,12 @@ module BrowserTest
       cap = Selenium::WebDriver::Remote::Capabilities.internet_explorer
       cap.platform = "WIN8"
       cap.browser_name = "ie10"
+      cap.javascript_enabled = true
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
+    when 'ie11'
+      cap = Selenium::WebDriver::Remote::Capabilities.internet_explorer
+      cap.platform = "WIN8"
+      cap.browser_name = "ie11"
       cap.javascript_enabled = true
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     # when 'phantomjs'
