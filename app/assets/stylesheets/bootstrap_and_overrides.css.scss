@@ -45,7 +45,15 @@ a {
   background-color: #f9f9f9;
   border-bottom: 4px solid;
 }
-
+#logo {
+  display: inline-block;
+  width: 175px;
+  img {
+    width: 159px;
+    height: 60px;
+    padding-left: 3px;
+  }
+}
 
 // -----------------------------------------------------
 

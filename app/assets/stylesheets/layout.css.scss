@@ -15690,25 +15690,6 @@ label {
   .container {
     border: none;
   }
-  #header {
-    margin: 0;
-    height: 71px;
-    border-bottom: 1px solid #eeeeee !important;
-    overflow: hidden;
-    padding: 0 30px;
-    background-clip: padding-box;
-    border-width: 0;
-    min-height: 28px;
-    background: #f4f4f4 !important;
-    margin-bottom: 20px;
-    #logo {
-      margin-top: 22px;
-      margin-left: 0px;
-      img {
-        width: 137px;
-      }
-    }
-  }
 }
 
 #login-header-space {
@@ -18187,18 +18168,6 @@ aside {
       -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 0, 0.08);
       box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 0, 0.08);
     }
-  }
-}
-
-#logo {
-  display: inline-block;
-  width: 175px;
-  margin-top: 13px;
-  margin-left: 9px;
-  img {
-    width: 159px;
-    height: 40px;
-    padding-left: 3px;
   }
 }
 
