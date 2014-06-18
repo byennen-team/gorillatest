@@ -22,6 +22,7 @@
       = render 'layouts/navbar'
     = render 'layouts/messages'
     = yield
-    = render 'pages/beta_invitation_form'
+    -if @beta_invitation
+      = render 'pages/beta_invitation_form'
     = render 'layouts/footer'
     = analytics_init if Rails.env.production?
