@@ -15761,18 +15761,6 @@ label {
   }
 }
 
-@media only screen and (min-width: 0px) and (max-width: 679px) {
-  #login #header {
-    padding: 0 5px !important;
-    #logo {
-      img {
-        width: 135px;
-      }
-      margin-top: 22px;
-    }
-  }
-}
-
 /*
  * NESTABLES
  */
@@ -18303,7 +18291,7 @@ aside {
 
 #left-panel {
   position: absolute;
-  top: 60px;
+  top: 64px;
   left: 0px;
   z-index: 1002;
   width: 197px;
@@ -22798,12 +22786,6 @@ img {
     height: 39px !important;
     line-height: 38px !important;
   }
-  #logo {
-    margin-top: 10px;
-    img {
-      width: 127px;
-    }
-  }
   /* transparent header button */
   .btn-header.transparent a {
     border: none !important;
@@ -22882,9 +22864,6 @@ img {
   #header {
     padding-right: 5px;
   }
-  #logo {
-    margin-left: 4px;
-  }
   .no-content-padding {
     margin: 0 -5px !important;
   }
@@ -22915,12 +22894,6 @@ img {
   }
   #hide-menu > :first-child > a {
     width: 50px !important;
-  }
-  #logo {
-    margin-top: 10px;
-    img {
-      width: 127px;
-    }
   }
   #hide-menu i {
     color: #6D6A69;
@@ -23038,9 +23011,6 @@ img {
   #header {
     padding-right: 5px;
   }
-  #logo {
-    margin-left: 4px;
-  }
   .no-content-padding {
     margin: 0 -5px !important;
   }
@@ -23078,12 +23048,6 @@ img {
   }
   #hide-menu > :first-child > a {
     width: 50px !important;
-  }
-  #logo {
-    margin-top: 10px;
-    img {
-      width: 127px;
-    }
   }
   /* transparent header button */
   .btn-header.transparent a {
@@ -23219,9 +23183,6 @@ img {
   #header {
     padding-right: 5px;
   }
-  #logo {
-    margin-left: 4px;
-  }
   .no-content-padding {
     margin: 0 -5px !important;
   }
@@ -23251,9 +23212,6 @@ img {
     }
   }
   /* lego width adjustment */
-  #logo {
-    width: 135px;
-  }
   #logo-group {
     width: 169px !important;
   }
@@ -23277,12 +23235,6 @@ img {
     width: 40px !important;
     height: 39px !important;
     line-height: 38px !important;
-  }
-  #logo {
-    margin-top: 10px;
-    img {
-      width: 127px;
-    }
   }
   /* transparent header button */
   .btn-header.transparent a {
