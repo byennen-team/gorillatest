@@ -11,3 +11,8 @@ li.current-project a{
 .menu-item-parent em {
   font-size: 11px;
 }
+
+#messages {
+  overflow-y: auto;
+  max-height: 300px;
+}
