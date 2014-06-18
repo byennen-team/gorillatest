@@ -148,23 +148,30 @@ module BrowserTest
           wait = Selenium::WebDriver::Wait.new(:timeout => 10)
           wait.until { driver.current_url  == step.text }
         elsif step.is_verification?
-          extract_all_text_from_dom = "function getTextContentExceptScript(element) {
-                                        var text= [];
-                                        for (var i= 0, n= element.childNodes.length; i<n; i++) {
-                                            var child= element.childNodes[i];
-                                            if (child.nodeType===1 && child.tagName.toLowerCase()!=='script')
-                                                text.push(getTextContentExceptScript(child));
-                                            else if (child.nodeType===3)
-                                                text.push(child.data);
-                                        }
-                                        return text.join('');
-                                      }; getTextContentExceptScript(document);"
+          if step.event_type == "verifyElementPresent"
+            element_text = driver.find_element(step.locator_type, step.locator_value).text()
+            # Downcase because we record the actual text inside the element
+            # Selenium returns it post CSS applied. - jkr
+            unless element_text.downcase == step.to_args[0].downcase
+              raise Selenium::WebDriver::Error::NoSuchElementError
+            end
+          else
+            extract_all_text_from_dom = "function getTextContentExceptScript(element) {
+                                          var text= [];
+                                          for (var i= 0, n= element.childNodes.length; i<n; i++) {
+                                              var child= element.childNodes[i];
+                                              if (child.nodeType===1 && child.tagName.toLowerCase()!=='script')
+                                                  text.push(getTextContentExceptScript(child));
+                                              else if (child.nodeType===3)
+                                                  text.push(child.data);
+                                          }
+                                          return text.join('');
+                                        }; return getTextContentExceptScript(document);"
 
-          dom_string = driver.execute_script(extract_all_text_from_dom)
-          target = step.event_type == "verifyText" ? ">#{step.to_args[0]}<" : step.to_args[0]
-          target = step.event_type == "verifyText" ? "#{step.to_args[0]}" : step.to_args[0]
-          search = dom_string.scan(target)
-          raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
+            dom_string = driver.execute_script(extract_all_text_from_dom)
+            search = dom_string.scan(step.to_args[0])
+            raise Selenium::WebDriver::Error::NoSuchElementError if search.empty?
+          end
         end
         @current_line_item = save_history(step, step.to_s, "pass", history_line_item)
         send_to_pusher
