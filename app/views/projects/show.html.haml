@@ -43,6 +43,25 @@
               = check_box_tag "browsers[]", "windows_ie11"
               = image_tag('icons/ie.png', alt: "Internet Explorer 11")
         %div.pull-left{style: "width: 33%"}
+          %h4 OS X
+          %ul{style: "list-style-type: none;"}
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "mac_safari"
+              = image_tag('icons/safari.png', alt: "Safari")
+              Firefox
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "mac_firefox"
+              = image_tag('icons/firefox.png', alt: "Firefox")
+              Firefox
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "mac_chrome"
+              = image_tag('icons/chrome.png', alt: "Chrome")
+              Chrome
+            / %li{style: "border-top: 0px; padding: 2px;"}
+            /   = check_box_tag "browsers[]", "windows_ie9"
+            /   = image_tag('icons/phantomjs.png', alt: 'PhantomJS')
+            /   PhantomJS
+        %div.pull-left{style: "width: 33%"}
           %h4 Linux
           %ul{style: "list-style-type: none;"}
             %li{style: "border-top: 0px; padding: 2px;"}
