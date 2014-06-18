@@ -1,91 +1,93 @@
-.background
-  .container
-    .row
-      .col-sm-12
-        .pages-margin.well.well-light
-          %h1 Frequently Asked Questions
-          .panel-group#accordion
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseOne"}
-                    What is Gorilla Test?
-              #collapseOne.panel-collapse.collapse.in
-                .panel-body
-                  %p
-                    Gorilla Test is cloud-hosted automated testing service for web and mobile applications. Gorilla Test
-                    lets you create powerful tests for your application that don’t require you to write complex code.
-                    These tests can be scheduled and conducted across a range of browsers and operating systems to alert
-                    you to issues before they impact your customers.
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseTwo"}
-                    Awesome. How do I start recording?
-              #collapseTwo.panel-collapse.collapse
-                .panel-body
-                  %p We offer two options to enable test recording on your application:
-                  %ol
-                    %li Embed a single line of javascript code to your site.
-                    %li Add our Heroku add-on to your application instance.
-                  %br
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseThree"}
-                    What platform are my tests run on?
-              #collapseThree.panel-collapse.collapse
-                .panel-body
-                  %p Currently we support the latest versions of IE, Chrome, and Firefox. Our cloud-based testing network is running Windows and Linux. Sit tight, we’re constantly adding browsers and nodes to the testing network.
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseFour"}
-                    Can you discuss the security of this product?
-              #collapseFour.panel-collapse.collapse
-                .panel-body
-                  %p All information sent to Gorilla Test is encrypted using industry-standard SSL. This ensures the protection of your data as it transits between systems.
-                  %p If a recording involves inputting text into a password field, our system detects that and marks the field as private in our database. This prevents the value from being displayed in your test results but does not encrypt the actual value. It is still stored in plain text.
-                  %p Because passwords are not encrypted we would advise that you avoid using personal credentials during a test recording. If your test requires an account login, we encourage you to setup a dummy account that the test can use. All tests are stored and executed within our secure servers only, all cookies generated during a test are destroyed the test conclusion.
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseFive"}
-                    Can I run tests through an API? How about CI Server?
-              #collapseFive.panel-collapse.collapse
-                .panel-body
-                  %p Soon.
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseSix"}
-                    Is Gorilla Test a replacement for unit testing?
-              #collapseSix.panel-collapse.collapse
-                .panel-body
-                  %p Definitely not. We believe the best tests are defined before a line of code is written (Hello TDD!). Although we recognize there’s a broad range of people (many without coding skills) that need to conduct functional application testing. This service makes it easy to construct complex functional QA testing scenarios and execute them autonomously from the cloud.
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseSeven"}
-                    Why did you create Gorilla Test?
-              #collapseSeven.panel-collapse.collapse
-                .panel-body
-                  %p Cross-browser functional testing is a thankless exercise, it’s highly manual, repetitive, and difficult to scale. There’s a number of options.
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseEight"}
-                    Why did you name this product after a monkey?
-              #collapseEight.panel-collapse.collapse
-                .panel-body
-                  %p We didn’t. Gorillas are apes, not monkeys.
-            .panel.panel-default
-              .panel-heading
-                %h4.panel-title
-                  %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseNine"}
-                    Got more questions? Or bananas to share?
-              #collapseNine.panel-collapse.collapse
-                .panel-body
-                  %p Drop us a line at #{ link_to 'support@gorillatest.com', 'mailto:support@gorillatest.com' }
+- content_for :title do
+  FAQ's
+
+.container
+  .row
+    .col-sm-12
+      .pages-margin.well.well-light
+        %h1 Frequently Asked Questions
+        .panel-group#accordion
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseOne"}
+                  What is Gorilla Test?
+            #collapseOne.panel-collapse.collapse.in
+              .panel-body
+                %p
+                  Gorilla Test is cloud-hosted automated testing service for web and mobile applications. Gorilla Test
+                  lets you create powerful tests for your application that don’t require you to write complex code.
+                  These tests can be scheduled and conducted across a range of browsers and operating systems to alert
+                  you to issues before they impact your customers.
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseTwo"}
+                  Awesome. How do I start recording?
+            #collapseTwo.panel-collapse.collapse
+              .panel-body
+                %p We offer two options to enable test recording on your application:
+                %ol
+                  %li Embed a single line of javascript code to your site.
+                  %li Add our Heroku add-on to your application instance.
+                %br
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseThree"}
+                  What platform are my tests run on?
+            #collapseThree.panel-collapse.collapse
+              .panel-body
+                %p Currently we support the latest versions of IE, Chrome, and Firefox. Our cloud-based testing network is running Windows and Linux. Sit tight, we’re constantly adding browsers and nodes to the testing network.
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseFour"}
+                  Can you discuss the security of this product?
+            #collapseFour.panel-collapse.collapse
+              .panel-body
+                %p All information sent to Gorilla Test is encrypted using industry-standard SSL. This ensures the protection of your data as it transits between systems.
+                %p If a recording involves inputting text into a password field, our system detects that and marks the field as private in our database. This prevents the value from being displayed in your test results but does not encrypt the actual value. It is still stored in plain text.
+                %p Because passwords are not encrypted we would advise that you avoid using personal credentials during a test recording. If your test requires an account login, we encourage you to setup a dummy account that the test can use. All tests are stored and executed within our secure servers only, all cookies generated during a test are destroyed the test conclusion.
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseFive"}
+                  Can I run tests through an API? How about CI Server?
+            #collapseFive.panel-collapse.collapse
+              .panel-body
+                %p Soon.
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseSix"}
+                  Is Gorilla Test a replacement for unit testing?
+            #collapseSix.panel-collapse.collapse
+              .panel-body
+                %p Definitely not. We believe the best tests are defined before a line of code is written (Hello TDD!). Although we recognize there’s a broad range of people (many without coding skills) that need to conduct functional application testing. This service makes it easy to construct complex functional QA testing scenarios and execute them autonomously from the cloud.
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseSeven"}
+                  Why did you create Gorilla Test?
+            #collapseSeven.panel-collapse.collapse
+              .panel-body
+                %p Cross-browser functional testing is a thankless exercise, it’s highly manual, repetitive, and difficult to scale. There’s a number of options.
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseEight"}
+                  Why did you name this product after a monkey?
+            #collapseEight.panel-collapse.collapse
+              .panel-body
+                %p We didn’t. Gorillas are apes, not monkeys.
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseNine"}
+                  Got more questions? Or bananas to share?
+            #collapseNine.panel-collapse.collapse
+              .panel-body
+                %p Drop us a line at #{ link_to 'support@gorillatest.com', 'mailto:support@gorillatest.com' }
 
 

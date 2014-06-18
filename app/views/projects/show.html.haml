@@ -14,9 +14,11 @@
 
 .row
   .col-sm-12
+    = link_to raw("#{glyph('user')} Invite Users to Project"), invitations_path(project_id: @project.id.to_s), class: "btn btn-info btn-xs"
     = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
     = link_to record_glyph, @project.url, {target: "_blank", class: "btn btn-danger btn-xs"} if @project.script_verified?
-    = play_button(@project, "Play All Tests") if @project.script_verified?
+    = play_button(@project, "Run All Tests") if @project.script_verified?
+
     %div{id: "test_run-#{@project.id}", style: "display: none;"}
       = form_tag run_project_path(@project), class:"scenario-run", id: "project_#{@project.id}" do
         %div.pull-left{style: "width: 33%"}
@@ -37,6 +39,9 @@
             %li{style: "border-top: 0px; padding: 2px;"}
               = check_box_tag "browsers[]", "windows_ie10"
               = image_tag('icons/ie.png', alt: "Internet Explorer 10")
+            %li{style: "border-top: 0px; padding: 2px;"}
+              = check_box_tag "browsers[]", "windows_ie11"
+              = image_tag('icons/ie.png', alt: "Internet Explorer 11")
         %div.pull-left{style: "width: 33%"}
           %h4 Linux
           %ul{style: "list-style-type: none;"}

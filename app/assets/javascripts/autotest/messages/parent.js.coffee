@@ -84,6 +84,9 @@ Autotest.Messages.Parent.add("resumePlayback", (data) ->
 )
 
 Autotest.Messages.Parent.add("iframeLoadComplete", (data) ->
-  $("iframe#autotest-iframe").trigger("loadComplete")
+  if $("iframe#autotest-dev-iframe").length > 0
+    $("iframe#autotest-dev-iframe").trigger("loadComplete")
+  else
+    $("iframe#autotest-iframe").trigger("loadComplete")
 )
 

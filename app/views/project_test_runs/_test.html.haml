@@ -9,7 +9,7 @@
         (
         %span.steps-completed
           #{scenario_history_line_item.children.count}
-        of #{scenario_history_line_item.testable.steps.count} completed
+        of #{scenario_history_line_item.testable.steps.count} steps completed
         )
         %ul.steps-list{id: "#{test.channel_name}-scenario-steps-#{scenario_history_line_item.testable.id.to_s}"}
           - scenario_history_line_item.children.each do |step|

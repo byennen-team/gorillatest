@@ -66,18 +66,18 @@ $(document).ready ->
       $("body").append(devMouseHtml)
       $("body").append(devIframeHtml)
       scenario = new Autotest.Models.Scenario({id: Autotest.developerScenarioId})
-      scenario.fetch({
-        success: (model, response, options) ->
-          Autotest.currentScenario = model
-          console.log("have scenario")
-          developerIndex = new Autotest.Views.DeveloperIndex
-          $("iframe").load ->
+      $("iframe#autotest-dev-iframe").on "loadComplete", ->
+        scenario.fetch({
+          success: (model, response, options) ->
+            Autotest.currentScenario = model
+            console.log("have scenario")
+            developerIndex = new Autotest.Views.DeveloperIndex
             Autotest.Messages.Parent.post({messageType: "showScenario", projectName: Autotest.currentScenario.get("projectName"), scenarioName: Autotest.currentScenario.get("name")})
             if window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
               Autotest.Messages.Parent.post({messageType: "resumePlayback"})
-        error: ->
-          alert("that scenario doesn't exist")
-      })
+          error: ->
+            alert("that scenario doesn't exist")
+        })
     else
       iframeHtml = JST["autotest/templates/iframe"]()
       stepsHtml = JST["autotest/templates/steps_list"]()

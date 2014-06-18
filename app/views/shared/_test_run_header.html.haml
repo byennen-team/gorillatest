@@ -10,7 +10,7 @@
     )
   .pull-right
     %a{class: 'collapsed see-test-detail', href: "##{@test_run.id}_#{test.platform}_#{test.browser}_channel", data: {toggle: "collapse"}}
-      View All
+      View/Hide All Steps
   - if test.status != nil
     %br
     %strong Completed On:

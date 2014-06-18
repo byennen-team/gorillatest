@@ -10,7 +10,7 @@ class TestRunsController < ApplicationController
   end
 
   def show
-    @test_run = @scenario.test_runs.find_by(number: params[:id])
+    @test_run = @scenario.test_runs.find(params[:id])
     @test_run.update_attribute(:queued_at, Time.now)
     if params[:test] == "run"
       @test_run.browser_tests.each do |test|

@@ -10,10 +10,6 @@ class ScenarioTestRun
 
   embeds_many :browser_tests, class_name: 'ScenarioBrowserTest'
 
-  def to_param
-    number.to_s
-  end
-
   def name
     scenario.name
   end
@@ -32,27 +28,16 @@ class ScenarioTestRun
 
   def start_notification_message
     notification = "Test Run started for "
-    notification += "#{self.project.name} - #{self.scenario.name} - #{number}:"
+    notification += "#{self.project.name} - #{self.scenario.name} - #{timestamp}:"
     url = project_test_test_run_url(project, scenario.slug, self, host: ENV["API_URL"])
     notification += " "
     notification += url
   end
 
   def complete_notification_message
-    notification = "Test Run #{status}ed for #{self.project.name} - #{self.scenario.name} - #{number}:"
+    notification = "Test Run #{status}ed for #{self.project.name} - #{self.scenario.name} - #{timestamp}:"
     url = project_test_test_run_url(project, scenario.slug, self, host: ENV['API_URL'])
     notification += " "
     notification += url
   end
-
-  private
-
-  def set_number
-    if scenario.test_runs.include?(self)
-      self.number = scenario.test_runs.size
-    else
-      self.number = scenario.test_runs.size + 1
-    end
-  end
-
 end

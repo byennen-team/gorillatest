@@ -18,8 +18,8 @@ describe ProjectTestRun do
       expect(test_run.name).to eq(project.name)
     end
 
-    it "should have a number" do
-      expect(test_run.number).to eq(1)
+    it "should have a string timestamp" do
+      expect(test_run.timestamp).to eq(test_run.created_at.strftime("%b %d, %I:%M %p %Z"))
     end
 
     it "should have a nil feature" do
@@ -27,8 +27,8 @@ describe ProjectTestRun do
     end
 
     it "should have a start notifiation message" do
-      message = "Test Run Started For: #{project.name} - #{test_run.number}"
-      message += " #{ENV["API_URL"]}/projects/#{project.slug}/test_runs/#{test_run.number}"
+      message = "Test Run Started For: #{project.name} - #{test_run.timestamp}"
+      message += " #{ENV["API_URL"]}/projects/#{project.slug}/test_runs/#{test_run.id.to_s}"
       expect(test_run.start_notification_message).to eq(message)
     end
 
@@ -43,8 +43,8 @@ describe ProjectTestRun do
         end
 
         it "should have a passed complete notification message" do
-          msg = "Test Run passed for #{project.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.slug}/test_runs/#{test_run.number}"
+          msg = "Test Run passed for #{project.name} - #{test_run.timestamp}: "
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/test_runs/#{test_run.id.to_s}"
           expect(test_run.complete_notification_message).to eq(msg)
         end
 
@@ -59,8 +59,8 @@ describe ProjectTestRun do
         end
 
         it "should have a failed complete notification message" do
-          msg = "Test Run failed for #{project.name} - #{test_run.number}: "
-          msg += "#{ENV['API_URL']}/projects/#{project.slug}/test_runs/#{test_run.number}"
+          msg = "Test Run failed for #{project.name} - #{test_run.timestamp}: "
+          msg += "#{ENV['API_URL']}/projects/#{project.slug}/test_runs/#{test_run.id.to_s}"
             expect(test_run.complete_notification_message).to eq(msg)
         end
 
