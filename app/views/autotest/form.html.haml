@@ -34,33 +34,29 @@
     = submit_tag("Save", class: 'btn btn-default')
 .col-md-1
 .col-md-5
-  %h1 Test Element Selection
+  #sample-intro
+    %h1 Sample Project
+    %p This is just a sample project.  Take a few minutes to explore, record a few tests, and watch them run in developer mode.
 
-  %h1 Test H1 Select
-  %h2 Test H2 Select
-  %h3 Test H3 select
-  %h4 Test H4 Select
-  %h5 Test H5 Select
-  %h6 Test H6 Select
+  #sample-trivia
+    %h1 Gorilla Trivia
+    %p If you were taking a casual stroll through the jungle and bumped into King Kong, you shouldn't be afraid to pet him because gorillas are: 
+    %span#trivia-answer __________ ?
+    %button#trivia-answer-button Tell me the answer!
 
-  %p Here is an example paragraph to test
+  #sample-select
+    %h1 Purchase an Ape
+    %select#selected-ape
+      %option Choose one
+      %option{ value: 'Gorilla' } Gorilla
+      %option{ value: 'Chimpanzee' } Chimpanzee
+      %option{ value: 'Baboon' } Baboon
+      %option{ value: 'Grape Ape' } Grape Ape
+    %br
+    %button#purchase-ape Put In Shopping Cart
 
-  %h3 Ordered list
-  %ol
-    %li List item 1
-    %li List item 2
+  #sample-shopping-cart
+    %h3 Shopping Cart
+    #ape-bin
 
-  %h3 Unordered list
-  %ul
-    %li First List Item
-    %li Second List Item
-
-  / %p Test P select
-  %p
-    Try to select this
-    %span
-      SPAN
-    in the middle of this sentence
-  %br
-  %a{href: "#"} Test Anchor Select
 
