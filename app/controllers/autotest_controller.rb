@@ -31,6 +31,8 @@ class AutotestController < ApplicationController
 
   def thankyou; end
 
+  def terms; end
+
   private
 
     def find_project

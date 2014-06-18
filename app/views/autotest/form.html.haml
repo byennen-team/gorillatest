@@ -28,7 +28,7 @@
     = check_box_tag("terms_and_conditions")
     = label_tag("terms_and_conditions", "I Accept Terms and Conditions")
     (
-    = link_to("View Terms and Conditions", "#")
+    = link_to("View Terms and Conditions", test_terms_path(project_id: @project.id))
     )
     %br
     = submit_tag("Save", class: 'btn btn-default')

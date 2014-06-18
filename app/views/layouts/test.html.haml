@@ -20,7 +20,7 @@
                                                 "api-key" => @project.api_key,
                                                 api_url: ENV['API_URL'] || '',
                                                 env: Rails.env}
-    = javascript_include_tag "sample_project" 
+    = javascript_include_tag "sample_project"
     = csrf_meta_tags
   %body{:id => "#{controller_name}-#{action_name}"}
     .navbar.navbar-default{role: "navigation"}
@@ -34,8 +34,9 @@
           %a.navbar-brand Gorilla Test Test Page
         .navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
-            %li.active
-              %a{href: "#"} Home
+            - unless params[:action] == "form"
+              %li.active
+                =link_to "Go Back", test_form_path(project_id: @project.id.to_s)
             %li
               %a{href: "#about"} Signup
     .col-md-4.col-md-offset-4.flash{style: "#{flash.empty? ? 'display: none;' : ''}"}
