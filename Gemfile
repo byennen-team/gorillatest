@@ -27,6 +27,7 @@ gem 'tinder'
 gem 'mail_view'
 gem 'mongoid_slug'
 gem 'stripe'
+gem 'gibbon'
 
 # Devise
 gem 'devise'
