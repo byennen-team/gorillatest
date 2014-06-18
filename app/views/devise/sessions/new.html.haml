@@ -31,6 +31,6 @@
             Sign in with Github
       .row
         .options.col-sm-12.text-center
-          = link_to "Create an account", new_user_registration_path
+          = link_to 'Request Invite', "#", data: {target: "#myModal", toggle: "modal"} #, class: 'btn btn-danger btn-lg'
           = image_tag('layout/dot.jpg')
           = link_to "Trouble logging in?", new_password_path(resource_name)

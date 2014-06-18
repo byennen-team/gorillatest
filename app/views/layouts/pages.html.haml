@@ -14,6 +14,7 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "beta_invite_validate"
     = yield(:head)
     = csrf_meta_tags
   %body{:id => "#{controller_name}-#{action_name}"}
@@ -21,5 +22,7 @@
       = render 'layouts/navbar'
     = render 'layouts/messages'
     = yield
+    -if @beta_invitation
+      = render 'pages/beta_invitation_form'
     = render 'layouts/footer'
     = analytics_init if Rails.env.production?

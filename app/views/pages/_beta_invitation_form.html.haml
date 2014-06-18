@@ -14,11 +14,10 @@
               %ul
                 - @beta_invitation.errors.full_messages.each do |msg|
                   %li= msg
-          = f.input :first_name
-          = f.input :last_name
-          = f.input :company
-          = f.input :email
+          = f.input :first_name, label: "First Name (required)"
+          = f.input :last_name, label: "Last Name (required)"
+          = f.input :email, label: "Email (required)"
 
         .modal-footer
-          = f.submit 'Send Request', class: 'btn btn-success btn-lg'
+          = f.submit 'Send Request', class: 'btn btn-success btn-lg beta-invite-submit-button', disabled: 'disabled'
 
