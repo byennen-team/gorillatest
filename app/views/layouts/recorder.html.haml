@@ -25,7 +25,7 @@
     - css_class = params[:action] == "developer" ? "dev-bar" : "recording-bar"
     %div{class: "#{css_class}"}
       %span.logo
-        GorillaTest
+        #{ link_to 'Gorilla Test', '/' }
       = yield
 
     %br{style: "clear: both;"}
