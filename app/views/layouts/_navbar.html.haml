@@ -24,9 +24,9 @@
             %li= nav_link 'Documentation', documentation_path
           -#%li= link_to 'Contact', '#'
           -#%li= link_to 'Blog', '#'
-        %ul#logout.btn-header.transparent.pull-right
+        %ul.nav.navbar-nav#logout.btn-header.transparent.pull-right
           - if current_user.present?
             %li.logout= icon_link "Logout", logout_path, "fa-sign-out"
           - else
-            %li= link_to 'Request Invite', "#", data: {target: "#myModal", toggle: "modal"}, class: 'btn btn-danger btn-lg'
+            %li= link_to 'Request Invite', 'javascript:;', data: {target: "#myModal", toggle: "modal"}, class: 'btn btn-danger'
             %li= nav_link 'Login', login_path
