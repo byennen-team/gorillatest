@@ -71,6 +71,12 @@ module BrowserTest
       cap.browser_name = "ie10"
       cap.javascript_enabled = true
       @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
+    when 'ie11'
+      cap = Selenium::WebDriver::Remote::Capabilities.internet_explorer
+      cap.platform = "WIN8"
+      cap.browser_name = "ie11"
+      cap.javascript_enabled = true
+      @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: cap
     # when 'phantomjs'
     #   @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :phantomjs
     end
