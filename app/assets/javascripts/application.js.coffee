@@ -39,7 +39,8 @@ $ ->
   )
 
   flashCallback = ->
-    $(".alert").fadeOut(800)
+    if !$(".alert").hasClass("alert-no-fade")
+      $(".alert").fadeOut(800)
 
   $(".alert").bind 'click', (ev) =>
     $(".alert").fadeOut(800)

@@ -42,9 +42,9 @@
       - flash.each do |name, msg|
         -if msg.is_a?(String)
           -if msg == :alert
-            .alert.alert-success
+            .alert.alert-success.alert-no-fade
           -else
-            .alert.alert-danger
+            .alert.alert-danger.alert-no-fade
               %button{type: "button", class:"close", data: {dismiss:"alert"}, aria: {hidden: "true"}}
                 &times;
               =content_tag :div, msg, id: "flash_#{name}"
