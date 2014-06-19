@@ -16,19 +16,16 @@
     = render 'layouts/services/user_voice'
     = render 'layouts/services/bugherd'
     = render 'layouts/services/heroku'
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
     = yield(:head)
-
   %body{:id => "#{controller_name}-#{action_name}", class: 'smart-style-2 fixed-header fixed-ribbon fixed-navigation'}
     = render 'layouts/navbar'
     = render 'layouts/navigation'
-    #main{role: "main"}
-      #content
-        .row
-          .col-sm-12
-            = render 'layouts/messages'
-            = yield
+    .row
+      .col-sm-12
+        = render 'layouts/messages'
+        = yield
 
     = render 'layouts/shortcuts'
 

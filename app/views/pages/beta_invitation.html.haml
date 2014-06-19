@@ -1,0 +1,24 @@
+- content_for :head do
+  = javascript_include_tag 'pages', 'beta_invite_validate'
+
+- content_for :title do
+  Beta Invitation
+
+.row
+  #login-box.col-md-4.col-md-offset-4
+    .login-reg
+      .text-center
+        = image_tag('layout/gorilla-test-head.svg', class: 'logo')
+      .row
+        .col-sm-12
+          = simple_form_for @beta_invitation, url: create_beta_invitation_path do |f|
+            = f.input :first_name, label: "First Name (required)"
+            = f.input :last_name, label: "Last Name (required)"
+            = f.input :email, label: "Email (required)"
+            = f.submit 'Send Request', class: 'btn btn-info btn-lg beta-invite-submit-button', disabled: 'disabled'
+
+
+
+
+
+

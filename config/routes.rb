@@ -117,15 +117,17 @@ Autotest::Application.routes.draw do
     end
   end
 
-  resources :beta_invitations
   post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 
   #pages
   get 'faqs', to: 'pages#faqs'
   get 'pricing', to: 'pages#pricing'
   get 'documentation', to: 'pages#documentation'
-  get 'privacy', to: 'pages#privacy'
+  # get 'privacy', to: 'pages#privacy'
   get 'terms', to: 'pages#terms'
+  get 'beta-invitation', to: 'pages#beta_invitation', as: 'beta_invitation'
+  post 'create-beta-invitation', to: 'pages#create_beta_invitation', as: 'create_beta_invitation'
+
 
   root 'pages#welcome'
 
