@@ -22,6 +22,8 @@
       = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-xs'
     = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs"
 
+.row
+  .col-sm-12
     - if @project.scenarios.size == 0 && @project.script_verified?
       %p
         You haven't added any tests to this project, would you like to
