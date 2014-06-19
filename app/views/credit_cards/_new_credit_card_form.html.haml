@@ -1,0 +1,30 @@
+%article.col-sm-12
+  #wid-id-0.jarviswidget{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+    %header
+      %span.widget-icon
+        %i.fa.fa-edit
+      %h2 Adding a new card will make it the new card active.
+    %div
+      .jarviswidget-editbox
+      .widget-body.no-padding
+        = simple_form_for CreditCard.new, url: form_post_to, html: {role: "form", class: 'smart-form'} do |f|
+          #stripe_error{style: "color: red;"}
+            %noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
+          #stripe_error
+          = f.input :name
+          .form-group
+            = label_tag :card_number, "Credit Card #", class: "label"
+            .input
+              = text_field_tag :card_number, nil, name: nil
+          .form-group
+            = label_tag :card_code, "Security Code", class: "label"
+            .input
+              = text_field_tag :card_code, nil, name: nil, placeholder: "CVV"
+          = hidden_field_tag :stripe_token
+          .form-group.expiration
+            = label_tag :card_month, "Expiration", class: "control-label"
+            .input
+              = select_month nil, {add_month_numbers: false}, {name: nil, id: "card_month" }
+              = select_year nil, {start_year: Date.current.year, end_year: Date.current.year+15}, {name: nil, id: "card_year" }
+          %footer
+            = f.submit "Save Credit Card", class: "btn btn-primary button"
