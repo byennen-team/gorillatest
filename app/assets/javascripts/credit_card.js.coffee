@@ -3,6 +3,10 @@ $ ->
   #   Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
   # catch exception
   #   alert(exception)
+
+  $("input#card_number").payment("formatCardNumber")
+  $("input#card_code").payment("formatCardCVC")
+
   credit_card.setupForm()
 
 credit_card =

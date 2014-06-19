@@ -3,26 +3,9 @@
   :javascript
     Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}")
 
-.page-content.blocky
-  .container
-    %h3 Upgrade Your Plan
-    %p You are upgrading to #{@plan.name} ($#{@plan.price}) from #{current_user.plan.name}
-    = form_for CreditCard.new, url: upgrade_plan_path(@plan), html: {role: "form"} do |f|
-      / #stripe_error{style: "color: red;"}
-      /   %noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
-      #stripe_error
-      .form-group
-        = label_tag :name, "Name", class: "control-label"
-        = text_field_tag :name, current_user.name, class: "form-control"
-        = label_tag :card_number, "Credit Card #", class: "control-label"
-        = text_field_tag :card_number, nil, name: nil, class: "form-control"
-        = label_tag :card_code, "Security Code", class: "control-label"
-        = text_field_tag :card_code, nil, name: nil, placeholder: " CVV", class: "form-control"
-        .cvv_icon.pull-right{style: "background-size: 46px; background-repeat: no-repeat; height: 30px; width: 55px; margin-right: 168px;"}
-        = hidden_field_tag :stripe_token
-      .form-group
-        = label_tag :card_month, "Expiration", class: "control-label"
-        = select_month nil, {add_month_numbers: false}, {name: nil, id: "card_month" }
-        = select_year nil, {start_year: Date.current.year, end_year: Date.current.year+15}, {name: nil, id: "card_year" }
-      .form-group
-        = f.submit "Save Credit Card", class: "btn btn-primary"
+#content
+  .row
+    .col-sm-12
+      %h3 Upgrade Your Plan
+      %p You are upgrading to #{@plan.name} ($#{@plan.price}) from #{current_user.plan.name}
+    = render partial: "credit_cards/new_credit_card_form", locals: {form_post_to: upgrade_plan_path(@plan)}
