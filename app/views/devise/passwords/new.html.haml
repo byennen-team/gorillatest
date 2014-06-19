@@ -6,23 +6,17 @@
 
 .row
   #login-box.col-md-4.col-md-offset-4
-    .awidget.login-reg
-      .awidget-head
-      .awidget-body
-        / Page title
-        .page-title
+    .login-reg
+      .text-center
+        = image_tag('layout/gorilla-test-head.svg', class: 'logo')
+      .row
+        .col-sm-12
           %h2 Gorilla Test - Reset Password
-        .row
-          .col-sm-12
-            = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {class: 'form-vertical', id: 'login-form' }) do |f|
-              = f.error_notification
-              = devise_error_messages!
-              = f.input :email, placeholder: 'Email Address', label: false
-              .row
-                .col-md-6
-                  = f.submit 'Reset My Password', class: 'btn btn-info btn-block'
-                .col-md-6
-
+          = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {class: 'form-vertical', id: 'login-form' }) do |f|
+            = f.error_notification
+            = devise_error_messages!
+            = f.input :email, placeholder: 'Email Address', label: false
+            = f.submit 'Reset My Password', class: 'btn btn-info btn-block'
         .row
           .options.col-sm-12.text-center
             = link_to "Don't have an account?", new_user_registration_path

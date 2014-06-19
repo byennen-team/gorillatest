@@ -6,23 +6,16 @@
 
 .row
   #login-box.col-md-4.col-md-offset-4
-    .awidget.login-reg
-      .awidget-head
-      .awidget-body
-        / Page title
-        .page-title
+    .login-reg
+      .text-center
+        = image_tag('layout/gorilla-test-head.svg', class: 'logo')
+      .row
+        .col-sm-12
           %h2 Gorilla Test - Change your Password
-        .row
-          .col-sm-12
             = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { class: 'form-vertical', id: 'login-form', :method => :put }) do |f|
               = f.error_notification
               = devise_error_messages!
               = f.hidden_field :reset_password_token
               = f.input :password, :autofocus => true, placeholder: "New Password", label: false
               = f.input :password_confirmation, placeholder: "Confirm New Password", label: false
-              .row
-                .col-md-6.pull-right
-                  = f.submit 'Change Password', class: 'btn btn-primary btn-block'
-                .col-md-6
-                  = link_to "Don't have an account?", new_user_registration_path
-                  = link_to "Return to Login", login_path
+              = f.submit 'Change Password', class: 'btn btn-primary btn-block'
