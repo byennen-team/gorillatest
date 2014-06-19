@@ -97,12 +97,6 @@
               #{@concurrency_limit}
             concurrent browsers for a test run
           = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
-    /- unless @project.script_verified?
-    /  %a{data: {toggle: "modal", target: "#embed-modal-#{@project.id}"}, class:'view-embed-code btn btn-primary btn-xs'}
-    /    %span.glyphicon.glyphicon-eye-open
-    /    View Embed Code
-
-
 
 
 = render 'embed_script_modal', project: @project, show_buttons: false
