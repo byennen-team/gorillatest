@@ -11,3 +11,6 @@ $ ->
       $(".beta-invite-submit-button").attr("disabled", false)
     else
       $(".beta-invite-submit-button").attr("disabled", true)
+
+  $(".beta-invite-submit-button").click ->
+    $(this).attr("disabled", true)

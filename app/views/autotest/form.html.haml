@@ -1,7 +1,7 @@
 .col-md-6
   %h1 Test Signup Form
   = form_tag(test_form_post_path(project_id: @project_id), class: 'test-form') do
-    = label_tag("name")
+    = label_tag("Name* (required)")
     = text_field_tag("name", nil, class: 'form-control')
     %br
     = label_tag("email")
@@ -31,7 +31,7 @@
     = link_to("View Terms and Conditions", test_terms_path(project_id: @project.id))
     )
     %br
-    = submit_tag("Save", class: 'btn btn-default')
+    = submit_tag("Save", class: 'btn btn-default btn-primary', style: "background-color: #428bca")
 .col-md-1
 .col-md-5
   #sample-intro
@@ -40,14 +40,14 @@
 
   #sample-trivia
     %h1 Gorilla Trivia
-    %p If you were taking a casual stroll through the jungle and bumped into King Kong, you shouldn't be afraid to pet him because gorillas are:
+    %p If you were taking a casual stroll through the jungle and bumped into King Kong, you shouldn't be afraid to pet him because:
     %span#trivia-answer __________ ?
     %button#trivia-answer-button Tell me the answer!
 
   #sample-select
     %h1 Purchase an Ape
     %select#selected-ape
-      %option Choose one
+      %option{ selected: 'selected', disabled: true } Choose one
       %option{ value: 'Gorilla' } Gorilla
       %option{ value: 'Chimpanzee' } Chimpanzee
       %option{ value: 'Baboon' } Baboon
