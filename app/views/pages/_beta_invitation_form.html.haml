@@ -5,18 +5,18 @@
       .modal-content
         .modal-header
           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-          %h4#myModalLabel.modal-title Beta Invitation
+          %h4#myModalLabel.modal-title Request an invite to Gorilla Test
         .modal-body
-          %p Please fill out the form for an invitation.
+          %p Please complete the fields below.
           - if @beta_invitation.errors.any?
             #error_explanation
               %h2= "#{pluralize(@beta_invitation.errors.count, "error")} prohibited this beta_invitation from being saved:"
               %ul
                 - @beta_invitation.errors.full_messages.each do |msg|
                   %li= msg
-          = f.input :first_name, label: "First Name (required)"
-          = f.input :last_name, label: "Last Name (required)"
-          = f.input :email, label: "Email (required)"
+          = f.input :first_name, label: "First Name"
+          = f.input :last_name, label: "Last Name"
+          = f.input :email, label: "Email"
 
         .modal-footer
           = f.submit 'Send Request', class: 'btn btn-success btn-lg beta-invite-submit-button', disabled: 'disabled'
