@@ -261,6 +261,27 @@ class User
 
   end
 
+  def has_no_activity?
+    if has_own_project? || has_test_runs?  # all users have sample project
+      return false
+    else
+      return true
+    end
+  end
+
+  def has_test_runs?
+    projects.each do |project|
+      project.scenarios.each do |scenario|
+        return true if scenario.all_test_runs.count != 0
+      end
+    end
+    false
+  end
+
+  def has_own_project?
+    projects.count > 1
+  end
+
   private
 
   def finish_profile_reminder_message

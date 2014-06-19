@@ -6,7 +6,7 @@
   = pape_title('Dashboard', 'fa-home')
   = render 'shared/user_metrics'
 
-- if current_user.sign_in_count == 1
+-if current_user.has_no_activity? || !current_user.has_own_project?
   .row
     .col-sm-12
       #welcome.well
@@ -15,8 +15,9 @@
         %h1.semi-bold= t('welcome_title')
         %p
           = t('welcome')
-        = link_to 'Get Started!', new_project_path, class: 'btn btn-primary'
-
+        - if current_user.has_no_activity?
+          = link_to 'Get to know Gorilla Test', new_project_path, class: 'btn btn-primary'
+        = link_to 'Add Your App', new_project_path, class: 'btn btn-primary'
 
 .row
   .col-md-12
