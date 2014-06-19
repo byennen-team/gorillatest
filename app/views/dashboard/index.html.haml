@@ -26,7 +26,7 @@
       - if @last5_test_runs.size > 0
         .awidget
           .awidget-head
-            %h3 Last 5 Tests
+            %h3#tour-latest-results Last 5 Tests
           .awidget-body
             .col-xs-12.col-sm-12.col-md-12.col-lg-12
               .well.well-sm
@@ -50,3 +50,17 @@
                             %strong Ran By:
                             = gravatar_image_tag(test_run.user)
                             = test_run.user.name
+
+%ol.joyride-tour#dashboard-tour
+  %li{data: {id: "tour-welcome", button: 'Next'}}
+    %h3 Welcome
+  %li{data: {id: "tour-latest-results", button: 'Next'}}
+    %h3 Latest Results
+  %li{data: {id: "tour-minutes-remaining", button: 'Next'}}
+    %h3 Time is Money
+  %li{data: {id: "tour-upgrade-plan", button: 'Next'}}
+    %h3 Feed the Gorilla
+  %li{data: {id: "tour-sample-project-link", button: 'Next'}}
+    %h3 Get Your Hands Dirty
+
+

@@ -118,8 +118,8 @@ module ApplicationHelper
     html.html_safe
   end
 
-  def pape_title(title, icon)
-    content_tag(:div, class: 'col-xs-12 col-sm-7 col-md-11 col-lg-8') do
+  def pape_title(title, icon, id=nil)
+    content_tag(:div, class: 'col-xs-12 col-sm-7 col-md-11 col-lg-8', id: id) do
       content_tag(:h1, class: 'page-title txt-color-blueDark') do
         content_tag(:i, "", class: "fa fa-fw #{icon}") + title
       end

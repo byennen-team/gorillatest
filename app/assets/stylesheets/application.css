@@ -9,6 +9,7 @@
   *= require plugins/bootstrap-switch
   *= require plugins/rateit
   *= require plugins/bootstrap-social
+  *= require joyride-2.1
   *= require font-awesome
   *= require dashboard
   *= require layout

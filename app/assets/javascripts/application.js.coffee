@@ -8,9 +8,11 @@
 //= require plugins/jquery.tagsinput.min
 //= require zeroclipboard
 //= require userFlow
+//= require_tree ./plugins/joyride
 //= require layout/shortcuts
 //= require layout/left_panel
 //= require project
 //= require messages
 //= require pusher
 //= require progress_indicator
+//= require navbar_tour

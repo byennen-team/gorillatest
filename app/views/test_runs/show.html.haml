@@ -14,6 +14,7 @@
 .row
   = pape_title(raw("Projects > #{link_to @project.name, project_path(@project)} > #{link_to(@scenario.name, project_test_test_runs_path(@project, @scenario.slug))}"), 'fa-desktop')
 
+
 .row
   .col-md-12
     / Project widget
@@ -29,17 +30,35 @@
               = @test_run.user.name
             %th{style: "width: 100px;"} Ran:
             %td #{distance_of_time_in_words_to_now(@test_run.created_at)} ago
-          %tr
-            %th{style: "width: 100px;"} Status:
+          %tr#tour-test-run-status
+            %th#tour-if-failed{style: "width: 100px;"} Status:
             %td
               = test_run_status(@test_run)
         %br
         %br
 
-        - @test_run.browser_tests.each do |test|
+        - @test_run.browser_tests.each_with_index do |test, index|
           / - if test.status != nil
           / .test{class: "#{test.status}"}
           /   = render partial: 'test_history', locals: {test: test}
           / - else
           .test
-            = render partial: 'test', locals: {test: test}
+            = render partial: 'test', locals: {test: test, id: "#{index == 0 ? 'tour-test-run-page' : ''}"}
+
+
+%ol.joyride-tour#test-run-tour
+  %li{data: {id: "tour-test-run-page", button: "Next"}}
+    %h3 Ta da!
+  %li{data: {id: "tour-test-run-status", button: "Next"}}
+    %h3 The Results
+  %li{data: {id: "tour-recent-updates", button: "Next"}}
+    %h3 Do I have to watch every time?
+    %p You're here to save time, and time you will save! Once you hit run these tests are good to go. Once they're done, you'll get an update (as well as an email if you have that setting turned on)
+  %li{data: {id: "tour-if-failed", button: "Next"}}
+    %h3 What If It Failed?
+    %p Somethings broken, now let's fix it. Send your developer a direct URL to this page, or better yet send them a link to Play Developer Mode and they can watch for themselves
+  %li{data: {id: "tour-now-your-turn"}}
+    %h3 Now Your Turn
+    %p
+      You've seen tests in action, now it's time to create one. Click here to get back to the Project Page and go ahead and
+      %b create a new test.

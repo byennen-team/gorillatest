@@ -1,5 +1,5 @@
 #project-context
-  %span#project-selector.popover-trigger-element.dropdown-toggle{"data-toggle" => "dropdown"}
+  %span#project-selector.popover-trigger-element.dropdown-toggle#tour-recent-updates{"data-toggle" => "dropdown"}
     Recent Updates
     - if @unread_messages.size == 0
       %span#unread_message_count.badge.alert-default{style: "display: none;"}= @unread_messages.size
