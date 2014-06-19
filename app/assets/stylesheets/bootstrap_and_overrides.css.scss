@@ -40,7 +40,12 @@ a {
 .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
   background-color: #f9f9f9;
 }
-.navbar-default .navbar-nav li a.active {
+.navbar-default .navbar-nav li a.active, .navbar-default .navbar-nav li a:focus {
+  color: #52bad5;
+  background-color: #f9f9f9;
+  border-bottom: 4px solid;
+}
+.navbar-default .navbar-nav li.active a.active {
   color: #52bad5;
   background-color: #f9f9f9;
   border-bottom: 4px solid;
@@ -54,7 +59,9 @@ a {
     padding-left: 3px;
   }
 }
-
+.navbar-default .navbar-nav .active a:focus {
+  background-color: none;
+}
 // -----------------------------------------------------
 
 
