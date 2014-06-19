@@ -83,6 +83,8 @@ class User
 
   has_many :testing_allowances, as: :timeable
 
+  has_one :tour
+
   validates :email, presence: { message: "can't be blank"}
   validates :password, :password_confirmation, presence: { message: "can't be blank"}, on: :create
 
@@ -90,7 +92,7 @@ class User
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
-  after_create :create_demo_project, :drip_email, :finish_profile_reminder_message
+  after_create :create_demo_project, :drip_email, :finish_profile_reminder_message, :create_tour
 
   def self.new_for_heroku(resources)
     return User.new(email: resources["heroku_id"],
@@ -309,5 +311,9 @@ class User
     # set to false so it bypasses devise validation to scope email uniqueness on non deleted users
     # devise uniquness validation was including deleted users when checking uniquness
     false
+  end
+
+  def create_guided_tour
+    self.create_tour
   end
 end
