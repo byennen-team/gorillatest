@@ -31,6 +31,6 @@
             Sign in with Github
       .row
         .options.col-sm-12.text-center
-          = link_to 'Request Invite', "#", data: {target: "#myModal", toggle: "modal"} #, class: 'btn btn-danger btn-lg'
+          = link_to 'Request Invite', beta_invitation_path
           = image_tag('layout/dot.jpg')
           = link_to "Trouble logging in?", new_password_path(resource_name)
