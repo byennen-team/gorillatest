@@ -83,5 +83,5 @@ Autotest::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Google Analytics
-  GA.tracker = "UA-46094265-1"
+  GA.tracker = "UA-52101206-1"
 end
