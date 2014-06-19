@@ -14,11 +14,24 @@
 
 .row
   .col-sm-12
-    = link_to raw("#{glyph('user')} Invite Users to Project"), invitations_path(project_id: @project.id.to_s), class: "btn btn-info btn-xs"
-    = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
-    = link_to record_glyph, @project.url, {target: "_blank", class: "btn btn-danger btn-xs"} if @project.script_verified?
-    = play_button(@project, "Run All Tests") if @project.script_verified?
+    - if @project.script_verified?
+      = link_to raw("#{glyph('user')} Invite Users to Project"), invitations_path(project_id: @project.id.to_s), class: "btn btn-info btn-xs"
+      = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
+      = play_button(@project, "Run All Tests") if @project.script_verified?
+    - else
+      = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-xs'
+    = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs"
 
+    - if @project.scenarios.size == 0 && @project.script_verified?
+      %p
+        You haven't added any tests to this project, would you like to
+        = link_to 'record one',  @project.url, target: '_blank'
+    - else
+      %ul.project{style: "list-style-type: none;"}
+        = render partial: 'scenarios/scenario', collection: @scenarios
+
+.row
+  .col-sm-12
     %div{id: "test_run-#{@project.id}", style: "display: none;"}
       = form_tag run_project_path(@project), class:"scenario-run", id: "project_#{@project.id}" do
         %div.pull-left{style: "width: 33%"}
@@ -88,24 +101,8 @@
     /  %a{data: {toggle: "modal", target: "#embed-modal-#{@project.id}"}, class:'view-embed-code btn btn-primary btn-xs'}
     /    %span.glyphicon.glyphicon-eye-open
     /    View Embed Code
-    = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-xs' unless @project.script_verified?
-    = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" if @project.owner?(current_user) && !@project.script_verified?
 
 
-.row
-  .col-sm-12
-    / Project widget
-    .awidget
-      .awidget-head
-        %h3 Tests
-      .awidget-body
-        - if @project.scenarios.size == 0
-          %p
-            You haven't added any tests to this project, would you like to
-            %a{href: @project.url, target: "_blank"} record one
-        - else
-          %ul.project{style: "list-style-type: none;"}
-            = render partial: 'scenarios/scenario', collection: @scenarios
-          .clearfix
+
 
 = render 'embed_script_modal', project: @project, show_buttons: false
