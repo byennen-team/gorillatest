@@ -16,7 +16,7 @@
       .row
         .col-sm-12
           = simple_form_for @beta_invitation, url: create_beta_invitation_path do |f|
-            = f.input :first_name, label: "First Name (required)"
-            = f.input :last_name, label: "Last Name (required)"
-            = f.input :email, label: "Email (required)"
+            = f.input :first_name, label: "First Name"
+            = f.input :last_name, label: "Last Name"
+            = f.input :email, label: "Email"
             = f.submit 'Send Request', class: 'btn btn-info btn-lg beta-invite-submit-button', disabled: 'disabled'
