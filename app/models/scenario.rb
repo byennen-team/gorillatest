@@ -25,8 +25,8 @@ class Scenario
 
   has_many :test_runs, class_name: 'ScenarioTestRun'
 
-  validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :project}
-  validates :window_x, :window_y, presence: true
+  # validates :name, presence: true, uniqueness: {conditions: -> { where(deleted_at: nil)}, scope: :project}
+  # validates :window_x, :window_y, presence: true
 
   def current_status
     if test_runs.present?
