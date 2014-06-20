@@ -15,4 +15,4 @@
 //= require messages
 //= require pusher
 //= require progress_indicator
-//= require navbar_tour
+//= require guided_tour

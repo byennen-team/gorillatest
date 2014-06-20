@@ -46,6 +46,9 @@ Autotest::Application.routes.draw do
 
   post "/send-developer-emails" => "pages#send_developer_emails", as: "send_developer_emails"
 
+  get "/tours" => "tours#show"
+  put "/tours" => "tours#update"
+
   #application
   devise_for :users, controllers: {registrations: :registrations, sessions: :sessions, omniauth_callbacks: :omniauth_callbacks, passwords: :passwords}, skip: :invitations
   devise_scope :user do
