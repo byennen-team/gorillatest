@@ -1,4 +1,4 @@
-#selectBrowers.modal.fade{id: "#{@project.id}", "aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+.modal.fade{id: "selectBrowers_#{@project.id}", "aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
   .modal-dialog
     = form_tag run_scenario_project_test_path(@project, scenario.id), class:"scenario-run", id: "scenario_#{scenario.id}" do
       .modal-content
