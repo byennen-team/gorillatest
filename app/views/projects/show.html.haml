@@ -17,7 +17,8 @@
     - if @project.script_verified?
       = link_to raw("#{glyph('user')} Invite Users to Project"), invitations_path(project_id: @project.id.to_s), class: "btn btn-info btn-xs"
       = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
-      = play_button(@project, "Run All Tests") if @project.script_verified?
+      = play_button(@project, "Run All Tests")
+      = render 'projects/platforms'
     - else
       = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-xs'
     = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs"
@@ -30,75 +31,8 @@
         = link_to 'record one',  @project.url, target: '_blank'
     - else
       %ul.project{style: "list-style-type: none;"}
-        = render partial: 'scenarios/scenario', collection: @scenarios
+        = render 'scenarios/scenario', collection: @scenarios
 
-.row
-  .col-sm-12
-    %div{id: "test_run-#{@project.id}", style: "display: none;"}
-      = form_tag run_project_path(@project), class:"scenario-run", id: "project_#{@project.id}" do
-        %div.pull-left{style: "width: 33%"}
-          %h4 Windows
-          %ul{style: "list-style-type: none;"}
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "windows_firefox"
-              = image_tag('icons/firefox.png', alt: "Firefox")
-              Firefox
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "windows_chrome"
-              = image_tag('icons/chrome.png', alt: "Chrome")
-              Chrome
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "windows_ie9"
-              = image_tag('icons/ie.png', alt: "Internet Explorer 9")
-              Internet Explorer 9
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "windows_ie10"
-              = image_tag('icons/ie.png', alt: "Internet Explorer 10")
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "windows_ie11"
-              = image_tag('icons/ie.png', alt: "Internet Explorer 11")
-        %div.pull-left{style: "width: 33%"}
-          %h4 OS X
-          %ul{style: "list-style-type: none;"}
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "mac_safari"
-              = image_tag('icons/safari.png', alt: "Safari")
-              Safari
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "mac_firefox"
-              = image_tag('icons/firefox.png', alt: "Firefox")
-              Firefox
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "mac_chrome"
-              = image_tag('icons/chrome.png', alt: "Chrome")
-              Chrome
-            / %li{style: "border-top: 0px; padding: 2px;"}
-            /   = check_box_tag "browsers[]", "windows_ie9"
-            /   = image_tag('icons/phantomjs.png', alt: 'PhantomJS')
-            /   PhantomJS
-        %div.pull-left{style: "width: 33%"}
-          %h4 Linux
-          %ul{style: "list-style-type: none;"}
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "linux_firefox"
-              = image_tag('icons/firefox.png', alt: "Firefox")
-              Firefox
-            %li{style: "border-top: 0px; padding: 2px;"}
-              = check_box_tag "browsers[]", "linux_chrome"
-              = image_tag('icons/chrome.png', alt: "Chrome")
-              Chrome
-            / %li{style: "border-top: 0px; padding: 2px;"}
-            /   = check_box_tag "browsers[]", "windows_ie9"
-            /   = image_tag('icons/phantomjs.png', alt: 'PhantomJS')
-            /   PhantomJS
-        %div.clearfix
-        %div.buttons{style: "padding: 5px; text-align: right;"}
-          %span.hide.concurrency-warning
-            Your plan only allows
-            %span.concurrency-limit
-              #{@concurrency_limit}
-            concurrent browsers for a test run
-          = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
 
 
 = render 'embed_script_modal', project: @project, show_buttons: false
