@@ -19,6 +19,8 @@ class BetaInvitation
     Gibbon::API.new.lists.subscribe({
       :id => ENV['MAILCHIMP_LIST_ID'],
       :email => {:email => self.email},
+      :merge_vars => {:FNAME => self.first_name,
+                      :LNAME => self.last_name},
       :double_optin => false,
       :update_existing => true,
       :send_welcome => false
