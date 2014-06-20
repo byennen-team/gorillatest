@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: 'support@gorillatest.com'
-  layout 'mailer'
+  layout 'layouts/mailer'
 
   def welcome_email(user)
     @user = user
