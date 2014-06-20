@@ -13,7 +13,6 @@
 
 .row
   = pape_title(raw("Projects > #{link_to @project.name, project_path(@project)} > #{link_to(@scenario.name, project_test_test_runs_path(@project, @scenario.slug))}"), 'fa-desktop')
-  = render 'shared/user_metrics'
 
 .row
   .col-md-12

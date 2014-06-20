@@ -7,7 +7,6 @@
 
 .row
   = pape_title("Projects > #{@project.name}", 'fa-desktop')
-  = render 'shared/user_metrics'
 
 %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
 %span{style: "display: none;", id:"pusher-project-id", "project-id" => "#{@project.id.to_s}" }

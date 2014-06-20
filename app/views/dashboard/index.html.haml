@@ -4,7 +4,6 @@
 
 .row
   = pape_title('Dashboard', 'fa-home')
-  = render 'shared/user_metrics'
 
 -if current_user.has_no_activity? || !current_user.has_own_project?
   .row

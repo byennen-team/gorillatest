@@ -1,11 +1,11 @@
 - content_for :title do
   Invite Users
+- content_for :head do
+  = javascript_include_tag "plugins/jquery.tagsinput.min"
+  = javascript_include_tag "invitations"
 
-=javascript_include_tag "plugins/jquery.tagsinput.min"
-=javascript_include_tag "invitations"
 .row
   = pape_title('Invite Users', 'fa-group')
-  = render 'shared/user_metrics'
 
 %section#widget-grid
   .row

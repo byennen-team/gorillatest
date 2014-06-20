@@ -1,10 +1,6 @@
 %aside#left-panel
-  .login-info
-    %span
-      / User image size is adjusted inside CSS, it should stay as it
-      %a#show-shortcut{href: "javascript:void(0);"}
-        = gravatar_image_tag(current_user, 32)
-        %span= truncate(current_user.try(:name), :length => 10, omission: ' ')
+  -#.login-info
+  -#  = gravatar_image_tag(current_user, 32)
 
   %nav
     %ul
@@ -19,10 +15,10 @@
               %li.current-project= link_to project.name, project_path(project)
             - else
               %li= link_to project.name, project_path(project)
-          %li
-            = link_to "#{current_user.try(:can_create_project?) ? new_project_path : change_plan_path(plan:"maxed")}", class: "menu-item-parent" do
-              %em
-                Add Project
+      %li= icon_link "Add Project", current_user.try(:can_create_project?) ? new_project_path : change_plan_path(plan:"maxed"), "fa-plus"
+      %li= icon_link "My Info", my_info_path, "fa-info"
+      %li= icon_link "Manage Billing", credit_cards_path, "fa-credit-card"
+
       - if current_user.present?
         = icon_link "Logout", logout_path, "fa-sign-out"
 
