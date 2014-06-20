@@ -26,7 +26,6 @@
           -#%li= link_to 'Blog', '#'
         - if current_user.present?
           %ul#sparks.nav.navbar-nav.pull-right
-            %li.sparks-info= nav_link 'Invite', new_invitation_path
             %li.sparks-info
               %h5
                 Minutes
@@ -37,6 +36,8 @@
               %h5
                 Plan
                 %span= link_to current_user.plan.name, change_plan_path
+          %ul.nav.navbar-nav.pull-right
+            %li= link_to 'Invite', new_invitation_path
         - else
           %ul.nav.navbar-nav.pull-right
             %li= link_to 'Request Invite', beta_invitation_path #, class: 'btn btn-danger'
