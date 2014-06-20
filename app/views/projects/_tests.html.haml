@@ -5,7 +5,6 @@
         %thead
           %tr
             %th Test Name
-            %th.text-center.hidden-xs.hidden-sm{style: "width: 100px;"} Tester
             %th.text-center.hidden-xs.hidden-sm{style: "width: 100px;"} Start Time
             %th.hidden-xs.hidden-sm{style: "width: 200px;"} Duration
             %th
@@ -14,8 +13,6 @@
           - @scenarios.each do |scenario|
             %tr
               %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
-              %td.text-center.hidden-xs.hidden-sm
-                = scenario.all_test_runs.first.user.name
               %td.text-center.hidden-xs.hidden-sm
                 #{distance_of_time_in_words_to_now(scenario.all_test_runs.first.created_at)} ago
               %td.hidden-xs.hidden-sm
