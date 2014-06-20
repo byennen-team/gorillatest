@@ -64,6 +64,9 @@ gem 'money-rails', git: 'https://github.com/RubyMoney/money-rails.git', ref: 'c0
 # clipboard copying
 gem 'zeroclipboard-rails', '~> 0.0.8'
 
+# email styling; allows for mailer css files
+gem 'roadie'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'
