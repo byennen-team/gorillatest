@@ -32,6 +32,7 @@
               &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-project-id="#{project.id}"&gt;&lt;/script&gt;
       .modal-footer
         %button.btn.btn-info#copy-embed-script-btn{data: {"clipboard-target" => "script-to-copy"}, title: "Click me to copy the script!"}
+          %i.fa.fa-copy
           Copy Script
         =image_tag "icons/loading.gif", class: 'loading-gif', style: "display: none;"
         %a.btn.btn-primary.verify-script-modal-button{href: "#{project_verify_script_path(project)}",project_link: "#{project_path(project)}"} Verify Embedded Script
