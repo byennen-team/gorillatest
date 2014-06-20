@@ -4,8 +4,8 @@
       %table.table.table-striped.table-forum
         %thead
           %tr
-            %th Test
-            %th.text-center.hidden-xs.hidden-sm{style: "width: 100px;"} User
+            %th Test Name
+            %th.text-center.hidden-xs.hidden-sm{style: "width: 100px;"} Tester
             %th.text-center.hidden-xs.hidden-sm{style: "width: 100px;"} Start Time
             %th.hidden-xs.hidden-sm{style: "width: 200px;"} Duration
             %th
@@ -16,7 +16,6 @@
             %tr
               %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
               %td.text-center.hidden-xs.hidden-sm
-                = gravatar_image_tag(scenario.all_test_runs.first.user, 16)
                 = scenario.all_test_runs.first.user.name
               %td.text-center.hidden-xs.hidden-sm
                 #{distance_of_time_in_words_to_now(scenario.all_test_runs.first.created_at)} ago
@@ -24,69 +23,9 @@
                 = duration_to_hours_minutes_seconds(scenario.all_test_runs.first.duration)
               %td.hidden-xs.hidden-sm
                 = play_button(scenario)
+                = render 'projects/select_browsers'
               %td.hidden-xs.hidden-sm
                 = play_developer_mode_button(scenario)
 
--#.row
--#  .col-sm-12{id: "test_run-#{scenario.id}"}
--#    %h4 Start A New Test Run
--#    = form_tag run_scenario_project_test_path(@project, scenario.id), class:"scenario-run", id: "scenario_#{scenario.id}" do
--#      .row
--#        .col-sm-4
--#          %h5 Windows
--#          %ul
--#            %li
--#              = check_box_tag "browsers[]", "windows_firefox"
--#              = image_tag('icons/firefox.png', alt: "Firefox")
--#              Firefox
--#            %li
--#              = check_box_tag "browsers[]", "windows_chrome"
--#              = image_tag('icons/chrome.png', alt: "Chrome")
--#              Chrome
--#            %li
--#              = check_box_tag "browsers[]", "windows_ie9"
--#              = image_tag('icons/ie.png', alt: "Internet Explorer 9")
--#              Internet Explorer 9
--#            %li
--#              = check_box_tag "browsers[]", "windows_ie10"
--#              = image_tag('icons/ie.png', alt: "Internet Explorer 10")
--#              Internet Explorer 10
--#            %li
--#              = check_box_tag "browsers[]", "windows_ie11"
--#              = image_tag('icons/ie.png', alt: "Internet Explorer 11")
--#              Internet Explorer 11
--#        .col-sm-4
--#          %h5 OS X
--#          %ul
--#            %li
--#              = check_box_tag "browsers[]", "mac_safari"
--#              = image_tag('icons/safari.png', alt: "Safari")
--#              Safari
--#            %li
--#              = check_box_tag "browsers[]", "mac_firefox"
--#              = image_tag('icons/firefox.png', alt: "Firefox")
--#              Firefox
--#            %li
--#              = check_box_tag "browsers[]", "mac_chrome"
--#              = image_tag('icons/chrome.png', alt: "Chrome")
--#              Chrome
--#        .col-sm-4
--#          %h5 Linux
--#          %ul
--#            %li
--#              = check_box_tag "browsers[]", "linux_firefox"
--#              = image_tag('icons/firefox.png', alt: "Firefox")
--#              Firefox
--#            %li
--#              = check_box_tag "browsers[]", "linux_chrome"
--#              = image_tag('icons/chrome.png', alt: "Chrome")
--#              Chrome
--#
--#    .row
--#      .col-sm-12
--#        %span.hide.concurrency-warning
--#          Your plan only allows
--#          %span.concurrency-limit
--#            #{@concurrency_limit}
--#          concurrent browsers for a test run
--#        = submit_tag "Run Tests", class: "btn btn-primary run-test", disabled: true
+
+
