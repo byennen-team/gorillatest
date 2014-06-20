@@ -11,7 +11,6 @@
             %th
             %th
         %tbody
-          / TR
           - @scenarios.each do |scenario|
             %tr
               %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
