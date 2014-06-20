@@ -4,10 +4,11 @@
       .modal-content
         .modal-header
           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-          %h4#myModalLabel.modal-title Select your browsers
+          %h4#myModalLabel.modal-title= scenario.name
         .modal-body
           .row
             .col-sm-4
+              %p Select your browsers
               %h5 Windows
               %ul
                 %li
