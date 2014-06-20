@@ -31,7 +31,7 @@
         = link_to 'record one',  @project.url, target: '_blank'
     - else
       %ul.project{style: "list-style-type: none;"}
-        = render 'scenarios/scenario', collection: @scenarios
+        = render partial: 'scenarios/scenario', collection: @scenarios
 
 
 
