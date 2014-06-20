@@ -1,3 +1,13 @@
+- content_for :head do
+  %script
+    :plain
+      $(document).ready(function (){
+        var clip = new ZeroClipboard($("#copy-embed-script-btn"))
+        clip.on('complete', function(){
+          $("#copy-confirmation").show().delay(1000).fadeOut("slow")
+        })
+      })
+
 %div.modal.fade{id: "embed-modal-#{project.id}", class: 'embed-modal'}
   .modal-dialog
     .modal-content{style: "width: 700px;"}
@@ -8,7 +18,7 @@
       .modal-body
         %p Insert the code below into the HEAD of the site to be tested. Click "Verify Embedded Script" to verify that the script has been placed on your website correctly.
         %br
-        %blockquote{style: "padding: 40px; margin: 1px solid #ccc; background: #eee; font-family: Menlo"}
+        %blockquote#script-to-copy{style: "padding: 40px; margin: 1px solid #ccc; background: #eee; font-family: Menlo"}
           - if Rails.env.development?
             :plain
               &lt;script src="#{ENV['API_URL']}/assets/recordv2.js"<br />
@@ -21,7 +31,11 @@
               &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-api-key="#{project.api_key}"<br >
               &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-project-id="#{project.id}"&gt;&lt;/script&gt;
       .modal-footer
+        %button.btn.btn-info#copy-embed-script-btn{data: {"clipboard-target" => "script-to-copy"}, title: "Click me to copy the script!"}
+          Copy Script
         =image_tag "icons/loading.gif", class: 'loading-gif', style: "display: none;"
         %a.btn.btn-primary.verify-script-modal-button{href: "#{project_verify_script_path(project)}",project_link: "#{project_path(project)}"} Verify Embedded Script
         - if project.script_verified? || show_buttons
           %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+        #copy-confirmation
+          Copied! Go Bananas!

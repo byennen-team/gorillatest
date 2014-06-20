@@ -6,6 +6,7 @@
 //= require plugins/jquery.validate.min
 //= require plugins/jquery.easing.min
 //= require plugins/jquery.payment
+//= require zeroclipboard
 //= require layout/shortcuts
 //= require layout/left_panel
 //= require project

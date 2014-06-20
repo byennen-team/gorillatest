@@ -61,6 +61,9 @@ gem 'eco'
 # money
 gem 'money-rails', git: 'https://github.com/RubyMoney/money-rails.git', ref: 'c0bf5ef27b55938933c189a5324a810028ff3303'
 
+# clipboard copying
+gem 'zeroclipboard-rails', '~> 0.0.8'
+
 #heroku platform gem
 group :production do
   gem 'rails_12factor'
