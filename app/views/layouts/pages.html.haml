@@ -18,7 +18,7 @@
     - if Rails.env.staging?
       = javascript_include_tag "https://www.gorillatest.com/assets/recordv2.js",
                                 data: {api_key:    "54f9c36ad8b67b61916b237b58c073bf",
-                                       project_id: "53a45b5d6261320002010000"
+                                       project_id: "53a45b5d6261320002010000"}
     = yield(:head)
     = csrf_meta_tags
   %body{:id => "#{controller_name}-#{action_name}"}
