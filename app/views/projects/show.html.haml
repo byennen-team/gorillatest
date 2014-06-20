@@ -17,6 +17,7 @@
       = link_to raw("#{glyph('user')} Invite Users to Project"), invitations_path(project_id: @project.id.to_s), class: "btn btn-info btn-xs"
       = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
       = play_button(@project, "Run All Tests")
+      = link_to record_glyph, @project.url, {target: "_blank", class: "btn btn-danger btn-xs"}
     - else
       = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-xs'
     = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs"
