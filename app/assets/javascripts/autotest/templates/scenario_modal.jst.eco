@@ -3,12 +3,16 @@
   <!--
     <button class="autotest-modal-close-x" style="font-size: 2em;">×</button>
   -->
-    <h4>Start Recording A New Test</h4>
+    <h4>Name Your Test</h4>
   </div>
   <div class="autotest-modal-body">
-    <label style="font-size: 1.3em;">Test Name</label>
-    <input id="scenario_name" name="scenario[name]" type="text">
-    <p>Once this modal closes GorillaTest will automatically start recording your behavior for this test</p>
+    <p>Please name your test before you start recording. We suggest you describe the user, scenario, and any other unique variables</p>
+    <input id="scenario_name" name="scenario[name]" type="text" placeholder="Test Name" style="font-size: 1em;">
+    <br />
+    <br />
+    <p style="font-size: 12px;">
+      As soon as you hit "start recording" we will begin recording steps for your test. GorillaTest will not clear your cache or reset sessions, so if for example you are testing New User Signup, make sure to logout before  you start recording. hint: if you're recording in Chrome or FF,  open up a Incognito Mode / Private Browsing window and it will be a fresh session each time.
+    </p>
   </div>
   <div class="autotest-modal-footer">
     <!--
