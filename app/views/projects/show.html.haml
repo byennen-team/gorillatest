@@ -30,8 +30,7 @@
         You haven't added any tests to this project, would you like to
         = link_to 'record one',  @project.url, target: '_blank'
     - else
-      %ul.project{style: "list-style-type: none;"}
-        = render partial: 'scenarios/scenario', collection: @scenarios
+      = render partial: 'projects/tests', collection: @scenarios
 
 
 
