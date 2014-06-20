@@ -53,9 +53,7 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'selenium-webdriver'
 
 gem 'httparty'
-
-gem 'airbrake'
-
+gem 'honeybadger'
 
 gem 'backbone-on-rails'
 gem 'eco'

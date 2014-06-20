@@ -75,9 +75,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.6)
-    airbrake (3.1.16)
-      builder
-      multi_json
     arel (4.0.2)
     ast (1.1.0)
     atomic (1.1.16)
@@ -225,6 +222,8 @@ GEM
       railties (>= 4.0.1)
     hashie (2.0.5)
     hike (1.2.3)
+    honeybadger (1.15.1)
+      json
     http_parser.rb (0.5.3)
     httparty (0.13.0)
       json (~> 1.8)
@@ -511,7 +510,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  airbrake
   backbone-on-rails
   better_errors (~> 0.2.0)
   binding_of_caller
@@ -536,6 +534,7 @@ DEPENDENCIES
   guard
   guard-rspec
   haml-rails
+  honeybadger
   httparty
   jasmine
   jbuilder (~> 1.2)
