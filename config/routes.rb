@@ -19,9 +19,7 @@ Autotest::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  if Rails.env.development?
-    mount MailPreview => 'mail_view'
-  end
+  mount MailPreview => 'mail_view' if Rails.env.development?
 
   resources :scenarios
   resources :plans do
@@ -86,29 +84,16 @@ Autotest::Application.routes.draw do
     end
   end
 
-  # Test Pages
-  get '/test/index', to: "autotest#index"
-  get '/test/form', to: "autotest#form", as: "test_form"
-  post '/test/form_post', to: "autotest#form_post", as: "test_form_post"
-  get '/test/thankyou', to: "autotest#thankyou", as: "test_thankyou"
-  get '/test/terms', to: "autotest#terms", as: 'test_terms'
-
   namespace :api do
     namespace :v1 do
-      # match '/features' => "features#index", via: :options
-      # match '/features/:feature_id' => "features#show", via: :options
       match '/scenarios' => "scenarios#create", via: :options
       match '/scenarios/:scenario_id' => "scenarios#show", via: :options
       match '/scenarios/:scenario_id/steps' => "steps#create", via: :options
       match '/scenarios/:scenario_id/publish' => "scenarios#publish", via: :options
       match '/scenarios/:scenario_id/publish' => "scenarios#publish", via: :post
-      # match '/features/:feature_id/scenarios/:scenario_id' => "scenarios#show", via: :options
-      # match '/features/:features_id/scenarios/:scenario_id/steps' => "steps#create", via: :options
-      # resources :features do
-        resources :scenarios do
-          resources :steps
-        end
-      # end
+      resources :scenarios do
+        resources :steps
+      end
     end
 
     namespace :dashing do
@@ -116,8 +101,6 @@ Autotest::Application.routes.draw do
       match '/total_minutes' => "dashboard#total_minutes", via: :get
     end
   end
-
-  post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 
   #pages
   get 'faqs', to: 'pages#faqs'
@@ -127,8 +110,14 @@ Autotest::Application.routes.draw do
   get 'terms', to: 'pages#terms'
   get 'beta-invitation', to: 'pages#beta_invitation', as: 'beta_invitation'
   post 'create-beta-invitation', to: 'pages#create_beta_invitation', as: 'create_beta_invitation'
+  post '/coupons/redeem', to: "coupons#redeem", as: "redeem_coupon"
 
+  # Test Pages
+  get '/test/index', to: "autotest#index"
+  get '/test/form', to: "autotest#form", as: "test_form"
+  post '/test/form_post', to: "autotest#form_post", as: "test_form_post"
+  get '/test/thankyou', to: "autotest#thankyou", as: "test_thankyou"
+  get '/test/terms', to: "autotest#terms", as: 'test_terms'
 
   root 'pages#welcome'
-
 end
