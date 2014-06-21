@@ -17,7 +17,7 @@
         .clearfix
         %div
           = play_button(@scenario)
-          = play_developer_mode_button(@scenario)
+          =# play_developer_mode_button(@scenario)
           %div{id: "test_run-#{@scenario.id}", style: "display: none;"}
             %h4{style: "font-weight: bold; margin-top: 10px;"} Start A New Test Run
             = form_tag run_scenario_project_test_path(@project, @scenario.id), class:"scenario-run", id: "scenario_#{@scenario.id}" do
