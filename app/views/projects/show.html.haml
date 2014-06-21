@@ -1,3 +1,15 @@
+:css
+  #projects {
+    margin-top: 40px;
+  }
+  #projects-header {
+
+  }
+  .settings, .invite {
+    float: left;
+    margin-right: 10px;
+  }
+
 -content_for :head do
   = javascript_include_tag "step_status"
   = javascript_include_tag "scenario_created"
@@ -5,24 +17,27 @@
 - content_for :title do
   Projects - #{@project.name}
 
-.row
-  = pape_title("#{@project.name}", 'fa-desktop')
-
+-#TODO: Move these to the head. -Lance
 %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
 %span{style: "display: none;", id:"pusher-project-id", "project-id" => "#{@project.id.to_s}" }
 
+#projects-header.row
+  .col-sm-12
+    %h1= @project.name
+    = link_to raw("#{glyph('cog')}"), edit_project_path(@project), class: "btn btn-default btn-xs settings" if @project.owner?(current_user)
+    = link_to raw("#{glyph('user')}"), invitations_path(project_id: @project.id.to_s), class: "btn btn-default btn-xs invite"
+    -#%button.btn.btn-default{"data-placement" => "top", "data-toggle" => "tooltip", title: "Tooltip on top", type: "button"} Tooltip on top
 .row
   .col-sm-12
     - if @project.script_verified?
-      = link_to raw("#{glyph('user')} Invite Users to Project"), invitations_path(project_id: @project.id.to_s), class: "btn btn-info btn-xs"
-      = link_to raw("#{glyph('cog')} Settings"), edit_project_path(@project), class: "btn btn-primary btn-xs" if @project.owner?(current_user)
+
       = play_button(@project, "Run All Tests")
     - else
       = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-xs'
     = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs"
     = render 'projects/platforms'
 
-.row
+#projects.row
   .col-sm-12
     - if @project.scenarios.size == 0 && @project.script_verified?
       %p
@@ -31,7 +46,6 @@
     - else
       .well
         %table.table.table-striped.table-forum
-          %thead
           %tbody
             - @scenarios.each do |scenario|
               %tr
