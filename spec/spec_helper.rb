@@ -85,4 +85,8 @@ RSpec.configure do |config|
   config.after(:each) do
     StripeMock.stop
   end
+
+  #codeclimate
+  require "codeclimate-test-reporter"
+  CodeClimate::TestReporter.start
 end

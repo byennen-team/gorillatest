@@ -72,6 +72,9 @@ group :production do
   gem 'rails_12factor'
 end
 
+#codeclimate
+gem "codeclimate-test-reporter", group: :test, require: nil
+
 group :development do
   gem "quiet_assets", "~> 1.0.1"
   gem "better_errors", "~> 0.2.0"
