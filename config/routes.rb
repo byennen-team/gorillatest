@@ -1,4 +1,5 @@
 Autotest::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   namespace :admin do
     resources :beta_invitations, only: [:index] do
       member do

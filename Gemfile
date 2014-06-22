@@ -75,6 +75,8 @@ end
 #codeclimate
 gem "codeclimate-test-reporter", group: :test, require: nil
 
+gem 'rails_admin'
+
 group :development do
   gem "quiet_assets", "~> 1.0.1"
   gem "better_errors", "~> 0.2.0"
