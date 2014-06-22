@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title= content_for?(:title) ? "Gorilla Test | " + yield(:title) : "Gorilla Test"
+    %title= content_for?(:title) ? "Gorilla Test - " + yield(:title) : "Gorilla Test"
     %meta{:charset => "utf-8"}
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"}
@@ -17,7 +17,7 @@
     = render 'layouts/services/bugherd'
     = render 'layouts/services/heroku'
     = stylesheet_link_tag    "application"
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "application"
     = yield(:head)
 
   %body{:id => "#{controller_name}-#{action_name}", class: 'smart-style-2 fixed-header fixed-ribbon fixed-navigation'}

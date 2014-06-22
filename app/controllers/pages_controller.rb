@@ -24,9 +24,7 @@ class PagesController < ApplicationController
     end
   end
 
-
   private
-  # Never trust parameters from the scary internet, only allow the white list through.
   def beta_invitation_params
     params.require(:beta_invitation).permit(:first_name, :last_name, :company, :email)
   end

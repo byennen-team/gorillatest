@@ -2,35 +2,10 @@ class ScenariosController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :find_project
-  # before_filter :find_feature
   before_filter :find_scenario, except: [:index, :new, :create]
 
 
   def show; end
-
-  # def new
-  #   @scenario = @feature.scenarios.new
-  # end
-
-  # def create
-  #   @scenario = @feature.scenarios.new(scenario_params)
-  #   if @scenario.save
-  #     respond_to do |format|
-  #       format.html { redirect_to project_feature_path(@project, @feature) }
-  #     end
-  #   end
-  # end
-
-  # def edit; end
-
-  # def update
-  #   @scenario.attributes = scenario_params
-  #   if @scenario.save
-  #     respond_to do |format|
-  #       format.html { redirect_to project_feature_path(@project, @feature) }
-  #     end
-  #   end
-  # end
 
   def destroy
     if @scenario.destroy
