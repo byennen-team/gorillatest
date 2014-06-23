@@ -10,7 +10,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @scenarios = @project.scenarios.sort_by(&:created_at).reverse
+    @scenarios = @project.scenarios.all
+    #sort_by(&:created_at).reverse
   end
 
   def new
