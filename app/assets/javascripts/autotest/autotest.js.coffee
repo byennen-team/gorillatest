@@ -82,7 +82,7 @@ $(document).ready ->
           error: ->
             alert("that scenario doesn't exist")
         })
-    else if window.sessionStorage.getItem("autoTest.showRecorder") == "true"
+    else if window.sessionStorage.getItem("autoTest.showRecorder") == "true" || sessionStorage.getItem("autoTestRecorder.isRecording") == "true"
       $("body").css("padding-top", "55px")
       iframeHtml = JST["autotest/templates/iframe"]()
       stepsHtml = JST["autotest/templates/steps_list"]()
