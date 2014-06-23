@@ -43,7 +43,7 @@
                           %i.fa.fa-fw{class: "#{bang_or_check(test_run.status)}"}
                         .smart-timeline-time
                           %small
-                            = distance_of_time_in_words_to_now(test_run.ran_at)
+                            = distance_of_time_in_words_to_now(test_run.ran_at) if test_run.ran_at.present?
                             ago
                         .smart-timeline-content
                           %p
