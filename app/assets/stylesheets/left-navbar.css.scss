@@ -16,3 +16,16 @@ li.current-project a{
   overflow-y: auto;
   max-height: 300px;
 }
+.navigation {
+  ul li.add-project a {
+    font-size: 11px;
+    color: #58d68d !important;
+    &:hover, &:active {
+      color: #27ad60 !important;
+    }
+  }
+  ul li > a:hover, li a:hover {
+    background: none !important;
+    color: #202427;
+  }
+}

@@ -2,7 +2,7 @@
   -#.login-info
   -#  = gravatar_image_tag(current_user, 32)
 
-  %nav
+  %nav.navigation
     %ul
       = icon_link "Dashboard", dashboard_path, "fa-home"
       %li.open#nav-project-list-link
@@ -15,7 +15,7 @@
               %li.current-project= link_to project.name, project_path(project)
             - else
               %li= link_to project.name, project_path(project)
-      %li= icon_link "Add Project", current_user.try(:can_create_project?) ? new_project_path : change_plan_path(plan:"maxed"), "fa-plus"
+          %li.add-project= link_to "Add Project", current_user.try(:can_create_project?) ? new_project_path : change_plan_path(plan:"maxed")
       %li= icon_link "My Info", my_info_path, "fa-info"
       %li= icon_link "Manage Billing", credit_cards_path, "fa-credit-card"
 

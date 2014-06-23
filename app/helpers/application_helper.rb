@@ -8,14 +8,14 @@ module ApplicationHelper
   end
 
   #add active class to links
-  def icon_link(link_text, link_path, italic_class=nil)
+  def icon_link(link_text, link_path, icon)
     class_name = current_page?(link_path) ? 'active' : ''
     if link_text == "Projects" && projects_controller?(params[:controller])
       class_name = 'active'
     end
     content_tag(:li, :class => class_name) do
       link_to link_path do
-        html = content_tag(:i, "", class: "fa fa-fw #{italic_class}") + content_tag(:span, link_text, class: "menu-item-parent")
+        html = content_tag(:i, "", class: "fa #{icon}") + content_tag(:span, link_text, class: "menu-item-parent")
       end
     end
   end

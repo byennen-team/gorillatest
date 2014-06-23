@@ -37,7 +37,7 @@
                 Plan
                 %span= link_to current_user.plan.name, change_plan_path
           %ul.nav.navbar-nav.pull-right
-            %li= link_to 'Invite', new_invitation_path
+            %li= link_to 'Invite', new_invitation_path #TODO: fix issues with buttons in nav bar. -Lance #, class: 'btn btn-warning btn-xs'
         - else
           %ul.nav.navbar-nav.pull-right
             %li= link_to 'Request Invite', beta_invitation_path #, class: 'btn btn-danger'

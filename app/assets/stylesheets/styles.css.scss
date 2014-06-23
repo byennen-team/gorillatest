@@ -97,11 +97,11 @@
       width: 35px;
     }
   }
-  nav {
+  .navigation {
     ul {
       li a {
-        color: #69737A !important;
-        font-size: 12px !important;
+        color: #69737A;
+        font-size: 12px;
       }
       ul {
         > li:hover b {
@@ -120,10 +120,6 @@
       .active > a {
         color: #202427 !important;
         font-weight: bold;
-      }
-      ul li > a:hover, li a:hover {
-        color: #202427 !important;
-        background: none !important;
       }
       ul {
         li > a {
@@ -154,9 +150,6 @@
       padding-bottom: 16px;
     }
     > ul > li > a {
-      > i {
-        font-size: 25px !important;
-      }
       b {
         top: 16px;
       }
