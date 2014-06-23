@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 ruby '2.1.1'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.0'
 gem 'thin'
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
@@ -88,7 +88,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.14.2'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'capybara'
@@ -106,5 +106,5 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-sidekiq'
+  gem 'rspec-sidekiq', '1.0.0'
 end
