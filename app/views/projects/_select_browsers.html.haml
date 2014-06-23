@@ -1,6 +1,6 @@
 .modal.fade{id: "selectBrowers_#{scenario.id}", "aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
   .modal-dialog
-    = form_tag run_scenario_project_test_path(@project, scenario.id), class:"scenario-run", id: "scenario_#{scenario.id}" do
+    = form_tag run_scenario_project_test_path(@project, scenario.id), class:"scenario-run" do
       .modal-content
         .modal-header
           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×

@@ -111,9 +111,9 @@ module ApplicationHelper
     Rails.logger.debug("rendering play button")
     project = testable.is_a?(Project) ? testable : testable.project
     if project.creator.has_minutes_available?
-      html = link_to play_glyph(text: text), "javascript:void(0)", "data-target" => "#selectBrowers_#{testable.id}", "data-toggle" => "modal", class: "btn btn-success btn-xs"
+      html = link_to play_glyph(text: text), "javascript:void(0)", "data-target" => "#selectBrowers_#{testable.id}", "data-toggle" => "modal", class: "btn btn-success"
     else
-      html = link_to play_glyph(text: text), edit_user_registration_path(anchor: "change-plan"), class: "btn btn-success btn-xs"
+      html = link_to play_glyph(text: text), edit_user_registration_path(anchor: "change-plan"), class: "btn btn-success"
     end
     html.html_safe
   end

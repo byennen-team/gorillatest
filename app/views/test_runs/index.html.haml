@@ -3,18 +3,17 @@
 = javascript_include_tag 'step_status'
 
 .row
-  = pape_title(raw("Projects > #{link_to(@project.name, project_path(@project))} > #{link_to(@scenario.name, project_test_test_runs_path(@project, @scenario.slug))}"), 'fa-desktop')
+  .col-sm-12
+    %h1
+      = link_to @project.name, project_path(@project)
+      >
+      = @scenario.name
+
 .row
   .col-md-12
     / Project widget
     .awidget
       .awidget-head
-        .pull-right
-          - if @project.owner?(current_user)
-            = link_to glyph_button("remove", "Delete Test"), project_test_path(@project, @scenario.slug), method: :delete, class: "btn btn-danger", confirm: "Are you sure?"
-          - else
-            = link_to glyph_button("remove", "Delete Test"), '#', onclick: "alert('Only the project owner has permission to delete tests');", class: "btn btn-danger"
-        .clearfix
         %div
           = play_button(@scenario)
           =# play_developer_mode_button(@scenario)
