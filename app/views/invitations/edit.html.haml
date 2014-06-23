@@ -39,7 +39,7 @@
                   = f.input :password_confirmation
             #form-options.row
               .col-md-12
-                .pull-right= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-primary"
+                .pull-right= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-info"
         - unless session["devise.user_attributes"]
           #already-have-account.col-md-4
             =link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-default' do

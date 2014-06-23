@@ -87,13 +87,13 @@
                   - if plan.id > current_user.plan.id
                     .panel-footer.text-align-center
                       - if current_user.credit_cards.default
-                        = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-primary btn-block'
+                        = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-info btn-block'
                       - else
-                        = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), class: 'btn btn-primary btn-block'
+                        = link_to "Upgrade Now", upgrade_plan_path(plan.id.to_s), class: 'btn btnbtn-infon-block'
                   - else
                     .panel-footer.text-align-center
                       - if current_user.can_downgrade?(plan)
-                        = link_to "Downgrade", downgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-primary btn-block'
+                        = link_to "Downgrade", downgrade_plan_path(plan.id.to_s), method: :post, class: 'btn btn-prbtn-infolock'
                       - else
                         = link_to "Downgrade", downgrade_plan_path(plan.id.to_s), class: 'btn btn-primary btn-block', disabled: 'disabled'
               - else

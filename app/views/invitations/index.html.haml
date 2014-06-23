@@ -23,4 +23,4 @@
               = select_tag "project_id", options_for_select([["None", nil]] + (current_user.projects.map{|p| [p.name, p.id.to_s]}))
               = f.input :email, label: "Email (enter addresses separated by a comma)"
               %footer
-                = f.submit "Invite Users", class: "btn btn-primary button"
+                = f.submit "Invite Users", class: "btn btn-info button"

@@ -35,7 +35,7 @@
           %i.fa.fa-copy
           Copy Script
         =image_tag "icons/loading.gif", class: 'loading-gif', style: "display: none;"
-        %a.btn.btn-primary.verify-script-modal-button{href: "#{project_verify_script_path(project)}",project_link: "#{project_path(project)}"} Verify Embedded Script
+        %a.btn.btn-info.verify-script-modal-button{href: "#{project_verify_script_path(project)}",project_link: "#{project_path(project)}"} Verify Embedded Script
         - if project.script_verified? || show_buttons
           %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
         #copy-confirmation

@@ -46,7 +46,7 @@
                   %td.hidden-xs.hidden-sm
                     =# play_developer_mode_button(scenario)
     - else
-      = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-lg'
+      = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg'
 
 
 = render 'embed_script_modal', project: @project, show_buttons: false
