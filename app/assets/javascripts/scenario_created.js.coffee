@@ -132,7 +132,7 @@ $ ->
   channel = window.pusher.subscribe("project-#{projectId}")
   channel.bind "scenario_completed", (data)->
     data.authenticity_token = $("input[name='authenticity_token']").val()
-    if $("#selectBrowers_#{data.scenario_id}").length == 0
+    if $("#selectBrowers_#{data.scenario_id}").length == 0 && $("#projects").find("table.table").find("tr").length > 0
       $("#projects").find("table.table").prepend(testTemplate(data))
       $("#selectBrowers_#{data.scenario_id}").find("input[type='checkbox']").on "change", () ->
         switchRunTestButton(this)
