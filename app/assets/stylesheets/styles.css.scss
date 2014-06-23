@@ -171,16 +171,7 @@
     background: #2C3742 !important;
     border-color: #2C3742!important;
   }
-  .btn-primary, .smart-form .button {
-    background-color: #3b9ff3;
-    border-color: #3292E2;
-  }
-  .btn-primary {
-    &:hover, &:focus, &:active, &.active {
-      background-color: #3E90D4;
-      border-color: #2F7DBE;
-    }
-  }
+
   .open .dropdown-toggle.btn-primary {
     background-color: #3E90D4;
     border-color: #2F7DBE;
@@ -189,42 +180,6 @@
     &:hover, &:focus {
       background-color: #F7F7F7;
     }
-  }
-  .btn-success {
-    background-color: #96bf48;
-    border-color: #84A83E;
-    &:hover, &:focus, &:active, &.active {
-      background-color: #89AD45;
-      border-color: #78973B;
-    }
-  }
-  .open .dropdown-toggle.btn-success {
-    background-color: #89AD45;
-    border-color: #78973B;
-  }
-  .btn-danger {
-    background-color: #DB4A67;
-    border-color: #CA4862;
-    &:hover, &:focus, &:active, &.active {
-      background-color: #CF4762;
-      border-color: #C0455E;
-    }
-  }
-  .open .dropdown-toggle.btn-danger {
-    background-color: #CF4762;
-    border-color: #C0455E;
-  }
-  .btn-warning {
-    background-color: #E2B14A;
-    border-color: #C99D42;
-    &:hover, &:focus, &:active, &.active {
-      background-color: #D6A848;
-      border-color: #C09844;
-    }
-  }
-  .open .dropdown-toggle.btn-warning {
-    background-color: #D6A848;
-    border-color: #C09844;
   }
   .pagination > .active > {
     a, span, a:hover, span:hover, a:focus, span:focus {
