@@ -51,6 +51,7 @@ class @AutoTestRecorder
     @sessionStorage.setItem("autoTestRecorder.isRecording", false)
     @sessionStorage.removeItem("autoTestRecorder.currentFeature")
     @sessionStorage.removeItem("autoTestRecorder.currentScenario")
+    @sessionStorage.removeItem("autoTest.showRecorder")
     # Autotest.currentFeature = null
     # Autotest.currentScenario = null
     # Autotest.currentSteps = null

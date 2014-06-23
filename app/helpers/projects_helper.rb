@@ -8,4 +8,12 @@ module ProjectsHelper
 
     return "#{subject}#{newline}&#{body}#{newline}#{newline}CODE:#{newline}#{script}"
   end
+
+  def link_to_record(project)
+    if project.url.match(/\?\w*/)
+      return project.url + "&gt-recording=true"
+    else
+      return project.url + "?gt-recording=true"
+    end
+  end
 end
