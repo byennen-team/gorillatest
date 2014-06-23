@@ -81,18 +81,10 @@ $(document).ready ->
     else
       iframeHtml = JST["autotest/templates/iframe"]()
       stepsHtml = JST["autotest/templates/steps_list"]()
+      overlay = JST["autotest/templates/loading_overlay"]()
       $("body").append(iframeHtml)
       $("body").append(stepsHtml)
+      $("body").append(overlay) if sessionStorage.getItem("autoTestRecorder.isRecording") == "true"
       window.autoTestRecorder = new AutoTestRecorder window.projectId
-      Autotest.scenario = new Autotest.Models.Scenario({id: window.sessionStorage.getItem("autoTestRecorder.currentScenario")})
       $("iframe#autotest-iframe").on "loadComplete", ->
-        Autotest.scenario.fetch(
-          success: (model, response, options)->
-            if response.project_id == Autotest.projectId
-              window.autoTestRecorder.start()
-          error: ->
-            alert("Could not start recorder")
-        )
-
-
-
+        window.autoTestRecorder.start()

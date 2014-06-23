@@ -23,9 +23,13 @@ class @AutoTestRecorder
         stepsView = new Autotest.Views.StepIndex({collection: Autotest.currentScenario.steps()})
         scenario.fetch
           success: (model, response, options) ->
-            Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name')}})
-            step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
-            _this.record()
+            if response.project_id == Autotest.projectId
+              $("#gt-loading-overlay").hide()
+              Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name')}})
+              step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
+              _this.record()
+          error: ->
+            alert("Could not start recorder")
 
   record: ->
     console.log("We are currently recording")

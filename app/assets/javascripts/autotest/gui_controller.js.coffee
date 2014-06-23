@@ -136,10 +136,10 @@ AutoTestGuiController = {
           button = $this.find("button#create-feature")
         else
           button = $this.find("button#start-recording")
-        $(input).keypress (e)->
-          e.stopPropagation()
-          if e.which == 13 && $(button).attr("disabled") != "disabled"
-            $(button).trigger("click")
+        # $(input).keypress (e)->
+        #   e.stopPropagation()
+        #   if e.which == 13 && $(button).attr("disabled") != "disabled"
+        #     $(button).trigger("click")
       onClose: ()->
         input = $this.find("input")
         $(input).unbind("blur")
