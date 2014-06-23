@@ -34,13 +34,14 @@ switchRunTestButton = (el)->
   button = $(el).closest("form.scenario-run").find("input.run-test")
   concurrencyLimit = parseInt $(".concurrency-limit").text()
   numChecked = $(el).closest("form.scenario-run").find("input:checked").length
+  concurrencyWarning = $(el).closest(".modal-body").find(".concurrency-warning")
 
   if numChecked > concurrencyLimit
     button.attr("disabled", true)
-    button.siblings(".concurrency-warning").removeClass("hide")
+    concurrencyWarning.removeClass("hide")
   else if $(el).closest("form.scenario-run").find("input:checked").length > 0
-    button.siblings(".concurrency-warning").addClass("hide")
     button.removeAttr("disabled")
+    concurrencyWarning.addClass("hide")
   else
     button.attr("disabled", true)
 

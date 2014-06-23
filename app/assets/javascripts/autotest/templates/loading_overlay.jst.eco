@@ -1,0 +1,7 @@
+<div id='gt-loading-overlay' style='width:100%; position: absolute; top: 0; left: 0; height: 110%; z-index:10000000; background-color: black; opacity: 0.8; display: table;'>
+  <div style="display: table-cell; text-align: center; vertical-align: middle;">
+    <span style="font-size: 24px; color: white; font-family: Arial, Helvetica, sans-serif;">
+      Loading Gorilla Test...
+    </span>
+  </div>
+</div>

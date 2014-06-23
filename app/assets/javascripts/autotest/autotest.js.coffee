@@ -41,18 +41,21 @@ window.Autotest =
         break
       i++
     params = $.url(window.location.href).param()
+    window.sessionStorage.removeItem("autoTest.showRecorder")
+
     if params["developer"] == "true" || window.sessionStorage.getItem("autoTest.developerPlaying") == "1"
       Autotest.developerMode = true
       if @hasScenario(params)
         @setScenario(params)
       else
         alert("You must provide a scenario id to test.")
+    else if params["gt-recording"] == "true"
+      window.sessionStorage.setItem("autoTest.showRecorder", "true")
 
 
 Autotest.initialize()
 
 $(document).ready ->
-  $("body").css("padding-top", "55px")
   if Autotest.parent == "iframe"
     iframeIndexView = new Autotest.Views.IframeIndex({el: ".recording-bar"})
   else
@@ -60,6 +63,7 @@ $(document).ready ->
     $('head').append("<link rel='stylesheet' type='text/css' href='"+ styleSheetUrl + "'>");
     console.log("Developer mode is #{Autotest.developerMode}")
     if Autotest.developerMode == true
+      $("body").css("padding-top", "55px")
       devIframeHtml = JST["autotest/templates/developer"]
       devMouseHtml = JST["autotest/templates/developer_mouse"]
       window.autoTestDeveloper = true
@@ -78,21 +82,14 @@ $(document).ready ->
           error: ->
             alert("that scenario doesn't exist")
         })
-    else
+    else if window.sessionStorage.getItem("autoTest.showRecorder") == "true"
+      $("body").css("padding-top", "55px")
       iframeHtml = JST["autotest/templates/iframe"]()
       stepsHtml = JST["autotest/templates/steps_list"]()
+      overlay = JST["autotest/templates/loading_overlay"]()
       $("body").append(iframeHtml)
       $("body").append(stepsHtml)
+      $("body").append(overlay) if sessionStorage.getItem("autoTestRecorder.isRecording") == "true"
       window.autoTestRecorder = new AutoTestRecorder window.projectId
-      Autotest.scenario = new Autotest.Models.Scenario({id: window.sessionStorage.getItem("autoTestRecorder.currentScenario")})
       $("iframe#autotest-iframe").on "loadComplete", ->
-        Autotest.scenario.fetch(
-          success: (model, response, options)->
-            if response.project_id == Autotest.projectId
-              window.autoTestRecorder.start()
-          error: ->
-            alert("Could not start recorder")
-        )
-
-
-
+        window.autoTestRecorder.start()

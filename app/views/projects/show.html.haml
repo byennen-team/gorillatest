@@ -16,7 +16,7 @@
       - if @project.scenarios.size > 0
         = play_button(@project, "Run All Tests")
         = render 'projects/select_browsers_all'
-      = link_to 'Record',  @project.url, target: '_blank', class: 'btn btn-danger'
+      = link_to 'Record',  link_to_record(@project), target: '_blank', class: 'btn btn-danger'
 
 #projects.row
   .col-sm-12
