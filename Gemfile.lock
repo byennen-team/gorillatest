@@ -5,16 +5,6 @@ GIT
     rolify (3.4.0)
 
 GIT
-  remote: git://github.com/mongoid/mongoid.git
-  revision: 50b633c8baf2fa467e8c36b18a013a2cd50e0454
-  specs:
-    mongoid (4.0.0)
-      activemodel (~> 4.0)
-      moped (~> 2.0.0)
-      origin (~> 2.1)
-      tzinfo (>= 0.3.37)
-
-GIT
   remote: git://github.com/simi/mongoid-paranoia.git
   revision: bf0ee2f3bf10770298a24a6a5a86edec8bdcfdd1
   specs:
@@ -298,6 +288,11 @@ GEM
     monetize (0.1.4)
     money (6.1.1)
       i18n (~> 0.6.4)
+    mongoid (4.0.0)
+      activemodel (~> 4.0)
+      moped (~> 2.0.0)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
     mongoid-rspec (1.10.0)
       mongoid (>= 3.0.1)
       rake
@@ -585,7 +580,7 @@ DEPENDENCIES
   mail_view
   mocha
   money-rails!
-  mongoid!
+  mongoid
   mongoid-paranoia!
   mongoid-rspec
   mongoid_slug
