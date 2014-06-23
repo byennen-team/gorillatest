@@ -1,6 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  layout :get_layout
-
   def new
     flash[:notice] = "Please fill in the rest of the form to finish signing up." if session["devise.user_attributes"]
     super
@@ -54,11 +52,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     my_info_path
-  end
-
-  def get_layout
-    return 'pages' unless %w(edit upgrade change_plan manage_billing update).include?(params[:action])
-    return 'application'
   end
 
   def password_change?

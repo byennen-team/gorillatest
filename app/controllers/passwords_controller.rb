@@ -1,3 +1,3 @@
 class PasswordsController < Devise::PasswordsController
-  layout 'pages'
+  layout 'application'
 end

@@ -12,5 +12,4 @@
 //= require project
 //= require messages
 //= require pusher
-//= require beta_invite_validate
 //= require progress_indicator

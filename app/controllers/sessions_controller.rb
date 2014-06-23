@@ -1,6 +1,4 @@
 class SessionsController < Devise::SessionsController
-  layout 'pages'
-
   after_filter :remove_heroku_session, only: [:create]
   before_filter :initalize_beta_invite
 
@@ -17,5 +15,4 @@ class SessionsController < Devise::SessionsController
   def initalize_beta_invite
     @beta_invitation = BetaInvitation.new
   end
-
 end

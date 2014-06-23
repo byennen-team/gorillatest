@@ -1,6 +1,4 @@
 class PagesController < ApplicationController
-  layout 'pages'
-
   def welcome
     if user_signed_in?
       redirect_to dashboard_path
