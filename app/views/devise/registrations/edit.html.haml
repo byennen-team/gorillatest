@@ -1,9 +1,6 @@
 -content_for :title do
   My Info
 
-.row
-  = pape_title('My Info', 'fa-user')
-
 %section#widget-grid
   .row
     %article.col-sm-6
@@ -11,9 +8,8 @@
         %header
           %span.widget-icon
             %i.fa.fa-edit
-          %h2 Basics
+          %h2 My Info
         %div
-          .jarviswidget-editbox
           .widget-body.no-padding
             = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'smart-form' }) do |f|
               = devise_error_messages!

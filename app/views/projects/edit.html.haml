@@ -1,88 +1,107 @@
-= render 'sidebar'
-%div.tab-content
-  #home.tab-pane.active
-    %br
-    = simple_form_for @project do |f|
-      = f.input :name
-      = f.input :url
-      %br
-      = link_to "Show Advanced Settings", "javascript:void();", id: "show_project_advanced_settings"
-      = link_to "Hide Advanced Settings", "javascript:void()", id: "hide_project_advanced_settings", style: "display: none;"
-      #advanced_settings{style: "display: none;"}
-        %br
-        %p Does your project have HTTP basic access authentication? If so enter the credentials below:
-        = f.input :basic_auth_username
-        = f.input :basic_auth_password
-      %br
-      %br
-      .clearfix
-      = f.submit "Save Project", class: "btn btn-success"
-  #users.tab-pane
-    %p
-      -if @project.has_invitations_left?
-        You can invite #{@project.num_invitations_remaining} more members to this project.
-        %br
-        Click #{link_to "here", invitations_path(project_id: @project.id.to_s)} to invite a member to this project.
-      -else
-        You can't invite any more people to this project.
-    %p
-      #{link_to 'Upgrade your plan', change_plan_path} to add more members to your project!
-    %br
-    - @project.users.each do |user|
-      %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
-        .pull-left{style: "margin-right: 10px; border: 1px solid #333;"}
-          = gravatar_image_tag(user, 48)
-        - unless @project.owner?(user)
-          .pull-right
-            = link_to glyph('remove'), remove_user_project_path(@project, user.id), method: :post
-        %span{style: "font-size: 1.6em; font-weight: bold;"}
-          - if user.encrypted_password.blank?
-            = truncate(user.email, length: 13)
-          - else
-            = user.name
-        - if @project.owner?(user)
-          %span{style: "font-size: 1.2em"} (owner)
-        - elsif user.encrypted_password.blank?
-          %span{style: "font-size: 1.2em"} (invited)
-        - else
-          %span{style: "font-size: 1.2em"} (member)
-        %br
-        - unless user.encrypted_password.blank?
-          = user.email
-        - if @project.owner?(current_user) && !@project.owner?(user) && current_user != user
-          .pull-right
-            = link_to "Make Owner", project_add_owner_path(@project, user.id), method: :put
-        - if @project.owner?(current_user) && @project.owner?(user) && current_user != user
-          .pull-right
-            = link_to "Revoke Ownership", project_remove_owner_path(@project, user.id), method: :put
+= render 'projects/projects_header'
+.row
+  .col-sm-12
+    %ul.nav.nav-pills
+      %li.active
+        %a{href: "#home", data: {toggle: "pill"}}
+          %span.glyphicon.glyphicon-cog
+          Project Info
+      %li
+        %a{href: "#users", data: {toggle: "pill"}, target: "users"}
+          %span.glyphicon.glyphicon-user
+          Users
+      %li
+        %a{href: "#notifications", data: {toggle: "pill"}, target: "notifications"}
+          %span.glyphicon.glyphicon-bullhorn
+          Notifications
+      %li
+        %a{href: "#delete", data: {toggle: "pill"}, target: "delete"}
+          %span.glyphicon.glyphicon-remove
+          Delete Project
 
-  #notifications.tab-pane
-    %br
-    =simple_form_for @notification, url: update_notifications_project_path(@project), method: :post do |f|
-      %br
-      %h3 Email Notifications
-      -if @project.email_notification == "success"
-        =radio_button_tag "project[email_notification]", "success", checked: true
-        =label_tag "Send emails on test completion"
+    %div.tab-content
+      #home.tab-pane.active
         %br
-        =radio_button_tag "project[email_notification]", "fail"
-        =label_tag "Send Emails only on test failure"
-      -else
-        =radio_button_tag "project[email_notification]", "success"
-        =label_tag "Send Emails on success and failure"
+        = simple_form_for @project do |f|
+          = f.input :name
+          = f.input :url
+          %br
+          = link_to "Show Advanced Settings", "javascript:void();", id: "show_project_advanced_settings"
+          = link_to "Hide Advanced Settings", "javascript:void()", id: "hide_project_advanced_settings", style: "display: none;"
+          #advanced_settings{style: "display: none;"}
+            %br
+            %p Does your project have HTTP basic access authentication? If so enter the credentials below:
+            = f.input :basic_auth_username
+            = f.input :basic_auth_password
+          %br
+          %br
+          .clearfix
+          = f.submit "Save Project", class: "btn btn-success"
+      #users.tab-pane
+        %p
+          -if @project.has_invitations_left?
+            You can invite #{@project.num_invitations_remaining} more members to this project.
+            %br
+            Click #{link_to "here", invitations_path(project_id: @project.id.to_s)} to invite a member to this project.
+          -else
+            You can't invite any more people to this project.
+        %p
+          #{link_to 'Upgrade your plan', change_plan_path} to add more members to your project!
         %br
-        =radio_button_tag "project[email_notification]", "fail", checked: true
-        =label_tag "Send Emails only on failure"
-      %h3 Campfire
-      =f.input :subdomain
-      =f.input :token, label: "API Key"
-      =f.input :room_name
-      =f.input :service, as: :hidden, value: "campfire"
-      =f.submit "Save Notification Settings", class: "btn btn-success"
+        - @project.users.each do |user|
+          %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
+            .pull-left{style: "margin-right: 10px; border: 1px solid #333;"}
+              = gravatar_image_tag(user, 48)
+            - unless @project.owner?(user)
+              .pull-right
+                = link_to glyph('remove'), remove_user_project_path(@project, user.id), method: :post
+            %span{style: "font-size: 1.6em; font-weight: bold;"}
+              - if user.encrypted_password.blank?
+                = truncate(user.email, length: 13)
+              - else
+                = user.name
+            - if @project.owner?(user)
+              %span{style: "font-size: 1.2em"} (owner)
+            - elsif user.encrypted_password.blank?
+              %span{style: "font-size: 1.2em"} (invited)
+            - else
+              %span{style: "font-size: 1.2em"} (member)
+            %br
+            - unless user.encrypted_password.blank?
+              = user.email
+            - if @project.owner?(current_user) && !@project.owner?(user) && current_user != user
+              .pull-right
+                = link_to "Make Owner", project_add_owner_path(@project, user.id), method: :put
+            - if @project.owner?(current_user) && @project.owner?(user) && current_user != user
+              .pull-right
+                = link_to "Revoke Ownership", project_remove_owner_path(@project, user.id), method: :put
 
-  - if @project.owner?(current_user)
-    #delete.tab-pane
-      %div{style: "padding: 30px;"}
-        %p Deleting this project will permanently destroy all tests and components related to this project. If you would like to continue, please click the "Delete Project" button below.
-        %p.text-right
-          = link_to raw("#{glyph('remove')} Delete Project"), project_path, class: "btn btn-danger", method: :delete, confirm: "Are you sure?"
+      #notifications.tab-pane
+        %br
+        =simple_form_for @notification, url: update_notifications_project_path(@project), method: :post do |f|
+          %br
+          %h3 Email Notifications
+          -if @project.email_notification == "success"
+            =radio_button_tag "project[email_notification]", "success", checked: true
+            =label_tag "Send emails on test completion"
+            %br
+            =radio_button_tag "project[email_notification]", "fail"
+            =label_tag "Send Emails only on test failure"
+          -else
+            =radio_button_tag "project[email_notification]", "success"
+            =label_tag "Send Emails on success and failure"
+            %br
+            =radio_button_tag "project[email_notification]", "fail", checked: true
+            =label_tag "Send Emails only on failure"
+          %h3 Campfire
+          =f.input :subdomain
+          =f.input :token, label: "API Key"
+          =f.input :room_name
+          =f.input :service, as: :hidden, value: "campfire"
+          =f.submit "Save Notification Settings", class: "btn btn-success"
+
+      - if @project.owner?(current_user)
+        #delete.tab-pane
+          %div{style: "padding: 30px;"}
+            %p Deleting this project will permanently destroy all tests and components related to this project. If you would like to continue, please click the "Delete Project" button below.
+            = link_to raw("#{glyph('remove')} Delete Project"), project_path, class: "btn btn-danger", method: :delete, confirm: "Are you sure?"

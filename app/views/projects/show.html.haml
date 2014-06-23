@@ -9,31 +9,19 @@
 %span{style: "display: none;", class:"script-status", "script-verified" => "#{@project.script_verified?}" }
 %span{style: "display: none;", id:"pusher-project-id", "project-id" => "#{@project.id.to_s}" }
 
+= render 'projects/projects_header'
 .row
   .col-sm-12
-    %h1= @project.name
-.row
-  .col-sm-2
     - if @project.script_verified?
-      = play_button(@project, "Run All Tests")
-      = render 'projects/select_browsers_all'
-  .col-sm-4
-    .btn-group
-      = link_to edit_project_path(@project), "data-original-title" => "Mark Important", "data-placement" => "bottom", rel: "tooltip", title: "Settings", class: "btn btn-default" do
-        %strong
-          %i.fa.fa-cog.fa-lg
-      = link_to invitations_path(project_id: @project.id.to_s), "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Invite", class: "btn btn-default" do
-        %strong
-          %i.fa.fa-user.fa-lg
+      - if @project.scenarios.size > 0
+        = play_button(@project, "Run All Tests")
+        = render 'projects/select_browsers_all'
+      = link_to 'Record',  @project.url, target: '_blank', class: 'btn btn-danger'
 
 #projects.row
   .col-sm-12
     - if  @project.script_verified?
-      - if @project.scenarios.size == 0
-        %p
-          You haven't added any tests to this project, would you like to
-          = link_to 'record one',  @project.url, target: '_blank'
-      - else
+      - if @project.scenarios.size > 0
         .well
           %table.table.table-striped.table-forum
             %tbody

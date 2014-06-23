@@ -6,9 +6,6 @@
   :javascript
     Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}")
 
-.row
-  = pape_title('Manage Billing', 'fa-credit-card')
-
 .page-content.blocky
   .container
     - unless @default_credit_card.nil?
