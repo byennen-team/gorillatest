@@ -22,7 +22,7 @@
 %span{style: "display: none;", id:"pusher-project-id", "project-id" => "#{@project.id.to_s}" }
 
 #projects-header.row
-  .col-sm-12
+  .col-sm-6
     %h1= @project.name
     = link_to raw("#{glyph('cog')}"), edit_project_path(@project), class: "btn btn-default btn-xs settings" if @project.owner?(current_user)
     = link_to raw("#{glyph('user')}"), invitations_path(project_id: @project.id.to_s), class: "btn btn-default btn-xs invite"
@@ -30,30 +30,30 @@
 .row
   .col-sm-12
     - if @project.script_verified?
-
       = play_button(@project, "Run All Tests")
-    - else
-      = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-xs'
-    = link_to delete_glyph, project_path(@project), method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs"
-    = render 'projects/platforms'
+      = render 'projects/platforms'
 
 #projects.row
   .col-sm-12
-    - if @project.scenarios.size == 0 && @project.script_verified?
-      %p
-        You haven't added any tests to this project, would you like to
-        = link_to 'record one',  @project.url, target: '_blank'
+    - if  @project.script_verified?
+      - if @project.scenarios.size == 0
+        %p
+          You haven't added any tests to this project, would you like to
+          = link_to 'record one',  @project.url, target: '_blank'
+      - else
+        .well
+          %table.table.table-striped.table-forum
+            %tbody
+              - @scenarios.each do |scenario|
+                %tr
+                  %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
+                  %td.hidden-xs.hidden-sm
+                    = play_button(scenario)
+                    = render 'projects/select_browsers', scenario: scenario
+                  %td.hidden-xs.hidden-sm
+                    =# play_developer_mode_button(scenario)
     - else
-      .well
-        %table.table.table-striped.table-forum
-          %tbody
-            - @scenarios.each do |scenario|
-              %tr
-                %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
-                %td.hidden-xs.hidden-sm
-                  = play_button(scenario)
-                  = render 'projects/select_browsers', scenario: scenario
-                %td.hidden-xs.hidden-sm
-                  =# play_developer_mode_button(scenario)
+      = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-primary btn-lg'
+
 
 = render 'embed_script_modal', project: @project, show_buttons: false
