@@ -38,7 +38,7 @@
                 %i.fa.fa-plus
                 New Test
       .well
-        %table.table.table-striped.table-forum
+        %table.table.table-striped.table-forum.table-hover
           %tbody
             - @scenarios.each do |scenario|
               %tr
@@ -46,12 +46,13 @@
                 %td time ago
                 %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
                 %td
+                  = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
+                    %i.fa.fa-paper-plane
+                  = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer", class: 'btn btn-default btn-sm action' do
+                    %i.fa.fa-video-camera
+                    =# play_developer_mode_button(scenario)
                   = play_button(scenario, 'Run')
                   = render 'projects/select_browsers', scenario: scenario
-                %td
-                  = icon_link '', '#', 'fa-rocket' #TODO: email to dev.
-                  =# play_developer_mode_button(scenario)
-
     - unless @project.script_verified?
       .row
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
