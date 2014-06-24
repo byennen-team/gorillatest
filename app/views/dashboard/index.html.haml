@@ -25,9 +25,7 @@
         You don't current have any projects, would you like to
         %a{href: new_project_path, data: {toggle: "modal", target: "#add-project"}} create one
     - else
-      - if @last5_test_runs.size == 0
-        = link_to "Create your first test", project_path(current_user.projects.first)
-      - else
+      - if @last5_test_runs.size > 0
         .awidget
           .awidget-head
             %h3 Last 5 Tests
