@@ -34,7 +34,10 @@
                   %td.hidden-xs.hidden-sm
                     =# play_developer_mode_button(scenario)
     - else
-      = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg'
+      .row
+        .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
+          %p Please Verify that Gorilla Test has been added to your site.
+          = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg btn-block'
 
 
 = render 'embed_script_modal', project: @project, show_buttons: false
