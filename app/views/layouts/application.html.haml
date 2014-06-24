@@ -23,11 +23,12 @@
 
   %body{:id => "#{controller_name}-#{action_name}", class: 'smart-style-2 fixed-header fixed-ribbon fixed-navigation'}
     - if params[:controller] == "pages"
-      = render 'layouts/navbar'
+      - unless params[:action] == "beta_invitation"
+        = render 'layouts/navbar'
       = render 'layouts/messages'
       = yield
       = render 'layouts/footer'
-    - elsif params[:controller] == "registrations" && params[:action] == "new" || params[:controller] == "sessions" || params[:controller] == "passwords" || params[:action] == "beta_invitation"
+    - elsif params[:controller] == "registrations" && params[:action] == "new" || params[:controller] == "sessions" || params[:controller] == "passwords"
       = render 'layouts/messages'
       = yield
     - else
