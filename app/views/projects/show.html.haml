@@ -10,14 +10,6 @@
 %span{style: "display: none;", id:"pusher-project-id", "project-id" => "#{@project.id.to_s}" }
 
 = render 'projects/projects_header'
-.row
-  .col-sm-12
-    - if @project.script_verified? && @project.scenarios.size > 0
-      = play_button(@project, "Run All Tests")
-      = render 'projects/select_browsers_all'
-      = link_to link_to_record(@project), target: '_blank', class: 'btn btn-danger' do
-        %i.fa.fa-plus
-        New Test
 
 #projects.row
   .col-sm-12
@@ -25,23 +17,39 @@
       .row
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
           %p Record your first test!
-          = link_to link_to_record(@project), target: '_blank', class: 'btn btn-danger btn-lg btn-block' do
+          = link_to link_to_record(@project), target: '_blank', class: 'btn btn-info btn-lg btn-block' do
             %i.fa.fa-plus
             New Test
     - if @project.scenarios.size > 0
+      .project-stats.row
+        .col-sm-7
+          .row
+            .col-sm-1
+              11
+            .col-sm-1
+              10
+            .col-sm-1
+              9
+            .col-sm-2
+              = play_button(@project, "Run All")
+              = render 'projects/select_browsers_all'
+            .col-sm-2
+              = link_to link_to_record(@project), target: '_blank', class: 'btn btn-info btn-sm' do
+                %i.fa.fa-plus
+                New Test
       .well
         %table.table.table-striped.table-forum
-          %thead
-            %th
-            %th
           %tbody
             - @scenarios.each do |scenario|
               %tr
+                %td pass / fail icon
+                %td time ago
                 %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
-                %td.hidden-xs.hidden-sm
-                  = play_button(scenario)
+                %td
+                  = play_button(scenario, 'Run')
                   = render 'projects/select_browsers', scenario: scenario
-                %td.hidden-xs.hidden-sm
+                %td
+                  = icon_link '', '#', 'fa-rocket' #TODO: email to dev.
                   =# play_developer_mode_button(scenario)
 
     - unless @project.script_verified?
@@ -49,6 +57,4 @@
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
           %p Please Verify that Gorilla Test has been added to your site.
           = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg btn-block'
-
-
-= render 'embed_script_modal', project: @project, show_buttons: false
+          = render 'embed_script_modal', project: @project, show_buttons: false
