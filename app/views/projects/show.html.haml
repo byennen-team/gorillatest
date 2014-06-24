@@ -12,15 +12,18 @@
 = render 'projects/projects_header'
 .row
   .col-sm-12
-    - if @project.script_verified?
-      - if @project.scenarios.size > 0
-        = play_button(@project, "Run All Tests")
-        = render 'projects/select_browsers_all'
+    - if @project.script_verified? && @project.scenarios.size > 0
+      = play_button(@project, "Run All Tests")
+      = render 'projects/select_browsers_all'
       = link_to 'Record',  link_to_record(@project), target: '_blank', class: 'btn btn-danger'
 
 #projects.row
   .col-sm-12
-    - if  @project.script_verified?
+    - if  @project.script_verified? && @project.scenarios.size < 1
+      .row
+        .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
+          %p Record your first test!
+          = link_to 'Record',  link_to_record(@project), target: '_blank', class: 'btn btn-danger btn-lg btn-block'
       - if @project.scenarios.size > 0
         .well
           %table.table.table-striped.table-forum
