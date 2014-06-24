@@ -2,9 +2,9 @@
   %span#project-selector.popover-trigger-element.dropdown-toggle{"data-toggle" => "dropdown"}
     Recent Updates
     - if @unread_messages.size == 0
-      %span#unread_message_count.badge.alert-warning{style: "display: none;"}= @unread_messages.size
+      %span#unread_message_count.badge.alert-default{style: "display: none;"}= @unread_messages.size
     - else
-      %span#unread_message_count.badge.alert-warning= @unread_messages.size
+      %span#unread_message_count.badge.alert-default= @unread_messages.size
     %i.fa.fa-angle-down
   / Suggestion: populate this list with fetch and push technique
   %ul.dropdown-menu#messages
