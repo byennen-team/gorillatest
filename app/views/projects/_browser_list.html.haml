@@ -1,0 +1,53 @@
+.row
+  .col-sm-12
+    %h1 Select your browsers:
+.row
+  .col-sm-4
+    %h5 Windows
+    %ul
+      %li
+        = check_box_tag "browsers[]", "windows_firefox"
+        = image_tag('icons/firefox.png', alt: "Firefox")
+        Firefox
+      %li
+        = check_box_tag "browsers[]", "windows_chrome"
+        = image_tag('icons/chrome.png', alt: "Chrome")
+        Chrome
+      %li
+        = check_box_tag "browsers[]", "windows_ie9"
+        = image_tag('icons/ie.png', alt: "Internet Explorer 9")
+        Internet Explorer 9
+      %li
+        = check_box_tag "browsers[]", "windows_ie10"
+        = image_tag('icons/ie.png', alt: "Internet Explorer 10")
+        Internet Explorer 10
+      %li
+        = check_box_tag "browsers[]", "windows_ie11"
+        = image_tag('icons/ie.png', alt: "Internet Explorer 11")
+        Internet Explorer 11
+  .col-sm-4
+    %h5 OS X
+    %ul
+      %li
+        = check_box_tag "browsers[]", "mac_safari"
+        = image_tag('icons/safari.png', alt: "Safari")
+        Safari
+      %li
+        = check_box_tag "browsers[]", "mac_firefox"
+        = image_tag('icons/firefox.png', alt: "Firefox")
+        Firefox
+      %li
+        = check_box_tag "browsers[]", "mac_chrome"
+        = image_tag('icons/chrome.png', alt: "Chrome")
+        Chrome
+  .col-sm-4
+    %h5 Linux
+    %ul
+      %li
+        = check_box_tag "browsers[]", "linux_firefox"
+        = image_tag('icons/firefox.png', alt: "Firefox")
+        Firefox
+      %li
+        = check_box_tag "browsers[]", "linux_chrome"
+        = image_tag('icons/chrome.png', alt: "Chrome")
+        Chrome

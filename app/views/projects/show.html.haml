@@ -15,28 +15,36 @@
     - if @project.script_verified? && @project.scenarios.size > 0
       = play_button(@project, "Run All Tests")
       = render 'projects/select_browsers_all'
-      = link_to 'Record',  link_to_record(@project), target: '_blank', class: 'btn btn-danger'
+      = link_to link_to_record(@project), target: '_blank', class: 'btn btn-danger' do
+        %i.fa.fa-plus
+        New Test
 
 #projects.row
   .col-sm-12
-    - if  @project.script_verified? && @project.scenarios.size < 1
+    - if @project.script_verified? && @project.scenarios.size < 0
       .row
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
           %p Record your first test!
-          = link_to 'Record',  link_to_record(@project), target: '_blank', class: 'btn btn-danger btn-lg btn-block'
-      - if @project.scenarios.size > 0
-        .well
-          %table.table.table-striped.table-forum
-            %tbody
-              - @scenarios.each do |scenario|
-                %tr
-                  %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
-                  %td.hidden-xs.hidden-sm
-                    = play_button(scenario)
-                    = render 'projects/select_browsers', scenario: scenario
-                  %td.hidden-xs.hidden-sm
-                    =# play_developer_mode_button(scenario)
-    - else
+          = link_to link_to_record(@project), target: '_blank', class: 'btn btn-danger btn-lg btn-block' do
+            %i.fa.fa-plus
+            New Test
+    - if @project.scenarios.size > 0
+      .well
+        %table.table.table-striped.table-forum
+          %thead
+            %th
+            %th
+          %tbody
+            - @scenarios.each do |scenario|
+              %tr
+                %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
+                %td.hidden-xs.hidden-sm
+                  = play_button(scenario)
+                  = render 'projects/select_browsers', scenario: scenario
+                %td.hidden-xs.hidden-sm
+                  =# play_developer_mode_button(scenario)
+
+    - unless @project.script_verified?
       .row
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
           %p Please Verify that Gorilla Test has been added to your site.
