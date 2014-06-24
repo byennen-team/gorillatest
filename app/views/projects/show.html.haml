@@ -30,22 +30,22 @@
               .badge.alert-danger 10
             .col-sm-1
               .badge.alert-info 9
-            .col-sm-2
+            .col-sm-2#tour-project-show-run-all
               = play_button(@project, "Run All")
               = render 'projects/select_browsers_all'
-            .col-sm-2
+            .col-sm-2#tour-project-show-create-test
               = link_to link_to_record(@project), target: '_blank', class: 'btn btn-info btn-sm' do
                 %i.fa.fa-plus
                 New Test
       .well
         %table.table.table-striped.table-forum.table-hover
-          %tbody
+          %tbody#tour-project-show-tests-list
             - @scenarios.each do |scenario|
-              %tr
-                %td
+              %tr{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-overview' : nil}"}
+                %td#tour-project-show-status
                   %i.fa.fa-fw{class: "#{bang_or_check(scenario.test_runs.last)}"}
                   = distance_of_time_in_words_to_now(scenario.created_at) + ' ago'
-                %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
+                %td{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
                 %td
                   -#Watch Test Run Live
                   = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
@@ -58,7 +58,8 @@
                   = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
 
                   -#Run Scenario
-                  = play_button(scenario, 'Run')
+                  #tour-project-show-run
+                    = play_button(scenario, 'Run')
                   = render 'projects/select_browsers', scenario: scenario
     - unless @project.script_verified?
       .row
@@ -66,3 +67,29 @@
           %p Please Verify that Gorilla Test has been added to your site.
           = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg btn-block'
           = render 'embed_script_modal', project: @project, show_buttons: false
+
+%ol.joyride-tour#project-show-tour
+  %li{data: {id: "tour-project-show-start", button: 'Next'}}
+    %h1 Where The Magic Happens
+    %p The Project Page is where you'll likely be spending most of your time. Here we've got a sample project set up with a few tests already recorded. Try and hold off from clicking anything you're instructed to :)
+  %li{data: {id: "tour-project-show-overview", button: 'Next'}}
+    %h1 Ripe or Rotten?
+    %p In this area you can get a quick glimpse of how the tests in your project are doing. These counts are based on how each test did the last time it was run. Tests that have never been run are not counted.
+  %li{data: {id: "tour-project-show-run-all", button: 'Next'}}
+    %p This button will run all of the tests in your project. Once you click, you'll choose which browsers and operating systems you want to run your tests on. Next, Nothing! Go work on something else. The tests will run on their own, you'll get an email when they're finished.
+  %li{data: {id: "tour-project-show-create-test", button: 'Next'}}
+    %h1 Creating Tests
+    %p Clicking here will take you to the website you'll be testing with GorillaTest loaded and ready to create tests. Don't click here yet - We'll come back to this later in the tour.
+  %li{data: {id: "tour-project-show-tests-list", button: 'Next'}}
+    %h1 Ripe or Rotten?
+    %p All of the tests in your project will be listed here.
+  %li{data: {id: "tour-project-show-status", button: 'Next'}}
+    %p Here you'll see the status and recency of each test
+  %li{data: {id: "tour-project-show-run", button: 'Next'}}
+    %p Run a individual Test on It's own, send an email containing links and details about a test to your dev team, or watch the test in developer mode
+  %li{data: {id: "tour-project-show-developer-mode", button: 'Next'}}
+    %h1 What is Developer Mode?
+    %p In Developer Mode we run the test live in your browser. Your devs will find this extremely helpful when debugging. Note: If a bug happens in another browser/OS, you have to watch in that configuration in order to replicate
+  %li{data: {id: "tour-project-show-more-info", button: 'Close'}}
+    %h1 More Information
+    %p Clicking on a test name will take you to the Test's Page. Go ahead and click on this one so we can show you what's there

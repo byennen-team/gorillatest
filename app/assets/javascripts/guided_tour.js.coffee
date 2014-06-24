@@ -24,8 +24,10 @@ $ ->
     }
 
   tourElements = [{id: "#dashboard-tour", tourName: "dashboard"},
+                  {id: "#project-show-tour", tourName: "project"},
                   {id: "#test-run-tour", tourName: "test_run"},
-                  {id: "#sample-project-tour", tourName: "sample_project"}]
+                  {id: "#sample-project-tour", tourName: "sample_project"},
+                  {id: "#test-runs-tour", tourName: "test_runs_index"}]
 
   _.each tourElements, (tourElement)->
     if $(tourElement.id).length > 0

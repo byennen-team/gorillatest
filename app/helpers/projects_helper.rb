@@ -16,4 +16,8 @@ module ProjectsHelper
       return project.url + "?gt-recording=true"
     end
   end
+
+  def most_recent?(scenarios, scenario)
+    scenarios.first == scenario
+  end
 end
