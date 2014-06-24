@@ -55,10 +55,11 @@ a {
 #logo {
   display: inline-block;
   width: 175px;
+  text-align: center;
   img {
-    width: 159px;
-    height: 60px;
-    padding-left: 3px;
+    width: 159;
+    height: 55px;
+    padding: 3px;
   }
 }
 .navbar-default .navbar-nav .active a:focus {
