@@ -33,25 +33,27 @@ a {
   background-color: white;
   height: 62px;
 }
-.navbar-nav li a {
-  text-align: center;
-  height: 62px;
-  line-height: 69px;
-  padding: 0 30px;
-  font-weight: bold;
-}
-.navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
-  background-color: #f9f9f9;
-}
-.navbar-default .navbar-nav li a.active, .navbar-default .navbar-nav li a:focus {
-  color: #52bad5;
-  background-color: #f9f9f9;
-  border-bottom: 4px solid;
-}
-.navbar-default .navbar-nav li.active a.active {
-  color: #52bad5;
-  background-color: #f9f9f9;
-  border-bottom: 4px solid;
+#pages-welcome, #pages-faqs, #pages-pricing, #pages-documentation {
+  .navbar-nav li a {
+    text-align: center;
+    height: 62px;
+    line-height: 69px;
+    padding: 0 30px;
+    font-weight: bold;
+  }
+  .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
+    background-color: #f9f9f9;
+  }
+  .navbar-default .navbar-nav li a.active, .navbar-default .navbar-nav li a:focus {
+    color: #52bad5;
+    background-color: #f9f9f9;
+    border-bottom: 4px solid;
+  }
+  .navbar-default .navbar-nav li.active a.active {
+    color: #52bad5;
+    background-color: #f9f9f9;
+    border-bottom: 4px solid;
+  }
 }
 #logo {
   display: inline-block;
