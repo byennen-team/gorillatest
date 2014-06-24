@@ -7,11 +7,9 @@
 
 -if current_user.has_no_activity? || !current_user.has_own_project?
   .row
-    .col-sm-12
+    .col-sm-6
       #welcome.well
-        %button.close{"data-dismiss" => "alert"}
-          ×
-        %h1.semi-bold= t('welcome_title')
+        %h1.lead= t('welcome_title')
         %p
           = t('welcome')
         - if current_user.has_no_activity?
