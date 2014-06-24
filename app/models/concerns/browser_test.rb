@@ -85,11 +85,11 @@ module BrowserTest
     # when 'phantomjs'
     #   @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :phantomjs
     end
-    @driver.manage.timeouts.implicit_wait = 2
   end
 
   def run(scenario, history_line_item=nil)
     driver.manage.delete_all_cookies
+    driver.manage.timeouts.implicit_wait = 3
     if history_line_item
       send_to_pusher("play_scenario", {scenario_id: scenario.id.to_s, scenario_name: scenario.name, test: self, num_total_steps: scenario.steps.count})
     end
