@@ -42,8 +42,9 @@
           %tbody
             - @scenarios.each do |scenario|
               %tr
-                %td pass / fail icon
-                %td time ago
+                %td
+                  %i.fa.fa-fw{class: "#{bang_or_check(scenario.test_runs.last)}"}
+                  = distance_of_time_in_words_to_now(scenario.created_at) + ' ago'
                 %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
                 %td
                   = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
