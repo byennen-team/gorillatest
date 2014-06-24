@@ -85,6 +85,7 @@ module BrowserTest
     # when 'phantomjs'
     #   @driver ||= Selenium::WebDriver.for :remote, url: selenium_url, desired_capabilities: :phantomjs
     end
+    @driver.manage.timeouts.implicit_wait = 2
   end
 
   def run(scenario, history_line_item=nil)
