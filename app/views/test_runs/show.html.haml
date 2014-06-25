@@ -14,33 +14,30 @@
 = render 'projects/projects_header'
 
 .row
-  .col-md-12
-    .awidget
-      .awidget-head
-        %h3 Test Run #{@test_run.timestamp}
-      .awidget-body
-        %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
-          %tr
-            %th{style: "width: 100px;"} Started By:
-            %td
-              = gravatar_image_tag(@test_run.user, 16)
-              = @test_run.user.name
-            %th{style: "width: 100px;"} Ran:
-            %td #{distance_of_time_in_words_to_now(@test_run.created_at)} ago
-          %tr#tour-test-run-status
-            %th#tour-if-failed{style: "width: 100px;"} Status:
-            %td
-              = test_run_status(@test_run)
-        %br
-        %br
-
-        - @test_run.browser_tests.each_with_index do |test, index|
-          / - if test.status != nil
-          / .test{class: "#{test.status}"}
-          /   = render partial: 'test_history', locals: {test: test}
-          / - else
-          .test
-            = render partial: 'test', locals: {test: test, id: "#{index == 0 ? 'tour-test-run-page' : ''}"}
+  .col-sm-3
+    %h3 #{@test_run.timestamp}
+  .col-sm-3
+    %h3 Ran by: #{@test_run.user.name}
+.row
+  .col-sm-3
+    Status:
+    = test_run_status(@test_run)
+  .col-sm-6
+    .row
+      .col-sm-2
+        #tour-project-show-developer-mode
+        = link_to developer_mode_url(@scenario), "target" => "_blank", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
+          %i.fa.fa-video-camera
+      .col-sm-2
+        %button{data: {toggle: "modal", target: "#alert-dev-modal-#{@scenario.id.to_s}"}, class: "btn btn-default btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
+          %i.fa.fa-paper-plane
+        = render 'scenarios/email_to_developer_modal', test_id: @scenario.id.to_s, test_run: @scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
+%hr
+.row
+  .col-sm-12
+    - @test_run.browser_tests.each_with_index do |test, index|
+      .test
+        = render partial: 'test', locals: {test: test, id: "#{index == 0 ? 'tour-test-run-page' : ''}"}
 
 
 %ol.joyride-tour#test-run-tour
