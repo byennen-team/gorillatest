@@ -47,20 +47,22 @@
                   = distance_of_time_in_words_to_now(scenario.created_at) + ' ago'
                 %td{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
                 %td#tour-project-show-developer-mode
-                  -#Watch Test Run Live
-                  = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
-                    %i.fa.fa-video-camera
-                    =# play_developer_mode_button(scenario)
+                  .pull-right
+                    -#Watch Test Run Live
+                    = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
+                      %i.fa.fa-video-camera
+                      =# play_developer_mode_button(scenario)
 
-                  -#Email to develooper
-                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}"}, class: "btn btn-default btn-sm", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
-                    %i.fa.fa-paper-plane
-                  = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
+                    -#Email to develooper
+                    %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}"}, class: "btn btn-default btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
+                      %i.fa.fa-paper-plane
+                    = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
 
-                  -#Run Scenario
-                  %div{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-overview' : nil}"}
-                    = play_button(scenario, 'Run')
-                  = render 'projects/select_browsers', scenario: scenario
+                    -#Run Scenario
+                    .pull-right{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-overview' : nil}"}
+                      = play_button(scenario, 'Run')
+                    = render 'projects/select_browsers', scenario: scenario
+
     - unless @project.script_verified?
       .row
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
