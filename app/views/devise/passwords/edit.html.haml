@@ -12,10 +12,10 @@
       .row
         .col-sm-12
           %h2 Gorilla Test - Change your Password
-            = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { class: 'form-vertical', id: 'login-form', :method => :put }) do |f|
-              = f.error_notification
-              = devise_error_messages!
-              = f.hidden_field :reset_password_token
-              = f.input :password, :autofocus => true, placeholder: "New Password", label: false
-              = f.input :password_confirmation, placeholder: "Confirm New Password", label: false
-              = f.submit 'Change Password', class: 'btn btn-info btn-block'
+          = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { class: 'form-vertical', id: 'login-form', :method => :put }) do |f|
+            = f.error_notification
+            = devise_error_messages!
+            = f.hidden_field :reset_password_token
+            = f.input :password, :autofocus => true, placeholder: "New Password", label: false
+            = f.input :password_confirmation, placeholder: "Confirm New Password", label: false
+            = f.submit 'Change Password', class: 'btn btn-info btn-block'
