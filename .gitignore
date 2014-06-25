@@ -22,4 +22,4 @@
 
 dump.rdb
 /dump
-config/mongoid.yml
+#/config/mongoid.yml
