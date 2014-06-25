@@ -14,12 +14,13 @@
   .project-stats.row
     .col-sm-7#tour-project-show-overview
       .row
-        .col-sm-1
-          .badge.alert-success{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Passed"} 11
-        .col-sm-1
-          .badge.alert-danger{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Failed"} 10
-        .col-sm-1
-          .badge.alert-info{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Running"} 9
+        .col-sm-2
+          .badge.alert-success.test-stat{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Passed"}
+            #{@project.num_passed_tests}
+          .badge.alert-danger.test-stat{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Failed"}
+            #{@project.num_failed_tests}
+          .badge.alert-info.test-stat{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Running"}
+            #{@project.num_running_tests}
         - if params[:controller] == "projects"
           .col-sm-2#tour-project-show-run-all
             = play_button(@project, "Run All")

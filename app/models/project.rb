@@ -86,6 +86,18 @@ class Project
     (test_runs + scenarios.map{|s| s.test_runs}).flatten.sort_by(&:created_at).reverse
   end
 
+  def num_passed_tests
+    all_test_runs.select{|t| t.status == "pass"}.count
+  end
+
+  def num_failed_tests
+    all_test_runs.select{|t| t.status == "fail"}.count
+  end
+
+  def num_running_tests
+    all_test_runs.select{|t| t.status != "running"}.count
+  end
+
   private
 
   def port
