@@ -1,7 +1,7 @@
 = render 'projects/projects_header'
 .row
   .col-sm-12
-    %ul.nav.nav-pills
+    %ul.nav.nav-tabs
       %li.active
         %a{href: "#home", data: {toggle: "pill"}}
           %span.glyphicon.glyphicon-cog
@@ -19,7 +19,7 @@
           %span.glyphicon.glyphicon-remove
           Delete Project
 
-    %div.tab-content
+    %div.tab-content.well
       #home.tab-pane.active
         %br
         = simple_form_for @project do |f|
@@ -36,7 +36,7 @@
           %br
           %br
           .clearfix
-          = f.submit "Save Project", class: "btn btn-success"
+          = f.submit "Save Project", class: "btn btn-info"
       #users.tab-pane
         %p
           -if @project.has_invitations_left?
@@ -48,33 +48,35 @@
         %p
           #{link_to 'Upgrade your plan', change_plan_path} to add more members to your project!
         %br
-        - @project.users.each do |user|
-          %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
-            .pull-left{style: "margin-right: 10px; border: 1px solid #333;"}
-              = gravatar_image_tag(user, 48)
-            - unless @project.owner?(user)
-              .pull-right
-                = link_to glyph('remove'), remove_user_project_path(@project, user.id), method: :post
-            %span{style: "font-size: 1.6em; font-weight: bold;"}
-              - if user.encrypted_password.blank?
-                = truncate(user.email, length: 13)
-              - else
-                = user.name
-            - if @project.owner?(user)
-              %span{style: "font-size: 1.2em"} (owner)
-            - elsif user.encrypted_password.blank?
-              %span{style: "font-size: 1.2em"} (invited)
-            - else
-              %span{style: "font-size: 1.2em"} (member)
-            %br
-            - unless user.encrypted_password.blank?
-              = user.email
-            - if @project.owner?(current_user) && !@project.owner?(user) && current_user != user
-              .pull-right
-                = link_to "Make Owner", project_add_owner_path(@project, user.id), method: :put
-            - if @project.owner?(current_user) && @project.owner?(user) && current_user != user
-              .pull-right
-                = link_to "Revoke Ownership", project_remove_owner_path(@project, user.id), method: :put
+        .row
+          .col-sm-12
+            - @project.users.each do |user|
+              %user_block{style: "float: left; width: 300px; background-color: #fff; margin-right: 10px; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"}
+                .pull-left{style: "margin-right: 10px; border: 1px solid #333;"}
+                  = gravatar_image_tag(user, 48)
+                - unless @project.owner?(user)
+                  .pull-right
+                    = link_to glyph('remove'), remove_user_project_path(@project, user.id), method: :post
+                %span{style: "font-size: 1.6em; font-weight: bold;"}
+                  - if user.encrypted_password.blank?
+                    = truncate(user.email, length: 13)
+                  - else
+                    = user.name
+                - if @project.owner?(user)
+                  %span{style: "font-size: 1.2em"} (owner)
+                - elsif user.encrypted_password.blank?
+                  %span{style: "font-size: 1.2em"} (invited)
+                - else
+                  %span{style: "font-size: 1.2em"} (member)
+                %br
+                - unless user.encrypted_password.blank?
+                  = user.email
+                - if @project.owner?(current_user) && !@project.owner?(user) && current_user != user
+                  .pull-right
+                    = link_to "Make Owner", project_add_owner_path(@project, user.id), method: :put
+                - if @project.owner?(current_user) && @project.owner?(user) && current_user != user
+                  .pull-right
+                    = link_to "Revoke Ownership", project_remove_owner_path(@project, user.id), method: :put
 
       #notifications.tab-pane
         %br
@@ -98,7 +100,7 @@
           =f.input :token, label: "API Key"
           =f.input :room_name
           =f.input :service, as: :hidden, value: "campfire"
-          =f.submit "Save Notification Settings", class: "btn btn-success"
+          =f.submit "Save Notification Settings", class: "btn btn-info"
 
       - if @project.owner?(current_user)
         #delete.tab-pane
