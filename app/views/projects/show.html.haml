@@ -25,11 +25,11 @@
         .col-sm-7#tour-project-show-overview
           .row
             .col-sm-1
-              .badge.alert-success 11
+              .badge.alert-success{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Passed"} 11
             .col-sm-1
-              .badge.alert-danger 10
+              .badge.alert-danger{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Failed"} 10
             .col-sm-1
-              .badge.alert-info 9
+              .badge.alert-info{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Running"} 9
             .col-sm-2#tour-project-show-run-all
               = play_button(@project, "Run All")
               = render 'projects/select_browsers_all'
