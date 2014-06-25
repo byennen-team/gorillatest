@@ -57,10 +57,11 @@ a {
 }
 #logo {
   display: inline-block;
-  width: 175px;
   text-align: center;
+  a {
+    width: 40%;
+  }
   img {
-    width: 159;
     height: 55px;
     padding: 3px;
   }
