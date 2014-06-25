@@ -13,9 +13,9 @@
           - @users_projects.each do |project|
             - if @project && @project == project
               %li.current-project
-                = link_to project.name, project_path(project), id: 'tour-sample-project-link' if project.demo_project
+                = link_to project.name, project_path(project), id: "#{'tour-sample-project-link' if project.demo_project}"
             - else
-              %li= link_to project.name, project_path(project), id: 'tour-sample-project-link' if project.demo_project
+              %li= link_to project.name, project_path(project), id: "#{'tour-sample-project-link' if project.demo_project}"
           %li.add-project= link_to "Add Project", current_user.try(:can_create_project?) ? new_project_path : change_plan_path(plan:"maxed")
       %li= icon_link "My Info", my_info_path, "fa-info"
       %li= icon_link "Manage Billing", credit_cards_path, "fa-credit-card"
