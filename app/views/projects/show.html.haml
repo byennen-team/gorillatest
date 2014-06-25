@@ -47,14 +47,18 @@
                   = distance_of_time_in_words_to_now(scenario.created_at) + ' ago'
                 %td= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
                 %td
+                  -#Watch Test Run Live
                   = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
-                    %i.fa.fa-paper-plane
-                  = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer", class: 'btn btn-default btn-sm action' do
                     %i.fa.fa-video-camera
                     =# play_developer_mode_button(scenario)
-                  = play_button(scenario, 'Run')
-                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}"}, class: "btn btn-info btn-sm"} Send Test Details to Dev
+
+                  -#Email to develooper
+                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}"}, class: "btn btn-default btn-sm", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
+                    %i.fa.fa-paper-plane
                   = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
+
+                  -#Run Scenario
+                  = play_button(scenario, 'Run')
                   = render 'projects/select_browsers', scenario: scenario
     - unless @project.script_verified?
       .row
