@@ -12,7 +12,9 @@
           - @scenario.all_test_runs.each_with_index do |test_run, index|
             %tr{id: "#{index == 0 ? 'tour-test-runs-results' : nil}"}
               %td
-                %i.fa.fa-fw{class: "#{bang_or_check(test_run.try(:status))}"}
+                .smart-timeline-icon{class: "#{test_run_status_class(test_run.try(:status))}"}
+                  %i.fa.fa-fw{class: "#{bang_or_check(test_run.try(:status))}"}
+              %td
                 = distance_of_time_in_words_to_now(test_run.created_at) + ' ago'
               - if test_run.is_a?(ScenarioTestRun)
                 %td= link_to test_run.timestamp, project_test_test_run_path(@project, @scenario.slug, test_run)
