@@ -17514,16 +17514,19 @@ disabled look for disabled choices in the results dropdown
 .smart-timeline-icon {
   color: #ffffff;
   border-radius: 50%;
-  position: absolute;
   width: 32px;
   height: 32px;
   line-height: 28px;
   font-size: 14px;
   text-align: center;
-  left: 80px;
-  top: 10px;
-  z-index: 100;
   padding: 2px;
+}
+
+#dashboard-index .smart-timeline-icon {
+  position: absolute;
+  top: 10px;
+  left: 80px;
+  z-index: 1000;
 }
 
 .passing, .running {
