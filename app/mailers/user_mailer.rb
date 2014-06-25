@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: 'support@gorillatest.com'
+  default css: 'email', from: 'support@gorillatest.com'
   layout 'layouts/mailer'
 
   def welcome_email(user)

@@ -1,5 +1,5 @@
 class ProjectMailer < ActionMailer::Base
-  default from: 'support@gorillatest.com'
+  default css: 'email', from: 'support@gorillatest.com'
   layout 'mailer'
 
   def verification(project_id)
