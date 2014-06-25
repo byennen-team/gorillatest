@@ -92,7 +92,7 @@ class User
   #before_save :strip_phone
   # after_create :send_welcome_email
   before_validation :set_random_password
-  after_create :create_demo_project, :drip_email, :finish_profile_reminder_message, :create_tour
+  after_create :create_demo_project, :drip_email, :finish_profile_reminder_message, :create_guided_tour
 
   def self.new_for_heroku(resources)
     return User.new(email: resources["heroku_id"],
