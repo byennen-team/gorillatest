@@ -25,7 +25,11 @@ class PagesController < ApplicationController
   def send_developer_emails
     emails = params[:developer][:emails].split(",")
     emails.each do |email|
-      UserMailer.test_details_for_developer(current_user.email, email, params[:developer][:type], params[:developer][:test_run_id]).deliver
+      if params[:developer][:test_run_id]
+        UserMailer.test_run_details_for_developer(current_user.email, email, params[:developer][:type], params[:developer][:test_run_id]).deliver
+      else
+        UserMailer.test_details_for_developer(current_user.email, email, params[:developer][:test_id]).deliver
+      end
     end
     redirect_to :back
   end

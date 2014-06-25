@@ -1,41 +1,13 @@
 %p
   Hey,
 %p
-  -if @test_run.status == "pass"
-    I ran some tests on the #{link_to @project.name, project_url(@project)} project through GorillaTest and everything passed! Woohoo! The details of the test I ran are included below.
-  -elsif @test_run.status == "fail"
-    I ran some tests on the #{link_to @project.name, project_url(@project)} project through GorillaTest and I was hoping you could look into this failing test. All the details are below, thanks!
-  -else
-    I set up some tests on the #{link_to @project.name, project_url(@project)} project through GorillaTest and was hoping you could take a look. The details of the test I set up are included below.
+  I set up some tests on the #{link_to @project.name, project_url(@project), target: "_blank"} project through GorillaTest and was hoping you could take a look. The details of the test I set up are included below.
 %p
-  The test is: #{link_to @scenario.name, project_test_test_runs_url(@project, @scenario)}
-
--if @test_run.status
-  %p
-    #{link_to "Test Run Details", project_test_test_run_url(@project, @scenario, @test_run)}
-
+  The Test is: #{link_to @test.name, project_test_test_runs_url(@project, @test), target: "_blank"}
 %p
-  You can watch the test run live in your browser here: #{link_to "Watch Developer Mode", @developer_mode_url}
-
--if @test_run.status == "fail"
-  %p
-    Here are some more details about the failing test:
-    -@test_run.browser_tests.select{|b| b.status == "fail"}.each do |browser_test|
-      %p
-        Failed Platform/Browser: #{browser_test.platform.capitalize} #{browser_test.browser}
-      %p
-        Failed on:
-        %br
-        #{browser_test.test_history.history_line_items.select{|h| h.status == "fail"}.first.text}
--elsif @test_run.status == "pass"
-  Here are some more details about the test:
-  -@test_run.browser_tests.each do |browser_test|
-    %p
-      Platform: #{browser_test}.platform
-      %br
-      Browser: #{browser_test}.browser
--else
+  You can watch the test run live in your browser here: #{link_to "Watch Developer Mode", @developer_mode_url, target: "_blank"}.
+%p
   Here are some more details about the test:
   %ol
-    -@scenario.steps.each do |step|
+    -@test.steps.each do |step|
       %li #{step.to_s}

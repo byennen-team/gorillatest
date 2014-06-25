@@ -53,9 +53,8 @@
                     %i.fa.fa-video-camera
                     =# play_developer_mode_button(scenario)
                   = play_button(scenario, 'Run')
-                  - if show_dev_email_button?(scenario)
-                    %button{data: {toggle: "modal", target: "#alert-dev-modal"}, class: "btn btn-info btn-sm"} Send Test Details to Dev
-                    = render 'scenarios/email_to_developer_modal', test_run: @project.all_test_runs.detect{|t| t.status == "fail"}
+                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}"}, class: "btn btn-info btn-sm"} Send Test Details to Dev
+                  = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
                   = render 'projects/select_browsers', scenario: scenario
     - unless @project.script_verified?
       .row

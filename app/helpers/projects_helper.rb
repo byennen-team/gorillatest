@@ -16,8 +16,4 @@ module ProjectsHelper
       return project.url + "?gt-recording=true"
     end
   end
-
-  def show_dev_email_button?(scenario)
-    scenario.test_runs.sort_by(&:created_at).detect{|t| t.status == "fail"}
-  end
 end
