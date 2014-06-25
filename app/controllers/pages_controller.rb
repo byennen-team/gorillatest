@@ -22,6 +22,14 @@ class PagesController < ApplicationController
     end
   end
 
+  def send_developer_emails
+    emails = params[:developer][:emails].split(",")
+    emails.each do |email|
+      UserMailer.test_details_for_developer(current_user.email, email, params[:developer][:type], params[:developer][:test_run_id]).deliver
+    end
+    redirect_to :back
+  end
+
   private
   def beta_invitation_params
     params.require(:beta_invitation).permit(:first_name, :last_name, :company, :email)

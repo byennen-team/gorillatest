@@ -82,6 +82,10 @@ class Project
     search_for_script
   end
 
+  def all_test_runs
+    (test_runs + scenarios.map{|s| s.test_runs}).flatten.sort_by(&:created_at).reverse
+  end
+
   private
 
   def port

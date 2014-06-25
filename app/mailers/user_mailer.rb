@@ -66,4 +66,30 @@ class UserMailer < ActionMailer::Base
     @user = User.find(user_id)
     mail to: @user.email, from: "mike@gorillatest.com", subject: "Your GorillaTest Experience?"
   end
+
+  def test_details_for_developer(user_email, email, test_run_type, test_run_id)
+    # only passing in scenario test runs for now
+    if test_run_type == "Scenario"
+      @scenario = Scenario.find(test_run_id)
+      @project = @scenario.project
+    else
+      if test_run_type == "ScenarioTestRun"
+        @test_run = ScenarioTestRun.find(test_run_id)
+      else
+        @test_run = ProjectTestRun.find(test_run_id)
+      end
+      @project = @test_run.project
+      @scenario = @test_run.scenario
+      @developer_mode_url = developer_mode_url(@scenario)
+    end
+
+    mail to: email, from: user_email, subject: "Test Results from Gorilla Test"
+  end
+
+  private
+
+  def developer_mode_url(scenario)
+    join_char = scenario.steps.first.text.include?("?") ? "&" : "?"
+    "#{scenario.steps.first.text}#{join_char}developer=true&scenario_id=#{scenario.id.to_s}"
+  end
 end

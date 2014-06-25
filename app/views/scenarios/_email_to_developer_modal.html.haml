@@ -1,0 +1,18 @@
+%div.modal.fade{id: "alert-dev-modal"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+        %h3 Send Test Details to a Dev
+      .modal-body
+        %p In the email we'll send a link to the project, the test, the test results (if any) and even a direct link for them to watch the test run in developer mode
+        = form_tag(send_developer_emails_path) do
+          =hidden_field_tag "developer[type]", test_run.class.to_s
+          =hidden_field_tag "developer[test_run_id]", test_run.id.to_s
+          =label_tag "developer[emails]", "Enter emails separated by comma"
+          %br
+          =text_field_tag 'developer[emails]', nil, id: "dev_emails", class: "form-control"
+          %br
+          =button_tag "Send Emails", class: 'btn btn-primary'
+      .modal-footer
+        %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
