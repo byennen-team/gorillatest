@@ -11,22 +11,7 @@
     window.sec = #{@test_run.duration}
     window.completed = #{!@test_run.completed_at.nil?}
 
-.row
-  .col-sm-12
-    .project-title#tour-project-show-overview#tour-project-show-start
-      %h1
-        = link_to @project.name, project_path(@project)
-        = link_to @scenario.name, project_test_test_runs_path(@project, @scenario.slug)
-
-    .project-links
-      .btn-group
-        = link_to edit_project_path(@project), "data-original-title" => "Mark Important", "data-placement" => "bottom", rel: "tooltip", title: "Settings", class: "btn btn-default btn-sm" do
-          %strong
-            %i.fa.fa-cog.fa-lg
-        = link_to invitations_path(project_id: @project.id.to_s), "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Invite", class: "btn btn-default btn-sm" do
-          %strong
-            %i.fa.fa-user.fa-lg
-
+= render 'projects/projects_header'
 
 .row
   .col-md-12

@@ -2,12 +2,7 @@
   Project - #{@project.name} - #{@scenario.name}
 = javascript_include_tag 'step_status'
 
-.row
-  .col-sm-12
-    %h1#tour-test-runs-start
-      = link_to @project.name, project_path(@project)
-      >
-      = @scenario.name
+= render 'projects/projects_header'
 
 .row
   .col-md-12
