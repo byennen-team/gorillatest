@@ -24,10 +24,15 @@
           .badge.alert-danger{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Failed"} 10
         .col-sm-1
           .badge.alert-info{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Running"} 9
-        .col-sm-2#tour-project-show-run-all
-          = play_button(@project, "Run All")
-          = render 'projects/select_browsers_all'
-        .col-sm-2#tour-project-show-create-test
-          = link_to link_to_record(@project), target: '_blank', class: 'btn btn-info btn-sm' do
-            %i.fa.fa-plus
-            New Test
+        - if params[:controller] == "projects"
+          .col-sm-2#tour-project-show-run-all
+            = play_button(@project, "Run All")
+            = render 'projects/select_browsers_all'
+          .col-sm-2#tour-project-show-create-test
+            = link_to link_to_record(@project), target: '_blank', class: 'btn btn-info btn-sm' do
+              %i.fa.fa-plus
+              New Test
+        - else
+          .col-sm-2#tour-test-runs-go
+            = play_button(@project, "Run")
+            = render 'projects/select_browsers', scenario: @scenario

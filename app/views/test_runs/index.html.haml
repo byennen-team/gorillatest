@@ -9,54 +9,51 @@
     / Project widget
     .awidget
       .awidget-head
-        %div#tour-test-runs-go
-          = play_button(@scenario)
-          =# play_developer_mode_button(@scenario)
-          %div{id: "test_run-#{@scenario.id}", style: "display: none;"}
-            %h4{style: "font-weight: bold; margin-top: 10px;"} Start A New Test Run
-            = form_tag run_scenario_project_test_path(@project, @scenario.id), class:"scenario-run", id: "scenario_#{@scenario.id}" do
-              %div.pull-left{style: "width: 33%"}
-                %h4 Windows
-                %ul{style: "list-style-type: none;"}
-                  %li{style: "border-top: 0px; padding: 2px;"}
-                    = check_box_tag "browsers[]", "windows_firefox"
-                    = image_tag('icons/firefox.png', alt: "Firefox")
-                    Firefox
-                  %li{style: "border-top: 0px; padding: 2px;"}
-                    = check_box_tag "browsers[]", "windows_chrome"
-                    = image_tag('icons/chrome.png', alt: "Chrome")
-                    Chrome
-                  %li{style: "border-top: 0px; padding: 2px;"}
-                    = check_box_tag "browsers[]", "windows_ie9"
-                    = image_tag('icons/ie.png', alt: "Internet Explorer 9")
-                    Internet Explorer 9
-                  %li{style: "border-top: 0px; padding: 2px;"}
-                    = check_box_tag "browsers[]", "windows_ie10"
-                    = image_tag('icons/ie.png', alt: "Internet Explorer 10")
-                    Internet Explorer 10
-                  %li{style: "border-top: 0px; padding: 2px;"}
-                    = check_box_tag "browsers[]", "windows_ie11"
-                    = image_tag('icons/ie.png', alt: "Internet Explorer 11")
-                    Internet Explorer 11
-              %div.pull-left{style: "width: 33%"}
-                %h4 Linux
-                %ul{style: "list-style-type: none;"}
-                  %li{style: "border-top: 0px; padding: 2px;"}
-                    = check_box_tag "browsers[]", "linux_firefox"
-                    = image_tag('icons/firefox.png', alt: "Firefox")
-                    Firefox
-                  %li{style: "border-top: 0px; padding: 2px;"}
-                    = check_box_tag "browsers[]", "linux_chrome"
-                    = image_tag('icons/chrome.png', alt: "Chrome")
-                    Chrome
-              %div.clearfix
-              %div.buttons{style: "padding: 5px; text-align: right;"}
-                %span.hide.concurrency-warning
-                  Your plan only allows
-                  %span.concurrency-limit
-                    #{@concurrency_limit}
-                  concurrent browsers for a test run
-                = submit_tag "Run Tests", class: "btn btn-info run-test", disabled: true
+        %div{id: "test_run-#{@scenario.id}", style: "display: none;"}
+          %h4{style: "font-weight: bold; margin-top: 10px;"} Start A New Test Run
+          = form_tag run_scenario_project_test_path(@project, @scenario.id), class:"scenario-run", id: "scenario_#{@scenario.id}" do
+            %div.pull-left{style: "width: 33%"}
+              %h4 Windows
+              %ul{style: "list-style-type: none;"}
+                %li{style: "border-top: 0px; padding: 2px;"}
+                  = check_box_tag "browsers[]", "windows_firefox"
+                  = image_tag('icons/firefox.png', alt: "Firefox")
+                  Firefox
+                %li{style: "border-top: 0px; padding: 2px;"}
+                  = check_box_tag "browsers[]", "windows_chrome"
+                  = image_tag('icons/chrome.png', alt: "Chrome")
+                  Chrome
+                %li{style: "border-top: 0px; padding: 2px;"}
+                  = check_box_tag "browsers[]", "windows_ie9"
+                  = image_tag('icons/ie.png', alt: "Internet Explorer 9")
+                  Internet Explorer 9
+                %li{style: "border-top: 0px; padding: 2px;"}
+                  = check_box_tag "browsers[]", "windows_ie10"
+                  = image_tag('icons/ie.png', alt: "Internet Explorer 10")
+                  Internet Explorer 10
+                %li{style: "border-top: 0px; padding: 2px;"}
+                  = check_box_tag "browsers[]", "windows_ie11"
+                  = image_tag('icons/ie.png', alt: "Internet Explorer 11")
+                  Internet Explorer 11
+            %div.pull-left{style: "width: 33%"}
+              %h4 Linux
+              %ul{style: "list-style-type: none;"}
+                %li{style: "border-top: 0px; padding: 2px;"}
+                  = check_box_tag "browsers[]", "linux_firefox"
+                  = image_tag('icons/firefox.png', alt: "Firefox")
+                  Firefox
+                %li{style: "border-top: 0px; padding: 2px;"}
+                  = check_box_tag "browsers[]", "linux_chrome"
+                  = image_tag('icons/chrome.png', alt: "Chrome")
+                  Chrome
+            %div.clearfix
+            %div.buttons{style: "padding: 5px; text-align: right;"}
+              %span.hide.concurrency-warning
+                Your plan only allows
+                %span.concurrency-limit
+                  #{@concurrency_limit}
+                concurrent browsers for a test run
+              = submit_tag "Run Tests", class: "btn btn-info run-test", disabled: true
         %h3#tour-test-runs-more Test Runs
       .awidget-body
         %br
