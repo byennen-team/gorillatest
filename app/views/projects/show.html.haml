@@ -48,11 +48,9 @@
                 %td{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
                 %td#tour-project-show-developer-mode
                   .pull-right
-                    -#Watch Test Run Live
-                    = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
+                    = link_to developer_mode_url(scenario), "target" => "_blank", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
                       %i.fa.fa-video-camera
                       =# play_developer_mode_button(scenario)
-
                     -#Email to develooper
                     %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}"}, class: "btn btn-default btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
                       %i.fa.fa-paper-plane
