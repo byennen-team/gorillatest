@@ -21,3 +21,5 @@
 /coverage
 
 dump.rdb
+/dump
+config/mongoid.yml
