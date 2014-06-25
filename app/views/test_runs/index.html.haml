@@ -4,7 +4,7 @@
 
 .row
   .col-sm-12
-    %h1
+    %h1#tour-test-runs-start
       = link_to @project.name, project_path(@project)
       >
       = @scenario.name
@@ -14,7 +14,7 @@
     / Project widget
     .awidget
       .awidget-head
-        %div
+        %div#tour-test-runs-go
           = play_button(@scenario)
           =# play_developer_mode_button(@scenario)
           %div{id: "test_run-#{@scenario.id}", style: "display: none;"}
@@ -62,14 +62,24 @@
                     #{@concurrency_limit}
                   concurrent browsers for a test run
                 = submit_tag "Run Tests", class: "btn btn-info run-test", disabled: true
-        %h3 Test Runs
+        %h3#tour-test-runs-more Test Runs
       .awidget-body
         %br
         %br
-        - @scenario.all_test_runs.each do |test_run|
-          .test_run
+        - @scenario.all_test_runs.each_with_index do |test_run, index|
+          .test_run{id: "#{index == 0 ? 'tour-test-runs-results' : nil}"}
             = render partial: 'test_run', locals: {test_run: test_run}
             %br{style: "clear: both;"}
 
-
-
+%ol.joyride-tour#test-runs-tour
+  %li{data: {id: "tour-test-runs-start", button: 'Next'}}
+    %h1 Test Page
+    %p This is your test's page!
+  %li{data: {id: "tour-test-runs-more", button: "Next"}}
+    %p Check what steps your test is comprised of
+  %li{data: {id: "tour-test-runs-results", button: "Next"}}
+    %h1 Test Results
+    %p In this area you'll see each information about each time your test was run, and be able to get more info, email info to dev, or watch the test in dev mode
+  %li{data: {id: "tour-test-runs-go", button: "Close"}}
+    %h1 Let 'Er Rip
+    %p Now go ahead and click here, let's run a test! To keep things simple, just choose one or two browsers on the next screen and run the test.
