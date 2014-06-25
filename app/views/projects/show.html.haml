@@ -22,7 +22,7 @@
             New Test
     - if @project.scenarios.size > 0
       .project-stats.row
-        .col-sm-7
+        .col-sm-7#tour-project-show-overview
           .row
             .col-sm-1
               .badge.alert-success 11
@@ -41,12 +41,12 @@
         %table.table.table-striped.table-forum.table-hover
           %tbody#tour-project-show-tests-list
             - @scenarios.each do |scenario|
-              %tr{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-overview' : nil}"}
+              %tr
                 %td#tour-project-show-status
                   %i.fa.fa-fw{class: "#{bang_or_check(scenario.test_runs.last)}"}
                   = distance_of_time_in_words_to_now(scenario.created_at) + ' ago'
                 %td{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
-                %td
+                %td#tour-project-show-developer-mode
                   -#Watch Test Run Live
                   = link_to '#', "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
                     %i.fa.fa-video-camera
@@ -58,7 +58,7 @@
                   = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
 
                   -#Run Scenario
-                  #tour-project-show-run
+                  %div{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-overview' : nil}"}
                     = play_button(scenario, 'Run')
                   = render 'projects/select_browsers', scenario: scenario
     - unless @project.script_verified?
