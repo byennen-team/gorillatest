@@ -50,7 +50,7 @@
             - @scenarios.each do |scenario|
               %tr
                 %td#tour-project-show-status
-                  .smart-timeline-icon{class: "#{test_run_status_class(scenario.test_runs.last.try(:status))}"}
+                  .smart-timeline-icon{class: "#{status_color(scenario.test_runs.last.try(:status))} #{test_run_status_class(scenario.test_runs.last.try(:status))}"}
                     %i.fa.fa-fw{class: "#{bang_or_check(scenario.test_runs.last.try(:status))}"}
                 %td= distance_of_time_in_words_to_now(scenario.created_at) + ' ago'
                 %td{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)

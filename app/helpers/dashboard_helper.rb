@@ -20,6 +20,16 @@ module DashboardHelper
     end
   end
 
+  def status_color(status)
+    if status == "pass"
+      return "alert-success"
+    elsif status == "fail"
+      return "alert-danger"
+    else
+      return "alert-info"
+    end
+  end
+
   def test_run_link_class(test_run_status)
     if test_run_status == "pass"
       return "txt-color-greenDark"
