@@ -20,4 +20,8 @@ module ProjectsHelper
   def most_recent?(scenarios, scenario)
     scenarios.first == scenario
   end
+
+  def most_recent_run(scenario)
+    scenario.test_runs.sort_by(&:created_at).reverse.first
+  end
 end

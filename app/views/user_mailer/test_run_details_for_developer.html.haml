@@ -11,8 +11,12 @@
   The test is: #{link_to @scenario.name, project_test_test_runs_url(@project, @scenario), target: "_blank"}
 
 -if @test_run.status
-  %p
-    #{link_to "Test Run Details", project_test_test_run_url(@project, @scenario, @test_run), target: "_blank"}
+  - if @test_run.is_a?(ScenarioTestRun)
+    %p
+      #{link_to "Test Run Details", project_test_test_run_url(@project, @scenario, @test_run), target: "_blank"}
+  -else
+    %p
+      #{link_to "Test Run Details", project_test_run_path(@project, @test_run), target: "_blank"}
 
 %p
   You can watch the test run live in your browser here: #{link_to "Watch Developer Mode", @developer_mode_url}

@@ -59,9 +59,9 @@
                     =# play_developer_mode_button(scenario)
                   -#Email to develooper
                 %td
-                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}"}, class: "btn btn-default btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
+                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}-#{most_recent_run(scenario).try(:id)}"}, class: "btn btn-default btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
                     %i.fa.fa-paper-plane
-                  = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: scenario.test_runs.detect{|t| t.status == "pass" || t.status == "fail"}
+                  = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: most_recent_run(scenario)
                 %td
                   -#Run Scenario
                   %div{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-overview' : nil}"}
