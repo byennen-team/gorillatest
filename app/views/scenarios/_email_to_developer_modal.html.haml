@@ -15,6 +15,7 @@
           %br
           =text_field_tag 'developer[emails]', nil, id: "dev_emails", class: "form-control"
           %br
-          =button_tag "Send Emails", class: 'btn btn-primary'
       .modal-footer
-        %button.btn.btn-info{data: {dismiss: "modal"}, aria: {hidden: true}} Close
+        =button_tag "Send Emails", class: 'btn btn-primary send-emails-to-dev'
+        %p#sending-emails-message{style: 'display: none;'}
+          Sending emails. Hang Tight...

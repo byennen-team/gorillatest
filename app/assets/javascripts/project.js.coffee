@@ -16,3 +16,8 @@ $ ->
     height: "100%"
     defaultText: ""
 
+
+  $(".send-emails-to-dev").click (e)->
+    $(this).siblings("#sending-emails-message").show()
+    $(this).attr("disabled", true)
+    $(this).parents('.modal-content').find('form').submit()
