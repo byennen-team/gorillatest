@@ -32,14 +32,14 @@
               .well.well-sm
                 .smart-timeline
                   %ul.smart-timeline-list
-                    - @last5_test_runs.first(5).each do |test_run|
+                    - @last5_test_runs.each do |test_run|
                       //Passing Example
                       %li
                         .smart-timeline-icon{class: "#{status_color(test_run.status)} #{test_run_status_class(test_run.status)}"}
                           %i.fa.fa-fw{class: "#{bang_or_check(test_run.status)}"}
                         .smart-timeline-time
                           %small
-                            = distance_of_time_in_words_to_now(test_run.ran_at) if test_run.ran_at.present?
+                            = distance_of_time_in_words_to_now(test_run.ran_at || test_run.created_at)
                             ago
                         .smart-timeline-content
                           %p
