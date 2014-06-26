@@ -55,7 +55,7 @@
                 -if scenario.all_test_runs.first
                   %td= distance_of_time_in_words_to_now(scenario.all_test_runs.first.try(:created_at)) + ' ago'
                 -else
-                  %td Never Been Run
+                  %td Not Run
                 %td{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
                 %td
                   #tour-project-show-developer-mode
