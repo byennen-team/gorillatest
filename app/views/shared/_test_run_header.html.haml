@@ -6,7 +6,7 @@
     (
     %span{id: "#{test.platform}_#{test.browser}_project_test_run"}
       #{test.test_history.history_line_items.count}
-    of #{test.test_run.project.scenarios.count} tests completed
+    of #{@num_of_tests} tests completed
     )
   .pull-right
     %a{class: 'collapsed see-test-detail', href: "##{@test_run.id}_#{test.platform}_#{test.browser}_channel", data: {toggle: "collapse"}}
