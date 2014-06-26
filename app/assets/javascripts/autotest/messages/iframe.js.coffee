@@ -52,3 +52,7 @@ Autotest.Messages.Iframe.add("resumePlayback", (data) ->
   developerIndex = new Autotest.Views.DeveloperIndex
   $("#play").trigger("click")
 )
+
+Autotest.Messages.Iframe.add("stopSelectElement", (data) ->
+  $("#stop-record-text-highlight").trigger("click")
+)

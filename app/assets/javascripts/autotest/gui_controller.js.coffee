@@ -86,6 +86,7 @@ AutoTestGuiController = {
       else
         Autotest.currentScenario.addStep({event_type: type, locator_type: '', locator_value: '', text: checked.val()})
       $("#select-element-modal").bPopup().close()
+      Autotest.Messages.Parent.post({messageType: "stopSelectElement"})
     return false
 
   stripStyleClass: ($element) ->
