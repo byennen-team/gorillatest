@@ -21,7 +21,7 @@
     = javascript_include_tag "application"
     = yield(:head)
 
-  %body{:id => "#{controller_name}-#{action_name}", class: 'smart-style-2 fixed-header fixed-ribbon fixed-navigation'}
+  %body{:id => "#{controller_name}-#{action_name}", class: 'smart-style-2 fixed-header fixed-ribbon fixed-navigation minified'}
     - if params[:controller] == "pages"
       - unless params[:action] == "beta_invitation"
         = render 'layouts/navbar'
