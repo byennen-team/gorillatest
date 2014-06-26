@@ -13,6 +13,11 @@ $ ->
   #    keyboard: false
   #    show: true
 
+  $(".lets-verify-link").click (e)->
+    e.preventDefault()
+    $(".embed-modal").modal("show")
+    $(".verify-script-modal-button").trigger("click")
+
   $(".verify-script-modal-button").on "click", (e)->
     e.preventDefault()
     button = $(this)

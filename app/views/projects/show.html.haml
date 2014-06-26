@@ -10,7 +10,7 @@
 %span{style: "display: none;", id:"pusher-project-id", "project-id" => "#{@project.id.to_s}" }
 
 = render 'projects/projects_header'
-- if @project.scenarios.size > 0
+- if @project.script_verified? && @project.scenarios.size > 0
   .project-stats.row
     .col-sm-12#tour-project-show-overview
       .row
@@ -43,7 +43,7 @@
           = link_to link_to_record(@project), target: '_blank', class: 'btn btn-info btn-lg btn-block' do
             %i.fa.fa-plus
             New Test
-    - if @project.scenarios.size > 0
+    - if @project.script_verified? && @project.scenarios.size > 0
       .well
         %table.table.table-striped.table-forum.table-hover
           %tbody#tour-project-show-tests-list
@@ -76,9 +76,17 @@
     - unless @project.script_verified?
       .row
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
-          %p Please Verify that Gorilla Test has been added to your site.
-          = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg btn-block'
+          = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg'
           = render 'embed_script_modal', project: @project, show_buttons: false
+        .col-sm-6.col-sm-offset-3.script-verify-help
+          %p
+            Before you can begin testing, you've got to get the
+            #{link_to "GorillaTest snippet", "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}}
+            onto your site.. so quit monkeyin' around and start GorillaTesting!
+          %p
+            Already done? Well why didn't you say so?
+            #{link_to "Let's verify your code", "#", class: "lets-verify-link"}
+            and get you started
 
 %ol.joyride-tour#project-show-tour
   %li{data: {id: "tour-project-show-start", button: 'Next'}}
