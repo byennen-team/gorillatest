@@ -79,7 +79,7 @@
           = link_to glyph_button("ok", "Verify Embedded Script"), "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}, class:'verify-script btn btn-info btn-lg'
           = render 'embed_script_modal', project: @project, show_buttons: false
         .col-sm-6.col-sm-offset-3.script-verify-help
-          %p
+          %p.bold
             Before you can begin testing, you've got to get the
             #{link_to "GorillaTest snippet", "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}}
             onto your site.. so quit monkeyin' around and start GorillaTesting!
