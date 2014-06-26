@@ -49,7 +49,7 @@ window.Autotest =
         @setScenario(params)
       else
         alert("You must provide a scenario id to test.")
-    else if params["gt-recording"] == "true"
+    else if params["gorilla-recording"] == "true"
       window.sessionStorage.setItem("autoTest.showRecorder", "true")
 
 

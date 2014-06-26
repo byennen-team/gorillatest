@@ -11,9 +11,9 @@ module ProjectsHelper
 
   def link_to_record(project)
     if project.url.match(/\?\w*/)
-      return project.url + "&gt-recording=true"
+      return project.url + "&gorilla-recording=true"
     else
-      return project.url + "?gt-recording=true"
+      return project.url + "?gorilla-recording=true"
     end
   end
 

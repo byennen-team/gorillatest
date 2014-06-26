@@ -26,7 +26,7 @@ class @AutoTestRecorder
             if response.project_id == Autotest.projectId
               $("#gt-loading-overlay").hide()
               Autotest.Messages.Parent.post({messageType: "recording", recording: _this.isRecording, message: {scenarioName: Autotest.currentScenario.get('name')}})
-              step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href})
+              step = Autotest.currentScenario.addStep({event_type: "waitForCurrentUrl", locator_type: '', locator_value: '', text: window.location.href.replace("&gorilla-recording=true","").replace("?gorilla-recording=true","")})
               _this.record()
           error: ->
             alert("Could not start recorder")

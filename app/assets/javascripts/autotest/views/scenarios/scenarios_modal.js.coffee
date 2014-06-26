@@ -9,7 +9,12 @@ class Autotest.Views.ScenariosModal extends Backbone.View
   createScenario: (e) ->
     $("#start-recording").attr("disabled", true)
     scenarios = new Autotest.Collections.Scenarios()
-    scenarios.create({name: $("input#scenario_name").val(),start_url: window.location.href, window_x: $(window).width(), window_y: $(window).height()},
+    scenarioAttrs = {
+                     name: $("input#scenario_name").val(),
+                     start_url: window.location.href.replace("&gorilla-recording=true","").replace("?gorilla-recording=true",""),
+                     window_x: $(window).width(), window_y: $(window).height()
+                    }
+    scenarios.create(scenarioAttrs,
       success: (model, response, options) ->
         $("#start-recording").attr("disabled", false)
         model.setCurrentScenario()
@@ -17,7 +22,7 @@ class Autotest.Views.ScenariosModal extends Backbone.View
         window.autoTestRecorder.record()
         $("#scenario-modal").bPopup().close()
         stepIndex = new Autotest.Views.StepIndex({collection: model.steps()})
-        model.addStep({event_type: "get", locator_type: '', locator_value: '', text: window.location.href})
+        model.addStep({event_type: "get", locator_type: '', locator_value: '', text: window.location.href.replace("&gorilla-recording=true","").replace("?gorilla-recording=true","")})
         Autotest.Messages.Parent.post({messageType: "startRecording", message: {scenarioName: model.get('name')}})
       error: (model, response, options) ->
         $("#start-recording").attr("disabled", false)
