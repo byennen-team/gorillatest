@@ -16,6 +16,7 @@ body {
   color: #fff;
   width: 300px;
   z-index: 101;
+  min-width: 350px;
   top: 0; /* keeps the page from scrolling when calculating position */
   left: 0;
   font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica", Helvetica, Arial, Lucida, sans-serif;
