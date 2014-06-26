@@ -53,15 +53,13 @@ AutoTestGuiController = {
     $("body *").unbind("mouseenter").unbind("mouseleave")
     $("a, button, input[type='submit'], select").unbind("click", autoTestGuiController.preventClicks)
     $("a").bind("click", Autotest.Event.bindClick)
+    $("#select-element-modal").remove()
 
   showElementModal: (event, element) ->
     options = {width: "400px", height: "400px", margin: "0 auto", "overflow-y": "auto", wrapperId: 'select-element-modal'}
     AutoTestGuiController.renderModal("select_element_modal", options)
     $("#select-element-modal *").css('cursor', 'auto')
     $("#select-element-modal *").css("outline", "none")
-    $("#select-element-modal *").unbind("mouseenter").unbind("mouseleave")
-    $("#select-element-modal").unbind("click")
-    $("#select-element-modal *").unbind("click")
     $("#record-element-text").html($(element).text())
     $("#record_text_text").val($(element).text())
 
