@@ -64,6 +64,9 @@ ul.steps-list {
 
 .test-status-header {
   margin: 0;
+  &.test-index {
+    display: inline-block;
+  }
 }
 
 .delete-test-button {
@@ -75,4 +78,8 @@ ul.steps-list {
 
 .test-run-created-by {
   font-size: 12px;
+}
+
+.latest-test-status {
+  margin-bottom: 24px;
 }

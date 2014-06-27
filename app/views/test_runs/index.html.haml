@@ -3,6 +3,23 @@
 = javascript_include_tag 'step_status'
 
 = render 'projects/projects_header'
+.row.latest-test-status
+  .col-sm-12
+    %p
+      = link_to "See steps in this test", "#test-steps-list", data: {toggle: "collapse"}
+    #test-steps-list.panel-collapse.collapse
+      .panel-body.terminal
+        %ul.steps-list
+          - @scenario.steps.each do |step|
+            %li #{step.to_s}
+  - if @scenario.all_test_runs.any?
+    .col-sm-12
+      Latest Test Run -&nbsp;
+      .test-status-header.test-index
+        Status:
+        = test_run_status(@scenario.all_test_runs.first)
+      , Ran on:
+      = @scenario.all_test_runs.first.timestamp
 
 .row
   .col-sm-12
