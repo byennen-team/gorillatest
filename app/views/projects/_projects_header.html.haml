@@ -6,6 +6,9 @@
         - if params[:controller] == "test_runs"
           = " - "
           = link_to @scenario.name, project_test_test_runs_path(@project, @scenario.slug)
+        %br
+        %i.test-run-created-by
+          created by: #{@test_run.user.name}
     .project-links
       .btn-group
         - if @scenario
