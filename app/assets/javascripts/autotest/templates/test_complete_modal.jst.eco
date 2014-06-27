@@ -1,11 +1,15 @@
 <div class="autotest-modal-content">
   <div class="autotest-modal-header">
-    <h4>Success!</h4>
+    <h4>Your test was recorded successfully!</h4>
   </div>
   <div class="autotest-modal-body">
-    <p>Your test has been successfully recorded.  Please click <a href="<%= @url %>" target="_blank">here</a> to review your recording.</p>
+    <p>
+      <b>**Please note**</b>
+      <br />
+      GorillaTest always <b>runs</b> your tests in a new session. For example, if you record a test of a user logging out, and you start recording the test after you have already logged in, your test will FAIL because in the new session GorillaTest will not be logged in.
+    </p>
   </div>
   <div class="autotest-modal-footer">
-    <a href="<%= @url %>" class="btn btn-primary stop-recording-close">See Test Page</a>
+    <a href="<%= @url %>" class="btn btn-primary stop-recording-close" target="_blank">See Test Page</a>
   </div>
 </div>
