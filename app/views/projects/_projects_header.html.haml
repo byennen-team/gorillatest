@@ -15,4 +15,11 @@
         - if @scenario
           = link_to project_test_path(@project, @scenario), method: :delete, confirm: "Are you sure?", class: 'btn btn-default delete-test-button', rel: "tooltip", title: "Delete Test" do
             %i.fa.fa-trash-o
+        - elsif params[:controller] == "projects"
+          = link_to edit_project_path(@project), "data-original-title" => "Mark Important", "data-placement" => "bottom", rel: "tooltip", title: "Settings", class: "project-setting-button btn btn-sm" do
+            %strong
+              %i.fa.fa-cog.fa-lg
+          = link_to "#", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Invite", class: "project-setting-button btn btn-sm", data: {toggle: "modal", target: "#invite-users-to-project"} do
+            %strong
+              %i.fa.fa-user.fa-lg
 

@@ -63,3 +63,14 @@
 .light-gray {
   color: #939598;
 }
+
+.project-setting-button {
+  color: black;
+  opacity: 0.5;
+  background-color: none;
+  box-shadow: none;
+  &:hover {
+    color: black;
+    opacity: 1;
+  }
+}
