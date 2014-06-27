@@ -21,3 +21,8 @@ $ ->
     $(this).siblings("#sending-emails-message").show()
     $(this).attr("disabled", true)
     $(this).parents('.modal-content').find('form').submit()
+
+  $("#send-project-invitations").click (e)->
+    $("#sending-invitations").show()
+    $(this).attr("disabled", true)
+    $(this).parents('.modal-content').find('form').submit()

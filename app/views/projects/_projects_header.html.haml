@@ -11,6 +11,6 @@
         = link_to edit_project_path(@project), "data-original-title" => "Mark Important", "data-placement" => "bottom", rel: "tooltip", title: "Settings", class: "btn btn-default btn-sm" do
           %strong
             %i.fa.fa-cog.fa-lg
-        = link_to invitations_path(project_id: @project.id.to_s), "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Invite", class: "btn btn-default btn-sm" do
+        = link_to "#", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Invite", class: "btn btn-default btn-sm", data: {toggle: "modal", target: "#invite-users-to-project"} do
           %strong
             %i.fa.fa-user.fa-lg

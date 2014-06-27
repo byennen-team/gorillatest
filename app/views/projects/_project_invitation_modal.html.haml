@@ -1,0 +1,21 @@
+- content_for :head do
+  = javascript_include_tag "invitations"
+.modal.fade{id: "invite-users-to-project"}
+  .modal-dialog
+    .modal-content
+      - if @project.has_invitations_left?
+        .modal-header
+          %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+          %h1 Invite users to #{@project.name}
+        .modal-body
+          = simple_form_for User.new, :url => '/invitation', :html => {:method => :post, class: 'invite-modal-form smart-form'} do |f|
+            = hidden_field_tag "project_id", @project.id
+            = f.input :email, label: "Email (enter addresses separated by a comma)"
+        .modal-footer
+          =button_tag "Send Invitations", id: 'send-project-invitations', class: 'btn btn-primary'
+          %p#sending-invitations{style: "display: none;"} Sending. Hang Tight...
+      - else
+        .modal-body
+          %button.close{data: {dismiss: "modal"}, aria:{hidden: true}} &times;
+          %br
+          %b You have no more invitations left. Click #{link_to "here", change_plan_path} to upgrade your plan and invite more users to this project!
