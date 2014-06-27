@@ -15,6 +15,7 @@
     .col-sm-12#tour-project-show-overview
       .row
         .col-sm-3
+          %h3.test-stat-header Test Stats
           .badge.alert-success.test-stat{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Passed"}
             #{@project.num_passed_tests}
           .badge.alert-danger.test-stat{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Failed"}
@@ -22,7 +23,7 @@
           .badge.alert-info.test-stat{"data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Running"}
             #{@project.num_running_tests}
         - if params[:controller] == "projects"
-          .col-sm-2#tour-project-show-run-all
+          .col-sm-1#tour-project-show-run-all
             = play_button(@project, "Run All")
             = render 'projects/select_browsers_all'
           .col-sm-2#tour-project-show-create-test
@@ -49,22 +50,22 @@
           %tbody#tour-project-show-tests-list
             - @scenarios.each do |scenario|
               %tr
-                %td#tour-project-show-status
+                %td.cell-small#tour-project-show-status
                   .smart-timeline-icon{class: "#{status_color(scenario.test_runs.last.try(:status))} #{test_run_status_class(scenario.test_runs.last.try(:status))}"}
                     %i.fa.fa-fw{class: "#{bang_or_check(scenario.test_runs.last.try(:status))}"}
                 -if scenario.all_test_runs.first
-                  %td= distance_of_time_in_words_to_now(scenario.all_test_runs.first.try(:created_at)) + ' ago'
+                  %td.light-gray= distance_of_time_in_words_to_now(scenario.all_test_runs.first.try(:created_at)) + ' ago'
                 -else
-                  %td Not Run
-                %td{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
-                %td
+                  %td.light-gray Not Run
+                %td.large-font-cell{id: "#{most_recent?(@scenarios, scenario) ? 'tour-project-show-more-info' : nil}"}= link_to scenario.name, project_test_test_runs_path(@project, scenario.slug)
+                %td.cell-small
                   #tour-project-show-developer-mode
-                  = link_to developer_mode_url(scenario), "target" => "_blank", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-default btn-sm action' do
+                  = link_to developer_mode_url(scenario), "target" => "_blank", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Watch Test Run Live", class: 'btn btn-warning btn-sm action' do
                     %i.fa.fa-video-camera
                     =# play_developer_mode_button(scenario)
                   -#Email to develooper
-                %td
-                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}-#{most_recent_run(scenario).try(:id)}"}, class: "btn btn-default btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
+                %td.cell-small
+                  %button{data: {toggle: "modal", target: "#alert-dev-modal-#{scenario.id.to_s}-#{most_recent_run(scenario).try(:id)}"}, class: "btn btn-info btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
                     %i.fa.fa-paper-plane
                   = render 'scenarios/email_to_developer_modal', test_id: scenario.id.to_s, test_run: most_recent_run(scenario)
                 %td

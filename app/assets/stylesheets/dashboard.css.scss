@@ -62,6 +62,10 @@ ul.steps-list {
   font-size: 14px !important;
 }
 
+.test-stat-header {
+  margin-top: 0;
+}
+
 .test-status-header {
   margin: 0;
   &.test-index {
@@ -82,4 +86,19 @@ ul.steps-list {
 
 .latest-test-status {
   margin-bottom: 24px;
+}
+
+.well .table {
+  td.cell-small {
+    width: 36px;
+  }
+  td.cell-medium {
+    width: 72px;
+  }
+  td.large-font-cell {
+    font-size: 24px;
+  }
+  td {
+    vertical-align: middle;
+  }
 }

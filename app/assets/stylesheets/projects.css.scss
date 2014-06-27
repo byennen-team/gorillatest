@@ -21,9 +21,7 @@
   margin: 0;
   padding: 0;
 }
-#projects .action {
-  margin-right: 20px;
-}
+
 #projects .run-scenario {
   float: right;
 }
@@ -46,8 +44,9 @@
 }
 
 .badge.test-stat {
-  font-size: 14px;
+  font-size: 20px;
   margin-right: 18px;
+  border-radius: 50%;
   &:last-child {
     margin-right: 0;
   }
@@ -59,4 +58,8 @@
   .bold {
     font-weight: bold;
   }
+}
+
+.light-gray {
+  color: #939598;
 }

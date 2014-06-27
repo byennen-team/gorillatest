@@ -18,7 +18,7 @@
       .test-status-header.test-index
         Status:
         = test_run_status(@scenario.all_test_runs.first)
-      , Ran on:
+      &nbsp;|&nbsp; Ran on:
       = @scenario.all_test_runs.first.timestamp
 
 .row
@@ -28,17 +28,17 @@
         %tbody#tour-project-show-tests-list
           - @scenario.all_test_runs.each_with_index do |test_run, index|
             %tr{id: "#{index == 0 ? 'tour-test-runs-results' : nil}"}
-              %td
+              %td.cell-small
                 .smart-timeline-icon{class: "#{status_color(test_run.status)} #{test_run_status_class(test_run.try(:status))}"}
                   %i.fa.fa-fw{class: "#{bang_or_check(test_run.try(:status))}"}
-              %td
+              %td.light-gray
                 = distance_of_time_in_words_to_now(test_run.created_at) + ' ago'
               - if test_run.is_a?(ScenarioTestRun)
-                %td= link_to test_run.timestamp, project_test_test_run_path(@project, @scenario.slug, test_run)
+                %td.large-font-cell= link_to test_run.timestamp, project_test_test_run_path(@project, @scenario.slug, test_run)
               -else
-                %td= link_to test_run.timestamp, project_test_run_path(@project, test_run)
-              %td
-                %button{data: {toggle: "modal", target: "#alert-dev-modal-#{@scenario.id}-#{test_run.id}"}, class: "btn btn-default btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
+                %td.large-font-cell= link_to test_run.timestamp, project_test_run_path(@project, test_run)
+              %td.cell-small
+                %button{data: {toggle: "modal", target: "#alert-dev-modal-#{@scenario.id}-#{test_run.id}"}, class: "btn btn-info btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
                   %i.fa.fa-paper-plane
                 = render 'scenarios/email_to_developer_modal', test_id: @scenario.id.to_s, test_run: test_run
               %td
