@@ -12,30 +12,34 @@
     window.sec = #{@test_run.duration}
     window.completed = #{!@test_run.completed_at.nil?}
 
-.page-content.blocky
-  .container
-    %ol.breadcrumb
-      %li
-        Projects
-      %li
-        = link_to @project.name, project_path(@project)
-      %li.active
-        = link_to "Test Run ##{@test_run.number}", project_test_run_path(@project, @test_run)
-    %table.test_run_header{style: "width: 100%; font-size: 1.2em"}
-      %tr
-        %th{style: "width: 100px;"} Started By:
-        %td
-          = gravatar_image_tag(@test_run.user, 16)
-          = @test_run.user.name
-        %th{style: "width: 100px;"} Ran:
-        %td #{distance_of_time_in_words_to_now(@test_run.created_at)} ago
-      %tr
-        %th{style: "width: 100px;"} Status:
-        %td
-          = test_run_status(@test_run)
-    %br
-    %br
+= render 'projects/projects_header'
 
+.row
+  .col-sm-3
+    %h3
+      Ran On:
+      %b
+        #{@test_run.timestamp}
+  .col-sm-3
+    %h3
+      Ran by:
+      %b
+        #{@test_run.user.name}
+.row
+  .col-sm-3
+    %h3.test-status-header
+      Status:
+      = test_run_status(@test_run)
+  .col-sm-6
+    .row
+      .col-sm-1
+        %button{data: {toggle: "modal", target: "#alert-dev-modal-#{nil}-#{@test_run.id}"}, class: "btn btn-info btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
+          %i.fa.fa-paper-plane
+        = render 'scenarios/email_to_developer_modal', test_id: nil, test_run: @test_run
+
+%hr
+.row
+  .col-sm-12
     - @test_run.browser_tests.each do |test|
       / - if test.status != nil
       /   .test{class: "#{test.status}"}

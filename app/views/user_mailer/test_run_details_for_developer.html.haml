@@ -7,8 +7,10 @@
     I ran some tests on the #{link_to @project.name, project_url(@project), target: "_blank"} project through GorillaTest and I was hoping you could look into this failing test. All the details are below, thanks!
   -else
     I set up some tests on the #{link_to @project.name, project_url(@project), target: "_blank"} project through GorillaTest and was hoping you could take a look. The details of the test I set up are included below.
-%p
-  The test is: #{link_to @scenario.name, project_test_test_runs_url(@project, @scenario), target: "_blank"}
+
+- if @test_run.is_a?(ScenarioTestRun)
+  %p
+    The test is: #{link_to @scenario.name, project_test_test_runs_url(@project, @scenario), target: "_blank"}
 
 -if @test_run.status
   - if @test_run.is_a?(ScenarioTestRun)
@@ -16,10 +18,11 @@
       #{link_to "Test Run Details", project_test_test_run_url(@project, @scenario, @test_run), target: "_blank"}
   -else
     %p
-      #{link_to "Test Run Details", project_test_run_path(@project, @test_run), target: "_blank"}
+      #{link_to "Test Run Details", project_test_run_url(@project, @test_run), target: "_blank"}
 
-%p
-  You can watch the test run live in your browser here: #{link_to "Watch Developer Mode", @developer_mode_url}
+- if @test_run.is_a?(ScenarioTestRun)
+  %p
+    You can watch the test run live in your browser here: #{link_to "Watch Developer Mode", @developer_mode_url}
 
 -if @test_run.status == "fail"
   %p
@@ -38,7 +41,7 @@
       Platform: #{browser_test.platform}
       %br
       Browser: #{browser_test.browser}
--else
+-elsif @test_run.is_a?(ScenarioTestRun)
   Here are some more details about the test:
   %ol
     -@scenario.steps.each do |step|

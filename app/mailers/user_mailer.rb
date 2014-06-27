@@ -71,12 +71,12 @@ class UserMailer < ActionMailer::Base
     # only passing in scenario test runs for now
     if test_run_type == "ScenarioTestRun"
       @test_run = ScenarioTestRun.find(test_run_id)
+      @scenario = @test_run.scenario
+      @developer_mode_url = developer_mode_url(@scenario)
     else
       @test_run = ProjectTestRun.find(test_run_id)
     end
     @project = @test_run.project
-    @scenario = @test_run.scenario
-    @developer_mode_url = developer_mode_url(@scenario)
 
     mail to: email, from: user_email, subject: "Test Results from Gorilla Test"
   end

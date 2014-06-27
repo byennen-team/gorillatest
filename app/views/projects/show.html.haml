@@ -10,7 +10,6 @@
 %span{style: "display: none;", id:"pusher-project-id", "project-id" => "#{@project.id.to_s}" }
 
 = render 'projects/projects_header'
-= render 'projects/project_invitation_modal'
 - if @project.script_verified? && @project.scenarios.size > 0
   .project-stats.row
     .col-sm-12#tour-project-show-overview

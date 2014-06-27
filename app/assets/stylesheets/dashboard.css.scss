@@ -61,3 +61,14 @@ ul.steps-list {
   margin-left: 10px;
   font-size: 14px !important;
 }
+
+.test-status-header {
+  margin: 0;
+}
+
+.delete-test-button {
+  &:hover {
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+  }
+}
