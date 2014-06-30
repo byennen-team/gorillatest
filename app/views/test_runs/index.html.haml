@@ -13,13 +13,16 @@
           - @scenario.steps.each do |step|
             %li #{step.to_s}
   - if @scenario.all_test_runs.any?
-    .col-sm-12
+    .col-sm-6
       Latest Test Run -&nbsp;
       .test-status-header.test-index
         Status:
         = test_run_status(@scenario.all_test_runs.first)
       &nbsp;|&nbsp; Ran on:
       = @scenario.all_test_runs.first.timestamp
+  .col-sm-1
+    = play_button(@scenario, 'Run')
+    = render 'projects/select_browsers', scenario: @scenario
 
 .row
   .col-sm-12
@@ -41,9 +44,10 @@
                 %button{data: {toggle: "modal", target: "#alert-dev-modal-#{@scenario.id}-#{test_run.id}"}, class: "btn btn-info btn-sm action", "data-original-title" => "Move to folder", "data-placement" => "bottom", rel: "tooltip", title: "Email To Developer"}
                   %i.fa.fa-paper-plane
                 = render 'scenarios/email_to_developer_modal', test_id: @scenario.id.to_s, test_run: test_run
-              %td
-                = play_button(@scenario, 'Run')
-                = render 'projects/select_browsers', scenario: @scenario
+              %td.cell-small
+                = link_to test_run.is_a?(ScenarioTestRun) ? project_test_test_run_path(@project, @scenario, test_run) : project_test_run_path(@project, test_run), class:"btn btn-default btn-sm" do
+                  %i.fa.fa-info
+                  &nbsp;More Info
 
 %ol.joyride-tour#test-runs-tour
   %li{data: {id: "tour-test-runs-start", button: 'Next'}}

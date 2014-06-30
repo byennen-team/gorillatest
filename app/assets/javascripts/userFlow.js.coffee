@@ -1,4 +1,6 @@
 $ ->
+  $('a[rel~="tooltip"]').tooltip()
+
   if $("ul.project").length == 0
     $("#add-project").modal
       backdrop: 'static'

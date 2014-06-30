@@ -11,11 +11,13 @@
           %i.test-run-created-by
             created by: #{@test_run.user.name}
     .project-links
+      - if params[:controller] == "test_runs" && params[:action] == "index"
+        = link_to project_test_path(@project, @scenario), class: 'btn btn-warning', rel: "tooltip", title: "Watch Test Run Live", style: "margin-right: 12px;" do
+          %i.fa.fa-video-camera
+        = link_to project_test_path(@project, @scenario), class: 'btn btn-default delete-test-button', rel: "tooltip", title: "Delete Test", method: "delete", confirm: "Are You Sure?" do
+          %i.fa.fa-trash-o
       .btn-group
-        - if @scenario
-          = link_to project_test_path(@project, @scenario), method: :delete, confirm: "Are you sure?", class: 'btn btn-default delete-test-button', rel: "tooltip", title: "Delete Test" do
-            %i.fa.fa-trash-o
-        - elsif params[:controller] == "projects"
+        - if params[:controller] == "projects"
           = link_to edit_project_path(@project), "data-original-title" => "Mark Important", "data-placement" => "bottom", rel: "tooltip", title: "Settings", class: "project-setting-button btn btn-sm" do
             %strong
               %i.fa.fa-cog.fa-lg
