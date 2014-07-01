@@ -81,9 +81,9 @@
           = render 'embed_script_modal', project: @project, show_buttons: false
         .col-sm-6.col-sm-offset-3.script-verify-help
           %p.bold
-            Before you can begin testing, you've got to get the
+            Before you can begin testing, you'll need to add some simple code
             #{link_to "GorillaTest snippet", "#", data: {toggle: "modal", target: "#embed-modal-#{@project.id.to_s}"}}
-            onto your site.. so quit monkeyin' around and start GorillaTesting!
+            to your site.. so quit monkeyin' around and start GorillaTesting!
           %p
             Already done? Well why didn't you say so?
             #{link_to "Let's verify your code", "#", class: "lets-verify-link"}
