@@ -37,7 +37,7 @@
 
 #projects.row
   .col-sm-12
-    - if @project.script_verified? && @project.scenarios.size < 0
+    - if @project.script_verified? && @project.scenarios.size < 1
       .row
         .verify.col-sm-6.col-sm-offset-3.padding-top.text-center
           %p Record your first test!
